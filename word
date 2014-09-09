@@ -1,0 +1,79 @@
+<?php
+// word
+
+require_once('ote.class.php');
+
+$c = $_SERVER['REQUEST_URI'];
+$c = explode('/', $c);
+
+if( !$c[2+DEPTH] || !$c[3+DEPTH] ) { // error - url too long
+  header('HTTP/1.1 301 Moved Permanently');
+  header('Location: ' . HOSTNAME);
+  exit;
+}
+
+if(       $c[2+DEPTH] == LANG_1_CODE ) {
+  $source_language_code  = LANG_1_CODE;
+  $source_language_name = LANG_1_NAME;
+  $target_language_id   = LANG_2_CODE;
+  $target_language_name = LANG_2_NAME;
+} elseif( $c[2+DEPTH] == LANG_2_CODE ) {
+  $source_language_code   = LANG_2_CODE;
+  $source_language_name = LANG_2_NAME;
+  $target_language_id   = LANG_1_CODE;
+  $target_language_name = LANG_1_NAME;    
+} else {
+
+  header('HTTP/1.0 404 Not Found');
+  $ote->show_header('404 - Language Code Not Found');
+  print '<p>Valid Language Codes:'
+  . '<br /><a href="' . HOSTNAME . 'word/' 
+  . LANG_1_CODE . '/' . urlencode($source_word) . '">' . LANG_1_CODE . '</a>'
+  . ' (' . LANG_1_NAME . ')'
+  . '<br /><a href="' . HOSTNAME . 'word/' 
+  . LANG_2_CODE . '/' . urlencode($source_word) . '">' . LANG_2_CODE . '</a>'
+  . ' (' . LANG_2_NAME . ')'
+  . '</p>';
+  $ote->show_footer();
+  exit;
+}
+
+if( $_GET['p'] ) {
+	$redir = HOSTNAME . 'word/' . $source_language_code . '/' . urlencode( $_GET['p'] );
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location: ' . $redir );
+	exit;
+} // end if GET var p
+
+$source_word = $ote->clean( $c[3+DEPTH] );
+
+$r = $ote->query("
+SELECT  ww.s_code     AS source_language_code,
+        ww.s_id       AS source_id,
+        w_source.word AS source_word,
+        ww.t_code     AS target_language_code,
+        ww.t_id       AS target_id,
+        w_target.word AS target_word,
+        ww.id         AS link_id
+FROM  ote_word2word AS ww,
+      ote_word      AS w_source,
+      ote_word      AS w_target
+WHERE ww.s_id       = w_source.id
+AND   ww.t_id       = w_target.id
+AND   w_source.word = '" . mysql_escape_string( $source_word ) . "'
+AND   ww.s_code     = '$source_language_code'
+AND   ww.t_code     = '$target_language_id'
+
+ORDER BY w_target.word
+
+");
+
+if( $ote->number_of_rows == 0 ) {
+	$ote->wordnotfound($source_word, $source_language_code, $source_language_name, $target_language_name);
+}
+
+$ote->show_header( $source_word . ' - ' . $source_language_name );
+
+print $ote->display_word($r);
+
+$ote->show_footer();

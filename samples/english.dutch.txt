@@ -1,0 +1,4605 @@
+# English > Dutch
+# eng > nld
+# 4591 Word Pairs
+# Version 0.0.3
+#
+# DAMS - The Dictionary Additions Management System
+# http://sourceforge.net/projects/dams/
+#
+# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License. 
+# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+#
+# delimiter: <TAB>
+#
+a	een
+a lot	zeer
+a lot of	veel
+about	over
+about	ongeveer
+about	omheen
+about	rondom
+about	circa
+about	bij
+above	boven
+above	ruim
+above all	vooral
+abrupt	steil
+absolute	onbeperkt
+absolute	absoluut
+absolutely	absoluut
+abundance	overvloede
+abundant	volop
+abuse	misbruiken
+abuse	misstanden
+abuses	misbruiken
+accelerate	vervroegd
+accelerate	vervroegde
+accept	ontvangen
+acceptability	toelaatbaarheid
+accepted	geaccepteerd
+accessible	toegankelijke
+accident	ongeluk
+accommodation	regeling
+accomplish	bereiken
+according to	volgens
+according to	aldus
+account	rekening
+account	girorekening
+account holders	rekeninghouders
+accurate	juist
+accustomed	gewend
+accustomed	gewoon
+acquaintance	relatie
+acquaintances	omgeving
+acquainted with	bekend
+acquainted with	bekende
+acquired	gekregen
+across	overheen
+act	zet
+act	bedrijf
+act	bedrijven
+act	actie
+action	optreden
+action	actie
+action	zet
+active	actief
+activities	activiteiten
+activity	actie
+actor	speler
+actually	eigenlijk
+adapted	aangepast
+add	bijvoegen
+additionally	daarnaast
+additionaly	daarnaast
+address	adres
+adjust	ingesteld
+administration	beheer
+administration	bestuur
+administrator	beheerder
+administrator	bestuurder
+ado	leven
+adult	grote
+adult	volwassene
+advance	vervroegd
+advance	voren
+advance	vervroegde
+advanced	geavanceerd
+advancement	voortgang
+advantage	nut
+advantage	belang
+advertisers	adverteerders
+advertising	adverteren
+advice	raad
+advisers	adviseurs
+affable	vriendelijk
+affair	geval
+affect	raken
+affected	gezocht
+affected	gemaakt
+afflict	teisterden
+afflicted	droef
+affliction	droefheid
+after	later
+after	achter
+after	achterna
+after	na
+after	naar volgens
+after	daarna
+after	nadat
+after this	daarop
+afternoon	vanmiddag
+afterwards	daarna
+afzetten	shutdown
+again	weer
+again	verdere
+again	voren
+again	opnieuw
+again and again	telkens
+against	tegen
+age	leeftijd
+aged	ouderen
+agitation	onrust
+ago	verleden
+ago	geleden
+agriculture	landbouw
+ah	ach
+ah	oh
+aha	oh
+ahead	voren
+aim at	ogen
+air	lucht
+airplane	vliegtuig
+airport	luchthaven
+alert	alert
+alike	gelijk
+all	alle
+all	allen
+all	al
+all	allemaal
+all	alles
+all at once	ineens
+all in	inbegrepen
+all of a sudden	plots
+allegiance	trouw
+alley	dreef
+allot	toebedelen
+allow	toelaten
+allow	toestaan
+allowance	aftrek
+allowed	mogen
+allowed	toegestaan
+allowed	toegekend
+almost	bijna
+aloft	omhoog
+alone	alleen
+alphabet	alfabet
+already	alvast
+already	reeds
+also	ook
+also	mee
+also	tevens
+also	mede
+altogether	helemaal
+always	steeds
+always	altijd
+am	ben
+ambulance services	ambulancediensten
+america	amerika
+american	amerikaan
+american	amerikaanse
+among	in het midden van
+among	midden
+among	onder
+among	tussen
+among	te midden van
+among these	hieronder
+amorous	verliefd
+amortize	afschrijven
+amount	aantal
+amount	bedrag
+ample	uitgebreid
+amuse	onderhouden
+amusing	leuk
+an	een
+anarchy	anarchie
+ancient	ouderwets
+and	en
+angle	hoek
+angry	kwaad
+animated	opgewekt
+annex	bijvoegen
+annexation	annexatie
+annexation	inlijving
+announce	aanmelden
+answer	antwoord
+answer	beantwoorden
+answer the door	opendoen
+answers	antwoorden
+anticipate	verwachten
+antilles	antillen
+antique	ouderwets
+any	enkele
+any	enige
+anything like	zoiets
+apartment	appartement
+apparatus	toestel
+apparent	blijkbaar
+appeal	appeleren
+appeal	aantrekkingskracht
+appear	lijkt
+appear	uitkomen
+appendix	bijlage
+apple	appel
+applicable	toepasbaar
+application	toepassing
+application	aanvraag
+applications	applicaties
+applied	geldt
+appoint	plaatsen
+appointment	afspraak
+apprehension	begrip
+appropriate	geschikt
+approximately	circa
+aquaintance	kennis
+aquarius	waterman
+arab	arabische
+architect	bouwkundige
+are	zijn
+are	bent
+area	oppervlakte
+area	souterrain
+area	gebied
+army of occupation	bezettinsleger
+around	circa
+around	rondom
+around	rond
+arrangement	regeling
+arrested	aangehouden
+arrested	gearresteerd
+art	kunst
+as	zoals
+as	omdat
+as	als
+as	toen
+as	terwijl
+as	daar
+as regards content	inhoudelijk
+as soon as	zodra
+ashtray	asbak
+aside	opzij
+ask	vragen
+ask	vraag
+asked	gevraagd
+asks	vraagt
+ass	ezel
+assaults	aanrandingen
+assemble	verzamelen
+assessments	evaluaties
+assign	toebedelen
+assigned	toegekend
+assignment	opgave
+assistant	knecht
+association	omgang
+association	vereniging
+astrian	oostenrijks
+astrian	oostenrijker
+astronomers	sterrenkundige
+astronomers	astronomen
+at	tegen
+at	om
+at	op
+at	bij
+at	ieder
+at	ter
+at	te
+at	aan
+at great length	langdurig
+at large	rondloopt
+at least	minstens
+at most	maximaal
+at once	tegelijk
+at that time	toen
+at the foot	hieronder
+at the same time	tegelijk
+at the same time	tevens
+attach	voordoen
+attach	plaatsen
+attached to it	eraan
+attack	aanslag
+attacks	aanslagen
+attempt	poging
+attend	behandeld
+attend	volgen
+attendance	opkomst
+attendant	suppoost
+attention	letten
+attest	getuigen
+attitudes	instellingen
+attractiveness	aantrekkingskracht
+audacious	stout
+audience	gehoor
+auditory	gehoor
+augment	uitbreiden
+august	augustus
+aunt	moeij
+aunt	moei
+aunt	tante
+austria	oostenrijk
+authenticity	echtheid
+authoritative	gezaghebbende
+authorities	autoriteiten
+automatic	automatisch
+automatically	automatisch
+available	verkrijgbaar
+avenue	allee
+avoid	vermijden
+awake	wakker
+awarded	toegekend
+away	heen
+baby	wicht
+baby	kleintje
+baby	baby
+baby	zuigeling
+bachelor	vrijgezel
+back	rug
+back	terug
+backpack	rugzak
+backside	gat
+backup	backuppen
+bad	erg
+bad	slecht
+badly	erg
+bag	zak
+bag	zakken
+bags	zakken
+bah	ba
+bah	pfff
+bah humbug	pfff
+bake	bakken
+baker	broodbakker
+baker	bakker
+baker	koepbakker
+balance	tegoed
+balance	afsluiten
+balcony	balkon
+ball	kogel
+ball	bal
+ballot	stemming
+balls	ballen
+ban	verbod
+bandage	verband
+banishment	ballingschap
+bank	bank
+bank	dijk
+banks	dijken
+banks	banken
+banned	verboden
+bar	maat
+bar	drempel
+bar	kroeg
+barber	barbier
+barber	kapper
+barefoot	blootsvoets
+barely	nauwelijks
+bargain	goedkope
+bark	blaffen
+barrel	vat
+base	laag
+bases	baseert
+basic health insurance	basisverzekering
+bat	vleermuis
+bath	ligbad
+bath	badplaats
+bathroom	badkamer
+bathtub	ligbad
+batteries	batterijen
+battle	slag
+battle	strijd
+be	wezen
+be	geweest
+be	staan
+be	bestaan
+be among	behoren
+be aquainted with	kennen
+be bound to	gehouden
+be situated	liggen
+beach	strand
+beaches	stranden
+beak	snavel
+beam	straal
+beams	straalen
+bean	boon
+bear	velen
+bearing	stand
+beasts	beesten
+beaten	geslagen
+beautiful	mooi
+beautiful	mooie
+became	werden
+became	wordt
+became	geworden
+became	werd
+because	daar
+because	omdat
+because of	om
+because of	vanwege
+become	wordt
+become	goed staan
+become	worden
+become	word
+bedpan	steek
+bedroom	slaapkamer
+beer	bier
+beer	biertje
+before	vooruit
+before	voor
+before	eerder
+before	eer
+before that	daarvoor
+before this	hiervoor
+beforehand	vooruit
+begin	begin
+begin	ingesteld
+beginning	begonnen
+beginning	begin
+begins	begint
+behind	achter
+being	geweest
+being	wezen
+belch	boeren
+belgian	belgische
+belief	geloof
+beliefs	geloven
+believe	gelooft
+belong to	behoren
+beloved	lief
+below	hieronder
+benaderen	benaderen
+benaderings	benaderings
+bench	bank
+bend	buigen
+bend straight	rechten
+benefit	nut
+benefit	belang
+beside	aan
+beside	behalve
+besides	bovendien
+besides	daarbij
+besides	tevens
+besides	daarnaast
+best	beste
+better	beter
+between	tussen
+beyond	voorbij
+bicycle	fiets
+bicycle path	fietsroute
+bicycle repairman	fietsenmaker
+bicycling	fietsen
+bids	biedt
+big	grote
+big	dik
+big	groot
+bike route	fietsroute
+bill	snavel
+bill	rekening
+billion	miljard
+bin	vuilbak
+bind	binden
+biological	biologische
+bird	vogeltje
+bird	vogel
+birdy	vogeltje
+birthday	verjaardag
+birthday	geboortedag
+bit	stukje
+bit	ietsje
+bit	beetje
+bit of	ietsje
+bit of	beetje
+bit of luck	buitenkansje
+bite	bijten
+black	zwarte
+black	zwart
+blank	blank
+blanket	deken
+bled	geblowed
+bleed	uitlopen
+bleed	bloeden
+bleed	bloedde
+block	afsluiten
+blood	bloed
+bloodstained	bebloede
+blot	moet
+blow	waaien
+blow	slag
+blow	blazen
+blue	blauw
+board	raad
+board	bordje
+boarder	kostganger
+boards	bordjes
+boat	boot
+boatman	schipper
+boatmen	schippers
+bodice	lijfje
+bodily movement	lichaamsbeweging
+boil	koken
+boil	kook
+bold	fors
+bold	stout
+bone	been
+bonnet	hoed
+book	boek
+book stores	boekwinkels
+booking	bespreking
+boot	koffer
+border	grens
+border	rand
+born	geboren
+borrow	ontlenen
+borrow	lenen
+boss	baas
+bottle	fles
+bottleneck	knelpunt
+bottles	flessen
+bottom	bodem
+boundary	grens
+bowl	bal
+box	bak
+box	koffer
+box	veeg
+box	doos
+boxes	dozen
+boy	jongen
+boycott	boycot
+bracket	haakje
+brackets	haakjes
+branch	branche
+brand	merken
+brand	merk
+brave	moedig
+bread	brood
+break	verbreken
+break	breken
+break in	kraak
+break open	openbreken
+breakers	branding
+breakfast	ontbijt
+breaks	breekt
+breath	blazen
+brewer	brouwer
+brick	baksteen
+brick	steen
+bride	bruid
+bridegroom	bruidegom
+bridge	brug
+bridgework	brug
+bright light	hel
+brim	rand
+bring	gebracht
+bring	brengen
+bring out	uitbrengen
+bring to boil	kook
+british	britse
+broad	ruim
+broad band	breedband
+broadcast	programma
+broken	breken
+broken	kapot
+brother	broer
+brother	broeder
+brought	uitgebracht
+brought	bracht
+brought in	opgeleverd
+browbeater	bullebak
+brown	bruin
+brush	borstel
+build	bouwen
+building	gebouw
+built	gebouwd
+built in	ingebouwde
+builtin	ingebouwde
+bulge	puilen
+bulky	uitgebreid
+bulky	dik
+bull	stier
+bullet	kogel
+bully	bullebak
+bum	gat
+bump	botste
+burly	dik
+burn	steken
+burn	branden
+burp	boeren
+burst	openbreken
+bury	begraven
+bus	bus
+bus passengers	buspassagiers
+buses	bussen
+business	zaken
+business	bedrijf
+business	beroep
+business	zaak
+business	bedrijfsleven
+business card	visitekaartje
+business circles	bedrijfsleven
+busy	druk
+busy	bezig
+but	echter
+but	toch
+but	maar
+butcher	slachter
+butcher	vleeshouwer
+butter	boter
+buy	kopen
+by	waarbij
+by	bij
+by	door
+by	tegen
+by	op
+by	aan
+by	ieder
+by now	alvast
+by stealth	tersluiks
+by way of	via
+bylaw	keur
+cable	kabel
+calculate	rekenen
+calculate	berekenen
+calculate	tellen
+californian	californische
+call	bellen
+call	roepen
+call	aanvraag
+call	roep
+call	telefoneren
+call names	schelden
+called	gebeld
+called	roept
+called	heet
+called names	gescholden
+calling card	visitekaartje
+calm	kalm
+calm	gerust
+came	kwamen
+came	gekomen
+came	kwam
+came across	aantroffen
+camera	toestel
+campaign	campagne
+campaigns	campagnes
+can	kan
+can	kunt
+can	kun
+can	kunnen
+canadian	canadees
+canal	wijk
+canal	gracht
+canals	grachten
+candidates	kandidaten
+candy machine	snoepautomaat
+capacity	capaciteit
+capital	hoofdstad
+capital city	hoofdstad
+capitals	hoofdsteden
+capricorn	steenbok
+captain	captein
+captain	kapitein
+captain on a ship	scheepskapitein
+capture	pakken
+car	auto
+cardboard box	karton
+cards	kaarten
+care	zorgen
+care	zorg
+caress	aaien
+caretaker	oppasser
+carpenter	timmerman
+carpet	mat
+carpet	tapijt
+carry	dragen
+carry on	voeren
+carry through	doorzetten
+carrying out	uitvoering
+carton	karton
+case	geding
+case	geval
+case	doos
+cases	dozen
+cask	vat
+cast	bezetting
+cast	gooien
+cast	gooi
+cast	bezetten
+cat	kat
+catch	grijpen
+catch	vangen
+caterpillar	rups
+caught	opgepakt
+caught	grepen
+cause	oorzaak
+ceiling	plafond
+cell	cel
+cells	cellen
+cemetary	begraafplaats
+center	midden
+center	centrum
+central	centrale
+century	eeuw
+certain	vast
+certainly	zeker
+certainly	toch
+certificate	mantel
+chair	stoel
+chairman	voorzitter
+challenge	bestrijden
+chance	kans
+chance	gebeuren
+change	veranderen
+change	wisselen
+change	wijzigen
+change over	overgaan
+channel	wijk
+chap	barst
+chap	persoon
+chaplain	aalmoezenier
+chapter	hoofdstuk
+charge	bevelen
+chase	jagen
+chat	gepraat
+cheaper	goedkoper
+cheapest	goedkoopste
+check	beteugelen
+check	keren
+checked	bedwongen
+cheerful	opgewekt
+cheerful	vrolijk
+cheese	kaas
+cherish	voeden
+chickens	kippen
+child	kint
+child	wicht
+child	kind
+children	kinderen
+chipher	cijferschrift
+chipher	test
+chiphers	cijferschriften
+chocolate	chocola
+choice	keur
+choice	keuze
+choices	verkiezingen
+choose	kiezen
+choosers	kiezers
+chooses	kiest
+chop	hakken
+chosen	gekozen
+christ	christus
+christian	christelijk
+christian	christen
+christmas	kerst
+christmas days	kerstdagen
+cigarette	sigaret
+cigarette butts	peukje
+cigarettes	sigaretten
+cinema	bioscoop
+cipher	cijfer
+ciphers	cijfers
+circle	cirkel
+circles	cirkels
+circumvent	omgaan
+cities	steden
+citizen	ingezetenen
+citizen	burger
+citizens	burgers
+city	stad
+civil engineer	civielingenieur
+civil service	ambtenaren
+civilians	burgers
+claim	eisen
+claim	eis
+claims	eisen
+clamp	kuil
+clarifying	verhelderend
+clarity	duidelijkheid
+clash	botste
+classification	indeling
+clean	zuiveren
+clean	schone
+clean	schoon
+clear	dun
+clear	klaar
+clearness	duidelijkheid
+clerk	schrijver
+clerk	klerk
+click	klik
+client	klant
+clients	klanten
+climb	steeg
+clinked	klonken
+clinked	klonk
+cloak	mantel
+clock	klok
+close	sluiten
+close	onmiddellijke
+close	dicht
+close	dichtdoen
+close	nabij
+close	afsluiten
+close by	dichtbij
+closed	dicht
+closed	toe
+closed	gesloten
+closed	plat
+cloth	lap
+cloth	laken
+clothing	kleding
+clouds	bewolking
+cloudy	onduidelijk
+clutch	pakken
+coat	jas
+coat	mantel
+coats	jasen
+code	cijferschrift
+codes	cijferschriften
+cofee	koffie
+cog	tanden
+coins	munten
+cold	koud
+colleague	collega
+collect	verzamelen
+collective	collectieve
+collide	botste
+collision	aanvaring
+colombian	colombiaans
+color	kleur
+color palet	kleurenpalet
+colors	kleuren
+combination	vereniging
+combination	combinatie
+come	kom
+come	komt
+come	komen
+come across	getroffe
+come around	bijkomen
+come forward	aanmelden
+come in	binnenkomen
+come running on	toelopen
+come to hand	geworden
+come to oneself again	bijkomen
+comfort	gemak
+comfortable	gemakkelijk
+coming	komende
+command	bevelen
+commend	bevelen
+commercial	zakelijke
+commisioners	commissarissen
+commission	opdracht
+commission	commissie
+committed	gepleegd
+commodious	gemakkelijk
+common	gewoon
+community	gemeente
+companies	bedrijven
+companion	begeleider
+company	bedrijf
+company	omgang
+compare	vergeleken
+compartment	branche
+compassion	medelijden
+compensate	vergoeden
+competitors	concurrenten
+compile	verzamelen
+complain	klagen
+completed	afgelopen
+complex	samengesteld
+complicated	samengesteld
+composed	kalm
+comprehensively	uitgebreid
+compulsory	verplict
+computer factories	computerfabrikanten
+computer game	computerspel
+computer system	computersysteem
+computer users	computergebruikers
+comrade	maat
+conceive	ontvangen
+conception	begrip
+concern	belang
+concern	zorg
+concerning	betreffende
+concert	raken
+conclude	afsluiten
+conclude	besloot
+conclusion	slot
+conclusion	besluit
+condemned	veroordeeld
+conduct	voeren
+conductor	comparanten
+conference	bespreking
+conferences	besprekingen
+confirmed	bevestigt
+congress	congres
+connect	voegde
+connections	verbindingen
+conscientious	trouw
+consent	toestemming
+consequence	gevolg
+conserve	onderhouden
+considerable	behoorlijk
+considerable	geruime
+considerable	fors
+considerable	aanzienlijk
+considered	beschouwd
+consultation	overleg
+consumed	opgegeten
+consumer market	consumentenmarkt
+consumers	gebruikers
+contact	contact
+contain	houden
+contained	bedwongen
+contend	kampen
+content	tevreden
+contented	tevreden
+contents	inhoud
+contested	omstreden
+continual	continu
+continuation	vervolg
+continuation	voortgang
+continue	doorgaan
+contribute	bijdragen
+controlled	bedwongen
+controls	beheert
+conversation	gesprek
+conversations	gesprekken
+conveyance	overdracht
+convict	dwangarbeider
+convicted	veroordeeld
+convoy	konvooi
+cook	koken
+cook	kok
+cookbook	kookboek
+cool	fris
+cooperation	samenwerking
+copyist	schrijver
+cork	kurk
+corn	koren
+corner	hoekje
+corner	hoek
+corporal	korporaal
+corps	korpsen
+corpse	lijk
+correct	juist
+corrected	gecorrigeerd
+corsage	lijfje
+cost	kosten
+couch	bank
+could	konden
+council	raad
+count	tellen
+countenance	gezicht
+country	land
+countryside	platteland
+coupled	gekoppelde
+courageous	moedig
+course	gerecht
+course	cursus
+court	gerecht
+courtships	vrijages
+cousin	nicht
+cover	dek
+cover	stolp
+covering	dek
+cow	koe
+cows	koeien
+cozy	gezellig
+crack	barst
+crack	kraak
+crank	arm
+crash	botste
+crayfish	kreeft
+create	scheppen
+created	geschapen
+creation	schepping
+creature	schepsel
+creature	wezen
+creatures	schepselen
+credit	tegoed
+credit	voordelig
+credit	eer
+creditor	schuldeiser
+creed	richting
+crisis	crisis
+critic	critiek
+critical	critiek
+croatia	kroatie
+croatian	kroatisch
+cross	overgaan
+crowd	schare
+crowd	massa
+crowded	druk
+crucial	cruciale
+cry	roep
+cry	kreet
+cry	schreeuw
+cry	wenen
+cry	roepen
+cry	huilen
+cup	kopje
+curb	beteugelen
+curious	nieuwsgierig
+current	huidige
+curtain	gordijn
+curtain	scherm
+customers	klanten
+cut	snijden
+cut	hakken
+cut	vormen
+cute	lief
+cycle	fietsen
+daily	dagelijks
+dam	dijk
+dams	dijken
+dance	dansen
+dane	noorman
+dane	deen
+danish	deens
+daring	stout
+daring	durf
+darker	donkere
+date	datum
+daughter	dochter
+daughter	dochtertje
+day	dag
+days	dagen
+dazed	verbijsterd
+dead	overleden
+deaden	afschrijven
+deadline	termijn
+deal with	bemoeien
+deal with	behandeld
+dear	gezien
+dear	lieve
+death	overlijden
+debate	debat
+debtor	schuldenaar
+debtor	debiteur
+decade	decennium
+deceased	dode
+deceased	overleden
+december days	decemberdagen
+decent	fatsoenlijk
+decent	behoorlijk
+decide	besloot
+decide	beslissen
+decision	besluit
+deck	dek
+declaration	uitroepen
+declare	verklaren
+declared	afgekondigd
+decline	vervallen
+decline	verlopen
+decree	besluit
+deduction	aftrek
+deep	laag
+deep	diep
+defeated	gevallen
+defect	gebrek
+defendant	gedaagde
+defense	defensie
+defile	pas
+define	bepalen
+definitive	definitief
+degree	graad
+degrees	graden
+delay	uitstel
+delay	respijt
+delegation	overdracht
+delete	verwijderen
+deliberate	opzet
+deliberation	overleg
+deliver	leveren
+deliver	uitbrengen
+delivered	ingeleverd
+delivered	opgeleverd
+delivered	leverde
+delivered	afgegeven
+delivery	leveren
+delivery company	koeriersbedrijven
+deliveryman	pakkendrager
+demand	eisen
+demand	aanvraag
+demand	eis
+demand	aftrek
+demand	vereist
+demand from	eisen
+demanded	gezocht
+democrat	democraat
+demonstrate	demonstreren
+demonstration	demonstratie
+denmark	denemarken
+dense	dicht
+dentist	tandarts
+dentistry	tandheelkunde
+depart	scheiden
+depart	weggan
+department	ministerie
+department	afdelingen
+department	branche
+departure	vertrek
+deposit	deponeren
+deposition	afzetting
+depress	drukken
+deregulation	deregulering
+dermatology	dermatologie
+descent	daling
+description	omschrijving
+description	beschrijving
+design	ontwerpen
+designed	ontworpen
+desire	eisen
+desire	zin
+desk	bureau
+despise	verachten
+despite	ondanks
+dessert	toetje
+detached	los
+detect	ontdekken
+determine	bepalen
+develop	ontwikkelen
+developed	ontwikkeld
+development	ontwikkeling
+devote	besteden
+diabetes	suikerziekte
+diamond	ruit
+dictator	dictatuur
+dictatorship	dictatuur
+dictionary	woordenboek
+did	deden
+did	gedaan
+did	gepleegd
+did	deed
+die	overlijden
+die	sterven
+died	overleed
+dietician	dietiste
+difference	onderscheid
+difference	verschil
+different	verschillende
+difficult	lastig
+difficult	moeilijk
+difficulty	moeilijkheid
+dig	steek
+dig	graven
+digital	digitale
+dike	dijk
+dikes	dijken
+dinner party	etentje
+direct	direct
+direct	onmiddellijke
+direction	richting
+directions	aanwijzingen
+director	directeur
+director	bestuurder
+directs	beheert
+dirt cheap	geef
+disappear	wijken
+disappear	verdwijnen
+discharge	betalen
+discharge	ontheffen
+discharge	etteren
+discharge	lozen
+discharge	ontslaan
+discharge	loslaten
+discharge	afschieten
+discharge	lossen
+discharge	ontlasten
+disconcerted	ontdaan
+discount	korting
+discover	ontdekken
+discovered	ontdekt
+discovery	ontdekking
+discretion	tact
+discretion	belied
+discretion	overleg
+discretion	discretie
+discretion	voorzichtigheid
+discretion	wijsheid
+discretion	geheimhouding
+discrimination	onderscheid
+discussion	bespreking
+discussion	behandeling
+discussion groups	discussiegroepen
+diseases	ziektes
+disembark	landen
+disembogue	ontlasten
+dish	gerecht
+dish	schotel
+dislikes	hekelt
+disolve	opgelost
+disposal	zin
+dispute	strijd
+disputed	omstreden
+distance	eind
+distance	verschiet
+distance	afstand
+distances	afstanden
+distinction	onderscheid
+district	wijk
+disturbance	storing
+disturbed	gestoord
+divert	verzetten
+do	doe
+do	doen
+do	doet
+doctor	dokter
+doctrine	leer
+documentation	documentatie
+documents	documenten
+does	verricht
+dog	hond
+doing	zeker
+doll	pop
+domain name	domeinnaam
+domain names	domeinnamen
+domestic	eigen
+donkey	ezel
+door mat	deurmat
+dossier	bestand
+dot	oog
+doubt	twijfel
+down	af
+down	neer
+down	omver
+downloaded	gedownload
+downloading	downloaden
+drag	slepen
+draw	halen
+draw up	scharen
+dream	dromen
+dressed	aangekleed
+drift	drijven
+drink	drinkt
+drink	drank
+drink	drinken
+drink	zuipen
+drink to excess	zuipen
+drip	druipen
+drive	driven
+drive	rijden
+driver	chauffeur
+drivers license	rijbewijs
+drop	gevallen
+drop	daling
+drove	drift
+drowsy	slaperig
+druggist	drogist
+drum	vat
+drunk	zat
+dry	droog
+during	tijdens
+dutch	nederlanders
+dutch	nederlander
+dutch	nederlandse
+dutch	nederlands
+duties	functies
+each	ieder
+each	elkaar
+each other	elkaar
+ear	gehoor
+ear of animal	lepel
+earlier	eerder
+early	vroege
+early	vroeg
+early	vroegtijdig
+earn	verdienen
+earnest	ernst
+earnest	ernstig
+earnestness	ernst
+earth	aarde
+ease	gemak
+easel	ezel
+east	oosten
+easy	gemakkelijk
+easy	makkelijk
+easy	gerust
+eat	bord
+eat	eet
+eat	eten
+eaten	opgegeten
+eaten	gegeten
+economy	economie
+economy class	toeristenklasse
+edge	rand
+edition	editie
+editorial office	redactie
+education	onderwijs
+eel	paling
+eels	palingen
+effect	afsluiten
+effort	poging
+egg	ei
+eight	acht
+eighteen	achttien
+eighty	tachtig
+elder	ouder
+election day	verkiezingdatum
+elections	verkiezingen
+electorate	kiezers
+electricity	elektriciteit
+electronic	elektronisch
+element	basis
+eleven	elf
+eliminate	verwijderen
+emigrant	landverhuizer
+employee	werknemer
+employees	werknemers
+employer	ondernemer
+employer	werkgever
+employers	ondernemers
+empty	leeg
+enamoured	verliefd
+encircle	omringen
+encounter	getroffe
+encounter	treffen
+end	slot
+end	besloot
+end	uitgaan
+end	eind
+end	einde
+endorse	wenden
+endure	velen
+enemy	vijand
+energetic	ferm
+energy	energie
+enforce	handhaven
+enforced	geldt
+engagement	treffen
+engagement	getroffe
+engine	motor
+engineer	ingenieur
+english	engels
+english	engelse
+enjoyable	prettig
+enlistment	opkomst
+enormous	enorm
+enormous	enorme
+enough	genoeg
+enter	binnenkomen
+enter	aanmelden
+enter	instappen
+entertain	voeden
+entertain	onderhouden
+entertain	vermaken
+entertaining	leuk
+entirely	helemaal
+entrance	toegang
+entrance	intocht
+entrance	ingang
+entrance	binnenkomst
+entrance	entree
+entrance	aanvaarding
+entrepreneur	ondernemer
+entrepreneurs	ondernemers
+envelop	omgeven
+environment	omgeving
+equal	gelijk
+equally	even
+equipment	apparatuur
+equipped	geoutilleerde
+erect	stellen
+erect	overeind
+errand	opdracht
+escape	ontsnappen
+escape	ontkomen
+especially	vooral
+establish	ingesteld
+estimate	ramen
+european	europese
+evaluations	evaluaties
+even	gelijk
+even	regelmatig
+even	zelfs
+evening	avond
+event	gebeurde
+events	gebeurtenissen
+ever	steeds
+every	elk
+every	om
+every place	overall
+every time	telkens
+everybody	iedereen
+everyday	dagelijks
+everything	alles
+everything included	inbegrepen
+everywhere	overal
+evidence	bewijs
+evident	blijkbaar
+evident	klaar
+evil	erg
+evolution	evolutie
+evolution	ontwikkeling
+exact	precies
+examine	onderzoeken
+example	voorbeeld
+example	bijvoorbeeld
+exceedingly	uitermate
+excelent	uitstekend
+excellent	prima
+exciting	spannend
+excluded	uitgesloten
+exclusively	slechts
+exclusively	uitsluitend
+execution	uitvoering
+executive committee	bestuur
+exercise	opgave
+exile	ballingschap
+exist	bestaan
+existence	wezen
+existence	bestaan
+existing	bestaande
+exit	uitgaan
+expect	verwachten
+expectation	verwachting
+expected	verwacht
+expecting	bevallen
+expenses	uitgaven
+expire	verlopen
+explain	verklaren
+explained	uitgelegd
+explanation	uitleg
+explicit	uitdrukkelijk
+explicitly	uitdrukkelijk
+explosion	explosie
+explosive	explosieve
+export	exporteren
+export	export
+export	uitvoeren
+expressly	uitdrukkelijk
+extend	uitbreiden
+extensive	uitgebreid
+extensive	ruim
+extra	extra
+extra cost	meerprijs
+extreme	uiterst
+extremely	uitermate
+extremists	extremisten
+eye	aankijken
+eye	nakijken
+eye	oog
+eyewitnesses	ooggetuigen
+fabric	stof
+face	gezicht
+facility	gemak
+fails	faalt
+fair	behoorlijk
+fair	eerlijke
+fairly	nogal
+fairy tale	sprookje
+faithful	trouw
+fall	gevallen
+fall	herfst
+fall	daling
+fall	zakken
+fall	vallen
+false	vals
+familiar	bekend
+familiar	bekende
+familiar with	bekende
+familiar with	bekend
+family	familie
+family	huishouding
+family	huisgezin
+family visit	familiebezoek
+famous	beroemd
+fanatical	fanatiek
+fancy	gevallen
+fantasy	fantasie
+far	ver
+farm	boerderij
+farm	boeren
+farmer	akkerbouman
+farmer	boer
+farmer	verbouwer
+farther	verdere
+fast	snelle
+fasten	vastleggen
+fat	gezet
+fat	dik
+father	vader
+father	pater
+father christmas	kerstman
+fatherhood	vaderschap
+favorite	favoriet
+fears	vreest
+february	februari
+federal state	deelstaat
+feed	voederen
+feed	voeren
+feed	voeden
+feel	voelen
+feeling	stemming
+female	vrouw
+female	vrouwelijk
+female companion	begeleidster
+female laborer	werkvrouw
+female school keeper	schoolhoudster
+female singer	zangeres
+female teacher	lerares
+fence	schermen
+ferry operator	veerman
+festive	feestelijke
+fetch	halen
+few	weinig
+field	dreef
+field	veld
+fiery	driftig
+fifteen	vijftien
+fifty	vijftig
+fight	vechtpartij
+fight	bestrijding
+fight	bestrijden
+fight	kampen
+fightened	schrikken
+figure	tellen
+file	bestand
+files	bestanden
+fill	vullen
+fill	bezetten
+filled	vol
+film	filmpje
+final	uiteindelijk
+final responsibility	eindverantwoordelijk
+finally	eindelijk
+finance	financien
+financed	gefinancierd
+financial quarter	kwartaal
+financing	financien
+find	vind
+find	vindt
+find	vinden
+find out	ontdekken
+finds	vindt
+fine	fijn
+fine	fijne
+fine	ferm
+fine	boete
+finger	vinger
+finish	besloot
+finished	opgegeten
+finished	gereed
+finished	klaar
+fire	brand
+fire	vuur
+fired	ontslagen
+fireman	stoker
+fireplace	haard
+firm	vast
+first	eerste
+first	eerst
+fish	vissen
+fisherman	visser
+fisherman	visscher
+fit	passen
+five	vijf
+fix	vastleggen
+fixed	geregeld
+fixed	vast
+flash	straal
+flashes	straalen
+flat	plat
+flat	appartement
+flat	vlak
+flatly	vlak
+flaw	barst
+flee	ontkomen
+flexible	flexibele
+flick	tik
+fling	keilen
+fling	gooien
+fling away	weggooien
+float	drijven
+flock	drift
+florist	bloemist
+flower	bloem
+flowers	bloemen
+flutter	waaien
+flutter in the wind	waaien
+fly	vliegen
+focus	ingesteld
+fold	vouwen
+follow	volgen
+follow up	volgen
+followers	gevolg
+following	leden
+food	food
+food	voeding
+foot	voet
+foot	poot
+football	voetbal
+for	om
+for	tegen
+for	voor
+for a long time	langdurig
+for example	bijvoorbeeld
+for instance	bijvoorbeeld
+for nothing	geef
+for that	daarvoor
+for this purpose	hiervoor
+for years	jarenlang
+forbearance	geduld
+forbid	verbieden
+forbidden	verboden
+force	geweld
+forecast	verwachting
+forefather	voorvader
+foreknowledge	voorkennis
+foresee	voorzien
+forest fires	bosbranden
+forget	vergeten
+fork	vork
+formation	vorming
+formation	formatie
+former	vorig
+former	gewezen
+former	verleden
+forward	voren
+forward	vooruit
+foster	voeden
+foster child	pleegkind
+foster mother	pleegmoeder
+foster parents	pleegouders
+found	gevonden
+found	aantroffen
+foundation	basis
+foundation	stichting
+four	vier
+fourteen	veertien
+fourty	veertig
+fox	vos
+fragile	breekbaar
+frame	lijst
+frame	kader
+france	frankrijk
+free	vrij
+free	vrije
+free	gratis
+freedom	vrijheid
+freeze	vriezen
+french	frans
+french women	franse
+frequencies	frequenties
+frequently	vaak
+fresh	fris
+freshen	opfrissen
+friday	vrijdag
+friend	vriendin
+friend	vriend
+friendly	vriendelijk
+friendly	vriendelijke
+friends	vriendinen
+friends	vrienden
+frightened	schrokken
+frightened	schrok
+fringe	rand
+from	uit
+from	vanuit
+from	van
+from there	vandaar
+from there	daarvan
+from which	waaruit
+front	voor
+front door	voordeur
+frontier	grens
+frown	frons
+fruit	vrucht
+fruit machine	speelautomaaten
+fruit machine	speelautomaat
+fuck	neukt
+fuel	benzine
+fugitive	vluchteling
+full	zat
+full	vol
+functions	functies
+funeral	begrafenis
+funny	geinig
+funny	grappig
+funny	leuk
+furious	razende
+furlough	verlof
+furnished	opgeleverd
+further	vervolgens
+further	langer
+further	verdere
+further	verder
+fusion	smelting
+fussy	druk
+future	toekomst
+future	vervolg
+gain	belang
+galactic systems	melkwegstelsels
+gallery	omgang
+gallop	rennen
+gambler	speler
+game	spel
+games	spelen
+gamut	toonladder
+gap	gat
+garden	tuin
+gardner	hovenier
+garlic	knoflook
+garlic	look
+gate	loop
+gather	plukken
+gather	rapen
+gather	verzamelen
+gave a gift	schonk
+gave a gift	schonken
+gave way	geweken
+gay	vrolijk
+geese	ganzen
+gem	steen
+general	generaal
+genuinely	echt
+germ	oog
+german	duitse
+german	duitser
+german	duits
+germany	duitsland
+geschikt	geschikt
+gesture	gebaar
+gestures	gebaren
+get	halen
+get	krijgen
+get	ontvangen
+get in	binnenkomen
+get through	verzetten
+ghost driver	spookrijder
+gift	geef
+gift	cadeau
+gill	kaak
+girl	meisje
+girlfriend	vriendin
+girlfriends	vriendinnen
+give	geven
+give	uitbrengen
+give	schenken
+give	meegeven
+give in	wijken
+gives evidence of	blijkt
+glad	verheugd
+glass bell	stolp
+glass cover	stolp
+glassy	glazen
+glean	rapen
+glorious	heerlijk
+glue	lijm
+glue	lijmen
+go	ga
+go	lopen
+go	gaat
+go	gaan
+go around	omgaan
+go downhill	vervallen
+go off	vervallen
+go out	uitlopen
+go out	uitgaan
+goal	doel
+godchild	petekind
+goddaughter	peetdochter
+godfather	peetoom
+godmother	peettante
+godson	peetzoon
+gone	gegaan
+gone	gingen
+gone	zoek
+gone	ging
+good	goede
+good	goed
+good luck	buitenkansje
+goods	waren
+goods	goederen
+goose	gans
+goose feather	ganzenveer
+goose liver	ganzenlever
+got	kregen
+got	gekregen
+governer	gouverneur
+government	bestuur
+government	overheid
+government services	overheidsdiensten
+governor	regent
+governor	directeur
+governor	bestuurder
+gracious	genadig
+grade	graad
+gradually	langzamerhand
+grain	koren
+grandchild	kleinkind
+granddaughter	kleindochter
+grandfather	grootvader
+grandmother	grootmoeder
+grandparents	grootouders
+grandson	kleinzoon
+grant	schenken
+granted	toegestaan
+granted	toegekend
+grapple	pakken
+grass	gras
+grave	graf
+grave	ernstig
+gravitational pull	aantrekkingskracht
+gravity	aantrekkingskracht
+gravity	ernst
+great	groot
+great	geweldige
+great	grote
+greater	groter
+greatest	grootste
+greatly	uitermate
+green	groen
+greeting	groet
+gregarious	gezellig
+grey	grijs
+grip	vat
+grip	greep
+gripped	geinteresseerd
+groom	stalknecht
+ground	grond
+group	groep
+grow	groeien
+growl	knorren
+grown up	grote
+growth	ontwikkeling
+growth	groei
+grumble	knorren
+grunt	knorren
+guard	garde
+guardian	voogd
+guardian	suppoost
+guardian	curator
+guilders	gulden
+guilders	guldens
+gullie	kussen
+guy	persoon
+hack	hakken
+had	hadden
+had	gehad
+hair	haar
+hairdresser	kapper
+half naked	halfnaakte
+hall	hal
+hallmark	keur
+ham	ham
+handed in	ingeleverd
+handle	behandeld
+handling	behandeling
+hands	handen
+handset	toestel
+hang	gevallen
+hang	hangen
+happen	gebeuren
+happenings	gebeurtenissen
+happy	gelukkig
+happy	blij
+harass	teisterden
+harbor	haven
+hard	moeitevol
+hard	lastig
+hard	moevol
+hard by	dichtbij
+hardly	nauwelijks
+hardly	pas
+has	hebt
+hasty	driftig
+hasty	haastig
+hat	hoed
+hatch	luik
+hate	haten
+have	hebt
+have	heeft
+have	heb
+have	gehad
+have	hebben
+have	krijgen
+have	gekregen
+have a baby	bevallen
+have to do with	bemoeien
+hawker	leurder
+hawker	venter
+he	hij
+head	hoofd
+head	kop
+head of household	gezinshoofd
+heads	koppen
+heads	hoofden
+health	gezondheid
+health care	zorg
+health care costs	zorgkosten
+health costs	zorgkosten
+health insurance	zorgverzekering
+health insurance provider	zorgverzekeraars
+health insurance provider	zorgverzekeraar
+healthier	gezondere
+healthier	gezonder
+healthy	gezond
+healthy	gezonde
+heap	hoop
+hear	horen
+hear	hoorde
+heard	gehoord
+hearing	gehoor
+heart	hart
+heat	hitte
+heat	hegeet
+heat	heette
+heat	heten
+heavy	zwaar
+height	hoogte
+heirs	erven
+held	hield
+held	hielden
+hell	hel
+hello	hallo
+help	hulp
+help	helpen
+helps	helpt
+her	haar
+herb	kruid
+here	hier
+herewith	hiermee
+herewith	hierbij
+hesitant	huiverig
+hesitate	aarzelen
+hey	he
+hi	hoi
+high	hoge
+high	hoog
+higher	hoger
+highways	snelwegen
+him	ie
+him	hem
+himself	zich
+hindrance	storing
+hired man	huurman
+his	zijn
+his/her	zijn/haar
+hit	slaan
+hit	raken
+hold	bergen
+hold	houden
+hold	vat
+hole	kuil
+hole	gat
+hole	oog
+holes	gaten
+home	thuis
+home	huis
+honest	eerlijke
+honor	eer
+honour	eer
+hoof	hoef
+hook	hoek
+hop	huppelen
+hope	verwachting
+hope	hopen
+horoscope	horoscoop
+horrible	gruwelijk
+horse	paard
+horse	paardje
+horsie	paardje
+hospital	ziekenhuis
+hot	heet
+hot	warm
+hour	uur
+house	pand
+house keeping	huishouding
+household	huishouding
+housewife	huisvrouw
+housewife	vrouw des huizes
+hovercraft	luchtkissenvaartig
+hovercrafts	luchtkissenvaartigen
+how	hoe
+how many	hoeveel
+how much	hoeveel
+however	echter
+huckster	venter
+hundred	honderd
+hundreds	honderden
+hundreds of thousands	honderdduizenden
+hung	hingen
+hung	hing
+hungary	hongarije
+hungry	honger
+hungry	hongerig
+hunt	jagen
+hurried	haastig
+husband	man
+husband	echtgenoot
+hymn	lied
+i	mij
+i	ik
+i	me
+ice	ijs
+ice cream	roomijs
+iceburg	ijsberg
+idea	idee
+idea	begrip
+ideal	ideale
+ideas	begrippen
+idle	leeg
+if	indien
+if	als
+ill	erg
+image	beeld
+images	afbeeldingen
+imitation	navolging
+immediate	onmiddellijke
+immediate	onmiddellijk
+impatient	ongeduldig
+implement	uitvoeren
+import	invoer
+import	invoeren
+import	ingevoerd
+important	erg
+important	belangrijk
+imprison	opsluiten
+improvement	vooruitgang
+in	op
+in	in
+in	te
+in	ter
+in	aan
+in	binnen
+in	bij
+in addition	bovendien
+in addition	daarnaast
+in advance	vooruit
+in connection with	ivm
+in good health	gezond
+in high spirits	opgewekt
+in it	daarin
+in love	verliefd
+in order that	opdat
+in there	daarin
+in vain	tevergeefs
+in which	waarop
+incidents	incidenten
+include	bevat
+income	rente
+incoming	inkomende
+inconceivable	onvoorstelbaar
+inconvienient	lastig
+increase	uitbreiden
+increase	stijgen
+increases	stijgen
+indeed	inderdaad
+indent	tanden
+independent	onafhankelijk
+independent	onafhankelijke
+index	lijst
+indication	teken
+indistinct	onduidelijk
+individual	individu
+individual	individuele
+individual	individueel
+individual	persoon
+individual	persoonlijk
+individual	eigenaardig
+industrial branch	bedrijfstak
+industry	industrie
+infant	wicht
+infirmity	gebrek
+inflation	inflatie
+influence	invloed
+influential	vermogende
+influx	toeloop
+information	informatie
+information supplier	informatrice
+infrastructure	infrastructuur
+inhabitant	inwoner
+inquiry	aanvraag
+inquisitive	nieuwsgierig
+insert	plaatsen
+inside	binnen
+insight	zicht
+inspector	toezichthouder
+instances	instanties
+instant	onmiddellijk
+institute	ingesteld
+institute of knowledge	kennisinstelling
+institutes	instellingen
+instructions	aanwijzingen
+insurance	verzekering
+intercourse	omgang
+interest	belang
+interest	belangstelling
+interest	interesse
+interest	rente
+interested	geinteresseerd
+interesting	interessant
+international	internationaal
+internet	internet
+internet company	internetbedrijf
+internet users	internetgebruikers
+interneting	internetten
+into	binnen
+intoxicated	zat
+introduce	ingevoerd
+introduction	aanloop
+introduction	inleiding
+invest	plaatsen
+investigation	onderzoek
+invite	nodigen
+iran	perzie
+iranian	ieranier
+iranian	iraanse
+iranian	iraans
+iraq	irak
+iraqi	irakees
+iron	ijzer
+irresistible	onweerstaanbaar
+is	zijn
+is	is
+islam	mohammedanisme
+islamic	islamitische
+islamic	islamitisch
+island	eiland
+it	het
+italian	italiaans
+italian	italiaan
+italy	italie
+item	deel
+its	zijn
+its	haar
+jacket	jasje
+jacket	mantel
+january	januari
+jaw	kaak
+jeans	spijkerbroek
+jew	jood
+jeweler	juwelier
+jewish	joods
+jewish quarter	jodenbuurt
+job	baan
+job market	arbeidsmarkt
+join	meld
+join	voegde
+join	verbinden
+join	aanmelden
+joined	angemeld
+joined	gekoppelde
+joining	vereniging
+joke	grap
+joker	grappenmaker
+jokes	grappen
+journalists	journalisten
+jubilate	juichen
+judge	rechter
+judgement	overleg
+judgment	uitspraken
+judgment	gericht
+juice	sap
+july	juli
+jump	spring
+jump	springen
+jumped	sprong
+junction	vereniging
+june	juni
+junior	jongst
+just	gerecht
+just	eens
+just	gewoon
+just	juist
+just	slechts
+just	even
+justly	terecht
+keep	beschermen
+keep	vervullen
+keep	vasthouden
+keep	bewaren
+keep	vieren
+keep	onderhouden
+keep	houden
+keeper	oppasser
+key	sleutel
+kick	trap
+kick	schoppen
+kicks	trappen
+killed	omkwamen
+kind	vriendelijk
+kind	vriendelijke
+king	koning
+kings	koningen
+kiss	kus
+kiss	kussen
+kisses	kusje
+kisses	zoent
+kitchen	keuken
+knew	wisten
+knew	wist
+knife	mes
+knight	paard
+knock	slag
+know	weet
+know	verstaan
+know	kennen
+know	weten
+know well	beheersen
+knowledge	kennis
+knowledge transfer	kennisinstelling
+known	bekend
+knows	kent
+laborer	werkman
+laborer	knecht
+laborer	arbeider
+laboreresse	arbeidster
+labour	moeite
+labourer	werkman
+labourer	knecht
+labourer	arbeider
+lack	gebrek
+ladder	leer
+ladle	lepel
+lady	juffvrouw
+lady	mevrouw
+ladyfriends	vriendinnen
+lager	pils
+laid	lagen
+laid	lag
+lamppost	lichtmast
+land	landen
+landowner	grondeigenaren
+lane	dreef
+language	taal
+large	ruim
+large	groot
+largely	gedeelte
+larger	hogere
+larger	grotere
+last	laatste
+last	laatst
+last night	gisteravond
+lasting	vast
+latch	klink
+late	gewezen
+late	laat
+later	later
+latvia	letland
+laugh	lachen
+laughing	gelach
+laughter	gelach
+launch	lanceren
+launching	lancering
+lawsuit	geding
+layer	laag
+lazy	lui
+lead	voeren
+leadership	leiderschap
+leaped	sprong
+learn	horen
+learn	hoorde
+learn	leren
+learnt	gehoord
+least	allerminst
+least	minste
+leather	leer
+leave	gelaten
+leave	vertrekken
+leave	verlaten
+leave	verlof
+leave	weggan
+left	linksaf
+left	links
+left hand	linkerhand
+left side	linkerkant
+leg	been
+leg	poot
+legitimacy	echtheid
+lemon	citroen
+lemons	citroenen
+lend	lenen
+length	lengte
+lengthen	verlengen
+less	minder
+lesser	kleine
+lesson	les
+let	laten
+letter	brief
+letters	brieven
+level	vlak
+levy	heffen
+libyan	libische
+lie	liegen
+lie	liggen
+lies	ligt
+life	leven
+lifelong	levenslang
+lift	heffen
+light	blond
+light	licht
+light	lichte
+light tower	lichtmast
+like	liefhebben
+like	mogen
+like	zoals
+like	liefst
+like of	liefhebben
+like that	aldus
+like this	aldus
+liked	mochten
+likes	liefst
+likewise	mede
+limit	grens
+limited	beperkt
+line	richting
+line	lijn
+line	voeren
+lines	lijnen
+link	verbinden
+link	schakelen
+lion	leeuw
+list	lijst
+listen	luisteren
+listen	beluisteren
+listen	luister
+little	weinig
+little bird	vogeltje
+little by little	langzamerhand
+little horse	paardje
+little one	doctertje
+live	woon
+live	woonen
+live	wonen
+live	woont
+live in	inwonen
+lively	druk
+living room	woonkamer
+living room	huiskamer
+livingroom	woonvertrek
+loads	massa
+loans	leningen
+lobster	kreeft
+local	lokaal
+local	lokale
+lock	afsluiten
+lock up	opsluiten
+locked	afgesloten
+locked out	uitgesloten
+lonely	alleen
+long	lang
+long	lange
+long lasting	langdurige
+longer	langere
+look	aanzien
+look	ogen
+look	kijk
+look	kijken
+look at	bekijken
+look at	aanzien
+look good	ogen
+looked	keken
+looked	keek
+looked at	beschouwd
+looks	gezicht
+loose	los
+lord	heer
+lorry	vrachtauto
+lose	verliezen
+losses	verliest
+lost	verloren
+lost	kwijt
+lot	zeer
+lots	hoop
+loud	fors
+loud	hard
+love	liefhebben
+love	liefde
+love	houden
+love for	liefhebben
+lovely	prachtig
+lovely	fijne
+lower	kleine
+lowest	laagste
+loyal	trouw
+loyalty	trouw
+lozenge	ruit
+lump	stukje
+lunch	lunch
+lyric	tekst
+machine	toestel
+machines	apparaten
+madam	mevrouw
+made	deed
+made	aangemaakt
+made	gemaakt
+made	deden
+magazine	blad
+magazine	tijdschrift
+magazines	tijdschriften
+maid	meid
+mail	mailtje
+mail	correpondence
+mail man	postbode
+mails	mailen
+mainly	voornamelijk
+mainly	grotendeels
+maintain	steunen
+maintain	onderhouden
+maintain	handhaven
+maintain	volhouden
+maintain	beweren
+maintain	voeren
+maintanance	onderhoud
+majority	meerderheid
+make	maken
+make	maak
+make	bedrijven
+make	treffen
+make	scheppen
+makes	maakt
+man	men
+management	bestuur
+management	beheer
+manager	directeur
+manager	directrice
+manages	beheert
+manner	wijs
+manner	manier
+manner	wijze
+manners	manieren
+mantle	mantel
+manufacturer	fabrikant
+many	vele
+many	veel
+map	landkaart
+march	maart
+marijuana	marihuana
+mark	merken
+mark	merk
+marked	opgelegd
+market	markt
+marriage	huwelijk
+married couple	echtelieden
+married couple	egteleide
+married couple	ekeliede
+mass	massa
+massive	massaal
+mastered	bedwongen
+masters	schippers
+matter	geeft
+maximum	maxima
+maximum	maximaal
+maximum amount	maximumbedrag
+may	mag
+may	mei
+may	mogen
+may	mocht
+maybe	wellicht
+maybe	misschien
+mayor	burgemeester
+me	me
+me	mij
+meal	maaltijd
+mean	bedoelen
+mean	betekenen
+meaning	betekenis
+meaning	doel
+meaning	bedoeling
+means	betekent
+meanwhile	intussen
+measure	mate
+measure	maatregel
+measure	maatregelen
+measure	meten
+measure	maat
+measure	aanmeten
+measured	gemeten
+measures	maatregelen
+meat	vlees
+mechanic	monteur
+meddle with	bemoeien
+medical file	patientendossier
+meet	treffen
+meeting	bespreking
+meetings	besprekingen
+melodies	melodieen
+melody	wijs
+melody	melodie
+melting	smelting
+member	lid
+members	leden
+members of the family	gezinsleden
+memory	herinnering
+memory stick	geheugenstick
+men	mannen
+menaces	dreigt
+menacing	dreigende
+menacing	dreigend
+mentalities	instellingen
+mention	melding
+mention	meld
+mentioned	meldden
+menu	menukaart
+merchandise	goederen
+merciful	genadig
+merely	alleen
+merge	fuseren
+merged	gefuseerde
+merges	samengaat
+merry	vrolijk
+mess	hoop
+message	bericht
+message service	messagingdienst
+messages	berichten
+messenger	loper
+messenger	voorbode
+messenger	bode
+messenger	boodschapper
+metal	metaal
+metro	metro
+mexican	mexicaan
+mexican	mexicaanse
+middle	middel
+middle	midden
+midst	midden
+midwife	vroedvrouw
+midwife	baker
+might	mochten
+migration	migratie
+military	militair
+military	militairen
+milk	melk
+milkman	melkboer
+milkman	melkbezorger
+million	miljoenen
+million	miljoen
+mind	letten
+mine	mijns
+mine	mijn
+minister	leraar
+ministry	ministerie
+minute	minuut
+minutes	minuten
+miscellaneous	allerlei
+miss	juffvrouw
+missing	zoek
+mission	opdracht
+mobile	mobiele
+mobile	mobiel
+mode	wijze
+mode	manier
+model	schema
+modern	moderne
+moment	ogenblik
+moment	even
+monday	maandag
+money	geld
+monkey	aap
+monkeys	apen
+month	maand
+months	maanden
+mood	stemming
+mood	wijs
+moon	maan
+moped	bromfiets
+moral	morele
+more	meer
+more	langer
+more beautiful	mooier
+moreover	bovendien
+morning	morgen
+moses	mozes
+most	allermeest
+most	meeste
+most	maximaal
+most	meest
+most expensive	duurste
+most important	belangrijkste
+most reasonable	verstandigst
+most sensible	verstandigst
+mother	moeder
+motorcycle	motorfiets
+motorways	snelwegen
+mouth	mond
+move	raken
+move	bewegen
+move around	verzetten
+move forward	vervroegde
+movement	slag
+mrs	mevrouw
+much discussed	spraakmakende
+much talked about	spraakmakende
+mug	gezicht
+multitude	schare
+mumble	mompelen
+municipalities	gemeenten
+murder	moord
+museum	musea
+museum	museum
+museum night	museumnacht
+music	muziek
+musician	musicus
+muslim	mohammedaan
+muslim extremists	moslimextremisten
+must	moesten
+must	moest
+must	moeten
+must	moet
+mutter	mompelen
+muzzle	mond
+my	mijn
+mysterious	mysterieus
+mysterious	geheimzinnig
+naked	naakt
+name	naam
+name	namen
+named	heet
+namely	namelijk
+narrow	engte
+narrow	beperkt
+narrow	vernauwen
+narrow	smal
+narrow	verminderen
+nasty	lastig
+nasty	laag
+nation	volk
+nations	naties
+native	gedegin
+nato	navo
+naturally	vanzelf
+naturally	natuurlijk
+naturally	uiteraard
+nature	natuur
+naval base	marinebasis
+near	dichtbij
+near	waarbij
+near	bij
+near	daarbij
+near by	nabij
+nearest	naast
+necking	vrijpartij
+need	behoefte
+need	hoeven
+neighbor	buurman
+neighborhood	buurtschap
+neighbour	buur
+neighbourhood	wijk
+neighbourhood	omgeving
+neighbourhood	buurt
+nephew	neve
+nephew	neef
+nephew	neefje
+nephew	oomzegger
+nerve	zenuw
+nerves	zenuwen
+net salary	nettoloon
+net wages	nettoloon
+netherlands	nederland
+network	netwerk
+networks	netwerken
+never	nooit
+new	nieuwe
+new	nieuw
+newborn	kraamkind
+newborn child	kraamkind
+newly	pas
+news	nieuws
+news brief	nieuwsbrief
+news broadcasters	nieuwszenders
+news organizations	nieuwsorganisaties
+newspaper	krant
+next	volgend
+next	naast
+next	volgende
+next	daarna
+next	vervolgens
+nice	leuke
+nice	prettig
+nice	leuk
+nice	fijne
+niece	nigt
+niece	oomzegger
+niece	nicht
+niece	nichtje
+nifty	kek
+night	nacht
+night watch	nachtwacht
+nightwatchman	nachtwacht
+nine	negen
+nineteen	negentien
+ninety	negentig
+no	nee
+no	geen
+no sooner than	nauwelijks
+nobody	niemand
+none	niemand
+nook	hoekje
+normal	normaal
+norway	noorwegen
+norwegian	noorse
+nose	neus
+not	niet
+not used well	onbenut
+note	toont
+notebook	blocnote
+nothing	niks
+nothing	niets
+notice	merken
+notice	bespreking
+noticeable	zichtbaar
+nourish	voeden
+now	nou
+now	nu
+number	getal
+number	nummer
+nun	liefdezuster
+nurse	voeden
+nurse	verpleegkundige
+nut	noot
+objects	objecten
+obscure	onbekend
+observation	observatie
+obvious	blijkbaar
+obviousness	duidelijkheid
+occupant	inzittende
+occupants	inzittenden
+occupation	bezetting
+occupied	bezet
+occupy	bezetten
+occur	gebeuren
+occurrences	gebeurtenissen
+october	oktober
+of	van
+of glass	glazen
+of wich	waarvan
+of years	jarenlang
+off	af
+offer	bieden
+offering	offer
+offers	aanbieden
+offers	biedt
+office	ministerie
+office	kantoor
+offices	kantoren
+official	officieel
+officials	commissarissen
+offset	eind
+often	dikwijls
+often	vaak
+ogre	bullebak
+oh	o
+oh	ow
+oil	olie
+oil price	olieprijs
+old	oud
+old fashioned	ouderwets
+old people	ouderen
+older	ouder
+ominous	dreigend
+ominous	dreigende
+on	aan
+on	erop
+on	op
+on	binnen
+on account of	vanwege
+on average	gemiddeld
+on behalf of	vanwege
+on end	overeind
+on high	omhoog
+on it	eraan
+on it	daarop
+on that	daarop
+on the sly	tersluiks
+on top	overheen
+once	eens
+once again	nogmaals
+once more	nogmaals
+once upon a time	eens
+oncoming car	tegenligger
+oncoming traffic	tegenligger
+one	een
+one another	elkaar
+one day	eens
+oneself	zich
+oneself	zichzelf
+onion	ui
+only	uitsluitend
+only	alleen
+only	enig
+only	slechts
+onto	erop
+open	morning
+open	open
+open the door	opendoen
+operating system	besturingssysteem
+operation	behandeling
+opinion	mening
+opposite neighbour	overbuur
+opposition leader	oppositieleidster
+oppress	drukken
+optimistic	optimistisch
+or	of
+orange	oranje
+orange	sinaasappel
+order	plaatsen
+order	bevelen
+order	bestellen
+orderly	geregeld
+ordinary	gewoon
+organise	organizeren
+organization	organisatie
+orientation	richting
+orifice	mond
+origin	oorzaak
+orphan	wees
+orphan	wezen
+other	anders
+other	ander
+other	andere
+our	onze
+our	ons
+out of	vanuit
+out of	uit
+out of date	ouderwets
+outbreak	uitbraak
+outgoing	uitgaande
+outlet to the sea	zeegat
+outlets to the sea	zeegaten
+output	ontwikkeling
+outside	buitenkanten
+outside	buitenkant
+outside	buiten
+outstanding	onbeslist
+outstanding	onbetaald
+outstanding	uitstekend
+outstanding	voortreffelijk
+outstanding	uitstaand
+over	boven
+over	omver
+over	overheen
+over there	ginds
+overdue	onbetaald
+overweight	overgewicht
+owing to	door
+own	eigen
+own	bezitten
+owner	eigenaar
+owner	directrice
+owner	directeur
+owners	bezitters
+pace	pas
+pace	stap
+paces	schreden
+pack	pakken
+package	pakken
+page	bladzij
+pages	bladzijden
+pages	paginas
+pagina	page
+paid	betaald
+pain	zeer
+pain	pijn
+painful	zeer
+painful	pijnlijk
+pains	moeite
+paint	verf
+paint	schilderen
+painter	verver
+painter	schilder
+pair	paar
+pal	maat
+pan	pan
+pane of a window	ruit
+panel	luik
+pang	steek
+panic	paniek
+papa	pa
+paparazzi	paparazzo
+paper	papier
+paper	blad
+parallel bars	brug
+paramilitary	paramilitairen
+parent	ouder
+parenthesis	haakje
+parenthesis	haakjes
+parents	ouders
+paris	parijse
+parisian	parijse
+parking lot	parkeerplaats
+parking space	parkeerplaats
+part	lid
+part	onderdeel
+part	deel
+part with	scheiden
+participated	deelgenomen
+particularly	vooral
+partly	deels
+parts	delen
+parts	deel
+pass	verlof
+pass	pas
+passenger	inzittende
+passengers	inzittenden
+passionate	driftig
+password	wachtwoord
+passwords	wachtwoorden
+past	voorbij
+past	langs
+past	verleden
+pastor	pastoor
+pat	tik
+patch	lap
+paternity	vaderschap
+patience	geduld
+patient	geduldig
+patients dossier	patientendossier
+patrol	ronde
+patronize	beschermen
+pattern	schema
+paw	been
+pay	betalen
+payment	afbetaling
+payment	betaling
+payment	betaald
+payroll	loonlijst
+peaceful	vredig
+peaceful	kalm
+peacefull	kalm
+peddler	leurder
+peddler	inlandschekramer
+peddler	venter
+penalties	boetes
+penalty	boete
+pencil	potlood
+pencils	potlooden
+pennant	wimpel
+pension	pensioen
+pensive	ernstig
+people	volk
+people	mensen
+people	men
+people	personen
+pepper	peper
+per	per
+perceive	merken
+percent	rente
+percent	procent
+percentage	percentage
+percentage	rente
+perceptible	zichtbaar
+perform	bedrijven
+perform	uitvoeren
+performance	uitvoering
+performed	gepleegd
+performs	verricht
+perhaps	wellicht
+period	termijn
+periodical	tijdschrift
+periodicals	tijdschriften
+permission	toestemming
+permission	verlof
+permitted	toegestaan
+perpetrated	gepleegd
+perplexed	verbijsterd
+person	persoon
+person	mens
+person	man
+personal	persoonlijk
+perspire	transpireren
+perspired	getranspireerd
+perspiring	transpireerde
+persuasion	richting
+petition	eis
+petting	vrijpartij
+phantom driver	spookrijder
+phase	fase
+phases	fasen
+phone	telefoon
+phone	telefoneren
+phone	toestel
+photographer	photograaf
+physician	dokter
+physics	natuurkunde
+pick	plukken
+pick up	oprapen
+pick up	rapen
+picked up	opgepakt
+picture	beeld
+pictures	afbeeldingen
+piece	stuk
+piece	stukje
+piece	lap
+piece of luck	buitenkansje
+pigeonhole	branche
+pile	hoop
+pillow	kussen
+pink	roze
+pit	kuil
+pitch	toont
+pitch	toon
+pitch	keilen
+pity	medelijden
+place	plaatsen
+place	plaats
+place	deponeren
+place	stellen
+place	lokaal
+plain	gewoon
+plane	vlak
+plans	plannen
+plant	plant
+plate	bord
+platform	perron
+platform	programma
+play	spelen
+play	spel
+player	speler
+playhouse	schouwburg
+playing	gespeel
+pleasant	vriendelijk
+please	alsjeblieft
+please	graag
+please	bevallen
+pleased	verheugd
+pleased	knollentuin
+pleased as punch	knollentuin
+pleasure	plezier
+pledge	pand
+plenty	overvloede
+plumber	loodgieter
+plump	dik
+point	richten
+point	wijzen
+point out	wees
+point out	wezen
+poland	polen
+police	politie
+police agents	politieagenten
+police escort	politieescorte
+police station	politiebureau
+policeman	politieagent
+policy	beleid
+political	politieke
+poll	stembus
+polling station	stembureau
+polling stations	stembureaus
+polls	peilingen
+poor	arm
+poor	armoede
+port	haven
+port city	havenstad
+portal	ingang
+portion	deel
+portrait	portret
+pose	stellen
+posibilities	mogelijkheden
+position	stand
+position	positie
+position	functies
+possess	bezitten
+possession	bezit
+possessors	bezitters
+possibility	mogelijkheid
+possible	eventuele
+possible	mogelijk
+possibly	wellicht
+post	functies
+post	plaatsen
+postman	postbode
+postponement	uitstel
+pot	marihuana
+potato	aardappel
+potatoes	aardappels
+potatoes	aardappelen
+poultry	pluimvee
+pour	gieten
+pour	schenken
+poverty	armoede
+practical	praktisch
+pray	bidden
+preamble	aanloop
+precise	precies
+preferably	liever
+prefered	lievelings
+preference	liefhebben
+preference for	liefhebben
+preferences	verkiezingen
+premature	vroegtijdig
+premier	premier
+premium	premie
+premiums	premies
+preparation	voorbereiding
+prepare	voorbereid
+prepare	voorbereiden
+prepared	verdacht
+prepared for	verdacht
+present	huidige
+present	aanwezig
+present	cadeau
+presented	gepresenteerd
+presently	huidige
+presents	biedt
+preservation	behoud
+preservation	toestand
+preservation	onderhoud
+preserve	onderhouden
+presidential candidate	presidentskandidaat
+presidential elections	presidentsverkiezingen
+press	drukken
+press	persen
+press release	persbericht
+pretentious	gemaakt
+pretty	mooie
+prevent	voorkomen
+previous	vorig
+previous	vorige
+previous	verleden
+price	prijs
+price level	prijsniveau
+price of oil	olieprijs
+prime minister	premier
+principle	principe
+print	drukken
+prisoners	gevangenen
+prisoners camp	gevangenenkamp
+private	particulier
+private	besloten
+prizes	prijzen
+probable	waarschijnlijk
+probably	vast
+problem	probleem
+problematic	problematiek
+problems	problemen
+problems	problematiek
+processes	processen
+procession	omgang
+proclaimed	afgekondigd
+proclamation	uitroepen
+produced	opgeleverd
+producers	producenten
+production	productie
+production process	productieproces
+products	producten
+profession	bedrijf
+professional	beroeps
+profit	belang
+profit	winst
+profound	diep
+profusion	overvloede
+program	programma
+progress	voortgang
+progress	vooruitgang
+prohibited	verboden
+prohibition	verbod
+project	projekt
+projects	projecten
+prolong	verlengen
+promote	vooruithelpen
+promote	beschermen
+promote	bevorderen
+promote	aanmoedigen
+promotion	promotie
+pronounce	wijzen
+pronouncement	uitspraken
+proof	teken
+proof	bewijs
+proper	eigenlijk
+proper	behoorlijk
+property	goederen
+proprietors	bezitters
+prospect	verschiet
+protect	beschermen
+protest	bestrijden
+protest	demonstreren
+protest	demonstratie
+protrude	puilen
+prove	blijken
+provided that	indien
+pub crawl	kroeg
+public	publieke
+public	publiek
+public	openbare
+publisher	uitgever
+puf off	verzetten
+pull	aantrekkingskracht
+pull	halen
+pull	trekken
+pupil	kwekeling
+puppet	pop
+purchase	overname
+purchase	kopen
+purple	purper
+purple	paars
+purposes	doelen
+pursue	voeren
+push	schuiven
+push	verkocht
+push	duw
+push	duwen
+put	stellen
+put	zetten
+put	bergen
+put	plaatsen
+put away	opsluiten
+put onto	voordoen
+put out to sea	uitlopen
+put up with	velen
+qualify	bepalen
+quantity	hoeveelheid
+quarrel	strijd
+quarrel	krakelen
+quarter	kwartaal
+queen	vrouw
+quelled	bedwongen
+quest	zoektocht
+question	vraag
+queue	wachtrijen
+quick	gauw
+quick	vlug
+quick	snel
+quickie	vluggertje
+quickies	vluggertjes
+quiet	gerust
+quietly	gerust
+quill	ganzenveer
+quilt	dekbed
+quintuplets	vijfling
+quit	verlaten
+quite	kalm
+quite	helemaal
+rabbit	konijn
+race	race
+race	rennen
+radical	radicalisme
+radicalizing	radicalisering
+radio	draadloze
+rag	lap
+rain	regen
+rain	regenen
+rained	regenen
+raise	heffen
+rally	verzamelen
+ram	ram
+rammed	ramde
+ran	liepen
+ran	liep
+range	scharen
+rank	graad
+rap	tik
+rare	dun
+rarely	zelden
+rather	nogal
+rather	eerder
+rather	eer
+rather	enigszins
+ravage	teisterden
+read	lees
+read	lezen
+ready	voorbereid
+ready	klaar
+ready	gereed
+ready made	gemaakt
+real	eigenlijk
+real	echte
+real estate broker	makelaar
+reality	werkelijkheid
+really	inderdaad
+reason	reden
+rebate	korting
+rebels	rebellen
+recall	herinnerd
+recall	herinneren
+recall	herinnerde
+recede	vervallen
+receipt	bewijs
+receipt	ontvangst
+receive	krijgen
+receive	ontvangen
+received	kregen
+reclamed land	polder
+recommend	aanbevolen
+record	vastleggen
+records	records
+recover	bergen
+recover	hersteld
+recover	herstel
+recover	herstelde
+recovery	berging
+red	rood
+red	rode
+red colored	roodgekleurd
+redering of service	dienstverlening
+redish	rode
+refresh	opfrissen
+refreshment	opfrissing
+refugee	vluchteling
+refund	vergoeden
+regal	koninklijke
+regarded as	beschouwd
+regarding	stukken
+regarding	betreffende
+regards	groetjes
+region	dreef
+region	regio
+region	gebied
+register	vastleggen
+registration	registratie
+regular	geregeld
+regular	regelmatig
+regularly	regelmatig
+reign	regering
+relation	verband
+relation	relatie
+relative	relatief
+relatives	bekenden
+release	uitbrengen
+relevant	relevante
+relieve oneself	ontlasten
+remain	blijven
+remainder	rest
+remainders	resten
+remained	bleef
+remained	bleven
+remains	blijft
+remind	herinnerde
+remind	herinnerd
+remind	herinneren
+remove	verzetten
+remove	verwijderen
+renew	vernieuwen
+renew	verlengen
+renewing	vernieuwing
+renovate	vernieuwen
+renovation	vernieuwing
+rent	huren
+reorganisation	reorganisatie
+repair	hersteld
+repair	herstellen
+repair	herstel
+repair	herstelde
+repairman	reparateur
+repairman	repareerder
+repeated	herhaald
+repetition	herhaling
+report	meld
+report	aanmelden
+report	rapport
+reported	meldden
+reporting	melding
+repose	gerust
+republican	republikeinse
+reputation	namen
+repute	roep
+request	aanvraag
+request	verzoek
+requested	gezocht
+require	vereist
+require	eisen
+require	nodig hebben
+require of	eisen
+required	verplicht
+requirement	eis
+requisite	behoefte
+research	onderzoek
+research company	onderzoeksbureau
+researcher	wetenschapper
+researchers	onderzoekers
+resemble	lijkt
+resemble	lijken
+reserve	reserveren
+resident	inwoner
+resolution	resolutie
+respite	respijt
+responsible	verantwoordelijk
+rest	gerust
+rest	resten
+rest	rest
+rest upon	gerust
+restaurant	restaurant
+restlessness	onrust
+restrained	bedwongen
+restricted	beperkt
+rests upon	ligt
+result	resultaat
+result	gevolg
+results	resultaten
+return	teruggekeerd
+return	terugkeert
+return	rente
+returns	omzet
+review	tijdschrift
+review	bespreking
+reviews	tijdschriften
+revive	opfrissen
+revolutionary	revolutionaire
+rhomb	ruit
+rice	rijst
+rich	rijke
+ride	rijden
+right	rechts
+right	vlak
+right	juist
+right	recht
+right	rechtsaf
+right hand	rechterhand
+right side	rechterkant
+rightly	terecht
+rim	rand
+ring	schellen
+ring	bellen
+rip off	flessen
+rise	steeg
+rise	opkomst
+rise	rijzen
+risk	risico
+rival	rivaal
+rival	concurrent
+rivals	concurrenten
+river	rivier
+road	weg
+roads	rede
+roam	waren
+roam	dwalen
+roast	braden
+robberies	inbraken
+robust	fors
+rock	rots
+rocket shield	raketschild
+rode	gereden
+rode	reden
+rode	reed
+role	rol
+romantic	romantiek
+roof	dak
+room	lokaal
+room	ruimte
+room	kamer
+rooms	kamers
+roomy	ruim
+rotation	omgang
+round	rond
+round	rondom
+round	omgang
+round	ronde
+round	afronden
+round about	omheen
+round off	afronden
+roundabout	rondom
+royal	koninklijke
+rucksack	rugzak
+rule	bestuur
+rule	regering
+rules	regels
+run	loop
+run	rennen
+run	halen
+run	lopen
+run out	uitlopen
+runner	loper
+rush	schieten
+rush	toeloop
+russia	rusland
+russian	russische
+sack	zakken
+sacrifice	offer
+sacrificed	ingeleverd
+sad	droef
+sad	treurig
+sadness	droefheid
+safe	veilig
+safety	veiligheid
+safety device	veiligheid
+sagittarius	boogschutter
+said	gezegd
+said	zeiden
+said	zei
+sail	varen
+sailing	vertrek
+sailor	varensgezel
+sailor	zeeman
+sailor	ligmatroos
+sailors	zeelieden
+saint	sint
+saint nicholas	sinterklaas
+salaries	salarissen
+salary	salaris
+sale	verkoop
+sales	sales
+sales	omzet
+salesperson	verkoper
+salt	zout
+salute	salueren
+salvage	berging
+salvation	berging
+sanctions	sancties
+sand	zand
+sandbank	bank
+sandwich	boterham
+sane	gezond
+sanguine	stout
+santa	sinterklaas
+santa	kerstman
+santa claus	sinterklaas
+santa claus	kerstman
+satchel	schooltas
+satisfied	zat
+saturday	zaterdag
+saturday mid day	zaterdagmiddag
+savings	besparing
+savings	spaargeld
+savings	korting
+savour	genieten
+saw	zag
+say	zeg
+say	spreken
+say	zeggen
+say	zegt
+scale	toonladder
+scales	weegschaal
+scar	litteken
+scarcely	pas
+scarcely	nauwelijks
+sceech	schreeuw
+scenery	natuur
+scent	ruiken
+scent	lucht
+schijint	schijint
+school master	schoolmeester
+schoolbag	schooltas
+schools	scholen
+science	wetenschap
+scientist	wetenschapper
+scisors	schaar
+scope	kader
+scorpion	schorpioen
+scream	kreet
+screen	beschermen
+screen	scherm
+scruffle	strijd
+sculpt	beeldhouwen
+sea	zee
+seagull	meeuw
+seaman	zeeman
+search	zoek
+search	zoeken
+search	zoektocht
+search history	zoekgeschiedenis
+season	seizoen
+seasons	seizoenen
+seat	zetel
+seats	zetels
+second	tweede
+section	branche
+security	pand
+sedimentation	bezinking
+see	zie
+see	zien
+see out	doorzetten
+seem	lijkt
+seemed	scheen
+seemed	schenen
+sees	ziet
+seize	aanhalen
+seldom	zelden
+selection	keur
+self	zelf
+self regulation	zelfregulering
+sell	verkocht
+sell	verkopen
+seller	handelaar
+seller	verkoper
+send	zenden
+send	stuur
+sends	stuurt
+senior citizens	ouderen
+sensational	sensationele
+sense	zin
+sensitive	vatbaar
+sentence	zin
+sentenced	veroordeeld
+separate	scheiden
+seperate	apart
+september	september
+sequel	vervolg
+serious	ernstig
+serious	ernst
+seriously hurt	zwaargewond
+seriousness	ernst
+servant	knecht
+serve	schenken
+serve	diende
+serve	dienen
+serve	bediend
+served	gediend
+service	dienst
+services	diensten
+set up	ingesteld
+settings	klaar
+settle	bezinken
+seven	zeven
+seventeen	zeventien
+seventy	zeventig
+sever	scheiden
+several	diverse
+sewer	rioleren
+sewerage	riolering
+shade	stolp
+shall	zult
+shall	zul
+shall	zouden
+shall	zal
+shall	zullen
+share	deel
+share	aandeel
+shave	scheren
+she	zij
+she	ze
+sheet	laken
+shelves	rek
+shield	beschermen
+shift	verzetten
+shin	instance
+shine	schijnen
+ship owner	reder
+shipmate	scheepsmaat
+ships captain	scheepsgezagvoerder
+shivery	huiverig
+shoe	schoen
+shoot	schieten
+shop	winkel
+shop	winkelen
+shop owner	winkelier
+shopkeeper	winkelier
+shoplifting	winkeldiefstal
+shopping	winkelen
+shopping streets	winkelstraten
+shops	winkels
+short	kort
+short	korte
+shortage	gebrek
+shortcoming	gebrek
+should	mocht
+should	zou
+should	mogen
+shout	schreeuw
+shout	juichen
+shout	roepen
+show	wezen
+show	demonstreren
+show	wees
+show	wijzen
+showed	gewezen
+shower	douche
+shriek	kreet
+shut	dichtdoen
+shut	toe
+shut out	uitgesloten
+shut up	opsluiten
+shutter	luik
+sick	ziek
+side	kant
+siege	beleg
+sigh	pfff
+sight	zicht
+sight	gezicht
+sign	teken
+signatories	comparanten
+significance	betekenis
+significance	gewichtigheid
+significant other	wederhelft
+signs	blijkt
+silence	opsluiten
+silence	zwijgen
+silver	zilver
+similar	gelijk
+simple	eenvoudig
+since	sindsdien
+since	sinds
+since	vanaf
+sincere	eerlijke
+singer	zanger
+singer	zangeres
+single	enig
+sink	gootsteen
+sink	zinken
+sink	bezinken
+sister	zuster
+sister	zus
+sit	zitten
+situated	lagen
+situated	lag
+situation	situatie
+six	zes
+sixteen	zestien
+sixty	zestig
+size	maat
+skating team	schaatsploeg
+skill	techniek
+skin	kopf
+skip	huppelen
+skippers	schippers
+sky	lucht
+slap	klap
+slap	veeg
+slap	pats
+slaps	klappen
+slave	tobben
+sleep	slaap
+sleep	slapen
+sleep	staan
+sleeper	slaper
+sleepiness	vaak
+sleeping policeman	drempel
+sleepy	slaperig
+slender	slender
+slender	dun
+slice	plakje
+slide	baan
+slide	glijden
+slightly	enigszins
+slot machine	speelautomaat
+slot machines	speelautomaaten
+slow	langzaam
+slut	slet
+sluts	sletten
+smack	pats
+small	dun
+small	klein
+small beer	biertje
+smart	wakker
+smart	ferm
+smart	slim
+smell	reuk
+smell	rieken
+smell	lucht
+smell	ruiken
+smell	geur
+smelled	rook
+smelled	rooken
+smile	lachen
+smoke	rook
+smoke	roken
+smoky	rokerig
+snatch	afpakken
+snug	gezellig
+so	zo
+so	toch
+so	dus
+so called	zogenaamd
+so called	zogenoemde
+so far	dusver
+so long as	zolang
+so named	zogenoemde
+so that	zodat
+soap	zeep
+soccer	voetbal
+social	gezellig
+society	vereniging
+society	maatschappij
+society	genootschap
+sofa	bank
+soft	zacht
+software	programmatuur
+software	software
+software company	softwarebedrijf
+solar	zonne
+solar system	zonnestelsel
+soldeirs	soldaten
+soldier	soldaten
+soldier	soldaat
+sole	enig
+solemn	ernstig
+solution	oplossing
+some	sommige
+some	enkele
+some	enige
+somebody	iemand
+something	iets
+somewhat	enigszins
+somewhere	ergens
+son	zoon
+song	lied
+soon	binnenkort
+sooner	eer
+sooner	eerder
+sorrow	droefheid
+sought	gezocht
+sound	toont
+sound	klinken
+sound	gehoor
+sound	toon
+soup	soepen
+soup	soep
+sour	zuur
+source	bron
+source language	brontaal
+south	zuid
+south	zuiden
+southern	zuidelijk
+spa	badplaats
+spacious	ruim
+spain	spanje
+spanish	spaans
+speak	spreken
+speak	praat
+speak	praten
+speaking	sprekend
+special	speciaal
+special	bijzonder
+speciality	branche
+specially	vooral
+speech	spraak
+speed bump	drempel
+speed limit	maximumsnelheid
+speedy	spoedig
+spell	spellen
+spend on	besteden
+sphere	gebied
+spirited	moedig
+spit	steek
+spoil	bederven
+sponge	spons
+spoon	lepel
+spot	moet
+spouse	gade
+spouses	echtgenooten
+spout	straal
+spouts	straalen
+spring	lente
+spry	wakker
+squabble	krakelen
+squeeze	drukken
+squeeze	persen
+stab	steek
+stableman	stalknecht
+stairs	trappen
+stairs	trap
+stamp	merken
+stand	stond
+stand	staan
+standing	stand
+start	begin
+start	vertrekken
+start	beginnen
+startle	schrikken
+startled	schrokken
+startled	schrok
+state	staat
+state of emergency	noodtoestand
+state visit	staatsbezoek
+stated	meldden
+statement	opgave
+states	staten
+station	plaatsen
+stationed	gestationeerd
+stay	blijf
+stays	blijft
+steal	bestelen
+steal	stelen
+stealthily	steelsgewijs
+stealthily	tersluiks
+stealthily	sluiks
+steam	stoom
+steamboat	stoomboot
+steamboats	stoomboten
+step	stap
+step	trap
+step	pas
+steps	trapje
+steps	stoep
+steps	stappen
+steps	trappen
+stiff	stijf
+still	nog
+stimulate	stimuleren
+stimulated	gestimuleerd
+sting	steek
+sting	steken
+stir	bewegen
+stitch	steek
+stock exchange	beurs
+stolen	gestolen
+stone	stenen
+stone	steen
+stones	stenen
+stood	stonden
+stops	stopt
+storage	opslag
+storage room	opslag
+store	bergen
+store up	verzamelen
+stormy	stormachtige
+story	verhaal
+stout	gezet
+stout	dik
+stove	kachel
+straight	direct
+straight	rechtdoor
+straighten	rechten
+strange	vreemd
+stranger	vreemd
+strategy	strategie
+straw	stro
+streamer	wimpel
+street	straat
+streets	straten
+strength	bezetting
+strike	staking
+stroke	aaien
+stroke of luck	buitenkansje
+stroll	wandelen
+strong	sterk
+strong	twene
+struck	sloegen
+struck	sloeg
+students	studenten
+studied	gezocht
+study	studeren
+stuff	spullen
+sturdy	fors
+subscribe	bijdragen
+subsequently	daarna
+substantial	fors
+subtle	fijne
+suburb	buitenwijk
+suburbs	buitenwijken
+succeed	slagen
+success	succes
+such	dusdanig
+such	zoals
+such	zulk
+suddenly	plots
+suffer	velen
+suffer	lijden
+sufficient	genoeg
+sugar	suiker
+suggests	suggereren
+suitable	toepasbaar
+sum	som
+sum	bedrag
+summer	zomer
+summons	toewijzing
+sun	zon
+sunbathe	zonnen
+sunny	zonnig
+suns	zonnen
+supermarket	supermarkt
+supermarkets	supermarkten
+supervisor	toezichthouder
+support	onderhouden
+support	steun
+supported	gesteund
+supporters	bijdragers
+suppose	stellen
+supposing	gesteld
+suppressed	bedwongen
+sure	vast
+surf	branding
+surfing	surfen
+surplus	voordelig
+surplus	teveel
+surrender	afstand
+surrenders	afstanden
+surround	omringen
+surround	omgeven
+surrounding	rond
+suspect	verdacht
+suspect	verdachte
+suspected	verdacht
+suspicious	verdacht
+swap	wisselen
+swear	zweren
+sweden	zweden
+swedish	zweedse
+swedish	zweeds
+sweep	teisterden
+sweet	zoet
+sweetest	liefste
+swerve	zwenkingen
+swerve	zwenking
+swift	gauw
+swim	drijven
+swim	zwemmen
+swindle	flessen
+switch	overschakelen
+symmetric	regelmatig
+sympathized	deelgenomen
+symptom	teken
+table	tafel
+tables	tabellen
+take	treffen
+take	nemen
+take	bezetten
+take	ontvangen
+take	volgen
+take	gebracht
+take up	oprapen
+taken aback	ontdaan
+takes	vergt
+takings	ontvangst
+talented	getalenteerde
+talk	bespreking
+talking	sprekend
+talks	gesprekken
+tall	hoog
+tap	kraan
+task	taak
+task	opgave
+tasks	werkzaamheden
+taste	smaak
+taste	smaken
+tasty	lekker
+tatter	lap
+tea	thee
+teacher	leraar
+teacher	docent
+technical	technische
+technique	techniek
+telecom company	telecombedrijf
+telecommunications	telecommunicatie
+telephone	telefoon
+telephone call	telefoongesprek
+telephone conversation	telefoongesprek
+telephone costs	telefoonkosten
+telephone kiosk	telefooncel
+telephones	telefoons
+television	televisie
+temperature	temperatuur
+tempestuous	stormachtige
+temporarily	tijdelijk
+ten	tien
+tense	spannend
+term	termijn
+terribly	erg
+terribly	vreselijk
+terribly	verschrikkelijk
+territory	gebied
+testicle	bal
+testicles	ballen
+tests	testen
+text	tekst
+than	dan
+thank	danken
+that	die
+that	dat
+that	opdat
+that is why	vandaar
+the	het
+the	de
+the like	zoiets
+the same	dezelfde
+theater	schouwburg
+theft	diefstal
+their	hun
+theirs	hare
+theirs	hunne
+them	hem
+them	hun
+them	erop
+themselves	zich
+then	dan
+then	toen
+thence	daarvan
+theory	leer
+there	daar
+there	er
+there upon	daarop
+thereabout	rondom
+thereabouts	rondom
+therefore	daardoor
+therefore	daarom
+these	deze
+they	hen
+they	zij
+they	hun
+they	ze
+thick	dicht
+thick	dik
+thin	dun
+thin	smal
+thing	ding
+things	spullen
+think	denk
+think	denken
+thinks	denkt
+third	derde
+thirst	dorst
+thirsty	dorstig
+thirteen	dertien
+thirty	dertig
+this	dit
+this	deze
+this afternoon	vanmiddag
+this morning	vanochtend
+thought	gedacht
+thought	dacht
+thought	dachten
+thousand	duizend
+threatening	dreigend
+threatening	dreigende
+threatens	dreigt
+three	drie
+threshold	drempel
+thrilling	spannend
+through	gereed
+through	door
+through	doorheen
+throw	gooien
+throw	gooi
+throw	werpen
+throw away	weggooien
+thrust	steek
+thumb	duim
+thumbs	duimen
+thursday	donderdag
+thursday night	donderdagavond
+thus	aldus
+ticket	kaart
+ticket	kaartje
+tickle	kriebelen
+tie	binden
+tight	dicht
+tighten	aanhalen
+till	totdat
+till	tot
+time	keer
+time	maat
+time	tijd
+timely	vroegtijdig
+tiny	fijne
+tip	topje
+tired	vermoeid
+title	titel
+to	te
+to	tegen
+to	ter
+to	naar
+to	aan
+to be	zijn
+to be	geweest
+to be named	heten
+to be silent	zwijgen
+to look at	kijken
+to pot plants	potten
+to talk about	bespreken
+to tell the truth	eigenlijk
+today	heden
+today	vandaag
+together	samen
+together	tegelijk
+tokens	blijkt
+tomorrow	morgen
+tone	stemming
+tone	toon
+tone	toont
+tonight	vanavond
+tonight	vannacht
+too	mede
+too	te
+too	ook
+took	nam
+took	bracht
+took	namen
+tooth	tanden
+tooth brush	tandenborstel
+toothbrush	tandenborstel
+top	bovenkant
+top level domains	topleveldomeinen
+topple	tuimelen
+total	totaal
+total amount	som
+totally	helemaal
+totally	volledig
+touch	aanraken
+touch	raken
+touch screen	aanraaksscherm
+touchscreen	aanraaksscherm
+tourist	toerist
+tourist class	toeristenklasse
+tourist tax	toeristenbelasting
+tourists	toeristen
+tow	slepen
+toward	aan
+towards	tegen
+towards	aan
+towards	rondom
+towel	handdoek
+town	stad
+town	dorp
+town dweller	burger
+toy	speelgoed
+track	volgen
+trade and industry	bedrijfsleven
+trademark	merk
+traditional	traditionele
+traffic	verkeer
+train	trein
+trains	treinen
+transfer	overdracht
+translation	vertaling
+translation	translatie
+trapdoor	luik
+travel	rijden
+travel	reis
+travelled	reden
+travelled	reed
+treat	behandelen
+treat	behandeld
+treatment	behandeling
+tree	boom
+trend	richting
+tribunal	gerecht
+trick	flessen
+tricky	lastig
+tried	probeert
+trip	reis
+trollop	slet
+trollops	sletten
+trot	draven
+trouble	storing
+trouble	moeite
+truce	bestand
+truck	vrachtauto
+truck	wagon
+true	eigenlijk
+true	trouw
+truely	echt
+trunk	koffer
+try	proberen
+tuesday	dinsdag
+tuesday night	dinsdagavond
+tumble	tuimelen
+tumultuous	stormachtige
+tune	wijs
+turkish	turkse
+turkish	love
+turn	zwenking
+turn	keer
+turn	wenden
+turn	draai
+turn	zwenken
+turn	zwenkingen
+turn	zwenk
+turn	keren
+turn	wisselen
+turn	beurt
+turn around	wenden
+turn back	teruggekeerd
+turned	keerde
+turning	draai
+turnout	opkomst
+turnover	omzet
+twelve	twaalf
+twenty	twintig
+twins	tweelingen
+twist	draai
+two	twee
+type	tikken
+types	typen
+ugly	lelijk
+uhhh	pfff
+unawares	onverwachts
+uncatchable	ongrijpbare
+uncle	oom
+unclear	onduidelijk
+under	onder
+underground	metro
+underneath	hieronder
+understand	verstaan
+understand	begrijpen
+understandable	duidelijk
+understanding	begrip
+understanding	verband
+underutilized	onbenut
+undulate	golven
+unemployment	werkloosheid
+unexpected	onverwacht
+unexpectedly	onverwachts
+unforeseen	onvoorzien
+unforeseen	onvoorziene
+unhealthier	ongezonder
+unhurt	ongedeerd
+unimaginable	onvoorstelbaar
+union	vereniging
+union	unie
+union	vakbond
+unions	vakbonden
+unique	enig
+unit	eenheid
+united	verenigde
+united nations	vn
+united states	vs
+university	universiteit
+unknown	onbekend
+unlooked for	onverwacht
+unmarried man	jongman
+unpaid	onbetaald
+unrest	onrust
+unruly	lastig
+unspecific	onbepaalde
+until	binnen
+until	totdat
+untimely	vroegtijdig
+untroubled	kalm
+up	op
+up	omhoog
+up	overeind
+up it	erop
+up till now	dusver
+uphold	handhaven
+upon	aan
+upon which	waarop
+upright	overeind
+upset	ontdaan
+upset	verbijsterd
+usable	toepasbaar
+use	gebruikt
+use	gebruik
+use	gebruiken
+use abusive language	schelden
+used abusive language	gescholden
+used to	gewoon
+user	gebruiker
+user names	gebruikersnamen
+users	gebruikers
+usual	gewoon
+vacant	leeg
+vacation	verlof
+vague	vaag
+vague	vagu
+vainly	tevergeefs
+valid	gelden
+value	waarde
+van	bestelwagen
+vanish	verdwijnen
+various	allerlei
+vary	afwisselen
+vast	ruim
+veal	kalfsvlees
+vegetable	groente
+vegetarian	vegetarier
+vehement	heftig
+vendor	kramer
+vendor	verkoper
+verdict	uitspraken
+version	versie
+very	heel
+very	zeer
+very nearest	allernaast
+very next	allernaast
+vessel	vat
+veterinarian	veearts
+via	als
+via	via
+vicinity	omgeving
+victim	offer
+victim	slachtoffer
+victims	slachtoffers
+video	video
+video game	videospel
+view	zicht
+view	gezicht
+view	bekijken
+views	richting
+village	dorp
+village policeman	veldwachter
+vindicate	handhaven
+violations	aanrandingen
+violence	geweld
+violent	gewelddadige
+violent	heftig
+virgo	maagd
+virtual	virtueel
+visibility	zicht
+visible	zichtbaar
+vision	gezicht
+visit	bezoek
+visit	bezoeken
+visited	bezocht
+visitor	badgast
+visitor	bezoeker
+visitors	badgasten
+visitors	bezoekers
+visitors	volk
+voice	stem
+voices	stemmen
+vote	stemming
+vote	stem
+vote chooser	stemwijzer
+voted	gestemd
+votes	stemt
+votes	stemmen
+wage	salaris
+wages	salaris
+waist	kuil
+wait	wachten
+wait	afwachten
+waited	afwachtte
+waiter	kellner
+waiter	ober
+waiting line	wachtrijen
+waking	wakker
+walk	wandelen
+walk	lopen
+walk	loop
+walk about	rondloopt
+walker	loper
+wall	muur
+wallet	beurs
+wander	dwalen
+wander	waren
+want	vereisen
+want	willen
+want	nodig hebben
+want	moeten hebben
+want	wensen
+war	krijg
+war	oorlog
+wares	waren
+warfare	oorlog
+warn	waarschuwt
+was	waren
+was	was
+was allowed to	mochten
+was used to	gewend
+wash	wassen
+washing machine	wasmachine
+washy	dun
+watch	wacht
+watch	horloge
+watch	volgen
+watch	uurwerk
+water	water
+wave	golven
+way	baan
+way	wijze
+way	wijs
+way	weg
+ways	manieren
+we	wij
+we	men
+weak	slap
+wealthy	vermogende
+wear	dragen
+weather	weer
+weather forecast	weersverwachting
+weaver	wever
+web browser	webbrowser
+wednesday	woensdag
+week	week
+weekend	weekeinde
+weeks	weken
+weep	wenen
+weep	kreet
+weigh	wegen
+weight	gewicht
+welcome	welkom
+well	wel
+well known	bekende
+well known	bekend
+went	gegaan
+went	gingen
+went	ging
+wet	nat
+what	wat
+what for	hoezo
+wheel	wiel
+wheel chair	rolstoel
+wheel chairs	rolstoelen
+wheelchair	rolstoel
+wheelchairs	rolstoelen
+when	wanneer
+when	toen
+when	als
+where	waar
+where proper	pas
+where to	waarheen
+where to	waarnaartoe
+whereas	terwijl
+whereby	waardoor
+whereby	waarmee
+wherein	waarin
+wherein	waarop
+which	welk
+which	welke
+while	terwijl
+whisk	veeg
+whistle	fluiten
+white	witte
+white	wit
+white	blank
+whitewash	witten
+who	wie
+whole	geheel
+whole	hele
+whole	heel
+wholesale	massaal
+wholesome	gezond
+wholly	helemaal
+whom	waarbij
+why	waarom
+why	hoezo
+wide	ruim
+wide	wijd
+widely	ruim
+widow	weduwe
+widower	wedumnaar
+width	baan
+width	wijdte
+width	breedte
+wife	vrouw
+wife	echtgenote
+will	wil
+will	zin
+willing	willen
+willingly	graag
+win	winnen
+windfall	buitenkansje
+winding	draai
+window	venster
+wine	wijn
+wipe	veeg
+wireless	draadloze
+wise	wijs
+with	met
+with	van
+with	bij
+with respect to content	inhoudelijk
+with that	daarmede
+with that	daarmee
+with this	hiermee
+withdraw	onttrekken
+withdrew	onttrokken
+within	daarbinnen
+without	geen
+without	zonder
+witnesses	comparanten
+woe	ach
+women	vrouwen
+women	vrouw
+wood	bos
+wood	hout
+word	woord
+work	werk
+work	werkt
+work	werken
+work out	tellen
+worked	deden
+worked	gewerkt
+worked	deed
+workers	werknemers
+workman	werkman
+workman	arbeider
+workmanship	uitvoering
+workwomen	arbeidster
+workwomen	werkvrouw
+world	wereld
+worlds	werelds
+worry	tobben
+worser	slechter
+would	wilden
+wounded	gewond
+wrinkle	frons
+write	clue
+write	stellen
+write off	afschrijven
+write up	bespreking
+writers	schrijvers
+writing	schrift
+yawn	geeuwde
+yawn	geeuwen
+yawned	gegeeuwd
+year	jaar
+yearly	jaarlijks
+years	jaren
+years	jarenlang
+yellow	geel
+yes	ja
+yesterday	gisteren
+yet	nog
+yet	reeds
+yet	alvast
+yet	toch
+yield	wijken
+yielded	opgeleverd
+yielded	geweken
+yon	ginds
+yonder	ginds
+you	jou
+you	u
+you	jij
+you	je
+you	jouw
+you	jullie
+you	men
+young	jong
+young man	jongman
+your	jullie
+your	uw
+your	jij
+yourself	jezelf
+youth	jeugd
+youth leader	jeugdleider
+zero	nul
+zodiac sign	sterrenbeeld
+zodiac signs	sterrenbeelden

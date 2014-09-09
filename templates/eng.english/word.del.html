@@ -1,0 +1,7 @@
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+   <form method="POST" action="<<HOSTNAME>>task/" 
+    onSubmit="return ask('Are you sure you want to delete the link: \n<<SOURCE_WORD>> = <<TARGET_WORD>> ?')">
+    <input type="hidden" name="link" value="del">
+    <input type="hidden" name="link_id" value="<<LINK_ID>>" />
+    <input type="submit" value="Delete: <<SOURCE_WORD>> = <<TARGET_WORD>>">
+   </form>

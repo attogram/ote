@@ -1,0 +1,152 @@
+
+Open Translation Engine
+
+Change Log
+----------
+
+0.9.8.9
+- global change to php start tag <? to <?php
+- added template settings variable to sample settings file
+
+
+0.9.8.8
+- new templates: for /translate, /docs/index.php, and language or word not found errors.
+- fixed /translate input box to strip slashes of input
+- fixed /modify to access all words
+
+
+0.9.8.7
+- added export in XDXF format
+- templating files for all export types
+- new /modify page for dictionary admins to globally modify word (with list of current pairs)
+- new RSS feeds: /feed/ show short summary and available feeds
+- new RSS feeds: /feed/random/XXX/YYY/ shows random word (optional /?text=1 for plain text format)
+- removed /quick directory (a quickbox can now be generated on-the-fly from /export)
+- removed old OVERRIDE_TEXT's in $ote->get_template()
+- refactored $ote->get_template()
+- /index.php and /random updated with appropriate feed urls
+- removed most text messages printed during import
+- rotating TABLE_CELL_BACKGROUND_COLOR_1/2 now part of template_settings.php $text variable
+- template 'settings' variable removed in favour of 'template' variable
+- template settings file changed to 'template.settings.php'
+
+
+0.9.8.6
+- /export gettext PO format
+- /export javascript 'quickbox' format
+- new quickbox /quick/index.php, using sample from javscript export
+- new templates for /word, /random
+- new settings define FORCE_LOWERCASE to force all words into lowercase, or not
+- fixed $ote->insert_task() to escape words before mysql insert
+- added 'Lookup Word or Phrase' input box on homepage
+
+
+0.9.8.5
+- fixed /random sql query to properly select with multiple views
+- removed 'Page Created in X seconds' debug messages and code
+- added template replacer <<COUNT_1_2>> and <<COUNT_2_1>> for # of word pairs in a language pair
+- changed task 'updated' field to generic datetime, no longer auto updated (now compatible with depreciated V4 installs)
+- more template text message integration
+
+
+0.9.8.4
+- new $ote->__($msg) function for text messages
+- text messages now stored in template.settings.php file
+- PHP object class files now in individual files in /class directory
+- new $ote->clean('translate') case to remove punctuation marks for /translate
+- new settings.php define 'CLEAN_PUNCTUATION' for punctuation to remove with ote->clean('translate')
+- new /error.check.php test for 'CLEAN_PUNCTUATION' define
+- /import now does check if language pair is selected before form submit
+
+
+0.9.8.3
+- new /word and /list layout
+- ote->wordnotfound() now allows additions/suggestion of new word pair 
+- /samples directory now mirrors the Dictionary Additions Management System (DAMS) project
+- /translate now links words with spaces
+
+
+0.9.8.2
+
+- /error.check.php script with catches for install and setup errors
+- modified /ote.class.php to tie into new /error.check.php
+- new settings option DEPRECIATED_V4 to install on depreciated PHP4/MySQL4 systems
+
+
+0.9.8.1
+
+- fix: global update to correct language code variables
+- fix: updates to all mb_* functions in ote.class.php
+- fix: $ote->clean('alpha') now connects to database & does mb_strtolower
+- fix: removed 'word with space' checks in ote.class.php 
+- tweak: removed debug comments from /ote.class.php & /admin
+- tweak: added default admin user to /sql/db.create.ote.tables.sql
+- tweak: code formatting and cleanup: /ote.class.php
+- new: sample dictionary: English <> Dutch /samples/english.dutch.ascii.txt
+- new: sample dictionary: English <> Indo-European /samples/english.indo-european.utf8.txt
+- new: sample dictionary: Hindi <> Tamil /samples/hindi.tamil.utf8.txt
+- new: sample dictionary: Hello in many languages /samples/hello.in.many.languages.utf8.txt
+
+
+0.9.8
+
+- new: How to help out the OTE project: /docs/developer.documentation.txt
+- new: Template System        
+       - sample template files in /templates/default/ and /templates/reverse/
+       - template.settings.php for text and table cell color defines.
+- new: View System
+       - multiple views, each may use a different Source<>Target languages and/or a different template
+       - chooser pulldown menu shown if 2+ views defined
+- new: /export system, with user defined delimiter  (for tab, use \t .. other \escapes do not yet work)
+- new: /import system, for users with level Dictionary Admin
+- new: DEMO mode -- for demo installations, protects 1 user from edits. 
+- new: OPEN Mode -- allow anonymous guests USER level (instead of normal GUEST level) 
+- new: When someone with USER level suggests a new word, it will be displayed back to them 
+       during their active session on /word, /random and /translate
+- new: main settings file now /settings.php with /settings.php-dist example
+- new: All mysql queries now exit on error and display a debug trace
+- new: Task and User Admin links now displayed in footer in default template
+- new: Removed 'ote_language' table and code calls -- all language settings now from /settings.php
+- new: Changed numeric 'language id' into ISO 3 character code
+- new: new template.settings.php define NUMBER_OF_WORDS_TO_SHOW_ON_LIST for # of word pairs to show per page in /list
+- new: new template.settings.php define NUMBER_OF_TASKS_TO_SH OW_ON_INTRO for # of tasks to on /task/
+- new: /task/open/ and /task/closed/ for all Open and all Closed tasks
+- new: /task tables now show the admin user who Accepted the task
+- new: Unpaired word dictionary cleaner, for Admin level only, at: /admin/cleanup/
+- new: moved VERSION, HOSTNAME and DEPTH defines from settings.php to /ote.class.php ote class constructor 
+- new: session_start moved to ote.class.php ote class constructor
+- fix: /user/register/ system now checks if username is already taken
+- fix: /task/accept/ of a DELETE now only deletes word pair, not the source & target word
+- fix: /word errors better with 404 Word Not Found page, with link to /translate to create new word pair
+- fix: mysql connect error message are now @hidden
+- fix: after logging in, registering, or logging out, users are redirect back to the page they were last viewing, with an Alert
+- fix: edit link in /feed is now clickable
+- fix: pop up javascript confirm dialog before: /task 'Reject', /task 'Clear', /word Delete, and /random Delete
+- fix: words with spaces are now linked (but bug: words with spaces get split when sent into /translate & other pages)
+- fix: all forcetype php files now error check for /too/long/urls/
+- fix: replaced add mysql_escape_string() with  mysql_real_escape_string()
+
+
+0.9.7
+- new User Levels
+    Guest: View only 
+    User: Suggest dictionary edits
+    Dictionary Admin: Edit dictionary
+    Site Admin: Edit users
+- updated /admin to edit new User Levels
+- updated /task to comply with new User Levels
+- updated /task system workflow - Accept / Reject / Clear
+- new table definitions: ote_task, ote_user
+- new /sql directory with all database files
+- fixed admin user in sql files
+- removed /module directory, moved settings.php to top level
+
+
+0.9.6
+- new admin users system
+- simplified task system
+
+
+0.9.5
+- utf-8 support
+

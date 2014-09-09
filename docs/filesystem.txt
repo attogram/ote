@@ -1,0 +1,70 @@
+
+Open Translation Engine (OTE) 
+
+File System
+--------------------------------------------------------------------
+
+/settings.php-dist   - Global Settings.  Copy to "settings.php" & edit to install OTE.
+/readme.txt          - intro readme file
+/ote.class.php       - main PHP object for OTE system
+/translate           - translation tool 
+/list                - dictionary lister
+/word                - word viewer / editor
+/random              - random word viewer
+/feed                - RSS feed system
+/export              - Export dictionary
+/import              - Import into dictionary
+/user                - user system
+/task                - task system
+/admin               - admin system
+/404.php             - default error page
+/.htaccess           - Apache setup for ForceType PHP and 404
+/robots.txt          - search engine robot control file
+
+/templates/default/  - Default Template directory
+/templates/default/template_settings.php -Template settings (text defines & table colors)
+/templates/default/header.html - global Header (includes CSS)
+/templates/default/footer.html - global Footer
+/templates/default/home.html -  Home Page
+/templates/default/login.html - Login Page /user/login/
+/templates/default/register.html - Register Page /user/register/
+/templates/default/user_info.html - User Info Page /user/
+
+/templates/reverse/ - sample template, with same file names as the default template directory
+
+/docs/install.txt    - installation instructions
+/docs/license.txt    - Open Source BSD License
+/docs/roadmap.txt    - Development Road Map
+/docs/changelog.txt  - Change Log
+/docs/filesystem.txt - This File
+/docs/developer.documentation.txt - How to contribute to the OTE
+/docs/index.php      - Documentation web index
+/docs/.htaccess      - Apache setup to turn off ForceType
+
+/class/ote.debug.php - Debug class
+/class/ote.database.php - Database functions
+/class/ote.util.php - Language and system utilities
+/class/ote.translate.php - translate and word functions
+/class/ote.template.php - templating functions
+/class/ote.task.php - task system
+
+/sql/create.database.sql  - SQL commands to create OTE database
+/sql/create.tables.sql - SQL commands to create OTE tables
+/sql/debug/create.admin.user.sql - inserts default admin account
+/sql/depreciated/depreciated.v4.database.sql - for installs on depreciated MySQL 4.x
+/sql/depreciated/depreciated.v4.tables.sql - for installs on depreciated MySQL 4.x
+/sql/.htaccess - Apache setup to turn off ForceType
+
+/samples/ - Sample dictionary files
+/samples/readme.txt - information about Dictionary Additions Management System (DAMS)
+/samples/english.dutch.txt - sample English = Dutch dictionary
+/samples/english.hello.in.many.languages.txt - sample of english 'hello' in many languages
+/samples/english.indonesian.txt - sample English = Indonesion dictionary
+/samples/english.batak.txt - sample English = Batak dictionary
+/samples/hindi.tamil.txt - sample Hindi = Tamil dictionary
+/samples/.htaccess  - Apache setup to turn off ForceType
+
+/quick/index.php - "Quick Box" Javascript word lookup (using sample form /export)
+/quick/.htaccess - Apache setup to turn off ForceType
+
+--------------------------------------------------------------------

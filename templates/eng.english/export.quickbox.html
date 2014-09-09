@@ -1,0 +1,63 @@
+<script language="JavaScript">
+// <<SOURCE_LANG_NAME>> = <<TARGET_LANG_NAME>>
+// <<SOURCE_LANG_CODE>> = <<TARGET_LANG_CODE>>
+// <<NUMBER_OF_ROWS>> Word Pairs
+//
+// Open Translation Engine <<VERSION>>
+// <<HOSTNAME>>
+// <<DATETIME>>
+//
+// This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License. 
+// To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+// or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+
+<<QUICKBOX_ARRAY>>
+
+function text_completion_input_box( tbox, chooser_array, results_div ) {
+
+        var mresults = new Array();
+        var mcount = 0;
+        var results = ''; // final HTML results
+
+        if( tbox.value.length <= 0 ) { return; } // if no input, return
+        inp = tbox.value;   // get the input
+        inp = inp.replace(/\?/gi,'\?'); // clean the input, escaping out special characters
+        inp = inp.replace(/\)/gi,'\)'); // for use in regexp - no: ?(){}[]*+|
+        inp = inp.replace(/\(/gi,'\('); inp = inp.replace(/\[/gi,'\[');
+        inp = inp.replace(/\]/gi,'\]'); inp = inp.replace(/\{/gi,'\{');
+        inp = inp.replace(/\}/gi,'\}'); inp = inp.replace(/\*/gi,'\*');
+        inp = inp.replace(/\+/gi,'\+'); inp = inp.replace(/\|/gi,'\|');
+
+     var rex_start = new RegExp("^" + inp, "i");       // match at start of string
+
+     for (a in chooser_array) { // for every array
+         source_language = chooser_array[a][1];
+         target_language = chooser_array[a][0];
+
+         if (rex_start.test(target_language)) { // if we match at start of string...
+             mresults[mcount++] = new Array(source_language,target_language);
+         }
+     }
+     if( mresults.length ) { // If there are any matches
+       for (b in mresults) {
+         tbox.style.backgroundColor='99FF33'; // input text box to:  Light Green Background
+         results = results + "<b>" + mresults[b][1] + "</b>" + " = " + mresults[b][0] + "<br />";
+       }
+     } else {    // If there are NO PARTIAL MATCHES
+       results = '... no matches ...';
+       tbox.style.backgroundColor='CCCCCC'; // input text box to:  Light Gray
+     }
+     document.getElementById(results_div).innerHTML = results;
+} // END of text_completion_input_box
+
+</script>
+<form>
+<p>Quick Word Lookup: <<SOURCE_LANG_NAME>> = <<TARGET_LANG_NAME>></p>
+<p><input name="lookup_input" type="text" size="20"
+ onkeyup="text_completion_input_box(this, quickbox_array, 'lookup_results' );"><br /><div 
+ id="lookup_results" style="margin:8; padding:8">
+<p>Start typing a <<SOURCE_LANG_NAME>> word in the box above,
+and instantly view <<TARGET_LANG_NAME>> translations</p>
+</div>
+</p>
+</form>

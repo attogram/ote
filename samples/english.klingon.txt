@@ -1,0 +1,70 @@
+# English > Klingon
+# eng > tlh
+# 57 Word Pairs
+# Version 0.0.0
+#
+# DAMS - The Dictionary Additions Management System
+# http://sourceforge.net/projects/dams/
+#
+# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License. 
+# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+#
+# delimiter: =
+a hundred tasks=Qu'vatlh
+asshole=petaQ
+bastard=petaQ
+bile=HoH
+coward=bIHnuch
+curse=QI'yaH
+damn=ghuy'
+damn it=ghay'cha'
+eight=chorgh
+five=vagh
+five hundred and fivety five=vaghvatlh vaghmaH vagh
+four=loS
+four thousand and four=loSSanID loS
+fourty two=loSmaH cha'
+gall=HoH
+he=ghaH
+hundred=wa'vatlh
+hundred thousands=bIp
+hundreds=vatlh
+i=jIH
+i see=jIlegh jIH
+insignificanct=Qovpatlh
+insult=baktag
+it='oH
+klingon language=tlhIngon Hol
+language=Hol
+me=jIH
+millions='uy'
+nine=Hut
+nine thousand=HutSaD
+one=wa'
+seven=Soch
+she=ghaH
+shit=HoH
+six=jav
+slime=HoH
+ten=wa'maH
+ten thousands=netlh
+tens=maH
+that='e'
+that=net
+them=chaH
+them=bIH
+they=chaH
+they=bIH
+thirty=wejmaH
+thousands=SaD
+three=wej
+two=cha'
+us=maH
+we=maH
+what do you want=nuqneH
+you=tlhIH
+you=SoH
+you all=tlhIH
+you see me=jIH cholegh soH
+zero=pagh

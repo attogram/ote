@@ -1,0 +1,194 @@
+<?php
+// Open Translation Engine
+// Export Dictionary
+
+require_once('ote.class.php');
+$ote->check_if_url_too_long( $depth=3, $dir='export/' );
+$ote->force_slash_at_end( $exception='f' ); 
+
+if( $_GET ) {
+	$language_pair = htmlentities( $_GET['x'] );
+	if( !strlen($language_pair)==3 ) {
+		$error .= $ote->__('error: please select a language pair') . '<br />';
+	}
+	$format = $_GET['f'];
+	if( $format == '' ) {
+		$error .= $ote->__('error: please select a format') . '<br />';
+	}
+	if( $format == 'text' ) {
+		$delimiter = stripslashes($_GET['d']);
+		if( $delimiter == '' ) {
+			$error .= $ote->__('error: text format exports require a delimiter. please select a delimter') . '<br />';
+		}
+	}
+	if( $error ) {
+		doerror( $error );
+	}
+	if( $language_pair == LANG_1_CODE ) {
+		$source_code = LANG_1_CODE;
+		$target_code = LANG_2_CODE;
+	} elseif( $language_pair == LANG_2_CODE ) {
+		$source_code = LANG_2_CODE;
+		$target_code = LANG_1_CODE;
+	} else {
+		doerror( $ote->__('error: please select a language pair') );
+	}
+
+	$ote->template_source_lang_name = $ote->get_language_name($source_code);
+	$ote->template_target_lang_name = $ote->get_language_name($target_code);
+	$ote->template_source_lang_code = $source_code;
+	$ote->template_target_lang_code = $target_code;
+
+	switch( $format ) {
+		case 'text':
+			do_text_export($source_code, $target_code, $delimiter);
+			break;
+		case 'js':
+			do_javascript_export( $source_code, $target_code );
+			break;
+		case 'po':
+			do_po_export( $source_code, $target_code );
+			break;
+		case 'xdxf':
+			do_xdxf_export( $source_code, $target_code );
+			break;
+		default:
+			doerror( $ote->__('error') );
+			break;
+	} // end switch on format
+
+} // end if get
+$ote->show_header( $ote->__('export') );
+show_menu(); 
+$ote->show_footer();
+exit;
+
+//////////////////////////////////////////////////////////////////////////////////
+function doerror( $error='' ) {
+	global $ote;
+	$ote->show_header( $ote->__('export') );
+	if( $error ) {
+		print '<p class="alert">' . $error . '</p>';
+	}
+	show_menu(); 
+	$ote->show_footer();
+	exit;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+function show_menu() {
+	global $ote;
+	print $ote->get_template('export.html');
+}  // END function show_menu
+
+
+//////////////////////////////////////////////////////////////////////////////////
+function get_all_words($source_code, $target_code) {
+	global $ote;
+	$r = $ote->query("
+    SELECT w_source.word AS source_word,
+           w_target.word AS target_word
+    FROM ote_word2word   AS ww,
+         ote_word        AS w_source,
+         ote_word        AS w_target
+    WHERE ww.s_id   = w_source.id
+    AND   ww.t_id   = w_target.id
+    AND   ww.s_code = '$source_code'
+    AND   ww.t_code = '$target_code'
+    ORDER BY w_source.word");
+	$ote->template_number_of_rows = $ote->number_of_rows;
+	return $r;
+} // end get_all_words()
+
+
+//////////////////////////////////////////////////////////////////////////////////
+function do_text_export( $source_code, $target_code, $delim="\t" ) {
+	global $ote;
+	$cr="\n";
+	$r = get_all_words($source_code, $target_code);
+	header('Content-type: text/plain; charset=UTF-8'); 
+	$delim_name = $delim;   
+	$delim_name = str_replace(' ',  $ote->__('<space>'), $delim_name);
+	$delim_name = str_replace('\t', $ote->__('<tab>'), $delim_name);
+	$delim = str_replace('\t',"\t", $delim);
+	$comment = '# ';
+	$ote->template_delimiter_name = $delim_name;
+	print $ote->get_template('export.text.html');
+
+	if( $ote->number_of_rows == 0 ) {
+		print $comment . $ote->__('no words found') . $cr;
+		exit;
+	}
+	while( list(,$x) = each($r) ) {
+		print $x->source_word . $delim . $x->target_word . $cr;
+		ob_flush(); flush();
+	}
+	exit;
+} // end of do_export
+
+//////////////////////////////////////////////////////////////////////////////////
+function do_javascript_export( $source_code, $target_code ) {
+	global $ote;
+	$comment='// ';
+	$cr = "\n";
+	$r = get_all_words($source_code, $target_code);
+
+	$j = 'quickbox_array = new Array(' . $cr;
+	while( list(,$x) = each($r) ) {
+		$j .= 'new Array("' . $x->source_word . '","' . $x->target_word . '"),'; 
+	}
+	$j = substr($j, 0, -1);
+	$j .= $cr . ');' . $cr;
+	$ote->template_quickbox_array = $j;
+	header('Content-type: text/plain; charset=UTF-8'); 
+	print $ote->get_template('export.quickbox.html');
+	exit;
+} // end do_javascript_export
+
+//////////////////////////////////////////////////////////////////////////////////
+function do_po_export( $source_code, $target_code, $cr="\n", $comment='# ' ) {
+	global $ote;
+	$r = get_all_words($source_code, $target_code);
+	header('Content-type: text/plain; charset=UTF-8'); 
+	print $ote->get_template('export.po.html');
+	
+	while( list(,$x) = each($r) ) {
+		if( $last_source != $x->source_word ) {
+			print $cr . 'msgid "' . $x->source_word . '"' . $cr . 'msgstr "' . $x->target_word . '"';
+		} else {
+			print '", ' . $x->target_word . '"';
+		}
+		print $cr;
+		ob_flush();
+		$last_source = $x->source_word;
+	}
+	exit;
+} // end do_javascript_export
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+function do_xdxf_export( $source_code, $target_code ) {
+	global $ote;
+	$r = get_all_words($source_code, $target_code);
+	header('Content-type: text/plain; charset=UTF-8'); 
+	$ote->template_source_lang_code = strtoupper($source_code);
+	$ote->template_target_lang_code = strtoupper($target_code);
+	print $ote->get_template('export.xdxf.html');
+
+	$first = 1;
+	while( list(,$x) = each($r) ) {
+
+		if( $last_source != $x->source_word ) {
+			if( !$first ) { print "</ar>\n"; } else { $first = 0; }
+			print '<ar><k>' . $x->source_word . '</k>' 
+			. "\n" . $x->target_word;
+		} else {
+			print "\n" . $x->target_word;
+		}
+		ob_flush();
+		$last_source = $x->source_word;
+	}
+	print "</ar>\n</xdxf>";
+	exit;
+} // end 

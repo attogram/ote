@@ -1,0 +1,236 @@
+<?php // Open Translation Engine - User system
+require_once('ote.class.php');
+session_start();
+
+$ote->force_slash_at_end();
+
+$request_uri = $_SERVER[REQUEST_URI];
+$uri = split('/', trim( $request_uri ));
+
+// Error: url too long - redir to /
+if(  isset($uri[4+DEPTH]) ) { 
+  header('HTTP/1.1 301 Moved Permanently');
+  header('Location: ' . HOSTNAME . 'user/'); exit;
+} 
+
+switch( $uri[2+DEPTH] ) {
+
+  case 'register': do_register(); break;
+
+  case 'login':    do_login(); break;
+  
+  case 'logout':   
+    $_SESSION = array(); 
+    session_destroy(); 
+    setcookie( session_name() ,'',0,'/');
+    session_start();
+    session_regenerate_id();
+    $_SESSION['alert'] = 'Goodbye.  You are logged out.<br />';
+    header('Location: ' . $_SERVER["HTTP_REFERER"] ); 
+    exit;  
+    break;
+
+  default:  
+    if( $_SESSION['username'] ) {
+      do_home_page(); break;
+    } else {
+      header('HTTP/1.1 301 Moved Permanently');
+      header('Location: ' . HOSTNAME . 'user/login/'); exit; break;
+    } // end if logged in user or not
+} // end switch
+
+$ote->show_footer();
+
+
+
+///////////////////////////////////////
+function do_home_page() {
+
+        global $ote;
+
+        $ote->show_header('User: ' . urlencode($_SESSION['username']) );
+
+        // check  that session.id is valid
+        if ( is_nan( $_SESSION['id'] ) ) {  print 'Error with input'; exit; }
+
+        $sql = "SELECT id, username, email, level, created, last_login
+        FROM ote_user WHERE id = '" . mysql_escape_string( $_SESSION['id'] ) . "'";
+
+        $r = $ote->query($sql);
+        $r = $r[1];
+        $_SESSION['email'] = $r->email;
+        $_SESSION['created'] = $r->created;
+        $_SESSION['last_login'] = $r->last_login;
+        
+        if( $_SESSION['level'] == 9 ) { 
+          print '<p><a href="../admin/users/">User Admin</a></p>';
+        }
+                
+        if( $_SESSION['level'] >= 5 ) { 
+          print '<p><a href="../task/">Task List</a></p>';
+        }
+
+    print $ote->get_template('user_info.html');            
+
+} // end function do_home_page
+
+
+///////////////////////////////////////
+function do_login() {
+  global $ote;
+    
+  if( $_POST && $_POST['a'] == 'login' ) {
+    $username = $ote->clean( $_POST['u'], 'username' );
+    if ( $username != $_POST['u'] ) { 
+      $_SESSION['alert'] .= 'Username contains Invalid Characters<br />';  $username = NULL; }
+    $password = $ote->clean( $_POST['p'], 'password' );
+    if ( $password != $_POST['p'] ) { 
+      $_SESSION['alert'] .= 'Password contains Invalid Characters<br />'; $password = NULL; }
+      
+    //add the salt to the password
+    $password = sha1($password.SALT);
+      
+    if( $username && $password ) {
+      $sql = "SELECT id, username, password, email, level FROM ote_user WHERE username = '"
+        . mysql_escape_string($username) . "' LIMIT 1";
+      $r = $ote->query($sql);
+      if( $ote->number_of_rows == 0 ) { 
+        $_SESSION['alert'] .= 'Incorrect Login<br />';      
+        $ote->show_header('Login');
+        print $ote->get_template('login.html');
+        $ote->show_footer(); exit;
+      } // end if incorrect login
+      $r = $r[1];
+      if( $r->password == "$password" ) {
+        $_SESSION['username'] = $r->username;
+        $_SESSION['id'] = $r->id;
+        $_SESSION['level'] = $r->level;
+        last_login_time( $r->id );
+        $_SESSION['alert'] .= 'Hello <b>' . $r->username . '</b>, Welcome to the Open Translation Engine! '
+        . ' You last logged in at: <b>' . get_last_login_time( $r->id ) . ' </b>from <b>'.get_last_host( $r->id ). '</b><br />';
+      
+        $loc = $_SESSION['login_referer'];
+        last_host( $r->id );
+        $_SESSION['login_referer'] = '';
+        header('Location: ' . $loc ); exit;
+
+    } else { // end if good login
+        $_SESSION['alert'] .= 'Incorrect Login<br />';      
+        $ote->show_header('Login');
+        print $ote->get_template('login.html');
+        $ote->show_footer(); exit;
+  
+      } // end if bad login      
+    } else {
+      $_SESSION['alert'] .= 'Please enter your username <b>and</b> password<br />';
+    } // end if email and password
+  } // end if _POST
+  
+  $ote->show_header('Login');
+  print $ote->get_template('login.html');
+
+  if( !$_SESSION['login_referer'] || $_SESSION['login_referer'] == '' ) {
+    $_SESSION['login_referer'] = $_SERVER["HTTP_REFERER"];
+  }
+
+  
+} // end of function do_login
+function get_last_login_time( $id ) {
+  global $ote;
+  if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
+  $r = $ote->query("SELECT last_login FROM ote_user WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+  return $r[1]->last_login;
+} // end function get_last_ogin_time
+
+function last_login_time( $id ) {
+  global $ote;
+  if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
+  $ote->raw_query("UPDATE ote_user SET last_login = NOW() WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+} // end last_login_time
+
+
+function get_last_host( $id ) {
+    global $ote;
+    if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
+    $r = $ote->query("SELECT last_host FROM ote_user WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+    return $r[1]->last_host;
+} //end get_last_host
+
+//get the ip of the user 
+function last_host( $id ) {
+    global $ote;
+    $last_host = $ote->clean($_SERVER['REMOTE_ADDR']);
+    if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
+    $ote->raw_query("UPDATE ote_user SET last_host = '".mysql_escape_string($last_host)."' WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+}//end last_host
+
+function do_registering_new_user() {
+
+  global $ote;
+
+  $username = $ote->clean( $_POST['u'], 'username' );
+  if ( $username != $_POST['u'] ) { $_SESSION['alert'] .= 'Username contains Invalid Characters<br />'; }
+
+  $p1 = $ote->clean( $_POST['p1'], 'password' );
+   if ( $p1 != $_POST['p1'] ) { $_SESSION['alert'] .= 'Password contains Invalid Characters<br />'; }
+
+  $p2 = $ote->clean( $_POST['p2'], 'password' );
+  if ( $p2 != $_POST['p2'] ) { $_SESSION['alert'] .= '2nd Password contains Invalid Characters<br />'; }
+
+  $email = $ote->clean( $_POST['e'], 'email' );
+  if ( $email != $_POST['e'] ) { $_SESSION['alert'] .= 'Email contains Invalid Characters<br />'; }
+  
+  //validate email format
+  if(!$ote->valid_email($email)){ $_SESSION['alert'] .= 'Email format is invalid<br />'; }
+     
+  if( $username == '' ) { $_SESSION['alert'] .= 'Please enter a username<br />';  }
+  if( $p1 == '' ) { $_SESSION['alert'] .= 'Please enter a password<br />'; }
+  if( $p2 == '' ) { $_SESSION['alert'] .= 'Please enter your password again to confirm.<br />'; }
+  if( $p1 != '' && $p2 != '' && $p1 != $p2 ) {
+         $_SESSION['alert'] .= 'Passwords do not match.<br />'; }
+
+  //add the salt to the password ($p1) then encrypt
+  $p1 = SHA1($p1.SALT);
+
+  if( $_SESSION['alert'] ) { return; }
+
+  $ote->connect();
+  
+  // check if username is already taken
+  $ote->query("SELECT id FROM ote_user WHERE username LIKE '" . mysql_escape_string( $username ) . "' LIMIT 1");
+  if( $ote->number_of_rows == 1 ) {
+    $_SESSION['alert'] .= 'Sorry, the username "<b>' . htmlentities($username) . '</b>" is already taken<br />';
+    header('Location: ' . HOSTNAME . 'user/register/');
+    exit;    
+  }
+  
+    $ote->raw_query('INSERT INTO ote_user (username, email, password, level, created, last_login) VALUES ("'
+        . mysql_escape_string( $username )
+        . '", "' . mysql_escape_string( $email )
+        . '", "' . mysql_escape_string( $p1 )
+        . '", "1", NOW(), NOW() )');
+    $_SESSION['id'] = mysql_insert_id();
+    $_SESSION['username'] = $username;
+    $_SESSION['email'] = $email;
+    $_SESSION['level'] = 1;
+    $_SESSION['alert'] .= 'Hello <b>' . $username . '</b>! You are now registered and logged in.<br />';
+    $loc = $_SESSION['register_referer'];
+    $_SESSION['register_referer'] = '';
+    last_host( $_SESSION['id'] );
+    header('Location: ' . $loc ); exit;
+} // end of function do_registering_new_user
+
+function do_register() {
+  global $ote;
+  if( $_POST && $_POST['a'] == 'register' ) {
+    do_registering_new_user();
+  }
+  $ote->show_header('Register new user');
+  print $ote->get_template('register.html');
+  
+  if( !$_SESSION['register_referer'] || $_SESSION['register_referer'] == '' ) {
+    $_SESSION['register_referer'] = $_SERVER["HTTP_REFERER"];
+  }
+  
+
+} // end function do_register

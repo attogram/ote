@@ -1,0 +1,4 @@
+ForceType application/x-httpd-php
+ErrorDocument 404 /ote/404.php
+#php_value session.use_trans_sid Off
+#php_value session.register_globals Off

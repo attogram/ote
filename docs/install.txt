@@ -1,0 +1,76 @@
+
+Open Translation Engine (OTE) 
+
+Installation
+------------
+
+- Requirements: 
+  PHP 5.x with multibyte functions enabled
+  MySQL 5.x
+  (For PHP 4.x / MySQL 4.x installs, see notes at end of this file)
+  
+- Download the latest stable released version from:
+  http://sourceforge.net/project/showfiles.php?group_id=48619
+
+- Extract the download and put the files in a web accessible directory on your server
+
+- Copy /settings.php-dist to: /settings.php
+
+- Edit /settings.php for your system database access, language, and view settings
+
+- edit /.htaccess for correct pathname to 404.php file
+  (if you get server errors, you may also remove the php_value settings)
+
+- edit /robots.txt for correct pathnames
+
+- create the OTE database via import of:
+  /sql/create.database.sql
+
+- create the OTE tables via import of:
+  /sql/create.tables.sql
+   (also creates user 'admin' password 'admin')
+   
+- Change the 'admin' user password:
+  Open the home page in your browser
+  Click 'Users' in the bottom footer menu
+  Click your username 'admin'
+  Type in a new password and click 'Modify'
+
+- Edit templates as required (optional)
+  - /templates/default/ directory contains all templating files and settings
+  - you can edit the default templates, or copy the default directory and rename it, 
+    then use this new template directory in the global /settings.php file
+  - templates.settings.php contains text messages and template-specific settings
+
+- Import sample dictionary data (optional)
+  - Login as admin
+  - click 'Import' from homepage
+  - select language pair, delimiter, and paste in your import text
+  - sample dictionary files can be found in /samples/
+
+- Get Involved!  see: /docs/developer.documentation.txt
+
+
+--------------------------------------------------
+- For latest development version, checkout from SVN:
+  svn co https://ote.svn.sourceforge.net/svnroot/ote ote 
+  Also see /docs/developer.documentation.txt for more info
+
+--------------------------------------------------  
+- OTE depends on the web server running files with no extension as PHP files.
+In Apache, this is added to the .htaccess file:
+  ForceType application/x-httpd-php
+Your web server must be setup to read .htaccess files, or you must add 
+the ForceType declaration to your httpd.conf file.
+
+-------------------------------------------------- 
+- PHP 4.x / MySQL 4.x Installations
+
+  Depreciated - no UTF8 functions, simple database functions only
+
+  - create database, see: /sql/depreciated/depreciated.v4.database.sql
+  - create tables, see: /sql/depreciated/depreciated.v4.tables.sql
+  - edit main /settings.php file, uncomment:  define('DEPRECIATED_V4', '1');
+
+
+--------------------------------------------------

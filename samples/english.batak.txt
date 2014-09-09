@@ -1,0 +1,98 @@
+# English > Batak
+# Version 0.0.0
+#
+# DAMS - The Dictionary Additions Management System
+# http://sourceforge.net/projects/dams/
+#
+# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License. 
+# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+#
+# delimiter: =
+beautiful source=pandaraman nauli
+big=balga
+blessings to you=pasu-pasu ma di hamu
+can you speak english=boi do hamu marhata inggris
+child=dukak
+congratulations=horas
+day=ari
+do you speak toba batak=ai marbahasa toba batak do ho
+dog=asu
+eight=walu
+excellent=uli situtu
+eye=mata
+female=boru-boru
+fire=api
+five=lima
+follow me=ihuthon ahu
+forest=rabba
+fruit of the soul=bue ni tondi
+god=mula dyadi
+good evening=horas
+good morning=horas
+green=rata-rata
+hair=obuk
+head=ulu
+hope you are doing great=sai anggiat sehat-sehat ate
+house=bagas
+how=boha
+how are you=boha do kabar
+how are you grandpa=boha do kabarmu ompung
+human being=halak
+i am fine=horas-horas
+i am fine=denggan
+i am sick=marsahit au
+i am studying batak=marsiajar hata batak au
+i do not know=ndang huboto
+i do not speak indonesian=ndang huboto marhata indonesia
+i do not understand=ndang huantusi
+i only speak a little batak=saotik do huboto hata batak
+just a minute=satongkin
+lake=tao
+male=baoa
+man=baoa
+maybe=ra
+my name is=ia goarhu
+nine=sia
+no=ndaong
+of course=ido
+of course=tutu
+old=toras
+once again=sahali nai
+one=sada
+painful=marsahit
+pastor=pendeta
+person=halak
+please=tole
+please sit down=hundul ma hamu
+pleased to meet you=tung las rohangku pajumpang dohot hamu
+rain=udan
+rat=monci
+red=rara
+seven=pitu
+sick=marsahit
+six=onom
+small=met-met
+smoke=timus
+spring of the heart=mual ni roha
+ten=sappulu
+thank you=mauliate
+three=tolu
+to drink=minim
+to laugh=mekkel
+two=dua
+very good=uli situtu
+warm=law
+water=aek
+welcome=horas
+welcome=horas hamu
+wet=bornok
+what=aha
+what is your name=ise do goarmu
+where=di dia
+where is the toilet=didia lao tu aek namenek
+wind=alogo
+woman=boru-boru
+woods=rabba
+write it down please=surat hamu ma
+yes=olo

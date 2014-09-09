@@ -1,0 +1,17 @@
+﻿# Hindi > Tamil
+# Version 0.0.0
+#
+# DAMS - The Dictionary Additions Management System
+# http://sourceforge.net/projects/dams/
+#
+# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License. 
+# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ 
+# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+#
+# delimiter: =
+आपको=நீ
+उन्होंने=அவள்
+उन्होंने=அவன்
+मैं=நான்
+यह=இது
+वह=அது

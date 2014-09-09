@@ -1,0 +1,45 @@
+<table border="0" cellpadding="30" cellspacing="0" width="100%">
+ <tr>
+  <td valign="top" width="50%">
+   <form method="GET" action="translate/<<LANG_1_NAME>>/<<LANG_2_NAME>>/">
+   <a href="translate/<<LANG_1_NAME>>/<<LANG_2_NAME>>/">Translate <<LANG_1_NAME>> to <<LANG_2_NAME>></a>:
+   <br /><input name="q" size="40" value="" maxlength="127"><input type="submit" value=" &gt; ">
+   </form>
+   <p><a href="random/<<LANG_1_NAME>>/<<LANG_2_NAME>>/">Random Word: <<LANG_1_NAME>> to <<LANG_2_NAME>></a></p>
+   <p><a href="list/<<LANG_1_NAME>>/<<LANG_2_NAME>>/">Word List: <<LANG_1_NAME>> to <<LANG_2_NAME>></a></p>
+   <form method="GET" action="word/<<LANG_1_CODE>>/">
+   <p>Lookup <<LANG_1_NAME>> Word or Phrase:
+   <input type="text" name="p" size="10" value="" maxlength="127"><input 
+   type="submit" value=" &gt; ">
+   </p>
+   </form>
+   <p><b><<COUNT_1_2>></b> <<LANG_1_NAME>> to <<LANG_2_NAME>> word pairs</p>
+ </td>
+
+ <td valign="top" width="50%">
+  <form method="GET" action="translate/<<LANG_2_NAME>>/<<LANG_1_NAME>>/">
+  <a href="translate/<<LANG_2_NAME>>/<<LANG_1_NAME>>/">Translate <<LANG_2_NAME>> to <<LANG_1_NAME>></a>:
+  <br /><input name="q" size="40" value="" maxlength="127"><input type="submit" value=" &gt; ">
+  </form>
+  <p><a href="random/<<LANG_2_NAME>>/<<LANG_1_NAME>>/">Random Word: <<LANG_2_NAME>> to <<LANG_1_NAME>></a></p>
+  <p><a href="list/<<LANG_2_NAME>>/<<LANG_1_NAME>>/">Word List: <<LANG_2_NAME>> to <<LANG_1_NAME>></a></p>
+   <form method="GET" action="word/<<LANG_2_CODE>>/">
+   <p>Lookup <<LANG_2_NAME>> Word or Phrase:
+   <input type="text" name="p" size="10" value="" maxlength="127"><input 
+   type="submit" value=" &gt; ">
+   </p>
+   </form>
+  <p><b><<COUNT_2_1>></b> <<LANG_2_NAME>> to <<LANG_1_NAME>> word pairs</p>
+ </td>
+</tr>
+</table>
+<hr size="1" />
+
+<p>Welcome to the Open Translation Engine <<VERSION>>, 
+an open source project building a web-based translation dictionary manager</p>
+<p><a href="docs/">Documentation</a></p>
+<p><a href="feed/">RSS Feeds</a></p>
+<p><a href="export/">Export Dictionary</a></p>
+<p><a href="task/">Task list</a></p>
+<p><a href="import/">Import</a> (dictionary admins only)</p>
+<p><a href="admin/">Admin</a> (site admins only)</p>

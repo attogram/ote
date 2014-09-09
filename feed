@@ -1,0 +1,227 @@
+<?php 
+// Open Translation Engine
+// RSS Feed system
+
+require_once('ote.class.php');
+
+$ote->check_if_url_too_long( $depth=6, $dir='feed/' );
+$ote->force_slash_at_end( $exception='text' );
+
+$request_uri = $_SERVER['REQUEST_URI'];
+$c = explode('/', $request_uri);
+$type = $c[2+DEPTH];
+$source_language_code = $c[3+DEPTH];
+$target_language_code = $c[4+DEPTH];
+
+
+switch( $type ) {
+
+	default:
+		feed_home();
+		break;
+
+	case 'random':
+
+		if( 
+		strlen($source_language_code) != 3 
+		|| strlen($target_language_code) != 3 
+		|| ( $source_language_code != LANG_1_CODE && $source_language_code != LANG_2_CODE )
+		|| ( $target_language_code != LANG_1_CODE && $target_language_code != LANG_2_CODE )
+		) {
+			print $ote->__('404 - language code not found');
+			exit;
+		}
+
+		$source_language_name = $ote->get_language_name( $source_language_code );
+		$target_language_name = $ote->get_language_name( $target_language_code );
+
+		break;
+
+} // end switch on type
+
+
+
+
+
+
+$r = $ote->query("
+SELECT s_id 
+FROM ote_word2word 
+WHERE s_code = '" . mysql_escape_string($source_language_code) . "' 
+AND t_code = '" . mysql_escape_string($target_language_code) . "' 
+ORDER BY RAND() 
+LIMIT 1");
+
+$random_source_id = $r[1]->s_id;
+
+if( $random_source_id == '' ) {
+	print $ote->__('error: no words found'); 
+	exit;
+}
+
+$r = $ote->query("
+SELECT  ww.s_code     AS source_language_id,
+        ww.s_id       AS source_id,
+        w_source.word AS source_word,
+        ww.t_code     AS target_language_id,
+        ww.t_id       AS target_id,
+        w_target.word AS target_word
+FROM    ote_word2word AS ww,
+        ote_word AS w_source,
+        ote_word AS w_target
+WHERE ww.s_id = w_source.id
+AND   ww.t_id = w_target.id
+AND   ww.s_id = '$random_source_id'
+AND ww.s_code = '$source_language_code'
+AND ww.t_code = '$target_language_code' 
+");
+if( $ote->number_of_rows == 0 ) { 
+	$_SESSION['alert'] .= $ote->__('error: no words found') . '<br />'; 
+}
+$source = $r[1]->source_word;
+$target = array();
+while( $x = each($r) ) {
+	array_push( $target, $x[value]->target_word);
+}
+$surl  = HOSTNAME . 'word/' . $source_language_code . '/' . urlencode($source);
+
+///////////////////////////////////////////////////////////////////////////////////
+if( $_GET['text'] == 1 ) { //  - plain text format
+	header('Content-type: text/plain; charset=UTF-8'); 
+	print "\n" . $source_language_name . ': ' . $source . "\n\n" 
+	. $target_language_name . ': ' . snice($target)
+	. "\n\n\n"
+	. $ote->__('does this translation need improvement?')
+	. "\n"
+	. $ote->__('login to the open translation engine to suggest edits for this word')
+	. "\n\n"
+	. $surl
+	. "\n\n"
+	;
+	exit;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+header('Content-Type: application/xml');
+$title = 'Random Word: ' . $source_language_name . ' &gt; ' . $target_language_name;
+print '<?phpxml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+ <channel>
+  <title>' . $title . '</title>
+  <link>' . HOSTNAME . '</link>
+  <description>' . $title . '</description>
+  <item>
+   <title>' . $source . '</title>
+   <link>' . $surl . '</link>
+   <description>'
+   . $source_language_name . ': '
+   . '&lt;b&gt;'
+   . $source
+   . '&lt;/b&gt; &lt;br /&gt;'
+   . $target_language_name . ': ' . snice($target)
+   . '&lt;br /&gt; &lt;br /&gt; '
+   . $ote->__('does this translation need improvement?')
+   . '&lt;br /&gt; '
+   . $ote->__('login to the open translation engine to suggest edits for this word')
+   . '&lt;br /&gt; '
+   . '&lt;br /&gt; ' 
+   . '&lt;a href="' . $surl . '"&gt;' 
+   . $surl 
+   . '&lt;/a&gt;'
+ 
+   . '</description>
+   <pubDate>' . date('r') . '</pubDate>
+   <guid>' . $surl . '</guid>
+  </item>
+ </channel>
+</rss>
+';
+
+/////////////////////////
+function snice($x) {
+	if( is_array($x) ) {
+		while( list($trash,$y) = each($x) ) { $r .= $y . ', '; }
+		$r = trim($r,', ');
+		return $r;
+	} else {
+	return $r; 
+	}
+} // end snice
+
+function feed_home() {
+	global $ote;
+	$ob = '&lt;';
+	$cb = '&gt;';
+	$br = $ob . 'br /' . $cb;
+
+	$description = $ote->__('open translation engine') . ' ' . VERSION
+	. $br
+	. $ob . 'a href="' . HOSTNAME . '"' . $cb 
+	. HOSTNAME 
+	. $ob . '/a' . $cb
+	. $br 
+	. $br
+	. 'Date: ' . date(r) . ' GMT'
+	. $br . $br
+	. 'Language 1 Name: ' . LANG_1_NAME
+	. $br
+	. 'Language 1 code: ' . LANG_1_CODE
+	. $br . $br
+	. 'Language 2 Name: ' . LANG_2_NAME
+	. $br
+	. 'Language 2 code: ' . LANG_2_CODE
+	. $br . $br
+	. LANG_1_NAME . ' = ' . LANG_2_NAME . ' ' . $ote->__('word pairs') . ': ' 
+	. $ote->get_word_pair_count(LANG_1_CODE,LANG_2_CODE)
+	. $br
+	. LANG_2_NAME . ' = ' . LANG_1_NAME . ' ' . $ote->__('word pairs') . ': ' 
+	. $ote->get_word_pair_count(LANG_2_CODE,LANG_1_CODE)
+	. $br
+	. $br
+
+	. $ote->__('available feeds') . ':'
+	. $br
+	. $br
+
+	. $ob . 'a href="' . HOSTNAME . 'feed/"' . $cb 
+	. HOSTNAME . 'feed/' 
+	. $ob . '/a' . $cb
+	. $br
+	. $br
+
+	. $ob . 'a href="' . HOSTNAME . 'feed/random/' . LANG_1_CODE . '/' . LANG_2_CODE . '/"' . $cb 
+	                   . HOSTNAME . 'feed/random/' . LANG_1_CODE . '/' . LANG_2_CODE . '/'
+	. $ob . '/a' . $cb
+	. $br
+	. $ote->__('random word') . ': ' . LANG_1_NAME . ' = ' . LANG_2_NAME . ' '
+	. $br
+	. $br
+
+	. $ob . 'a href="' . HOSTNAME . 'feed/random/' . LANG_2_CODE . '/' . LANG_1_CODE . '/"' . $cb 
+	                   . HOSTNAME . 'feed/random/' . LANG_2_CODE . '/' . LANG_1_CODE . '/'
+	. $ob . '/a' . $cb
+	. $br
+	. $ote->__('random word') . ': ' . LANG_2_NAME . ' = ' . LANG_1_NAME . ' '
+	. $br
+	;
+
+	header('Content-Type: application/xml');
+	print 
+'<?phpxml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+ <channel>
+  <title>' . $ote->__('open translation engine') . ' ' . VERSION . '</title>
+  <link>' . HOSTNAME . '</link>
+  <description>' . $ote->__('open translation engine') . ' ' . VERSION . '</description>
+  <item>
+   <title>' . $ote->__('open translation engine') . ' ' . VERSION . '</title>
+   <link>' . HOSTNAME . '</link>
+   <description>' . $description . '</description>
+   <pubDate>' . date('r') . '</pubDate>
+   <guid>' . HOSTNAME . '</guid>
+  </item>
+ </channel>
+</rss>
+';
+exit;
+} // end feed_home()
