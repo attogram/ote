@@ -38,7 +38,7 @@ if(       $c[2+DEPTH] == LANG_1_CODE ) {
   exit;
 }
 
-if( $_GET['p'] ) {
+if( isset($_GET['p']) && $_GET['p'] ) {
 	$redir = HOSTNAME . 'word/' . $source_language_code . '/' . urlencode( $_GET['p'] );
 	header('HTTP/1.1 301 Moved Permanently');
 	header('Location: ' . $redir );
@@ -60,7 +60,7 @@ FROM  ote_word2word AS ww,
       ote_word      AS w_target
 WHERE ww.s_id       = w_source.id
 AND   ww.t_id       = w_target.id
-AND   w_source.word = '" . mysql_escape_string( $source_word ) . "'
+AND   w_source.word = '" . mysql_real_escape_string( $source_word ) . "'
 AND   ww.s_code     = '$source_language_code'
 AND   ww.t_code     = '$target_language_id'
 

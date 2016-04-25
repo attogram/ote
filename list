@@ -113,7 +113,7 @@ function show_list($source_code, $target_code) {
     $limit_range = constant('NUMBER_OF_WORDS_TO_SHOW_ON_LIST'); 
   }
 
-  $limit_start = 0 + ( $ote->list_limit * $limit_range) ;
+  $limit_start = 0 + ( @$ote->list_limit * $limit_range) ;
   $limit_end = $limit_range;
   
   
@@ -121,7 +121,9 @@ function show_list($source_code, $target_code) {
   
   $number_of_pairs = $ote->get_word_pair_count($source_code, $target_code);
   
-  if( $ote->list_limit > 0  ) {
+  $menu = '';
+  
+  if( @$ote->list_limit > 0  ) {
     $menu .= '<a href="' . HOSTNAME . 'list/' . $source_language 
     . '/' . $target_language . '/' . ($ote->list_limit - 1) . '/"> &lt; &lt; '
     . $ote->__('previous page') 

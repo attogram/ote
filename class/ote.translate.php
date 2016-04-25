@@ -81,7 +81,7 @@ function display_word($resultset) {
 			$this->template_word_delete = $this->get_template('word.del.html');
 		}
 
-		$this->template_word_rows .= $this->get_template('word.row.html');
+		@$this->template_word_rows .= $this->get_template('word.row.html');
 
 	} // end while each resultset
 
@@ -92,6 +92,7 @@ function display_word($resultset) {
 	$suggested = 
 	$this->template_suggested = $this->display_suggested_target_word( $source_word, $target_language_code );
 
+	$t = '';
 	$t .= $this->get_template('word.block.html');
 
 	return $t;
@@ -100,7 +101,8 @@ function display_word($resultset) {
 
 ////////////////////////////////////////////////////////////////////////////// 
 function display_suggested_target_word( $word, $language_id ) {
-	if( !is_array($_SESSION['suggestions']) ) { return $r; }
+	$r = '';
+	if( !isset($_SESSION['suggestions']) || !is_array($_SESSION['suggestions']) ) { return $r; }
 	reset( $_SESSION['suggestions'] );
 	while( $x = each( $_SESSION['suggestions'] ) ) {
 		if( $x['value'][0] == $word && $x['value'][1] == $language_id ) {
