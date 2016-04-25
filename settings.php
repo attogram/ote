@@ -11,7 +11,7 @@ define('DATABASE_PASSWORD', ''); // access database via this password
 
 define('PROTOCOL',      'http://');   // web access protocol:  'http://', 'https://'  
 define('HOST',          'localhost'); // name of web host:  'localhost', 'example.com'
-define('OTE_DIRECTORY', '/ote/stable/');     // Relative Directory of installation. 
+define('OTE_DIRECTORY', '/ote/');     // Relative Directory of installation. 
                                       // Use '/' for top level
                                       // for non-top level, include preceding AND trailing slash     
 
