@@ -46,12 +46,12 @@ class ote extends ote_task {
 		define('DEPTH', (sizeof( explode('/', OTE_DIRECTORY) ) - 2) );
 		reset($template_list);
 		$this->template_list = $template_list;
-		if( $_SESSION['template_id'] && is_numeric($_SESSION['template_id']) ) {
+		if( isset($_SESSION['template_id']) && $_SESSION['template_id'] && is_numeric($_SESSION['template_id']) ) {
 			// do nothing
 		} else {
 			$_SESSION['template_id'] = 1;
 		}
-		if( $_GET['view'] && is_numeric($_GET['view']) ) { 
+		if( isset($_GET['view']) && $_GET['view'] && is_numeric($_GET['view']) ) { 
 			$_SESSION['template_id'] = $_GET['view']; 
 			$redir = $_SERVER["HTTP_REFERER"];
 			if( !$redir || $redir == '' ) { $redir = HOSTNAME; }

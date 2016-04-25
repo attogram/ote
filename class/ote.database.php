@@ -86,6 +86,8 @@ function query( $sql ) { // Generic function to do a SQL call
 	if( mysql_error() ) {
 		$this->no_database();
 	}
+	$rval = array();
+	$i = 0;
 	while ( $row = mysql_fetch_object($raw) ) { // get one result row at a time, as an object
 		$rval[++$i] = $row; // add this results object to the return value
 	}

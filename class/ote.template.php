@@ -25,7 +25,7 @@ function show_header($title='', $use_feed_url=0, $nopage=0) {
 		$_SESSION['username'] = '';
 		$_SESSION['id'] = 0;
 		$level_check = 0; 
-		if( ALLOW_ANONYMOUS_GUESTS_TO_SUGGEST == 1 ) { $level_check = 1; }
+		if( 'ALLOW_ANONYMOUS_GUESTS_TO_SUGGEST' == 1 ) { $level_check = 1; }
 		$_SESSION['level'] = $level_check;
 		if( !strstr($_SERVER['REQUEST_URI'], '/user/login/') // if not on user pages
 			&& !strstr($_SERVER['REQUEST_URI'], '/user/register/') ) {
@@ -99,36 +99,36 @@ $template_replacers = array(
 '<<LANG_2_CODE>>'=>LANG_2_CODE,
 '<<LANG_1_NAME>>'=>LANG_1_NAME,
 '<<LANG_2_NAME>>'=>LANG_2_NAME, 
-'<<PAGE_TITLE>>'=>$page_title,
-'<<PAGE_HEADER>>'=>$page_header,
-'<<USER_EMAIL>>'=>$_SESSION['email'],
-'<<USER_CREATED>>'=>$_SESSION['created'],
-'<<USER_LAST_LOGIN>>'=>$_SESSION['last_login'],
-'<<FEED_URL>>'=>$this->template_feed_url,
-'<<PERMALINK>>'=>$this->template_permalink, 
-'<<SOURCE_LANG_NAME>>'=>$this->template_source_lang_name,
-'<<SOURCE_LANG_CODE>>'=>$this->template_source_lang_code,
-'<<TARGET_LANG_NAME>>'=>$this->template_target_lang_name,
-'<<TARGET_LANG_CODE>>'=>$this->template_target_lang_code,
-'<<SOURCE_WORD>>'=>$this->template_source_word,
-'<<TARGET_WORD>>'=>$this->template_target_word,
-'<<SOURCE_WORD_URL>>'=>$this->template_source_word_url,
-'<<TARGET_WORD_URL>>'=>$this->template_target_word_url,
-'<<SUGGESTED>>'=>$this->template_suggested,
-'<<WORD_BLOCK>>'=>$this->template_word_block,
-'<<LINK_ID>>'=>$this->template_link_id,
-'<<WORD_ROWS>>'=>$this->template_word_rows,
-'<<WORD_ADD>>'=>$this->template_word_add,
-'<<WORD_DELETE>>'=>$this->template_word_delete,
-'<<DELIMITER_NAME>>'=>$this->template_delimiter_name,
-'<<NUMBER_OF_ROWS>>'=>$this->template_number_of_rows,
+'<<PAGE_TITLE>>'=>@$page_title,
+'<<PAGE_HEADER>>'=>@$page_header,
+'<<USER_EMAIL>>'=>@$_SESSION['email'],
+'<<USER_CREATED>>'=>@$_SESSION['created'],
+'<<USER_LAST_LOGIN>>'=>@$_SESSION['last_login'],
+'<<FEED_URL>>'=>@$this->template_feed_url,
+'<<PERMALINK>>'=>@$this->template_permalink, 
+'<<SOURCE_LANG_NAME>>'=>@$this->template_source_lang_name,
+'<<SOURCE_LANG_CODE>>'=>@$this->template_source_lang_code,
+'<<TARGET_LANG_NAME>>'=>@$this->template_target_lang_name,
+'<<TARGET_LANG_CODE>>'=>@$this->template_target_lang_code,
+'<<SOURCE_WORD>>'=>@$this->template_source_word,
+'<<TARGET_WORD>>'=>@$this->template_target_word,
+'<<SOURCE_WORD_URL>>'=>@$this->template_source_word_url,
+'<<TARGET_WORD_URL>>'=>@$this->template_target_word_url,
+'<<SUGGESTED>>'=>@$this->template_suggested,
+'<<WORD_BLOCK>>'=>@$this->template_word_block,
+'<<LINK_ID>>'=>@$this->template_link_id,
+'<<WORD_ROWS>>'=>@$this->template_word_rows,
+'<<WORD_ADD>>'=>@$this->template_word_add,
+'<<WORD_DELETE>>'=>@$this->template_word_delete,
+'<<DELIMITER_NAME>>'=>@$this->template_delimiter_name,
+'<<NUMBER_OF_ROWS>>'=>@$this->template_number_of_rows,
 '<<DATETIME>>'=> date('r') . ' GMT',
-'<<QUICKBOX_ARRAY>>'=>$this->template_quickbox_array,
-'<<Q>>'=>$this->template_q,
-'<<Q_URL>>'=>$this->template_q_url,
-'<<BGCOLOR>>'=>$this->template_bgcolor,
-'<<TASK_TYPE>>'=>$this->template_task_type,
-'<<ADD>>'=>$this->template_add,
+'<<QUICKBOX_ARRAY>>'=>@$this->template_quickbox_array,
+'<<Q>>'=>@$this->template_q,
+'<<Q_URL>>'=>@$this->template_q_url,
+'<<BGCOLOR>>'=>@$this->template_bgcolor,
+'<<TASK_TYPE>>'=>@$this->template_task_type,
+'<<ADD>>'=>@$this->template_add,
 );
 
 
@@ -199,7 +199,7 @@ $template_replacers = array(
 	preg_match_all("/<<([^>>]+)>>/U", $r, $matches); // get all template <<VARIABLES>> to be replaced with content...
 	$matches = array_unique($matches[0]); // get only the unique <<VARIABLES>>
 	while( $x = each($matches) ) { // loop thru all <<VARIABLES>>
-		if( $template_replacers[ $x[1] ] ) { // if <<VARIABLE> is defined.. 
+		if( @$template_replacers[ $x[1] ] ) { // if <<VARIABLE> is defined.. 
 			$r = str_replace($x[1], $template_replacers[ $x[1] ], $r); // replace it with content
 		} else { // if <<VARIABLE>> not defined...
 			//$r = str_replace($x[1], htmlentities($x[1]) . '!!', $r); // ERROR

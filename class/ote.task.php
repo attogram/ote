@@ -211,8 +211,8 @@ function insert_task(
 	user_id, admin_id
 	) VALUES ( 
 	'$status', '$mode',
-	'$source_word_id', '$source_code', '" . mysql_escape_string($source_word_text) . "',
-	'$target_word_id', '$target_code', '" . mysql_escape_string($target_word_text) . "',
+	'$source_word_id', '$source_code', '" . mysql_real_escape_string($source_word_text) . "',
+	'$target_word_id', '$target_code', '" . mysql_real_escape_string($target_word_text) . "',
 	NOW(), NOW(),
 	'$user_id', '" . $_SESSION['id'] . "' )"); 
 	if( $_SESSION['level'] < 5 ) {
