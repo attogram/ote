@@ -48,7 +48,7 @@ function do_admin_users() {
   
   $res = $ote->query('SELECT * FROM ote_user ORDER BY id');
   
-  $r .= '<table border="1" cellpadding="2" cellspacing="0"><tr>'
+  $r = '<table border="1" cellpadding="2" cellspacing="0"><tr>'
   . '<td>'
   . $ote->__('username')
   . '</td><td>'

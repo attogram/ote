@@ -8,6 +8,7 @@ $ote->force_slash_at_end( $exception='f' );
 
 if( $_GET ) {
 	$language_pair = htmlentities( $_GET['x'] );
+	$error = FALSE;
 	if( !strlen($language_pair)==3 ) {
 		$error .= $ote->__('error: please select a language pair') . '<br />';
 	}

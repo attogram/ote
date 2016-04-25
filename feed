@@ -9,9 +9,9 @@ $ote->force_slash_at_end( $exception='text' );
 
 $request_uri = $_SERVER['REQUEST_URI'];
 $c = explode('/', $request_uri);
-$type = $c[2+DEPTH];
-$source_language_code = $c[3+DEPTH];
-$target_language_code = $c[4+DEPTH];
+$type = @$c[2+DEPTH];
+$source_language_code = @$c[3+DEPTH];
+$target_language_code = @$c[4+DEPTH];
 
 
 switch( $type ) {
@@ -161,7 +161,7 @@ function feed_home() {
 	. $ob . '/a' . $cb
 	. $br 
 	. $br
-	. 'Date: ' . date(r) . ' GMT'
+	. 'Date: ' . date('r') . ' GMT'
 	. $br . $br
 	. 'Language 1 Name: ' . LANG_1_NAME
 	. $br

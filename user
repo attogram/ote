@@ -1,11 +1,11 @@
 <?php // Open Translation Engine - User system
 require_once('ote.class.php');
-session_start();
+#session_start();
 
 $ote->force_slash_at_end();
 
-$request_uri = $_SERVER[REQUEST_URI];
-$uri = split('/', trim( $request_uri ));
+$request_uri = $_SERVER['REQUEST_URI'];
+$uri = explode('/', trim( $request_uri ));
 
 // Error: url too long - redir to /
 if(  isset($uri[4+DEPTH]) ) { 
@@ -54,7 +54,7 @@ function do_home_page() {
         if ( is_nan( $_SESSION['id'] ) ) {  print 'Error with input'; exit; }
 
         $sql = "SELECT id, username, email, level, created, last_login
-        FROM ote_user WHERE id = '" . mysql_escape_string( $_SESSION['id'] ) . "'";
+        FROM ote_user WHERE id = '" . mysql_real_escape_string( $_SESSION['id'] ) . "'";
 
         $r = $ote->query($sql);
         $r = $r[1];
@@ -92,7 +92,7 @@ function do_login() {
       
     if( $username && $password ) {
       $sql = "SELECT id, username, password, email, level FROM ote_user WHERE username = '"
-        . mysql_escape_string($username) . "' LIMIT 1";
+        . mysql_real_escape_string($username) . "' LIMIT 1";
       $r = $ote->query($sql);
       if( $ote->number_of_rows == 0 ) { 
         $_SESSION['alert'] .= 'Incorrect Login<br />';      
@@ -129,7 +129,7 @@ function do_login() {
   $ote->show_header('Login');
   print $ote->get_template('login.html');
 
-  if( !$_SESSION['login_referer'] || $_SESSION['login_referer'] == '' ) {
+  if( !isset($_SESSION['login_referer']) || !$_SESSION['login_referer'] || $_SESSION['login_referer'] == '' ) {
     $_SESSION['login_referer'] = $_SERVER["HTTP_REFERER"];
   }
 
@@ -138,21 +138,21 @@ function do_login() {
 function get_last_login_time( $id ) {
   global $ote;
   if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
-  $r = $ote->query("SELECT last_login FROM ote_user WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+  $r = $ote->query("SELECT last_login FROM ote_user WHERE id = '" . mysql_real_escape_string($id) . "' LIMIT 1 ");
   return $r[1]->last_login;
 } // end function get_last_ogin_time
 
 function last_login_time( $id ) {
   global $ote;
   if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
-  $ote->raw_query("UPDATE ote_user SET last_login = NOW() WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+  $ote->raw_query("UPDATE ote_user SET last_login = NOW() WHERE id = '" . mysql_real_escape_string($id) . "' LIMIT 1 ");
 } // end last_login_time
 
 
 function get_last_host( $id ) {
     global $ote;
     if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
-    $r = $ote->query("SELECT last_host FROM ote_user WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+    $r = $ote->query("SELECT last_host FROM ote_user WHERE id = '" . mysql_real_escape_string($id) . "' LIMIT 1 ");
     return $r[1]->last_host;
 } //end get_last_host
 
@@ -161,7 +161,7 @@ function last_host( $id ) {
     global $ote;
     $last_host = $ote->clean($_SERVER['REMOTE_ADDR']);
     if( !is_numeric($id) || $id == '' || $id == 0 ) { return; }
-    $ote->raw_query("UPDATE ote_user SET last_host = '".mysql_escape_string($last_host)."' WHERE id = '" . mysql_escape_string($id) . "' LIMIT 1 ");
+    $ote->raw_query("UPDATE ote_user SET last_host = '".mysql_real_escape_string($last_host)."' WHERE id = '" . mysql_real_escape_string($id) . "' LIMIT 1 ");
 }//end last_host
 
 function do_registering_new_user() {
@@ -197,7 +197,7 @@ function do_registering_new_user() {
   $ote->connect();
   
   // check if username is already taken
-  $ote->query("SELECT id FROM ote_user WHERE username LIKE '" . mysql_escape_string( $username ) . "' LIMIT 1");
+  $ote->query("SELECT id FROM ote_user WHERE username LIKE '" . mysql_real_escape_string( $username ) . "' LIMIT 1");
   if( $ote->number_of_rows == 1 ) {
     $_SESSION['alert'] .= 'Sorry, the username "<b>' . htmlentities($username) . '</b>" is already taken<br />';
     header('Location: ' . HOSTNAME . 'user/register/');
@@ -205,9 +205,9 @@ function do_registering_new_user() {
   }
   
     $ote->raw_query('INSERT INTO ote_user (username, email, password, level, created, last_login) VALUES ("'
-        . mysql_escape_string( $username )
-        . '", "' . mysql_escape_string( $email )
-        . '", "' . mysql_escape_string( $p1 )
+        . mysql_real_escape_string( $username )
+        . '", "' . mysql_real_escape_string( $email )
+        . '", "' . mysql_real_escape_string( $p1 )
         . '", "1", NOW(), NOW() )');
     $_SESSION['id'] = mysql_insert_id();
     $_SESSION['username'] = $username;

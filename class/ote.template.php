@@ -21,7 +21,7 @@ function get_user_level_name( $level ) {
 
 //////////////////////////////////////////////////////////////////////////////
 function show_header($title='', $use_feed_url=0, $nopage=0) {
-	if( !$_SESSION['id'] || is_nan( $_SESSION['id'] ) ) { // is Anonymous Guest?
+	if( !isset($_SESSION['id']) || !$_SESSION['id'] || is_nan( $_SESSION['id'] ) ) { // is Anonymous Guest?
 		$_SESSION['username'] = '';
 		$_SESSION['id'] = 0;
 		$level_check = 0; 
@@ -218,7 +218,7 @@ $template_replacers = array(
 function force_slash_at_end( $exception='' ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	if( $exception ) {
-		if( $_GET[ $exception ] ) {
+		if( isset($_GET[ $exception ]) ) {
 			return;
 		}
 	}

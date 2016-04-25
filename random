@@ -54,7 +54,7 @@ function do_random( $source_language_code, $target_language_code ) {
 	ORDER BY RAND() LIMIT 1");
 	$random_source_id = $r[1]->s_id;
 
-	if ( $_SESSION['override']  ) { // from task system....
+	if ( isset($_SESSION['override']) && $_SESSION['override']  ) { // from task system....
 		$random_source_id = $_SESSION['override'];
 		$_SESSION['override'] = NULL;
 	}

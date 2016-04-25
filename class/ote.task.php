@@ -18,7 +18,7 @@ function tasker() {
 	$this->force_slash_at_end();
 
 	$request_uri = $_SERVER['REQUEST_URI'];
-	$uri = split('/', $request_uri );
+	$uri = explode('/', $request_uri );
 
 	// Error: url too long - redir to /task/list/
 	if( isset($uri[5+DEPTH]) ) { 

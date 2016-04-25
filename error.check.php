@@ -15,7 +15,7 @@ $warning = $start_failed . 'WARNING' . $end_passed;
 if( !isset($do_not_include_settings_file) ) { $do_not_include_settings_file = 0; }
 
 
-if( $alert ) {
+if( isset($alert) && $alert ) {
   print '<p style="background-color:yellow; color:black;">' . $alert . '</p><hr size="1" />';
 } 
 

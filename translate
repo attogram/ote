@@ -28,7 +28,7 @@ $ote->show_header( $ote->__('HEADER_TRANSLATION_TOOL') . ' ' . $source_language 
 
 $bgcolor = $ote->__('TABLE_CELL_BACKGROUND_COLOR_1');
 
-$q = $ote->clean( $_REQUEST['q'], 'translate' );
+$q = $ote->clean( @$_REQUEST['q'], 'translate' );
 $q = substr($q, 0, 127); // Only allow 128 length
 $q = stripslashes($q);
 
@@ -88,7 +88,7 @@ if( $q ) {
 		}
 
 
-		$ote->template_word_rows .= $ote->get_template('translate.result.row.html');
+		@$ote->template_word_rows .= $ote->get_template('translate.result.row.html');
 
 	} // end while each word
 } // end if q
