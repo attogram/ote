@@ -393,6 +393,7 @@ function do_task_list_table( $type, $sql, $do_not_show_more=0 ) {
 		print '<tr><td colspan="7">None</td></tr></table><br />&nbsp;<br />'; 
 		return; 
 	}
+	$bgcolor = FALSE;
 	while( $x = each($r) ) {
 		$x = $x[1];
 		$source_word = $x->s_word;

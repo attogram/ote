@@ -4,6 +4,10 @@ Open Translation Engine
 Change Log
 ----------
 
+0.9.9.0 - 0.9.9.1.dev
+- misc PHP Notices fixes
+- development moved to github
+
 0.9.8.9
 - global change to php start tag <? to <?php
 - added template settings variable to sample settings file

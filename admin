@@ -74,7 +74,7 @@ function do_admin_users() {
     
     if( is_numeric($uri[3+DEPTH]) &&  $uri[3+DEPTH] == $x->id ) {
 
-      if( $_POST['id'] && is_numeric($_POST['id']) && $_POST['id'] == $x->id ) {
+      if( isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] == $x->id ) {
 
         if( $x->id == DEMO_MODE ) {
           $_SESSION['alert'] .= $ote->__('demo mode - you may not edit this user') . '<br />';
@@ -85,16 +85,16 @@ function do_admin_users() {
         
         $m = array(); $i = 0;
         if( $_POST['username'] != $x->username ) {
-          $m[++$i] = " username = '" . mysql_escape_string( $_POST['username'] ) . "' " ;
+          $m[++$i] = " username = '" . mysql_real_escape_string( $_POST['username'] ) . "' " ;
         }
         if( $_POST['password'] != $x->password ) { 
-          $m[++$i] = " password = '" . mysql_escape_string( $_POST['password'] ) . "' "; 
+          $m[++$i] = " password = '" . mysql_real_escape_string( $_POST['password'] ) . "' "; 
         }
         if( $_POST['email'] != $x->email ) { 
-          $m[++$i] = " email = '" . mysql_escape_string( $_POST['email'] ) . "' "; 
+          $m[++$i] = " email = '" . mysql_real_escape_string( $_POST['email'] ) . "' "; 
         }
         if( $_POST['level'] != $x->level ) { 
-          $m[++$i] = " level = '" . mysql_escape_string( $_POST['level'] ) . "' "; 
+          $m[++$i] = " level = '" . mysql_real_escape_string( $_POST['level'] ) . "' "; 
         }
         
         reset($m);

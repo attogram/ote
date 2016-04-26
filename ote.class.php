@@ -2,7 +2,7 @@
 // Open Translation Engine
 // Main Object Class Definition File
 
-define('VERSION', '0.9.8.9');
+define('VERSION', '0.9.9.1.dev');
 
 //////////////////////////////////////////////////////////////////////////////
 require 'class/ote.debug.php';

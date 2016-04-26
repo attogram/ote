@@ -150,7 +150,7 @@ $template_replacers = array(
 		if( $alert ) {
 			$template_replacers['<<ALERT>>'] = '<p class="alert">' . $alert . '</p>';
 		} else {
-			if( $_SESSION['alert'] != '' ) {
+			if( isset($_SESSION['alert']) && $_SESSION['alert'] != '' ) {
 				$template_replacers['<<ALERT>>'] = '<p class="alert">' . $_SESSION['alert'] . '</p>'; 
 			}
 		}
@@ -158,7 +158,7 @@ $template_replacers = array(
 
 	$username = $this->clean( $_SESSION['username'], 'username' );
 	$template_replacers['<<USERNAME>>'] = $username;
-
+	$user_menu = FALSE;
 	if( $username == '' ) { // if not logged in
 		$login = '<a href="' . HOSTNAME . 'user/login/">';
 		$login .= $this->__('login');

@@ -152,7 +152,7 @@ function do_po_export( $source_code, $target_code, $cr="\n", $comment='# ' ) {
 	$r = get_all_words($source_code, $target_code);
 	header('Content-type: text/plain; charset=UTF-8'); 
 	print $ote->get_template('export.po.html');
-	
+	$last_source = FALSE;
 	while( list(,$x) = each($r) ) {
 		if( $last_source != $x->source_word ) {
 			print $cr . 'msgid "' . $x->source_word . '"' . $cr . 'msgstr "' . $x->target_word . '"';
@@ -178,8 +178,8 @@ function do_xdxf_export( $source_code, $target_code ) {
 	print $ote->get_template('export.xdxf.html');
 
 	$first = 1;
+	$last_source = FALSE;
 	while( list(,$x) = each($r) ) {
-
 		if( $last_source != $x->source_word ) {
 			if( !$first ) { print "</ar>\n"; } else { $first = 0; }
 			print '<ar><k>' . $x->source_word . '</k>' 

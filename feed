@@ -47,8 +47,8 @@ switch( $type ) {
 $r = $ote->query("
 SELECT s_id 
 FROM ote_word2word 
-WHERE s_code = '" . mysql_escape_string($source_language_code) . "' 
-AND t_code = '" . mysql_escape_string($target_language_code) . "' 
+WHERE s_code = '" . mysql_real_escape_string($source_language_code) . "' 
+AND t_code = '" . mysql_real_escape_string($target_language_code) . "' 
 ORDER BY RAND() 
 LIMIT 1");
 

@@ -228,7 +228,7 @@ function do_register() {
   $ote->show_header('Register new user');
   print $ote->get_template('register.html');
   
-  if( !$_SESSION['register_referer'] || $_SESSION['register_referer'] == '' ) {
+  if( !isset($_SESSION['register_referer']) || !$_SESSION['register_referer'] || $_SESSION['register_referer'] == '' ) {
     $_SESSION['register_referer'] = $_SERVER["HTTP_REFERER"];
   }
   
