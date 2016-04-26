@@ -1,7 +1,7 @@
 
 Open Translation Engine
 
-Copyright (c) 2009, David Barberi
+Copyright (c) 2009-2016 Open Translation Engine Developers
 
 All rights reserved.
 
