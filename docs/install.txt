@@ -6,11 +6,11 @@ Installation
 
 - Requirements: 
   PHP 5.x with multibyte functions enabled
-  MySQL 5.x
+  MySQL 5.x / MariaDB 5.x
   (For PHP 4.x / MySQL 4.x installs, see notes at end of this file)
   
-- Download the latest stable released version from:
-  http://sourceforge.net/project/showfiles.php?group_id=48619
+- Download the latest version from:
+  https://github.com/attogram/ote/archive/master.zip
 
 - Extract the download and put the files in a web accessible directory on your server
 
@@ -52,8 +52,8 @@ Installation
 
 
 --------------------------------------------------
-- For latest development version, checkout from SVN:
-  svn co https://ote.svn.sourceforge.net/svnroot/ote ote 
+- For latest development version, GIT/SVN access is available via:
+  https://github.com/attogram/ote.git
   Also see /docs/developer.documentation.txt for more info
 
 --------------------------------------------------  

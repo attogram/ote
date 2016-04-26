@@ -17,20 +17,13 @@ Developer Documentation
 
 * Submitting bug reports:
 
-  Please create an account on sourceforge.net if you do not yet have one.
-  
-  email to sourceforge user 'meta_nl'
-  http://sourceforge.net/users/meta_nl/
+  https://github.com/attogram/ote/issues
 
 
-* Joining the discussion:
 
-  Project Home: http://sourceforge.net/projects/ote/
+* Getting the latest version:
 
-
-* Getting the latest version from SVN:
-
-  svn co https://ote.svn.sourceforge.net/svnroot/ote ote 
+  https://github.com/attogram/ote
 
 
 * Getting on the roadmap:
@@ -41,14 +34,8 @@ Developer Documentation
 
 * Submitting patches:
   
-  email to sourceforge user 'meta_nl'
-  http://sourceforge.net/users/meta_nl/
+  https://github.com/attogram/ote/pulls
 
-
-* Getting SVN commit access:
-
-  SVN commit access is restricted to active developers 
-  who have proven they work well with the overall OTE community. 
 
 
 * A quick overview of the code:
@@ -60,7 +47,3 @@ Developer Documentation
 
   /docs/license.txt
   http://creativecommons.org/licenses/BSD/
-
-
-
-

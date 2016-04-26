@@ -173,6 +173,7 @@ function do_cleanup() {
   flush(); ob_flush();
   $sql = 'DELETE FROM ote_word WHERE ';
   $x = $ote->query('SELECT id, word FROM ote_word order by id');
+  $count = 0;
   while( list($trash,$y) = each($x) ) {
     if( !$ote->query("SELECT id FROM ote_word2word WHERE s_id = '" . $y->id . "' LIMIT 1") ) {
       if( !$ote->query("SELECT id FROM ote_word2word WHERE t_id = '" . $y->id . "' LIMIT 1") ) {
