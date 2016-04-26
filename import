@@ -103,8 +103,8 @@ function do_import( $source_code, $target_code, $input, $delim="\t") {
 		$z = explode( $delim, $y );
 		$z[0] = ltrim($z[0]);
 		$z[0] = rtrim($z[0]);
-		$z[1] = ltrim($z[1]);
-		$z[1] = rtrim($z[1]);
+		$z[1] = @ltrim($z[1]);
+		$z[1] = @rtrim($z[1]);
 
 		if( (!$z[0] || !$z[1]) ) {
 			// print ' *** IGNORED: malformed or comment<br />';
@@ -129,6 +129,7 @@ function import_wordpair( $source_word, $target_word, $source_code, $target_code
  // print '<br />';
   
   $source_word_id = $ote->get_word_id_by_name( $source_word );
+  $ote->import_count = 0;
   if( $source_word_id == 0 ) { 
     $source_word_id = $ote->add_word( $source_word ); 
 	$ote->import_count++;

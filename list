@@ -135,7 +135,7 @@ function show_list($source_code, $target_code) {
   if(  ($limit_start + $limit_end) < $number_of_pairs  ) {
     $menu .= ' &nbsp; &nbsp; &nbsp;'
     . '<a href="' . HOSTNAME . 'list/' . $source_language 
-    . '/' . $target_language . '/' . ($ote->list_limit + 1) . '/">'
+    . '/' . $target_language . '/' . (@$ote->list_limit + 1) . '/">'
     . $ote->__('next page') 
     . ' &gt; &gt; </a></p>';
   }

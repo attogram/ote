@@ -147,7 +147,7 @@ if( isset($alert) && $alert ) {
     if( isset($template_list) ) { print $passed; } else { print $failed; }
 
     print '<br />Template List At Least 1 view defined check:  ... ';
-    if( sizeof($template_list) > 0 ) { print $passed; } else { print $failed; }
+    if( isset($template_list) && sizeof($template_list) > 0 ) { print $passed; } else { print $failed; }
 
     @reset($template_list);
     $count = 0;

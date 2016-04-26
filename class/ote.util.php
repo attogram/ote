@@ -56,6 +56,7 @@ function get_word_id_by_name( $name ) {
 	if( $name == '' ) { return 0; }
 	$res = $this->query("SELECT id FROM ote_word WHERE word LIKE '"
 	. mysql_real_escape_string( $name ) . "' LIMIT 1");
+	if( !isset($res[1]->id) ) { return FALSE; }
 	return $res[1]->id;
 } // END get_word_id_by_name
 

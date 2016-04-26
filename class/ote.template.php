@@ -52,7 +52,7 @@ function show_header($title='', $use_feed_url=0, $nopage=0) {
 
 //////////////////////////////////////////////////////////////////////////////
 function show_footer() {
-	print $this->get_template('footer.html', $page_title='', $page_header='', $_SESSION['alert']);
+	print $this->get_template('footer.html', $page_title='', $page_header='', @$_SESSION['alert']);
 	$_SESSION['alert'] = NULL;
 	if( extension_loaded('zlib') ){
 		ob_end_flush();  // flush out to the browser, if possible
