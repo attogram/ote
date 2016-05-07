@@ -81,12 +81,12 @@ if( $ote->number_of_rows == 0 ) {
 $source = $r[1]->source_word;
 $target = array();
 while( $x = each($r) ) {
-	array_push( $target, $x[value]->target_word);
+	array_push( $target, $x['value']->target_word);
 }
 $surl  = HOSTNAME . 'word/' . $source_language_code . '/' . urlencode($source);
 
 ///////////////////////////////////////////////////////////////////////////////////
-if( $_GET['text'] == 1 ) { //  - plain text format
+if( isset($_GET['text']) && $_GET['text'] == 1 ) { //  - plain text format
 	header('Content-type: text/plain; charset=UTF-8'); 
 	print "\n" . $source_language_name . ': ' . $source . "\n\n" 
 	. $target_language_name . ': ' . snice($target)
@@ -140,6 +140,7 @@ print '<?phpxml version="1.0" encoding="UTF-8" ?>
 /////////////////////////
 function snice($x) {
 	if( is_array($x) ) {
+    $r = '';
 		while( list($trash,$y) = each($x) ) { $r .= $y . ', '; }
 		$r = trim($r,', ');
 		return $r;
