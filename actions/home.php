@@ -13,11 +13,13 @@ $this->page_header('OTE v1.0.0-dev');
 <ul>
   <li><a href="languages/">Languages</a></li>
   <li><a href="words/">Words</a></li>
+  <li><a href="word2word/">Word2Word</a></li>
 </ul>
 
 <ul>  
   <li><a href="languages-admin/">Languages-Admin</a></li>  
   <li><a href="words-admin/">Words-Admin</a></li>
+  <li><a href="word2word-admin/">Word2Word-Admin</a></li>
   <li><a href="users-admin/">Users-Admin</a></li>
 </ul>
   
