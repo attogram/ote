@@ -1,0 +1,38 @@
+{
+  "name": "attogram/attogram-framework",
+  "description": "The Attogram Framework",
+  "type": "project",
+  "homepage": "https://github.com/attogram/attogram",
+  "license": [
+    "MIT",
+    "GPL-3.0+"
+  ],
+  "require": {
+    "php": ">=5.5.9 || ^7.0",
+    "ext-pdo": "*",
+    "ext-pdo_sqlite": "*",
+    "monolog/monolog": "~1.0",
+    "symfony/http-foundation": "~3.0",
+    "erusev/parsedown": "^1.6"
+  },
+  "authors": [
+    {
+      "name": "Attogram Developers",
+      "homepage": "https://github.com/attogram/attogram"
+    }
+  ],
+  "support": {
+    "docs": "http://getitdaily.com/attogram/"
+  },
+  "keywords": [
+    "attogram",
+    "framework",
+    "skeleton",
+    "php",
+    "apache",
+    "sqlite",
+    "markdown",
+    "jquery",
+    "bootstrap"
+  ]
+}

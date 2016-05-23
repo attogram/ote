@@ -1,4 +1,1 @@
-ote
-===
-
-The Open Translation Engine
+OTE with attogram framework

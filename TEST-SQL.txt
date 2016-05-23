@@ -1,0 +1,13 @@
+SELECT
+  sw.word AS s_word,
+  ww.s_code,
+  tw.word AS t_word,
+  ww.t_code
+FROM
+  word2word AS ww,
+  word AS sw,
+  word AS tw
+WHERE
+  sw.id = ww.s_id
+AND
+  tw.id = ww.t_id
