@@ -1,17 +1,23 @@
 <?php
 namespace Attogram;
 
-$this->page_header('OTE 1.0.0');
+$this->page_header('OTE v1.0.0-dev');
 
 ?>
 <div class="container">
-<h1>OTD 0.0.0</h1>
-<h2>The Open Translation Dictionary</h2>
-
+<h2>The Open Translation Engine v1.0.0-dev</h2>
+<p>The OTE is an open source, open content, multi-user
+ <nobr><strong>translation dictionary</strong></nobr>
+ manager for the web.</p>
 
 <ul>
   <li><a href="languages/">Languages</a></li>
-  <li><a href="languages-admin/">Languages-Admin</a></li>
+  <li><a href="words/">Words</a></li>
+</ul>
+
+<ul>  
+  <li><a href="languages-admin/">Languages-Admin</a></li>  
+  <li><a href="words-admin/">Words-Admin</a></li>
 </ul>
   
 </div>

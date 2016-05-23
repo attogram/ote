@@ -8,7 +8,7 @@ namespace Attogram;
 <footer class="footer">
  <div class="container">
   <p><small>
-    OTD v0.0.0
+    OTE v1.0.0-dev
     &nbsp; | &nbsp; Powered by <a target="github" href="https://github.com/attogram/attogram">Attogram Framework v<?php print ATTOGRAM_VERSION; ?></a>
     &nbsp; | &nbsp; <?php print gmdate('Y-m-d H:i:s'); ?> UTC
   </small></p>

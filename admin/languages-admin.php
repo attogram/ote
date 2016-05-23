@@ -1,26 +1,24 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Languages Admin - OTE 1.0.0');
+$this->page_header('Words - OTE 1.0.0-dev');
 
-$lang = $this->sqlite_database->query('SELECT * FROM language ORDER BY id');
-
-print '<div class="container"><p><strong>' . count($lang) . '</strong> <a href="">Languages</a>';
-print ' &nbsp; - &nbsp; <a href="../languages/">view</a>';
-print ' &nbsp; - &nbsp; <a target="_db" href="../db-admin/?table=language&action=row_create">Create New Language</a></p>';
-print '<table class="table table-bordered"><thead><tr>
-<th>ID</th><th>edit</th><th>delete</th>
-<th>code</th>
-<th>language</th>
-</tr></thead><tbody>
-<tr>';
-foreach($lang as $u) {
-  print '<tr><td>' . $u['id'] . '</td>';
-  print '<td><a target="_db" href="../db-admin/?table=language&action=row_editordelete&pk=[' . $u['id'] . ']&type=edit">edit</a></td>';
-  print '<td><a target="_db" href="../db-admin/?table=language&action=row_editordelete&pk=[' . $u['id'] . ']&type=delete">delete</a></td>';
-  print '<td>' . htmlentities($u['code']) . '</td>';
-  print '<td>' . htmlentities($u['language']) . '</td>';
-}
-print '</table></div>';
+tabler(
+  $attogram = $this,
+  $table = 'language',
+  $name_singular = 'language',
+  $name_plural = 'languages',
+  $public_link = '../languages/',
+  $col = array(
+    array('class'=>'col-md-8', 'title'=>'language', 'key'=>'language'),
+    array('class'=>'col-md-2', 'title'=>'<code>code</code>', 'key'=>'code'),
+    array('class'=>'col-md-2', 'title'=>'ID', 'key'=>'id'),
+  ),
+  $sql = 'SELECT language, code, id FROM language ORDER BY id',
+  $admin_link = '../languages-admin/',
+  $admin_create = '../db-admin/?table=' . $table .'&amp;action=row_create',
+  $admin_edit = '../db-admin/?table=' . $table . '&amp;action=row_editordelete&amp;type=edit&amp;pk=',
+  $admin_delete = '../db-admin/?table=' . $table . '&amp;action=row_editordelete&amp;type=delete&amp;pk='
+);
 
 $this->page_footer();

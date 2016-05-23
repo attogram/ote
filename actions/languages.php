@@ -1,22 +1,24 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Languages - OTE 1.0.0');
+$this->page_header('Words - OTE 1.0.0-dev');
 
-$lang = $this->sqlite_database->query('SELECT code, language FROM language ORDER BY id');
-
-print '<div class="container"><p><strong>' . count($lang) . '</strong> <a href="">Languages</a>';
-if( $this->is_admin()) {
-  print ' &nbsp; - &nbsp; <a href="../languages-admin/">Admin</a>';
-}
-print '<table class="table table-bordered"><thead><tr>
-<th>code</th>
-<th>language</th>
-</tr></thead><tbody>';
-foreach($lang as $u) {
-  print '<tr><td>' . htmlentities($u['code']) . '</td>';
-  print '<td>' . htmlentities($u['language']) . '</td></tr>';
-}
-print '</tbody></table></div>';
+tabler(
+  $attogram = $this,
+  $table = 'language',
+  $name_singular = 'language',
+  $name_plural = 'languages',
+  $public_link = '../languages/',
+  $col = array(
+    array('class'=>'col-md-8', 'title'=>'language', 'key'=>'language'),
+    array('class'=>'col-md-2', 'title'=>'<code>code</code>', 'key'=>'code'),
+    array('class'=>'col-md-2', 'title'=>'ID', 'key'=>'id'),
+  ),
+  $sql = 'SELECT language, code, id FROM language ORDER BY id',
+  $admin_link = '../languages-admin/',
+  $admin_create = FALSE,
+  $admin_edit = FALSE,
+  $admin_delete = FALSE
+);
 
 $this->page_footer();
