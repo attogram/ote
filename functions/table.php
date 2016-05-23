@@ -49,27 +49,33 @@ function tabler(
   foreach( $col as $c ) {
     print '<th>' . $c['title'] . '</th>';
   }
-   
-  print '</tr></thead><tobody>';
+  if( $admin_create ) {
+    print '<th><nobr><small>'
+    . 'edit <span class="glyphicon glyphicon-wrench" title="edit"></span>'
+    . ' &nbsp; '
+    . '<span class="glyphicon glyphicon-remove-circle" title="delete"></span> delete'
+    . '</small></nobr></th>';
+  }
+  print '</tr></thead><tbody>';
 
 
   foreach( $result as $row ) {
     print '<tr>';
     
     foreach( $col as $c ) {
-      print '<td>' . htmlentities($row[ $c['key'] ]);
+      print '<td>' . htmlentities($row[ $c['key'] ]) . '</td>';
     }
 
     if( $admin_create ) {
-      print ' &nbsp; &nbsp; ' 
+      print '<td> &nbsp; &nbsp; ' 
       . '<a target="_db" href="' . $admin_edit . '[' . $row['id'] . ']">'
       . '<span class="glyphicon glyphicon-wrench" title="edit"></span></a>'
       . ' &nbsp; &nbsp; '
       . '<a target="_db" href="' . $admin_delete . '[' . $row['id'] . ']">'
       . '<span class="glyphicon glyphicon-remove-circle" title="delete"></span></a>'
+      . '</td>'
       ;
     }
-    print '</td>';
   }
   print '</tr></tbody></table></div>';
 }
