@@ -10,8 +10,8 @@ tabler(
   $name_plural = 'words',
   $public_link = '../words/',
   $col = array(
-    array('class'=>'col-md-7', 'title'=>'word', 'key'=>'word'),
-    array('class'=>'col-md-5', 'title'=>'<code>ID</code>', 'key'=>'id'),
+    array('class'=>'col-md-8', 'title'=>'word', 'key'=>'word'),
+    array('class'=>'col-md-4', 'title'=>'<code>ID</code>', 'key'=>'id'),
   ),
   $sql = 'SELECT word, id FROM word ORDER BY id',
   $admin_link = '../words-admin/',

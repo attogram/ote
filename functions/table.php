@@ -41,7 +41,9 @@ function tabler(
   foreach( $col as $c ) {
     print '<col class="' . $c['class'] . '">';
   }
-
+  if( $admin_create ) {
+    print '<col class="col-md-1">';
+  }
   print '</colgroup><thead><tr>';
 
   foreach( $col as $c ) {
