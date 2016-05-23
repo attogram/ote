@@ -1,7 +1,7 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Words - OTE 1.0.0-dev');
+$this->page_header('Languages Admin - OTE 1.0.0-dev');
 
 tabler(
   $attogram = $this,
