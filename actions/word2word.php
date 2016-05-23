@@ -11,21 +11,21 @@ tabler(
   $public_link = '../word2word/',
   $col = array(
     array('class'=>'col-md-3', 'title'=>'s_word', 'key'=>'s_word'),
-    array('class'=>'col-md-1', 'title'=>'s_id', 'key'=>'s_id'),
+    //array('class'=>'col-md-1', 'title'=>'s_id', 'key'=>'s_id'),
     array('class'=>'col-md-1', 'title'=>'s_code', 'key'=>'s_code'),
     array('class'=>'col-md-3', 'title'=>'t_word', 'key'=>'t_word'),
-    array('class'=>'col-md-1', 'title'=>'t_id', 'key'=>'t_id'),
+    //array('class'=>'col-md-1', 'title'=>'t_id', 'key'=>'t_id'),
     array('class'=>'col-md-1', 'title'=>'t_code', 'key'=>'t_code'),
-    array('class'=>'col-md-1', 'title'=>'<code>ID</code>', 'key'=>'id'),
+    //array('class'=>'col-md-1', 'title'=>'<code>ID</code>', 'key'=>'id'),
   ),
   $sql = '
 SELECT
   ww.id,
   sw.word AS s_word,
-  ww.s_id,
+  -- ww.s_id,
   ww.s_code,
   tw.word AS t_word,
-  ww.t_id,
+  -- ww.t_id,
   ww.t_code
 FROM
   word2word AS ww,
