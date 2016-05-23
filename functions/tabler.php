@@ -51,7 +51,7 @@ function tabler(
   if( $show_edit ) {
     print '<col class="col-md-1">';
   }
-  print '</colgroup><thead><tr>';
+  print '</colgroup><thead><tr class="active">';
 
   foreach( $col as $c ) {
     print '<th>' . $c['title'] . '</th>';
