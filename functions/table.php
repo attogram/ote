@@ -36,9 +36,7 @@ function tabler(
     }
   }
 
-  print '<p>'
-  . '<table class="table table-bordered table-hover table-condensed">'
-  . '<colgroup>';
+  print '</p><table class="table table-bordered table-hover table-condensed"><colgroup>';
 
   foreach( $col as $c ) {
     print '<col class="' . $c['class'] . '">';
