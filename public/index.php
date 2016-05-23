@@ -7,7 +7,7 @@
  * integrated SQLite database with phpLiteAdmin, Markdown parser, jQuery and Bootstrap.
  * Attogram is Dual Licensed under the The MIT License or the GNU General Public License, at your choosing.
  *
- * @version 0.4.4
+ * @version 0.4.5
  * @license MIT
  * @license GPL
  * @copyright 2016 Attogram Developers https://github.com/attogram/attogram
@@ -15,10 +15,10 @@
 
 namespace Attogram;
 
-define('ATTOGRAM_VERSION', '0.4.4');
+define('ATTOGRAM_VERSION', '0.4.5');
 $debug = TRUE; // startup debug setting, overriden by config settings
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+error_reporting(E_ALL); // dev
+ini_set('display_errors', '1'); // dev
 $attogram = new attogram();
 
 /**
@@ -29,7 +29,7 @@ class attogram {
   public $autoloader, $request, $path, $uri, $depth, $fof, $site_name, $skip_files, $log;
   public $sqlite_database, $db_name, $tables_dir;
   public $templates_dir, $functions_dir;
-  public $actions_dir, $default_action, $actions, $action;
+  public $actions_dir, $actions, $action;
   public $admins, $is_admin, $admin_dir, $admin_actions;
 
   /**
@@ -56,12 +56,12 @@ class attogram {
     }
     $this->log->debug('uri:',$this->uri);
 
-    $depth = $this->depth['']; // default depth
+    $depth = $this->depth['*']; // default depth
     if( isset($this->depth[$this->uri[0]]) ) {
       $depth = $this->depth[$this->uri[0]];
     }
     if( $depth < sizeof($this->uri)) {
-      $this->log->error('URI Depth ERROR. uri=' . sizeof($this->uri) . ' allowed=' . $this->depth['']);
+      $this->log->error('URI Depth ERROR. uri=' . sizeof($this->uri) . ' allowed=' . $depth);
       $this->error404();
     }
 
@@ -96,14 +96,13 @@ class attogram {
     $debug = $this->debug;
     $this->set_config('site_name', @$config['site_name'], 'Attogram Framework <small>v' . ATTOGRAM_VERSION . '</small>');
     $this->set_config('admins', @$config['admins'], array('127.0.0.1','::1'));
-    $this->set_config('depth', @$config['depth'], array(''=>2,'whatis'=>3));
+    $this->set_config('depth', @$config['depth'], array('*'=>2,''=>1,'whatis'=>3));
     $this->actions_dir = $this->attogram_directory . 'actions';
     $this->admin_dir = $this->attogram_directory . 'admin';
     $this->templates_dir = $this->attogram_directory . 'templates';
     $this->functions_dir = $this->attogram_directory . 'functions';
     $this->tables_dir = $this->attogram_directory . 'tables';
     $this->autoloader = $this->attogram_directory . 'vendor/autoload.php';
-    $this->default_action = $this->attogram_directory . 'actions/home.php';
     $this->fof = $this->attogram_directory . 'templates/404.php';
     $this->db_name = $this->attogram_directory . 'db/global';
     $this->skip_files = array('.','..','.htaccess');
@@ -279,12 +278,13 @@ class attogram {
    * @return void
    */
   function exception_files() {
-    if( $this->uri[0] == 'sitemap.xml' && !isset($this->uri[1]) ) {
+    if( $this->uri[0] == 'sitemap.xml' && $this->uri[1] == '' && !isset($this->uri[2]) ) {
       $site = $this->get_site_url() . '/';
       $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
       $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
       $sitemap .= ' <url><loc>' . $site . '</loc></url>' . "\n";
       foreach( array_keys($this->get_actions()) as $action ){
+        if( $action == 'home' ) { continue; }
         $sitemap .= ' <url><loc>' . $site . $action . '/</loc></url>' . "\n";
       }
       $sitemap .= '</urlset>';
@@ -292,7 +292,7 @@ class attogram {
       print $sitemap;
       exit;
     }
-    if( $this->uri[0] == 'robots.txt' && !isset($this->uri[1]) ) {
+    if( $this->uri[0] == 'robots.txt' && $this->uri[1] == '' && !isset($this->uri[2]) ) {
       header('Content-Type: text/plain');
       print 'Sitemap: ' . $this->get_site_url() . '/sitemap.xml';
       exit;
