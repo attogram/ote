@@ -13,21 +13,28 @@ function tabler(
   $col,
   $sql,
   $admin_link,
-  $admin_create=FALSE,
-  $admin_edit=FALSE,
-  $admin_delete=FALSE
+  $show_edit
 ) {
 
   $result = $attogram->sqlite_database->query($sql);
 
+  if( $show_edit ) {
+    $admin_create = '../db-admin/?table=' . $table .'&amp;action=row_create';
+    $admin_edit = '../db-admin/?table=' . $table . '&amp;action=row_editordelete&amp;type=edit&amp;pk='; // [#ID]
+    $admin_delete = '../db-admin/?table=' . $table . '&amp;action=row_editordelete&amp;type=delete&amp;pk='; // [#ID]
+  } else {
+    $admin_create = $admin_edit = $admin_delete = '';
+  }
+  
   print '<div class="container"><p>'
   . '<strong>' . count($result) . '</strong> <a href="">' . $name_plural . '</a>';
 
-  if( $admin_create ) {
-    print ' &nbsp; &nbsp; &nbsp; '
-    . '<a href="' . $public_link . '"><span class="glyphicon glyphicon-user"></span> view</a>'
-    . ' &nbsp; &nbsp; &nbsp; '
-    . '<a target="_db" href="' . $admin_create . '"><span class="glyphicon glyphicon-plus"></span> '
+  if( $show_edit ) {
+    print ' &nbsp; &nbsp; &nbsp; ';
+    if( $public_link ) {
+      print '<a href="' . $public_link . '"><span class="glyphicon glyphicon-user"></span> view</a> &nbsp; &nbsp; &nbsp; ';
+    }
+    print '<a target="_db" href="' . $admin_create . '"><span class="glyphicon glyphicon-plus"></span> '
     . 'new ' . $name_singular . '</a>';
   } else {
     if( $attogram->is_admin() ) {
@@ -41,7 +48,7 @@ function tabler(
   foreach( $col as $c ) {
     print '<col class="' . $c['class'] . '">';
   }
-  if( $admin_create ) {
+  if( $show_edit ) {
     print '<col class="col-md-1">';
   }
   print '</colgroup><thead><tr>';
@@ -49,7 +56,7 @@ function tabler(
   foreach( $col as $c ) {
     print '<th>' . $c['title'] . '</th>';
   }
-  if( $admin_create ) {
+  if( $show_edit ) {
     print '<th><nobr><small>'
     . 'edit <span class="glyphicon glyphicon-wrench" title="edit"></span>'
     . ' &nbsp; '
@@ -63,7 +70,7 @@ function tabler(
     foreach( $col as $c ) {
       print '<td>' . htmlentities($row[ $c['key'] ]) . '</td>';
     }
-    if( $admin_create ) {
+    if( $show_edit ) {
       print '<td> &nbsp; &nbsp; '
       . '<a target="_db" href="' . $admin_edit . '[' . $row['id'] . ']">'
       . '<span class="glyphicon glyphicon-wrench" title="edit"></span></a>'

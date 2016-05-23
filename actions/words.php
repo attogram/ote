@@ -15,9 +15,7 @@ tabler(
   ),
   $sql = 'SELECT word, id FROM word ORDER BY id',
   $admin_link = '../words-admin/',
-  $admin_create = FALSE,
-  $admin_edit = FALSE,
-  $admin_delete = FALSE
+  $show_edit = FALSE
 );
 
 $this->page_footer();

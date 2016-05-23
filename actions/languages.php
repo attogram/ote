@@ -16,9 +16,7 @@ tabler(
   ),
   $sql = 'SELECT language, code, id FROM language ORDER BY id',
   $admin_link = '../languages-admin/',
-  $admin_create = FALSE,
-  $admin_edit = FALSE,
-  $admin_delete = FALSE
+  $show_edit = FALSE
 );
 
 $this->page_footer();

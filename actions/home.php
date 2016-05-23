@@ -18,6 +18,7 @@ $this->page_header('OTE v1.0.0-dev');
 <ul>  
   <li><a href="languages-admin/">Languages-Admin</a></li>  
   <li><a href="words-admin/">Words-Admin</a></li>
+  <li><a href="users-admin/">Users-Admin</a></li>
 </ul>
   
 </div>
