@@ -17,7 +17,7 @@ function tabler(
   $admin_edit=FALSE,
   $admin_delete=FALSE
 ) {
-  
+
   $result = $attogram->sqlite_database->query($sql);
 
   print '<div class="container"><p>'
@@ -35,7 +35,7 @@ function tabler(
       . '<a href="' . $admin_link . '"><span class="glyphicon glyphicon-wrench"></span> Admin</a>';
     }
   }
-  
+
   print '<p>'
   . '<table class="table table-bordered table-hover table-condensed">'
   . '<colgroup>';
@@ -43,9 +43,9 @@ function tabler(
   foreach( $col as $c ) {
     print '<col class="' . $c['class'] . '">';
   }
-  
+
   print '</colgroup><thead><tr>';
- 
+
   foreach( $col as $c ) {
     print '<th>' . $c['title'] . '</th>';
   }
@@ -58,16 +58,13 @@ function tabler(
   }
   print '</tr></thead><tbody>';
 
-
   foreach( $result as $row ) {
     print '<tr>';
-    
     foreach( $col as $c ) {
       print '<td>' . htmlentities($row[ $c['key'] ]) . '</td>';
     }
-
     if( $admin_create ) {
-      print '<td> &nbsp; &nbsp; ' 
+      print '<td> &nbsp; &nbsp; '
       . '<a target="_db" href="' . $admin_edit . '[' . $row['id'] . ']">'
       . '<span class="glyphicon glyphicon-wrench" title="edit"></span></a>'
       . ' &nbsp; &nbsp; '
@@ -76,6 +73,7 @@ function tabler(
       . '</td>'
       ;
     }
+    print '</tr>';
   }
-  print '</tr></tbody></table></div>';
+  print '</tbody></table></div>';
 }
