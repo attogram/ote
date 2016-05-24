@@ -26,11 +26,13 @@ if( sizeof($this->uri) == 2 ) {
       }
     }
     asort($dlist);
-    print '<h3><ul>';
+    
+    print '<p>' . sizeof($dlist) . ' Dictionaries:</p>';
+    print '<ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
     }
-    print '</ul></h3>';
+    print '</ul>';
     print '</div>';   
     $this->page_footer();
     exit;
@@ -48,6 +50,10 @@ if( !isset($this->uri[2]) || !$this->uri[2] ) {
 $s_code = $this->uri[1];
 $t_code = $this->uri[2];
 
+if( $s_code == $t_code ) {
+  // Error - Source and Target language code the same
+  header("Location: $rel_url");  
+}
 if( !isset($langs[$s_code]) ) {
   // Source Language Code Not Found
   header("Location: $rel_url");
@@ -65,18 +71,27 @@ print '<h1>' . $title . '</h1>';
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
 print '<p>' . sizeof($d) . ' word pairs</p>';
 
-print '<hr />';
+print '<hr /><p>';
 
 
 $sep = ' = ';
 $prev = '';
 
 foreach( $d as $i ) {
-  if( $i['s_word'] != $prev && $prev != '') { print '<br /> '; }
-  print $i['s_word'] . $sep . $i['t_word'] . '<br />';
+  if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
+  print '<strong>'
+  . '<a href="' . $this->path . '/w/' . $s_code . '//' . urlencode($i['s_word']) . '">' 
+  . $i['s_word'] 
+  . '</a>'
+  . '</strong>' 
+  . $sep
+  . '<a href="' . $this->path . '/w/' . $t_code . '//' . urlencode($i['t_word']) . '">' 
+  . $i['t_word'] 
+  . '</a>'
+  . '<br />';
   $prev = $i['s_word'];
 }
 
 
-print '<br /><hr /><br /></div>';
+print '</p></div>';
 $this->page_footer();
