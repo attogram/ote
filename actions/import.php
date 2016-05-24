@@ -3,8 +3,8 @@ namespace Attogram;
 
 $this->page_header('Import - OTE v1.0.0-dev');
 
-$default['s'] = 'nl';
-$default['t'] = 'en';
+$default['s'] = '';
+$default['t'] = '';
 $default['d'] = '=';
 
 if( $_POST ) {
@@ -65,21 +65,31 @@ function do_import($db) {
     return;
   }
   
-  $w = $_POST['w'];
-  $d = $_POST['d'];
-  $t = $_POST['t'];
-  $s = $_POST['s'];
+  $w = $_POST['w']; // List of word pairs
 
+  $d = $_POST['d']; // Deliminator
+  $d = str_replace('\t', "\t", $d); // allow real tabs
+
+  $t = trim($_POST['t']); // Target Language Code
+
+  $s = trim($_POST['s']); // Source Language Code
+
+  $tn = get_language_name_from_code($t, $db);
+  $sn = get_language_name_from_code($s, $db);
+  
   $lines = explode("\n", $w);
   print '<div class="container">';
-  print '<p>Source Language Code: ' . htmlentities($s) . '</p>';
-  print '<p>Target Language Code: ' . htmlentities($t) . '</p>';
-  print '<p>Deliminator: ' . htmlentities($d) . '<hr /></p>';
-  print '<p>Lines: ' . sizeof($lines) . '</p>';
+  print 'Source Language: Code:' . htmlentities($s) . ' Name:' . htmlentities($sn) . '<br />';
+  print 'Target Language: Code:' . htmlentities($t) . ' Name:' . htmlentities($tn) . '<br />';
+  print 'Deliminator: ' . htmlentities($d) . '<br />';
+  print 'Lines: ' . sizeof($lines) . '<hr />';
   ob_flush(); flush();
   
   $line_count = 0;
   $import_count = 0;
+  $error_count = 0;
+  $skip_count = 0;
+  $dupe_count = 0;
   
   foreach($lines as $line) {
 
@@ -90,16 +100,19 @@ function do_import($db) {
     
     if( $line == '' ) {
       //print '<p>Info: Line #' . $line_count . ': Blank line found. Skipping line</p>';
+      $skip_count++;
       continue;
     }
     
     if( preg_match('/^#/', $line) ) {
       //print '<p>Info: Line #' . $line_count . ': Comment line found. Skipping line.</p>';
+      $skip_count++;
       continue;
     }
 
     if( !preg_match('/' . $d . '/', $line) ) {
       print '<p>Error: Line #' . $line_count . ': Deliminator (' .htmlentities($d) . ') Not Found. Skipping line.</p>';
+      $error_count++; $skip_count++;
       continue;
     }
 
@@ -107,17 +120,20 @@ function do_import($db) {
 
     if( sizeof($wp) != 2 ) {
       print '<p>Error: Line #' . $line_count . ': Malformed line.  Expecting 2 words, found ' . sizeof($wp) . ' words</p>';
+      $error_count++; $skip_count++;
       continue;
     }
     
     $sw = trim($wp[0]);
     if( !$sw ) {
       print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing source word</p>';
+      $error_count++; $skip_count++;
       continue;      
     }
     $tw = trim($wp[1]);
     if( !$tw ) {
       print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing target word</p>';
+      $error_count++; $skip_count++;
       continue;      
     }
     
@@ -128,8 +144,18 @@ function do_import($db) {
     $bind = array( 's_id'=>$si, 's_code'=>$s, 't_id'=>$ti, 't_code'=>$t);
     $r = $db->queryb($sql, $bind);
     if( !$r ) {
-      print '<p>Error: Line #' . $line_count . ': Can not insert word pair into database: '
-      . print_r($db->db->errorInfo(),1) . '</p>';
+      if( $db->db->errorCode() == '0000' ) {
+        //print '<p>Info: Line #' . $line_count . ': Already Exists.  Skipping line';
+        $dupe_count++; $skip_count++;
+        continue;
+      }
+      print '<p>Error: Line #' . $line_count . ': Database Insert Error.'
+      . ' sw: ' . htmlentities($sw)
+      . ' tw: ' . htmlentities($tw)
+      . ' Bind: ' . print_r($bind,1) 
+      . ' errorInfo: ' . print_r($db->db->errorInfo(),1) 
+      . '</p>';
+      $error_count++; $skip_count++;
     } else {
       $import_count++;
       print " $import_count "; 
@@ -137,31 +163,14 @@ function do_import($db) {
 
     ob_flush(); flush();
 
-  }
+  } // end foreach line
   
-  print '<p><hr />IMPORT DONE.</p>';
-  print '<p>' . $import_count . ' word pairs imported.</p>';
+  print '<hr />';
+  print $import_count . ' word pairs imported.<br />';
+  print $error_count . ' errors.<br />';
+  print $skip_count . ' lines skipped.<br />';
+  print $dupe_count . ' duplicate lines.<br />';
   print '</div>';
-}
 
-function get_id_from_word($word, $db) {
-  $sql = 'SELECT id FROM word WHERE word = :word';
-  $bind=array('word'=>$word);
-  $r = $db->query($sql, $bind);
-  if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
-    //print '<p>ERROR: no word.id found.  Inserting word: ' . $word . '</p>';
-    return insert_word($word, $db);
-  }
-  return $r[0]['id'];
-}
+} // end do_import
 
-function insert_word($word, $db) {
-  $sql = 'INSERT INTO word (word) VALUES (:word)';
-  $bind=array('word'=>$word);
-  $r = $db->queryb($sql, $bind);
-  if( !$r ) {
-    print '<p>ERROR: can not insert word</p>';
-    return 0;
-  }
-  return $db->db->lastInsertId();
-}
