@@ -1,6 +1,9 @@
 <?php
 
-// OTE functions
+// OTE global things
+
+define('OTE_VERSION', '1.0.0-dev');
+
 
 /**
  * get_id_from_word()
@@ -88,7 +91,6 @@ function get_dictionary( $s_code, $t_code, $db) {
   AND   sw.id = ww.s_id
   AND   tw.id = ww.t_id
   ORDER BY sw.word, tw.word
-  
   ';
   $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
   $r = $db->query($sql,$bind);
