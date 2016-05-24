@@ -42,8 +42,7 @@ if( sizeof($this->uri) == 2 ) {
 }
 
 if( sizeof($this->uri) != 5 ) {
-  print '<pre>ERROR ' . print_r($this->uri,1) . '</pre>';
-  exit;
+  $this->error404();
 }
 
 $word = urldecode($this->uri[3]);
@@ -67,39 +66,48 @@ if( $t_code && !$s_code ) {
   $this->error404();
 }
 
-$and = '';
+$and = $r_and = '';
 $bind = array();
+$sql = '
+SELECT sw.word AS s_word, word2word.s_code, tw.word AS t_word, word2word.t_code
+FROM word2word, word AS sw, word AS tw
+WHERE sw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
+';
+$r_sql = '
+SELECT sw.word AS t_word, word2word.t_code AS s_code, tw.word AS s_word, word2word.s_code AS t_code
+FROM word2word, word AS sw, word AS tw
+WHERE tw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
+';
+$bind['word'] = $r_bind['word'] = $word;
 
 if( $s_code && $t_code ) {
-  $and = 'AND word2word.s_code = :s_code 
-          AND word2word.t_code = :t_code';
+  $and = 'AND word2word.s_code = :s_code AND word2word.t_code = :t_code';
   $bind['s_code']=$s_code;
   $bind['t_code']=$t_code;
 } elseif ( $s_code && !$t_code ) {
   $and = 'AND word2word.s_code = :s_code';
   $bind['s_code']=$s_code;
-} elseif ( !$s_code && !$t_code ) {
-  $and = '';
 }
 
-$sql = '
-  SELECT sw.word AS s_word, word2word.s_code, tw.word AS t_word, word2word.t_code
-  FROM word2word,
-       word AS sw,
-       word AS tw
-  WHERE sw.word = :word
-  AND sw.id = word2word.s_id
-  AND tw.id = word2word.t_id  
-' . $and . '
-  ORDER BY sw.word, tw.word
-';
-$bind['word'] = $word;
+$sql .= "$and ORDER BY sw.word, tw.word";
+$r_sql .= "$and ORDER BY sw.word, tw.word";
 
-print "<pre>$sql  -- bind: " . print_r($bind,1) . "</pre>";
 $r = $this->sqlite_database->query($sql, $bind);
-//print '<pre>' . print_r($r,1) . '</pre>';
+$r_r = $this->sqlite_database->query($r_sql, $bind);
 
-// DO reverse lookup here...
+/*print "<pre>"
+. "-- sql: $sql"
+. "<br />-- bind: " . print_r($bind,1)
+. "<br />-- #r: " . sizeof($r)
+. '<br />-- r: ' . print_r($r,1)
+. '<hr />'
+. "<br />-- r_sql: $r_sql"
+. "<br />-- bind: " . print_r($bind,1)
+. "<br />-- #r_r: " . sizeof($r_r) 
+. '<br />-- r_r: ' . print_r($r_r,1)
+. "</pre>";
+*/
+$r = array_merge($r,$r_r);
 
 if( !$r ) {
   $this->error404();
