@@ -1,7 +1,7 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Word2Word Admin - OTE 1.0.0-dev');
+$this->page_header('Word2Word - OTE 1.0.0-dev');
 
 tabler(
   $attogram = $this,
