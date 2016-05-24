@@ -69,7 +69,7 @@ $this->page_header($title . ' - OTE 1.0.0-dev');
 print '<div class="container">';
 print '<h1>' . $title . '</h1>';
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
-print '<p><code>' . sizeof($d) . '</code> word pairs</p>';
+print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
 print '<hr /><p>';
 
