@@ -21,23 +21,35 @@ if( $_POST ) {
     <br />
     <input type="text" class="form-control" name="s" value="<?php print $default['s']; ?>">
   </div>
-
+  <div class="col-xs-4">
+    <label for="d">Deliminator</label>
+    <br />
+    <input type="text" class="form-control" name="d" value="<?php print $default['d']; ?>">
+  </div>
   <div class="col-xs-4">
     <label for="t">Target Language Code</label>
     <br />
     <input type="text" class="form-control" name="t" value="<?php print $default['t']; ?>">
   </div>
 
-  <div class="col-xs-4">
-    <label for="d">Deliminator</label>
+  <div class="col-xs-12"><br /></div>
+
+  <div class="col-xs-6">
+    <label for="sn">Source Language Name</label>
     <br />
-    <input type="text" class="form-control" name="d" value="<?php print $default['d']; ?>">
+    <input type="text" class="form-control" name="sn" value="">
   </div>
-  
-  <div class="col-xs-12">
+  <div class="col-xs-6">
+    <label for="tn">Target Language Name</label>
     <br />
+    <input type="text" class="form-control" name="tn" value="">
+  </div>
+
+  <div class="col-xs-12"><br /></div>
+
+  <div class="col-xs-12">
     <label for="w">Word pairs:</label>
-    <textarea class="form-control" name="w" rows="10"></textarea>
+    <textarea class="form-control" name="w" rows="8"></textarea>
     <button type="submit" class="btn btn-primary"> &nbsp; &nbsp; Import Word Pairs &nbsp; &nbsp; </button>
   </div>
   
@@ -71,17 +83,17 @@ function do_import($db) {
   $d = str_replace('\t', "\t", $d); // allow real tabs
 
   $s = trim($_POST['s']); // Source Language Code
-  $sn = get_language_name_from_code($s, $db);
+  $sn = get_language_name_from_code($s, $db, $default=@$_POST['sn']);
 
   $t = trim($_POST['t']); // Target Language Code
-  $tn = get_language_name_from_code($t, $db);
-  
+  $tn = get_language_name_from_code($t, $db, $default=@$_POST['tn']);
+
   $lines = explode("\n", $w);
   print '<div class="container">';
-  print 'Source Language: Code:' . htmlentities($s) . ' Name:' . htmlentities($sn) . '<br />';
-  print 'Target Language: Code:' . htmlentities($t) . ' Name:' . htmlentities($tn) . '<br />';
-  print 'Deliminator: ' . htmlentities($d) . '<br />';
-  print 'Lines: ' . sizeof($lines) . '<hr />';
+  print 'Source Language: Code: <code>' . htmlentities($s) . '</code> Name: <code>' . htmlentities($sn) . '</code><br />';
+  print 'Target Language: Code: <code>' . htmlentities($t) . '</code> Name: <code>' . htmlentities($tn) . '</code><br />';
+  print 'Deliminator: <code>' . htmlentities($d) . '</code><br />';
+  print 'Lines: <code>' . sizeof($lines) . '</code><hr />';
   ob_flush(); flush();
   
   $line_count = 0;
@@ -145,7 +157,7 @@ function do_import($db) {
     if( !$r ) {
       if( $db->db->errorCode() == '0000' ) {
         //print '<p>Info: Line #' . $line_count . ': Already Exists.  Skipping line';
-        $dupe_count++; $skip_count++;
+        $error_count++; $dupe_count++; $skip_count++;
         continue;
       }
       print '<p>Error: Line #' . $line_count . ': Database Insert Error.'
@@ -165,11 +177,10 @@ function do_import($db) {
   } // end foreach line
   
   print '<hr />';
-  print $import_count . ' word pairs imported.<br />';
-  print $error_count . ' errors.<br />';
-  print $skip_count . ' lines skipped.<br />';
-  print $dupe_count . ' duplicate lines.<br />';
+  print '<code>' . $import_count . '</code> word pairs imported.<br />';
+  print '<code>' . $error_count . '</code> errors.<br />';
+  print '<code>' . $dupe_count . '</code> duplicate lines.<br />';
+  print '<code>' . $skip_count . '</code> lines skipped.<br />';
   print '</div>';
 
 } // end do_import
-

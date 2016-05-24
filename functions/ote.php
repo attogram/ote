@@ -36,15 +36,16 @@ function insert_word($word, $db) {
 /**
  * get_language_name_from_code()
  */
-function get_language_name_from_code($code, $db) {
+function get_language_name_from_code($code, $db, $default=FALSE) {
   $sql = 'SELECT language FROM language WHERE code = :code';
   $bind = array( 'code'=>$code);
   $r = $db->query($sql, $bind);
   if( isset($r[0]['language']) ) {
     return $r[0]['language'];
   }
-  //print '<p>Error: no language name found. code: ' . htmlentities($code) . '</p>';
-  return insert_language($code, $code, $db);
+  if( !$default ) { $default = $code; }
+  // print '<p>Error: no language name found. code: ' . htmlentities($code) . '</p>';
+  return insert_language($code, $default, $db);
 }
 
 /**
