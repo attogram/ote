@@ -12,7 +12,7 @@ tabler(
   $col = array(
     array('class'=>'col-md-12', 'title'=>'word', 'key'=>'word'),
   ),
-  $sql = 'SELECT word FROM word ORDER BY id',
+  $sql = 'SELECT word FROM word ORDER BY word',
   $admin_link = '../words-admin/',
   $show_edit = FALSE
 );
