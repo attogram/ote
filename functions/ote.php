@@ -73,3 +73,64 @@ function get_languages($db) {
   }
   return $rv;
 }
+
+/**
+ * get_dictionary()
+ */
+function get_dictionary( $s_code, $t_code, $db) {
+  $sql = '
+  SELECT sw.word AS s_word, tw.word AS t_word
+  FROM word2word AS ww,
+       word AS sw,
+       word AS tw
+  WHERE ww.s_code = :s_code
+  AND   ww.t_code = :t_code
+  AND   sw.id = ww.s_id
+  AND   tw.id = ww.t_id
+  ORDER BY sw.word, tw.word
+  ';
+  $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
+  $r = $db->query($sql,$bind);
+
+  $sql_r = '
+  SELECT sw.word AS t_word, tw.word AS s_word
+  FROM word2word AS ww,
+       word AS sw,
+       word AS tw
+  WHERE ww.s_code = :t_code
+  AND   ww.t_code = :s_code
+  AND   sw.id = ww.s_id
+  AND   tw.id = ww.t_id
+  ORDER BY tw.word, sw.word
+  ';  
+  $r_r = $db->query($sql_r,$bind);
+
+  $rv = array_merge($r, $r_r);
+  
+  $rv = multiSort($rv, 's_word', 't_word');
+  return $rv;
+}
+
+/**
+ * multiSort()
+ */
+function multiSort() {
+  $args = func_get_args();
+  $c = count($args);
+  if ($c < 2) {
+    return false;
+  }
+  $array = array_splice($args, 0, 1);
+  $array = $array[0];
+  usort($array, function($a, $b) use($args) {
+    $i = 0;
+    $c = count($args);
+    $cmp = 0;
+    while($cmp == 0 && $i < $c){
+      $cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
+      $i++;
+    }
+    return $cmp;
+  });
+  return $array;
+}
