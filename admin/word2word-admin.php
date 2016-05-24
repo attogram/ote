@@ -35,6 +35,7 @@ WHERE
   sw.id = ww.s_id
 AND
   tw.id = ww.t_id
+ORDER BY sw.word, tw.word
 ',
   $admin_link = '../word2word-admin/',
   $show_edit = TRUE
