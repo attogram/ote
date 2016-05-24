@@ -1,15 +1,44 @@
 <?php
-# OTE dictionary page
-#
-# requires setup in config.php:
-#   $config['w']['dictionary'] = 5;
-#
-# url formats:
-#   w/source_language_code/target_language_code/word
-#   w/source_language_code//word
-#   w///word
+/*
+ OTE Word Page
 
+ Requires setup in config.php:
+   $config['depth']['word'] = 5;
+
+ URL formats:
+
+   word/source_language_code/target_language_code/word 
+     list of pairs for this specific source language word, only into target language
+
+   word/source_language_code//word 
+     list of pairs for this specific source language word, into any language
+
+   word///word 
+    list of pairs for this word, in any languages
+
+   word/ 
+     list of all words
+
+*/
 namespace Attogram;
+
+if( sizeof($this->uri) == 2 ) {
+  $sql = 'SELECT word FROM word ORDER BY word';
+  $all = $this->sqlite_database->query($sql);
+  $title = 'All Words';
+  $this->page_header($title);
+  print '<div class="container">';
+  print '<p><code>' . sizeof($all) . '</code> words.</p>';
+  print '<ul>';
+  foreach( $all as $w ) {
+    print '<li><a href="' . $this->path . '/' . $this->uri[0] . '///' 
+    . urlencode($w['word']) . '">' . $w['word'] . '</a></li>';
+  }
+  print '</ul>';
+  print '</div>';
+  $this->page_footer();
+  exit;
+}
 
 if( sizeof($this->uri) != 5 ) {
   print '<pre>ERROR ' . print_r($this->uri,1) . '</pre>';

@@ -18,4 +18,4 @@ $config['site_name'] = 'Open Translation Engine';
 //$config['depth'][''] = 1; // Homepage Depth
 
 $config['depth']['dictionary'] = 4; // Dictionary Depth
-$config['depth']['w'] = 5; // word viewer Depth
+$config['depth']['word'] = 5; // word viewer Depth

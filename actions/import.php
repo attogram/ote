@@ -93,7 +93,7 @@ function do_import($db) {
   print 'Source Language: Code: <code>' . htmlentities($s) . '</code> Name: <code>' . htmlentities($sn) . '</code><br />';
   print 'Target Language: Code: <code>' . htmlentities($t) . '</code> Name: <code>' . htmlentities($tn) . '</code><br />';
   print 'Deliminator: <code>' . htmlentities($d) . '</code><br />';
-  print 'Lines: <code>' . sizeof($lines) . '</code><hr />';
+  print 'Lines: <code>' . sizeof($lines) . '</code><hr /><small>';
   ob_flush(); flush();
   
   $line_count = 0;
@@ -176,7 +176,7 @@ function do_import($db) {
 
   } // end foreach line
   
-  print '<hr />';
+  print '</small><hr />';
   print '<code>' . $import_count . '</code> word pairs imported.<br />';
   print '<code>' . $error_count . '</code> errors.<br />';
   print '<code>' . $dupe_count . '</code> duplicate lines.<br />';

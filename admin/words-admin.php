@@ -8,7 +8,7 @@ tabler(
   $table = 'word',
   $name_singular = 'word',
   $name_plural = 'words',
-  $public_link = '../words/',
+  $public_link = '../word/',
   $col = array(
     array('class'=>'col-md-8', 'title'=>'word', 'key'=>'word'),
     array('class'=>'col-md-3', 'title'=>'<code>ID</code>', 'key'=>'id'),
