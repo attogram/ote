@@ -70,12 +70,11 @@ function do_import($db) {
   $d = $_POST['d']; // Deliminator
   $d = str_replace('\t', "\t", $d); // allow real tabs
 
-  $t = trim($_POST['t']); // Target Language Code
-
   $s = trim($_POST['s']); // Source Language Code
-
-  $tn = get_language_name_from_code($t, $db);
   $sn = get_language_name_from_code($s, $db);
+
+  $t = trim($_POST['t']); // Target Language Code
+  $tn = get_language_name_from_code($t, $db);
   
   $lines = explode("\n", $w);
   print '<div class="container">';
