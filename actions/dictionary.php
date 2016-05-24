@@ -6,6 +6,8 @@ namespace Attogram;
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
+$langs = get_languages($this->sqlite_database);
+
 if( sizeof($this->uri) == 2 ) {
     $this->page_header('Dictionary list - OTE v1.0.0-dev');
     print '<div class="container">';
@@ -13,7 +15,6 @@ if( sizeof($this->uri) == 2 ) {
     $sql = 'SELECT DISTINCT s_code, t_code FROM word2word ORDER BY s_code, t_code';
     $r = $this->sqlite_database->query($sql);
     
-    $langs = get_languages($this->sqlite_database);
     
     $dlist = array();
     foreach( $r as $d ) {
@@ -47,8 +48,6 @@ if( !isset($this->uri[2]) || !$this->uri[2] ) {
 $s_code = $this->uri[1];
 $t_code = $this->uri[2];
 
-$langs = get_languages($this->sqlite_database);
-
 if( !isset($langs[$s_code]) ) {
   // Source Language Code Not Found
   header("Location: $rel_url");
@@ -61,9 +60,14 @@ if( !isset($langs[$t_code]) ) {
 $title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
 
 $this->page_header($title . ' - OTE 1.0.0-dev');
-print '<div class="container"><h1>' . $title . '</h1><hr />';
-
+print '<div class="container">';
+print '<h1>' . $title . '</h1>';
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
+print '<p>' . sizeof($d) . ' word pairs</p>';
+
+print '<hr />';
+
+
 $sep = ' = ';
 $prev = '';
 
