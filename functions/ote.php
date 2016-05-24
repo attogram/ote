@@ -88,6 +88,7 @@ function get_dictionary( $s_code, $t_code, $db) {
   AND   sw.id = ww.s_id
   AND   tw.id = ww.t_id
   ORDER BY sw.word, tw.word
+  
   ';
   $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
   $r = $db->query($sql,$bind);
@@ -127,7 +128,8 @@ function multiSort() {
     $c = count($args);
     $cmp = 0;
     while($cmp == 0 && $i < $c){
-      $cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
+      //$cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
+      $cmp = strcmp( strtolower($a[ $args[ $i ] ]), strtolower($b[ $args[ $i ] ]));
       $i++;
     }
     return $cmp;
