@@ -93,8 +93,9 @@ if( $s_code && $t_code ) {
   $bind['s_code']=$s_code;
 }
 
-$sql .= "$and ORDER BY sw.word, tw.word";
-$r_sql .= "$r_and ORDER BY sw.word, tw.word";
+$order = 'ORDER BY sw.word, tw.word, word2word.t_code, word2word.s_code ';  // to fix / r_fix
+$sql .= "$and $order";
+$r_sql .= "$r_and $order";
 
 $r = $this->sqlite_database->query($sql, $bind);
 $r_r = $this->sqlite_database->query($r_sql, $bind);
