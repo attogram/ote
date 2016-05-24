@@ -25,10 +25,11 @@ namespace Attogram;
 if( sizeof($this->uri) == 2 ) {
   $sql = 'SELECT word FROM word ORDER BY word';
   $all = $this->sqlite_database->query($sql);
-  $title = 'All Words';
+  $title = 'Word list';
   $this->page_header($title);
   print '<div class="container">';
-  print '<p><code>' . sizeof($all) . '</code> words.</p>';
+  print '<h1>' . $title . '</h1>';
+  print '<p><code>' . sizeof($all) . '</code> words:</p>';
   print '<ul>';
   foreach( $all as $w ) {
     print '<li><a href="' . $this->path . '/' . $this->uri[0] . '///' 

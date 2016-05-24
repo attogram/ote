@@ -27,7 +27,7 @@ if( sizeof($this->uri) == 2 ) {
     }
     asort($dlist);
     
-    print '<p>' . sizeof($dlist) . ' Dictionaries:</p>';
+    print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p>';
     print '<ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
@@ -69,7 +69,7 @@ $this->page_header($title . ' - OTE 1.0.0-dev');
 print '<div class="container">';
 print '<h1>' . $title . '</h1>';
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
-print '<p>' . sizeof($d) . ' word pairs</p>';
+print '<p><code>' . sizeof($d) . '</code> word pairs</p>';
 
 print '<hr /><p>';
 
@@ -80,12 +80,12 @@ $prev = '';
 foreach( $d as $i ) {
   if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
   print '<strong>'
-  . '<a href="' . $this->path . '/w/' . $s_code . '//' . urlencode($i['s_word']) . '">' 
+  . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">' 
   . $i['s_word'] 
   . '</a>'
   . '</strong>' 
   . $sep
-  . '<a href="' . $this->path . '/w/' . $t_code . '//' . urlencode($i['t_word']) . '">' 
+  . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">' 
   . $i['t_word'] 
   . '</a>'
   . '<br />';
