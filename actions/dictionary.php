@@ -61,14 +61,18 @@ if( !isset($langs[$t_code]) ) {
 $title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
 
 $this->page_header($title . ' - OTE 1.0.0-dev');
-print '<div class="container"><h1>' . $title . '</h1>';
+print '<div class="container"><h1>' . $title . '</h1><hr />';
 
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
 $sep = ' = ';
+$prev = '';
+
 foreach( $d as $i ) {
+  if( $i['s_word'] != $prev && $prev != '') { print '<br /> '; }
   print $i['s_word'] . $sep . $i['t_word'] . '<br />';
+  $prev = $i['s_word'];
 }
 
 
-print '</div>';
+print '<br /><hr /><br /></div>';
 $this->page_footer();
