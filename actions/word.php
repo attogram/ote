@@ -7,17 +7,20 @@
 
  URL formats:
 
-   word/source_language_code/target_language_code/word 
-     list of pairs for this specific source language word, only into target language
+  word/source_language_code/target_language_code/word
+    translations for this word, from source language, into target language
 
-   word/source_language_code//word 
-     list of pairs for this specific source language word, into any language
+  word/source_language_code//word
+    translations for this word, from source language, into any language
 
-   word///word 
-    list of pairs for this word, in any languages
+  word///word
+    translations for this word, from any language, into any language
 
-   word/ 
-     list of all words
+  word/source_language_code/
+    all words in this language
+
+  word/
+    all words
 
 */
 namespace Attogram;
@@ -32,7 +35,7 @@ if( sizeof($this->uri) == 2 ) {
   print '<p><code>' . sizeof($all) . '</code> words:</p>';
   print '<ul>';
   foreach( $all as $w ) {
-    print '<li><a href="' . $this->path . '/' . $this->uri[0] . '///' 
+    print '<li><a href="' . $this->path . '/' . $this->uri[0] . '///'
     . urlencode($w['word']) . '">' . $w['word'] . '</a></li>';
   }
   print '</ul>';
@@ -103,7 +106,7 @@ $r_r = $this->sqlite_database->query($r_sql, $bind);
 . '<hr />'
 . "<br />-- r_sql: $r_sql"
 . "<br />-- bind: " . print_r($bind,1)
-. "<br />-- #r_r: " . sizeof($r_r) 
+. "<br />-- #r_r: " . sizeof($r_r)
 . '<br />-- r_r: ' . print_r($r_r,1)
 . "</pre>";
 */
@@ -124,9 +127,9 @@ print '<p>langs: <code>' . print_r($langs,1) . '</code></p>';
 print '<p>' . sizeof($r) . ' translations found</p>';
 foreach( $r as $w ) {
   print '<pre>'
-  . $langs[ $w['s_code'] ] . ' = ' . $langs[ $w['t_code'] ] 
+  . $langs[ $w['s_code'] ] . ' = ' . $langs[ $w['t_code'] ]
   . '<br />'
-  . $w['s_word'] . ' = ' . $w['t_word'] 
+  . $w['s_word'] . ' = ' . $w['t_word']
   . '</pre>';
 }
 print '</div>';
