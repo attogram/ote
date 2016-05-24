@@ -81,24 +81,25 @@ SELECT sw.word AS t_word, word2word.t_code AS s_code, tw.word AS s_word, word2wo
 FROM word2word, word AS sw, word AS tw
 WHERE tw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
 ';
-$bind['word'] = $r_bind['word'] = $word;
+$bind['word'] = $word;
 
 if( $s_code && $t_code ) {
   $and = 'AND word2word.s_code = :s_code AND word2word.t_code = :t_code';
-  $bind['s_code']=$s_code;
-  $bind['t_code']=$t_code;
+  $r_and = 'AND word2word.s_code = :t_code AND word2word.t_code = :s_code';
+  $bind['s_code']=$s_code; $bind['t_code']=$t_code;
 } elseif ( $s_code && !$t_code ) {
   $and = 'AND word2word.s_code = :s_code';
+  $r_and = 'AND word2word.t_code = :s_code';
   $bind['s_code']=$s_code;
 }
 
 $sql .= "$and ORDER BY sw.word, tw.word";
-$r_sql .= "$and ORDER BY sw.word, tw.word";
+$r_sql .= "$r_and ORDER BY sw.word, tw.word";
 
 $r = $this->sqlite_database->query($sql, $bind);
 $r_r = $this->sqlite_database->query($r_sql, $bind);
-
-/*print "<pre>"
+/*
+print "<pre>"
 . "-- sql: $sql"
 . "<br />-- bind: " . print_r($bind,1)
 . "<br />-- #r: " . sizeof($r)
