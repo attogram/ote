@@ -10,8 +10,12 @@ $config = array();
 
 //$config['debug'] = FALSE; // Debug/logging - TRUE or FALSE
 
-$config['site_name'] = 'OTE v1.0.0-dev';
+$config['site_name'] = 'Open Translation Engine';
 
 //$config['admins'] = array( '127.0.0.1', '::1', );
 
-//$config['depth'][''] = 2; // the default depth
+//$config['depth']['*'] = 2; // Default Depth
+//$config['depth'][''] = 1; // Homepage Depth
+
+$config['depth']['dictionary'] = 4; // Dictionary Depth
+$config['depth']['w'] = 5; // word viewer Depth
