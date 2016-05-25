@@ -25,7 +25,7 @@
 */
 namespace Attogram;
 
-if( sizeof($this->uri) == 2 ) {
+if( sizeof($this->uri) == 2 ) { // Show All Words
   $sql = 'SELECT word FROM word ORDER BY word';
   $all = $this->sqlite_database->query($sql);
   $title = 'Word list';
@@ -93,26 +93,16 @@ if( $s_code && $t_code ) {
   $bind['s_code']=$s_code;
 }
 
-$order = 'ORDER BY sw.word, tw.word, word2word.t_code, word2word.s_code ';  // to fix / r_fix
+$order = '';  // dev
 $sql .= "$and $order";
 $r_sql .= "$r_and $order";
 
 $r = $this->sqlite_database->query($sql, $bind);
 $r_r = $this->sqlite_database->query($r_sql, $bind);
-/*
-print "<pre>"
-. "-- sql: $sql"
-. "<br />-- bind: " . print_r($bind,1)
-. "<br />-- #r: " . sizeof($r)
-. '<br />-- r: ' . print_r($r,1)
-. '<hr />'
-. "<br />-- r_sql: $r_sql"
-. "<br />-- bind: " . print_r($bind,1)
-. "<br />-- #r_r: " . sizeof($r_r)
-. '<br />-- r_r: ' . print_r($r_r,1)
-. "</pre>";
-*/
+
 $r = array_merge($r,$r_r);
+
+$r = multiSort($r, 's_code', 't_code', 's_word', 't_word');
 
 if( !$r ) {
   $this->error404();
@@ -120,19 +110,33 @@ if( !$r ) {
 
 $this->page_header('Word');
 print '<div class="container">';
-/*
-print '<p>s_code: <code>' . $s_code . '</code></p>';
-print '<p>t_code: <code>' . $t_code . '</code></p>';
-print '<p>word: <code>' . htmlentities($word) . '</code></p>';
-print '<p>langs: <code>' . print_r($langs,1) . '</code></p>';
-*/
-print '<p>' . sizeof($r) . ' translations found</p>';
-foreach( $r as $w ) {
-  print '<pre>'
-  . $langs[ $w['s_code'] ] . ' = ' . $langs[ $w['t_code'] ]
-  . '<br />'
-  . $w['s_word'] . ' = ' . $w['t_word']
-  . '</pre>';
+print '<h1><kbd><strong>' . htmlentities($word) . '</strong></kbd></h1>';
+
+if( $s_code && $t_code ) {
+  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>) to ' 
+  . '<strong>' . $langs[$t_code] . '</strong> (<code>' . $t_code . '</code>)';
+} elseif( $s_code && !$t_code) {
+  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>)';
+} else {
+  $header = '<code>*</code>';
 }
+print '<br /><p class="text-muted">language: ' . $header . '</p>';  
+print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations found</p>';
+
+$sub_header = $prev_sub_header = '';
+print '<p>';
+foreach( $r as $w ) {
+
+  $sub_header = $langs[ $w['s_code'] ] . ' to ' . $langs[ $w['t_code'] ];
+
+  if( $sub_header != $prev_sub_header ) {
+    print '<hr /><em>' . $sub_header . '</em><br />';
+  }
+
+  print '<strong>' . $w['s_word'] . '</strong>' . ' = ' . $w['t_word'] . '<br />';
+  
+  $prev_sub_header = $sub_header;
+}
+print '</p>';
 print '</div>';
 $this->page_footer();
