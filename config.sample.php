@@ -10,12 +10,11 @@ $config = array();
 
 //$config['debug'] = FALSE; // Debug/logging - TRUE or FALSE
 
-$config['site_name'] = 'Open Translation Engine';
+//$config['site_name'] = 'Attogram Framework <small>v' . ATTOGRAM_VERSION . '</small>'; 
 
 //$config['admins'] = array( '127.0.0.1', '::1', );
 
-//$config['depth']['*'] = 2; // Default Depth
-//$config['depth'][''] = 1; // Homepage Depth
-
-$config['depth']['dictionary'] = 4; // Dictionary Depth
-$config['depth']['word'] = 5; // word viewer Depth
+//$config['depth'] = array( 
+//  '*' => 2, // the default depth
+//  ''  => 1, // depth for the home page
+//);
