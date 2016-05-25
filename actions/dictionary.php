@@ -1,8 +1,23 @@
 <?php
+/* 
+ OTE Dictionary Page
+
+ Requires setup in config.php:
+   $config['depth']['dictionary'] = 4;
+
+ URL formats:
+
+  dictionary/source_language_code/target_language_code/
+    all translations, from source language, into target language
+
+  dictionary/source_language_code/
+    all translations, from source language, into any language
+
+  dictionary/
+    list all dictionaries
+    
+*/
 namespace Attogram;
-
-# requires setup in config.php:  $config['depth']['dictionary'] = 4;
-
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
@@ -72,7 +87,6 @@ $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);
 print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
 print '<hr /><p>';
-
 
 $sep = ' = ';
 $prev = '';
