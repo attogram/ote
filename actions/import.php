@@ -173,13 +173,13 @@ function do_import($db) {
       
       if( $line_count % 100 == 0 ) {
         print ' ' . $line_count . ' ';
+        @ob_flush(); flush();
       } elseif( $line_count % 10 == 0 ) {
         print '.';
+        @ob_flush(); flush();
       }
        
     }
-
-    @ob_flush(); flush();
 
   } // end foreach line
   
