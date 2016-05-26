@@ -23,79 +23,6 @@ function get_dictionary_list($db, $rel_url='') {
   asort($dlist);
   return $dlist;
 }
- 
-/**
- * get_id_from_word()
- */
-function get_id_from_word($word, $db) {
-  $sql = 'SELECT id FROM word WHERE word = :word';
-  $bind=array('word'=>$word);
-  $r = $db->query($sql, $bind);
-  if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
-    //print '<p>ERROR: no word.id found.  Inserting word: ' . $word . '</p>';
-    return insert_word($word, $db);
-  }
-  return $r[0]['id'];
-}
-
-/**
- * insert_word()
- */
-function insert_word($word, $db) {
-  $sql = 'INSERT INTO word (word) VALUES (:word)';
-  $bind=array('word'=>$word);
-  $r = $db->queryb($sql, $bind);
-  if( !$r ) {
-    print '<p>ERROR: can not insert word</p>';
-    return 0;
-  }
-  return $db->db->lastInsertId();
-}
-
-/**
- * get_language_name_from_code()
- */
-function get_language_name_from_code($code, $db, $default=FALSE) {
-  $sql = 'SELECT language FROM language WHERE code = :code';
-  $bind = array( 'code'=>$code);
-  $r = $db->query($sql, $bind);
-  if( isset($r[0]['language']) ) {
-    return $r[0]['language'];
-  }
-  if( !$default ) { $default = $code; }
-  // print '<p>Error: no language name found. code: ' . htmlentities($code) . '</p>';
-  return insert_language($code, $default, $db);
-}
-
-/**
- * insert_language()
- */
-function insert_language($code, $language_name, $db) {
-  $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
-  $bind=array('code'=>$code, 'language'=>$language_name);
-  $r = $db->queryb($sql, $bind);
-  if( !$r ) {
-    print '<p>ERROR: can not insert language</p>';
-    return 'error';
-  }
-  return $language_name;
-}
-
-/**
- * get_languages()
- */
-function get_languages($db) {
-  $sql = 'SELECT code, language FROM language ORDER by id';
-  $r = $db->query($sql);
-  if( !$r ) {
-    return array();
-  }
-  $rv = array();
-  foreach( $r as $g ) {
-    $rv[ $g['code'] ] = $g['language'];
-  }
-  return $rv;
-}
 
 /**
  * get_dictionary()
@@ -132,6 +59,119 @@ function get_dictionary( $s_code, $t_code, $db) {
   
   $rv = multiSort($rv, 's_word', 't_word');
   return $rv;
+}
+
+/**
+ * get_language_name_from_code()
+ */
+function get_language_name_from_code($code, $db, $default=FALSE) {
+  $sql = 'SELECT language FROM language WHERE code = :code';
+  $bind = array( 'code'=>$code);
+  $r = $db->query($sql, $bind);
+  if( isset($r[0]['language']) ) {
+    return $r[0]['language'];
+  }
+  if( !$default ) { $default = $code; }
+  // print '<p>Error: no language name found. code: ' . htmlentities($code) . '</p>';
+  return insert_language($code, $default, $db);
+}
+
+/**
+ * get_languages()
+ */
+function get_languages($db) {
+  $sql = 'SELECT code, language FROM language ORDER by id';
+  $r = $db->query($sql);
+  if( !$r ) {
+    return array();
+  }
+  $rv = array();
+  foreach( $r as $g ) {
+    $rv[ $g['code'] ] = $g['language'];
+  }
+  return $rv;
+}
+
+/**
+ * get_word()
+ */
+function get_word($db, $word, $s_code, $t_code='') {
+  $and = $r_and = '';
+  $bind = array();
+  $sql = '
+  SELECT sw.word AS s_word, word2word.s_code, tw.word AS t_word, word2word.t_code
+  FROM word2word, word AS sw, word AS tw
+  WHERE sw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
+  ';
+  $r_sql = '
+  SELECT sw.word AS t_word, word2word.t_code AS s_code, tw.word AS s_word, word2word.s_code AS t_code
+  FROM word2word, word AS sw, word AS tw
+  WHERE tw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
+  ';
+  $bind['word'] = $word;
+
+  if( $s_code && $t_code ) {
+    $and = 'AND word2word.s_code = :s_code AND word2word.t_code = :t_code';
+    $r_and = 'AND word2word.s_code = :t_code AND word2word.t_code = :s_code';
+    $bind['s_code']=$s_code; $bind['t_code']=$t_code;
+  } elseif ( $s_code && !$t_code ) {
+    $and = 'AND word2word.s_code = :s_code';
+    $r_and = 'AND word2word.t_code = :s_code';
+    $bind['s_code']=$s_code;
+  }
+
+  $order = '';  // dev
+  $sql .= "$and $order";
+  $r_sql .= "$r_and $order";
+
+  $r = $db->query($sql, $bind);
+  $r_r = $db->query($r_sql, $bind);
+
+  $r = array_merge($r,$r_r);
+  $r = multiSort($r, 's_code', 't_code', 's_word', 't_word');
+  return $r;
+}
+
+/**
+ * get_id_from_word()
+ */
+function get_id_from_word($word, $db) {
+  $sql = 'SELECT id FROM word WHERE word = :word';
+  $bind=array('word'=>$word);
+  $r = $db->query($sql, $bind);
+  if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
+    //print '<p>ERROR: no word.id found.  Inserting word: ' . $word . '</p>';
+    return insert_word($word, $db);
+  }
+  return $r[0]['id'];
+}
+
+/**
+ * insert_word()
+ */
+function insert_word($word, $db) {
+  $sql = 'INSERT INTO word (word) VALUES (:word)';
+  $bind=array('word'=>$word);
+  $r = $db->queryb($sql, $bind);
+  if( !$r ) {
+    print '<p>ERROR: can not insert word</p>';
+    return 0;
+  }
+  return $db->db->lastInsertId();
+}
+
+/**
+ * insert_language()
+ */
+function insert_language($code, $language_name, $db) {
+  $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
+  $bind=array('code'=>$code, 'language'=>$language_name);
+  $r = $db->queryb($sql, $bind);
+  if( !$r ) {
+    print '<p>ERROR: can not insert language</p>';
+    return 'error';
+  }
+  return $language_name;
 }
 
 /**

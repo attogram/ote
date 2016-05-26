@@ -69,40 +69,7 @@ if( $t_code && !$s_code ) {
   $this->error404();
 }
 
-$and = $r_and = '';
-$bind = array();
-$sql = '
-SELECT sw.word AS s_word, word2word.s_code, tw.word AS t_word, word2word.t_code
-FROM word2word, word AS sw, word AS tw
-WHERE sw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
-';
-$r_sql = '
-SELECT sw.word AS t_word, word2word.t_code AS s_code, tw.word AS s_word, word2word.s_code AS t_code
-FROM word2word, word AS sw, word AS tw
-WHERE tw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
-';
-$bind['word'] = $word;
-
-if( $s_code && $t_code ) {
-  $and = 'AND word2word.s_code = :s_code AND word2word.t_code = :t_code';
-  $r_and = 'AND word2word.s_code = :t_code AND word2word.t_code = :s_code';
-  $bind['s_code']=$s_code; $bind['t_code']=$t_code;
-} elseif ( $s_code && !$t_code ) {
-  $and = 'AND word2word.s_code = :s_code';
-  $r_and = 'AND word2word.t_code = :s_code';
-  $bind['s_code']=$s_code;
-}
-
-$order = '';  // dev
-$sql .= "$and $order";
-$r_sql .= "$r_and $order";
-
-$r = $this->sqlite_database->query($sql, $bind);
-$r_r = $this->sqlite_database->query($r_sql, $bind);
-
-$r = array_merge($r,$r_r);
-
-$r = multiSort($r, 's_code', 't_code', 's_word', 't_word');
+$r = get_word($this->sqlite_database, $word, $s_code, $t_code);
 
 if( !$r ) {
   $this->error404();
