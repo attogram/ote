@@ -156,7 +156,6 @@ function do_import($db) {
     $r = $db->queryb($sql, $bind);
     if( !$r ) {
       if( $db->db->errorCode() == '0000' ) {
-        //print '<p>Info: Line #' . $line_count . ': Already Exists.  Skipping line';
         $error_count++; $dupe_count++; $skip_count++;
         continue;
       }
