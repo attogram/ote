@@ -1,7 +1,7 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Users Admin - OTE 1.0.0-dev');
+$this->page_header('Attogram - Admin - Users');
 
 tabler(
   $attogram = $this,
@@ -19,7 +19,7 @@ tabler(
     array('class'=>'col-md-1', 'title'=>'last_host', 'key'=>'last_host'),
   ),
   $sql = 'SELECT * FROM user ORDER BY id',
-  $admin_link = '../users-admin/',
+  $admin_link = '../users/',
   $show_edit = TRUE
 );
 
