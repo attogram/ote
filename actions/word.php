@@ -28,7 +28,7 @@ namespace Attogram;
 $ote = new ote($this->sqlite_database);
 
 if( sizeof($this->uri) == 2 ) { // Show All Words
-  $sql = 'SELECT word FROM word ORDER BY word';
+  $sql = 'SELECT word FROM words ORDER BY word';
   $all = $this->sqlite_database->query($sql);
   $title = 'Word list';
   $this->page_header($title);

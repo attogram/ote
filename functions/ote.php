@@ -58,8 +58,8 @@ class ote {
     $sql = '
     SELECT sw.word AS s_word, tw.word AS t_word
     FROM word2word AS ww,
-         word AS sw,
-         word AS tw
+         words AS sw,
+         words AS tw
     WHERE ww.s_code = :s_code
     AND   ww.t_code = :t_code
     AND   sw.id = ww.s_id
@@ -72,8 +72,8 @@ class ote {
     $sql_r = '
     SELECT sw.word AS t_word, tw.word AS s_word
     FROM word2word AS ww,
-         word AS sw,
-         word AS tw
+         words AS sw,
+         words AS tw
     WHERE ww.s_code = :t_code
     AND   ww.t_code = :s_code
     AND   sw.id = ww.s_id
@@ -127,12 +127,12 @@ class ote {
     $bind = array();
     $sql = '
     SELECT sw.word AS s_word, word2word.s_code, tw.word AS t_word, word2word.t_code
-    FROM word2word, word AS sw, word AS tw
+    FROM word2word, words AS sw, words AS tw
     WHERE sw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
     ';
     $r_sql = '
     SELECT sw.word AS t_word, word2word.t_code AS s_code, tw.word AS s_word, word2word.s_code AS t_code
-    FROM word2word, word AS sw, word AS tw
+    FROM word2word, words AS sw, words AS tw
     WHERE tw.word = :word AND sw.id = word2word.s_id AND tw.id = word2word.t_id
     ';
     $bind['word'] = $word;
@@ -163,7 +163,7 @@ class ote {
    * get_id_from_word()
    */
   function get_id_from_word($word) {
-    $sql = 'SELECT id FROM word WHERE word = :word';
+    $sql = 'SELECT id FROM words WHERE word = :word';
     $bind=array('word'=>$word);
     $r = $this->db->query($sql, $bind);
     if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
@@ -177,7 +177,7 @@ class ote {
    * insert_word()
    */
   function insert_word($word) {
-    $sql = 'INSERT INTO word (word) VALUES (:word)';
+    $sql = 'INSERT INTO words (word) VALUES (:word)';
     $bind=array('word'=>$word);
     $r = $this->db->queryb($sql, $bind);
     if( !$r ) {
