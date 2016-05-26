@@ -19,12 +19,14 @@
 */
 namespace Attogram;
 
+$ote = new ote($this->sqlite_database);
+
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
 if( sizeof($this->uri) == 2 ) { // list all exportable dictionaries
     $this->page_header('Export list');
     print '<div class="container"><h1>Export list</h1>';
-    $dlist = get_dictionary_list($this->sqlite_database, $rel_url);
+    $dlist = $ote->get_dictionary_list($rel_url);
     print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
@@ -49,7 +51,7 @@ if( $s_code == $t_code ) { // Error - Source and Target language code the same
   header("Location: $rel_url");  
 }
 
-$langs = get_languages($this->sqlite_database);
+$langs = $ote->get_languages();
 
 if( !isset($langs[$s_code]) ) { // Source Language Code Not Found
   header("Location: $rel_url");
@@ -61,7 +63,7 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
 $title = 'Export ' . $langs[$s_code] . ' to ' . $langs[$t_code];
 $this->page_header($title);
 
-$result = get_dictionary( $s_code, $t_code, $this->sqlite_database);
+$result = $ote->get_dictionary( $s_code, $t_code );
 
 $sep = ' = ';
 

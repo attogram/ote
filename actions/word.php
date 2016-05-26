@@ -25,6 +25,8 @@
 */
 namespace Attogram;
 
+$ote = new ote($this->sqlite_database);
+
 if( sizeof($this->uri) == 2 ) { // Show All Words
   $sql = 'SELECT word FROM word ORDER BY word';
   $all = $this->sqlite_database->query($sql);
@@ -53,7 +55,7 @@ if( !$word ) {
   $this->error404();
 }
 
-$langs = get_languages($this->sqlite_database);
+$langs = $ote->get_languages();
 
 $s_code = $this->uri[1];
 if( $s_code && !isset($langs[$s_code]) ) {
@@ -69,7 +71,7 @@ if( $t_code && !$s_code ) {
   $this->error404();
 }
 
-$r = get_word($this->sqlite_database, $word, $s_code, $t_code);
+$r = $ote->get_word($word, $s_code, $t_code);
 
 if( !$r ) {
   $this->error404();

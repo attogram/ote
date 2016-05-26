@@ -8,7 +8,7 @@ $default['t'] = '';
 $default['d'] = '=';
 
 if( $_POST ) {
-  do_import($this->sqlite_database);
+  do_import( $this->sqlite_database );
 }
 ?>
 <div class="container">
@@ -77,16 +77,18 @@ function do_import($db) {
     return;
   }
   
+  $ote = new ote($db);
+  
   $w = $_POST['w']; // List of word pairs
 
   $d = $_POST['d']; // Deliminator
   $d = str_replace('\t', "\t", $d); // allow real tabs
 
   $s = trim($_POST['s']); // Source Language Code
-  $sn = get_language_name_from_code($s, $db, $default=@$_POST['sn']);
+  $sn = $ote->get_language_name_from_code($s, $default=@$_POST['sn']);
 
   $t = trim($_POST['t']); // Target Language Code
-  $tn = get_language_name_from_code($t, $db, $default=@$_POST['tn']);
+  $tn = $ote->get_language_name_from_code($t, $default=@$_POST['tn']);
 
   $lines = explode("\n", $w);
   print '<div class="container">';
@@ -148,8 +150,8 @@ function do_import($db) {
       continue;      
     }
     
-    $si = get_id_from_word($sw, $db);
-    $ti = get_id_from_word($tw, $db);
+    $si = $ote->get_id_from_word($sw);
+    $ti = $ote->get_id_from_word($tw);
     
     $sql = 'INSERT INTO word2word (s_id, s_code, t_id, t_code) VALUES (:s_id, :s_code, :t_id, :t_code)';
     $bind = array( 's_id'=>$si, 's_code'=>$s, 't_id'=>$ti, 't_code'=>$t);
