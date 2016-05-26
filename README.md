@@ -1,7 +1,9 @@
-The Open Translation Engine (OTE) 
+Open Translation Engine (OTE)
+===
+The OTE is a **translation dictionary** manager for the web.
 
-[about](actions/about.md)
+[Find out more about The OTE](actions/about.md)
 
 This is version 1.0.0-dev, built with the [Attogram Framework](https://github.com/attogram/attogram)
 
-For stable version, see [https://github.com/attogram/ote](https://github.com/attogram/ote)
+For old stable version, see [https://github.com/attogram/ote](https://github.com/attogram/ote)
