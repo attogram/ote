@@ -90,7 +90,7 @@ if( $s_code && $t_code ) {
   $header = '<code>ALL</code>';
 }
 print '<br /><p class="text-muted">language: ' . $header . '</p>';  
-print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations found</p>';
+print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
 $sub_header = $prev_sub_header = '';
 print '<p>';
