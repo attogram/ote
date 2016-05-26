@@ -1,7 +1,7 @@
 <?php
 namespace Attogram;
 
-$this->page_header('Import - OTE v1.0.0-dev');
+$this->page_header('Import');
 
 $default['s'] = '';
 $default['t'] = '';
