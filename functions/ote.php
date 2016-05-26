@@ -4,7 +4,26 @@
 
 define('OTE_VERSION', '1.0.0-dev');
 
-
+/**
+ * get_dictionary_list()
+ */
+function get_dictionary_list($db, $rel_url='') {
+  $sql = 'SELECT DISTINCT s_code, t_code FROM word2word ORDER BY s_code, t_code';
+  $r = $db->query($sql);
+  $dlist = array();
+  $langs = get_languages($db);
+  foreach( $r as $d ) {
+    $url = $rel_url . $d['s_code'] . '/' . $d['t_code'] . '/';
+    $dlist[ $url ] = $langs[ $d['s_code'] ] . ' to ' . $langs[ $d['t_code'] ]; 
+    $r_url = $rel_url . $d['t_code'] . '/' . $d['s_code'] . '/'; 
+    if( !array_key_exists($r_url,$dlist) ) {
+      $dlist[ $r_url ] = $langs[ $d['t_code'] ] . ' to ' . $langs[ $d['s_code'] ]; 
+    }
+  }
+  asort($dlist);
+  return $dlist;
+}
+ 
 /**
  * get_id_from_word()
  */
