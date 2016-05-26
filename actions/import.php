@@ -96,8 +96,7 @@ function do_import($db) {
   print 'Target Language: Code: <code>' . htmlentities($t) . '</code> Name: <code>' . htmlentities($tn) . '</code><br />';
   print 'Deliminator: <code>' . htmlentities($d) . '</code><br />';
   print 'Lines: <code>' . sizeof($lines) . '</code><hr /><small>';
-  ob_flush(); flush();
-  
+
   $line_count = 0;
   $import_count = 0;
   $error_count = 0;
@@ -174,7 +173,7 @@ function do_import($db) {
       print " $import_count "; 
     }
 
-    ob_flush(); flush();
+    @ob_flush(); flush();
 
   } // end foreach line
   
@@ -184,5 +183,5 @@ function do_import($db) {
   print '<code>' . $dupe_count . '</code> duplicate lines.<br />';
   print '<code>' . $skip_count . '</code> lines skipped.<br />';
   print '</div>';
-
+  
 } // end do_import
