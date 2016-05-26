@@ -170,7 +170,13 @@ function do_import($db) {
       $error_count++; $skip_count++;
     } else {
       $import_count++;
-      print " $import_count "; 
+      
+      if( $line_count % 100 == 0 ) {
+        print ' ' . $line_count . ' ';
+      } elseif( $line_count % 10 == 0 ) {
+        print '.';
+      }
+       
     }
 
     @ob_flush(); flush();
