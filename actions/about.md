@@ -12,3 +12,5 @@ The OTE is **open content**. OTE translations are licened under the
 The OTE is under development.  This is version 1.0.0-dev, built with the [Attogram Framework](https://github.com/attogram/attogram)
 
 * @GitHub [https://github.com/attogram/ote/tree/attogram-dev](https://github.com/attogram/ote/tree/attogram-dev)
+
+* Get open content dictionary files: [https://github.com/attogram/DAMS]([https://github.com/attogram/DAMS)
