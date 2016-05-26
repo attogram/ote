@@ -87,7 +87,7 @@ if( $s_code && $t_code ) {
 } elseif( $s_code && !$t_code) {
   $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>)';
 } else {
-  $header = '<code>*</code>';
+  $header = '<code>ALL</code>';
 }
 print '<br /><p class="text-muted">language: ' . $header . '</p>';  
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations found</p>';
