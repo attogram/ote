@@ -133,7 +133,14 @@ foreach( $r as $w ) {
     print '<hr /><em>' . $sub_header . '</em><br />';
   }
 
-  print '<strong>' . $w['s_word'] . '</strong>' . ' = ' . $w['t_word'] . '<br />';
+  $t_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['t_code'] . '//' . urlencode($w['t_word']);
+  
+  print '<strong>' . $w['s_word'] . '</strong>' 
+  . ' = ' 
+  . '<a href="' . $t_word_url . '">'
+  . $w['t_word']
+  . '</a>'
+  . '<br />';
   
   $prev_sub_header = $sub_header;
 }
