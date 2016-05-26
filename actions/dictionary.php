@@ -1,8 +1,8 @@
 <?php
-/* 
+/*
  OTE Dictionary Page
 
- Requires setup in config.php:
+ Requires config setup:
    $config['depth']['dictionary'] = 4;
 
  URL formats:
@@ -15,7 +15,7 @@
 
   dictionary/
     list all dictionaries
-    
+
 */
 namespace Attogram;
 
@@ -80,7 +80,7 @@ if( !isset($langs[$t_code]) ) {
 
 $title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
 
-$this->page_header($title . ' - OTE 1.0.0-dev');
+$this->page_header($title);
 print '<div class="container">';
 print '<h1>' . $title . '</h1>';
 $d = get_dictionary( $s_code, $t_code, $this->sqlite_database);

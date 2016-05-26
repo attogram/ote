@@ -1,7 +1,26 @@
 <?php
+/*
+ OTE Export Page
+
+ Requires config setup:
+   $config['depth']['export'] = 4;
+
+ URL formats:
+
+  export/source_language_code/target_language_code/
+    export all translations, from source language, into target language
+
+  export/source_language_code/
+    export all translations, from source language, into any language
+
+  export/
+    list all dictionaries
+
+*/
+
 namespace Attogram;
 
-$this->page_header('Export - OTE v1.0.0-dev');
+$this->page_header('Export');
 
 $sql = '
 SELECT

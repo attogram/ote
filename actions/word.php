@@ -2,7 +2,7 @@
 /*
  OTE Word Page
 
- Requires setup in config.php:
+ Requires config setup:
    $config['depth']['word'] = 5;
 
  URL formats:
