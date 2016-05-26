@@ -7,13 +7,18 @@ Open Translation Engine (OTE)
 namespace Attogram;
 
 define('OTE_VERSION', '1.0.0-dev');
-
+  /**
+   * Open Translation Engine (OTE) class
+   */  
 class ote {
   
   public $db;
 
   /**
    * __construct()
+   *
+   * @param object $db
+   * @return void
    */  
   function __construct( $db ) {
     $this->db = $db;
@@ -21,6 +26,9 @@ class ote {
 
   /**
    * get_dictionary_list()
+   *
+   * @param string $rel_url Optional. Relative URL of page
+   * @return array List of dictionaries
    */
   function get_dictionary_list($rel_url='') {
     $sql = 'SELECT DISTINCT s_code, t_code FROM word2word ORDER BY s_code, t_code';
@@ -41,6 +49,10 @@ class ote {
 
   /**
    * get_dictionary()
+   *
+   * @param string $s_code The Source Language Code
+   * @param string $t_code The Target Language Code
+   * @return array list of word pairs
    */
   function get_dictionary($s_code, $t_code) {
     $sql = '
