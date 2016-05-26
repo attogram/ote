@@ -61,31 +61,23 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
 $title = 'Export ' . $langs[$s_code] . ' to ' . $langs[$t_code];
 $this->page_header($title);
 
-$sql = '
-SELECT sw.word AS s_word, tw.word AS t_word
-FROM word2word AS ww, word AS sw, word AS tw
-WHERE sw.id = ww.s_id
-AND tw.id = ww.t_id
-AND ww.s_code = :s_code
-AND ww.t_code = :t_code
-';
-$bind = array( 's_code'=>$s_code, 't_code'=>$t_code );
-$result = $this->sqlite_database->query($sql, $bind);
-
-// todo: reverse lookup
+$result = get_dictionary( $s_code, $t_code, $this->sqlite_database);
 
 $sep = ' = ';
 
 ?>
 <div class="container">
 <h1><?php print $title; ?></h1>
-<textarea class="form-control" rows="10" id="export">
-# <?php print $title . "\n"; ?>
+<textarea class="form-control" rows="20" id="export">
+# <?php print $langs[$s_code] . ' to ' . $langs[$t_code] . "\n"; ?>
+# <?php print "$s_code to $t_code\n"; ?>
+# <?php print sizeof($result) . " word pairs\n"; ?>
+# <?php print "deliminator: $sep\n"; ?>
+#
 <?php
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
-print "\n# TODO: reverse lookup\n";
 ?></textarea>
 </div>
 <?php
