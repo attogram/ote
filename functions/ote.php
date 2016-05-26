@@ -218,7 +218,7 @@ class ote {
       $cmp = 0;
       while($cmp == 0 && $i < $c){
         //$cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
-        $cmp = strcmp( strtolower($a[ $args[ $i ] ]), strtolower($b[ $args[ $i ] ]));
+        $cmp = strcasecmp( mb_strtolower($a[ $args[$i] ]), mb_strtolower($b[ $args[$i] ]) );
         $i++;
       }
       return $cmp;
