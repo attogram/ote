@@ -102,15 +102,22 @@ foreach( $r as $w ) {
     print '<hr /><em>' . $sub_header . '</em><br />';
   }
 
+  if( $s_code && $t_code ) {
+    $s_word_url = $this->path . '/' . $this->uri[0] . '///' . urlencode($w['s_word']);
+    $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
+  } elseif( $s_code && !$t_code ) {
+    $s_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['s_code'] . '/' . $w['t_code'] . '/' . urlencode($w['s_word']);
+    $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
+  } else {
+    $s_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['s_code'] . '//' . urlencode($w['s_word']);
+    $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
+  }
+  
   $t_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['t_code'] . '//' . urlencode($w['t_word']);
-  
-  print '<strong>' . $w['s_word'] . '</strong>' 
-  . ' = ' 
-  . '<a href="' . $t_word_url . '">'
-  . $w['t_word']
-  . '</a>'
-  . '<br />';
-  
+  $t_word_display = '<a href="' . $t_word_url . '">' . $w['t_word'] . '</a>';
+
+  print "<strong>$s_word_display</strong> = $t_word_display<br />";
+ 
   $prev_sub_header = $sub_header;
 }
 print '</p>';
