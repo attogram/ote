@@ -32,7 +32,7 @@ class ote {
    * @return array List of dictionaries
    */
   function get_dictionary_list($rel_url='') {
-    $sql = 'SELECT DISTINCT s_code, t_code FROM word2word ORDER BY s_code, t_code';
+    $sql = 'SELECT DISTINCT s_code, t_code FROM word2word';
     $r = $this->db->query($sql);
     $dlist = array();
     $langs = $this->get_languages();
@@ -57,39 +57,23 @@ class ote {
    */
   function get_dictionary($s_code, $t_code) {
     
-  // TODO list($s,$t) = $this->normalize_language_pair($s_code,$t_code);
-        
-    $sql = '
-    SELECT sw.word AS s_word, tw.word AS t_word
-    FROM word2word AS ww,
-         word AS sw,
-         word AS tw
-    WHERE ww.s_code = :s_code
-    AND   ww.t_code = :t_code
-    AND   sw.id = ww.s_id
-    AND   tw.id = ww.t_id
-    ORDER BY sw.word, tw.word
-    ';
+    list($s_code_norm,$t_code_norm) = $this->normalize_language_pair($s_code,$t_code);
+
+    if( ($s_code_norm==$s_code) && ($t_code_norm==$t_code) ) {
+      $select = 'sw.word AS s_word, tw.word AS t_word';
+      $order ='ORDER BY sw.word, tw.word';
+    } else {
+      $select = 'sw.word AS t_word, tw.word AS s_word';
+      $order ='ORDER BY tw.word, sw.word';
+      $s_code = $s_code_norm;
+      $t_code = $t_code_norm;
+    }
+    $sql = "SELECT $select FROM word2word AS ww, word AS sw, word AS tw
+    WHERE ww.s_code = :s_code AND ww.t_code = :t_code
+    AND sw.id = ww.s_id AND tw.id = ww.t_id $order";
     $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
     $r = $this->db->query($sql,$bind);
-
-    $sql_r = '
-    SELECT sw.word AS t_word, tw.word AS s_word
-    FROM word2word AS ww,
-         word AS sw,
-         word AS tw
-    WHERE ww.s_code = :t_code
-    AND   ww.t_code = :s_code
-    AND   sw.id = ww.s_id
-    AND   tw.id = ww.t_id
-    ORDER BY tw.word, sw.word
-    ';  
-    $r_r = $this->db->query($sql_r,$bind);
-
-    $rv = array_merge($r, $r_r);
-    
-    $rv = $this->multiSort($rv, 's_word', 't_word');
-    return $rv;
+    return $r;
   }
 
   /**
