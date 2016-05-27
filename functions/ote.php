@@ -9,9 +9,9 @@ define('OTE_VERSION', '1.0.0-dev');
 
 /**
  * Open Translation Engine (OTE) class
- */  
+ */
 class ote {
-  
+
   public $db;
   public $normalized_language_pairs;
 
@@ -20,7 +20,7 @@ class ote {
    *
    * @param object $db
    * @return void
-   */  
+   */
   function __construct( $db ) {
     $this->db = $db;
   }
@@ -38,10 +38,10 @@ class ote {
     $langs = $this->get_languages();
     foreach( $r as $d ) {
       $url = $rel_url . $d['s_code'] . '/' . $d['t_code'] . '/';
-      $dlist[ $url ] = $langs[ $d['s_code'] ] . ' to ' . $langs[ $d['t_code'] ]; 
-      $r_url = $rel_url . $d['t_code'] . '/' . $d['s_code'] . '/'; 
+      $dlist[ $url ] = $langs[ $d['s_code'] ] . ' to ' . $langs[ $d['t_code'] ];
+      $r_url = $rel_url . $d['t_code'] . '/' . $d['s_code'] . '/';
       if( !array_key_exists($r_url,$dlist) ) {
-        $dlist[ $r_url ] = $langs[ $d['t_code'] ] . ' to ' . $langs[ $d['s_code'] ]; 
+        $dlist[ $r_url ] = $langs[ $d['t_code'] ] . ' to ' . $langs[ $d['s_code'] ];
       }
     }
     asort($dlist);
@@ -56,9 +56,7 @@ class ote {
    * @return array list of word pairs
    */
   function get_dictionary($s_code, $t_code) {
-    
     list($s_code_norm,$t_code_norm) = $this->normalize_language_pair($s_code,$t_code);
-
     if( ($s_code_norm==$s_code) && ($t_code_norm==$t_code) ) {
       $select = 'sw.word AS s_word, tw.word AS t_word';
       $order ='ORDER BY sw.word, tw.word';
@@ -122,7 +120,7 @@ class ote {
     $sql = 'SELECT word FROM word ORDER BY word';
     $limit = ' LIMIT 0,100'; // dev
     $sql .= $limit;
-    return $this->db->query($sql);   
+    return $this->db->query($sql);
   }
 
   /**
@@ -134,9 +132,10 @@ class ote {
    * @return array
    */
   function get_translation($word, $s_code, $t_code='') {
-    
+
     // TODO list($s,$t) = $this->normalize_language_pair($s_code,$t_code);
-    
+    // TODO: comp/merge with get_dictionary()
+
     $and = $r_and = '';
     $bind = array();
     $sql = '
@@ -180,7 +179,7 @@ class ote {
    * @return int
    */
   function get_id_from_word($word) {
-    $sql = 'SELECT id FROM word WHERE word = :word';
+    $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
     $bind=array('word'=>$word);
     $r = $this->db->query($sql, $bind);
     if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
@@ -253,18 +252,11 @@ class ote {
    * @param string $sn Optional. Source Language Name
    * @param string $tn Optional. Target Language Name
    *
-   */   
+   */
   function do_import( $w, $d, $s, $t, $sn='', $tn='' ) {
 
-    //$w = $_POST['w']; // List of word pairs
-
-    //$d = $_POST['d']; // Deliminator
     $d = str_replace('\t', "\t", $d); // allow real tabs
-
-    //$s = trim($_POST['s']); // Source Language Code
     $sn = $this->get_language_name_from_code($s, $default=$sn);
-
-    //$t = trim($_POST['t']); // Target Language Code
     $tn = $this->get_language_name_from_code($t, $default=$tn);
 
     $lines = explode("\n", $w);
@@ -312,30 +304,30 @@ class ote {
         $error_count++; $skip_count++;
         continue;
       }
-      
+
       $sw = trim($wp[0]);
       if( !$sw ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing source word</p>';
         $error_count++; $skip_count++;
-        continue;      
+        continue;
       }
       $tw = trim($wp[1]);
       if( !$tw ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing target word</p>';
         $error_count++; $skip_count++;
-        continue;      
+        continue;
       }
-      
+
       $si = $this->get_id_from_word($sw);
       $ti = $this->get_id_from_word($tw);
-      
+
       list($s,$t) = $this->normalize_language_pair($s,$t);
-      
+
       $bind = array( 's_id'=>$si, 's_code'=>$s, 't_id'=>$ti, 't_code'=>$t);
 
       // check if REVERSE pair already exists...
       $sql = '
-        SELECT s_id 
+        SELECT s_id
         FROM word2word
         WHERE s_id = :t_id
         AND t_id = :s_id
@@ -349,7 +341,7 @@ class ote {
         $error_count++; $dupe_count++; $skip_count++;
         continue;
       }
-      
+
       $sql = '
         INSERT INTO word2word (
           s_id, s_code, t_id, t_code
@@ -366,13 +358,13 @@ class ote {
         print '<p>Error: Line #' . $line_count . ': Database Insert Error.'
         . ' sw: ' . htmlentities($sw)
         . ' tw: ' . htmlentities($tw)
-        . ' Bind: ' . print_r($bind,1) 
-        . ' errorInfo: ' . print_r($this->db->db->errorInfo(),1) 
+        . ' Bind: ' . print_r($bind,1)
+        . ' errorInfo: ' . print_r($this->db->db->errorInfo(),1)
         . '</p>';
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        
+
         if( $line_count % 100 == 0 ) {
           print ' ' . $line_count . ' ';
           @ob_flush(); flush();
@@ -380,7 +372,7 @@ class ote {
           print '.';
           @ob_flush(); flush();
         }
-         
+
       }
 
     } // end foreach line
@@ -418,57 +410,43 @@ class ote {
   * @return array An array of the normlized order (source_code, language_code)
   */
   function normalize_language_pair( $s_code, $t_code ) {
-
     $nlp_norm = $s_code . '-' . $t_code;
     $nlp_rev  = $t_code . '-' . $s_code;
-    
     if( isset($this->normalized_language_pairs[$nlp_norm]) ) {
       return $this->normalized_language_pairs[$nlp_norm];
     }
-
     // lookup any source=s_code, target=t_code entries in word2word
     $sql = 'SELECT count(s_id) AS count FROM word2word WHERE s_code = :s_code AND t_code = :t_code';
     $bind = array( 's_code'=>$s_code, 't_code'=>$t_code );
     $norm = $this->db->query($sql,$bind);
     if( $norm ) { $norm = $norm[0]['count']; } else { $norm = 0; }
-
     // lookup any source=t_code, target=s_code entries in word2word
-    $bind = array( 't_code'=>$s_code, 's_code'=>$t_code );   
+    $bind = array( 't_code'=>$s_code, 's_code'=>$t_code );
     $rev = $this->db->query($sql,$bind);
     if( $rev ) { $rev = $rev[0]['count']; } else { $rev = 0; }
-
     if( $norm && !$rev ) { // only normal form exists, use normal
-
       return $this->normalized_language_pairs[$nlp_norm] = $this->normalized_language_pairs[$nlp_rev]
         = array($s_code,$t_code);
-
     } elseif( !$norm && $rev ) { // only reverse form exists, use reverse
-
       return $this->normalized_language_pairs[$nlp_norm] = $this->normalized_language_pairs[$nlp_rev]
         = array($t_code,$s_code);
-
     } elseif( !$norm && !$rev ) { // nothing exists, use normal
-
       return $this->normalized_language_pairs[$nlp_norm] = $this->normalized_language_pairs[$nlp_rev]
-        = array($s_code,$t_code); 
-
+        = array($s_code,$t_code);
     } else { // both normal and reverse exists -- ERROR!
-
-      if( $norm >= $rev ) {  
+      if( $norm >= $rev ) {
         $dn = array( $s_code, $t_code ); // norm has same amount or more entries, use norm
       } else {
         $dn = array( $t_code, $s_code ); // reverse has more entries, use rev
       }
       return $this->normalized_language_pairs[$nlp_norm] = $this->normalized_language_pairs[$nlp_rev]
         = $this->normalize_word2word_table( $dn[0], $dn[1] );
-
     }
-
   } // end function normalize_language_pair()
 
  /**
   * normalize_word2word_table()
-  * update word2word table to use only one form of SOURCE-TARGET 
+  * update word2word table to use only one form of SOURCE-TARGET
   *
   * @param string $s_code Source Language Code
   * @param string $t_code Target Language Code
@@ -476,26 +454,16 @@ class ote {
   * @return array An array of the normlized order (source_code, language_code)
   */
   function normalize_word2word_table( $s_code, $t_code ) {
-    // normalize the table....
-    print "<pre>TODO: normalize_word2word_table( $s_code, $t_code )</pre>";
-    
     // find all reverse entries:  where s_code=$t_code and t_code=$s_code
     //  update entries reverse entries to normal: switch s_id/t_id and switch s_code/t_code
-    
-    $sql = '
-    UPDATE word2word 
-    SET s_code = t_code,
-        t_code = s_code,
-        s_id = t_id,
-        t_id = s_id
-    WHERE s_code = :s_code AND t_code = :t_code
-    ';
+    $sql = 'UPDATE word2word
+    SET s_code = t_code, t_code = s_code, s_id = t_id, t_id = s_id
+    WHERE s_code = :s_code AND t_code = :t_code';
     $bind = array( 's_code'=>$t_code, 't_code'=>$s_code );
     $r = $this->db->queryb($sql,$bind);
     if( !$r ) {
-      print "<pre>TODO: catch error normalize_word2word_table( $s_code, $t_code )</pre>";
+      print "<pre>ERROR: normalize_word2word_table( $s_code, $t_code )</pre>";
     }
-    
     return array($s_code, $t_code);
   }
 
