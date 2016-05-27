@@ -132,7 +132,7 @@ class ote {
    */
   function get_all_words() {
     $sql = 'SELECT word FROM word ORDER BY word';
-    $limit = ' LIMIT 0,10'; // dev
+    $limit = ' LIMIT 0,100'; // dev
     $sql .= $limit;
     return $this->db->query($sql);   
   }
@@ -170,7 +170,7 @@ class ote {
       $bind['s_code']=$s_code;
     }
 
-    $limit = ' LIMIT 0,10';  // dev
+    $limit = ' LIMIT 0,100';  // dev
     $sql .= "$and $limit";
     $r_sql .= "$r_and $limit";
 
