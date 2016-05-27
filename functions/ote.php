@@ -7,9 +7,10 @@ Open Translation Engine (OTE)
 namespace Attogram;
 
 define('OTE_VERSION', '1.0.0-dev');
-  /**
-   * Open Translation Engine (OTE) class
-   */  
+
+/**
+ * Open Translation Engine (OTE) class
+ */  
 class ote {
   
   public $db;
@@ -90,6 +91,10 @@ class ote {
 
   /**
    * get_language_name_from_code()
+   *
+   * @param string $code The Language Code
+   * @param string $default Optional. The default language name to use & insert, if none found
+   * @return string
    */
   function get_language_name_from_code($code, $default=FALSE) {
     $sql = 'SELECT language FROM language WHERE code = :code';
@@ -105,6 +110,8 @@ class ote {
 
   /**
    * get_languages()
+   *
+   * @return array
    */
   function get_languages() {
     $sql = 'SELECT code, language FROM language ORDER by id';
@@ -120,9 +127,24 @@ class ote {
   }
 
   /**
-   * get_word()
+   * get_all_words()
+   *
+   * @return array
    */
-  function get_word($word, $s_code, $t_code='') {
+  function get_all_words() {
+    $sql = 'SELECT word FROM word ORDER BY word';
+    return $this->db->query($sql);   
+  }
+
+  /**
+   * get_translation()
+   *
+   * @param string $word The Source Word
+   * @param string $s_code The Source Language Code
+   * @param string $t_code Optional. The Target Language Code
+   * @return array
+   */
+  function get_translation($word, $s_code, $t_code='') {
     $and = $r_and = '';
     $bind = array();
     $sql = '
@@ -161,6 +183,9 @@ class ote {
 
   /**
    * get_id_from_word()
+   *
+   * @param string $word The Source Word
+   * @return int
    */
   function get_id_from_word($word) {
     $sql = 'SELECT id FROM word WHERE word = :word';
