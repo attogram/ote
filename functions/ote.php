@@ -56,6 +56,9 @@ class ote {
    * @return array list of word pairs
    */
   function get_dictionary($s_code, $t_code) {
+    
+  // TODO list($s,$t) = $this->normalize_language_pair($s_code,$t_code);
+        
     $sql = '
     SELECT sw.word AS s_word, tw.word AS t_word
     FROM word2word AS ww,
@@ -147,6 +150,9 @@ class ote {
    * @return array
    */
   function get_translation($word, $s_code, $t_code='') {
+    
+    // TODO list($s,$t) = $this->normalize_language_pair($s_code,$t_code);
+    
     $and = $r_and = '';
     $bind = array();
     $sql = '
@@ -338,6 +344,8 @@ class ote {
       
       $si = $this->get_id_from_word($sw);
       $ti = $this->get_id_from_word($tw);
+      
+      list($s,$t) = $this->normalize_language_pair($s,$t);
       
       $bind = array( 's_id'=>$si, 's_code'=>$s, 't_id'=>$ti, 't_code'=>$t);
 
