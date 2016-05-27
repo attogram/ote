@@ -401,4 +401,19 @@ class ote {
     
   } // end do_import
 
+  /**
+   * search()
+   *
+   * @param string $q Search String
+   */
+  function search($q) {
+    $r = '';
+    $r .= '<p>search: ' . htmlentities($q) . '</p>';
+    $s_code = 'eng';
+    $t_code = '';
+    $t = $this->get_translation($q, $s_code, $t_code);
+    $r .=  '<pre>' . print_r($t,1) . '</pre>';
+    return $r;
+  }
+ 
 } // end class ote
