@@ -49,32 +49,6 @@ class ote {
   }
 
   /**
-   * get_dictionary()
-   *
-   * @param string $s_code The Source Language Code
-   * @param string $t_code The Target Language Code
-   * @return array list of word pairs
-   */
-  function get_dictionary($s_code, $t_code) {
-    list($s_code_norm,$t_code_norm) = $this->normalize_language_pair($s_code,$t_code);
-    if( ($s_code_norm==$s_code) && ($t_code_norm==$t_code) ) {
-      $select = 'sw.word AS s_word, tw.word AS t_word';
-      $order ='ORDER BY sw.word, tw.word';
-    } else {
-      $select = 'sw.word AS t_word, tw.word AS s_word';
-      $order ='ORDER BY tw.word, sw.word';
-      $s_code = $s_code_norm;
-      $t_code = $t_code_norm;
-    }
-    $sql = "SELECT $select FROM word2word AS ww, word AS sw, word AS tw
-    WHERE ww.s_code = :s_code AND ww.t_code = :t_code
-    AND sw.id = ww.s_id AND tw.id = ww.t_id $order";
-    $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
-    $r = $this->db->query($sql,$bind);
-    return $r;
-  }
-
-  /**
    * get_language_name_from_code()
    *
    * @param string $code The Language Code
@@ -124,12 +98,40 @@ class ote {
   }
 
   /**
+   * get_dictionary()
+   *
+   * @param string $s_code The Source Language Code
+   * @param string $t_code The Target Language Code
+   *
+   * @return array list of word pairs
+   */
+  function get_dictionary($s_code, $t_code) {
+    list($s_code_norm,$t_code_norm) = $this->normalize_language_pair($s_code,$t_code);
+    if( ($s_code_norm==$s_code) && ($t_code_norm==$t_code) ) {
+      $select = 'sw.word AS s_word, tw.word AS t_word';
+      $order ='ORDER BY sw.word, tw.word';
+    } else {
+      $select = 'sw.word AS t_word, tw.word AS s_word';
+      $order ='ORDER BY tw.word, sw.word';
+      $s_code = $s_code_norm;
+      $t_code = $t_code_norm;
+    }
+    $sql = "SELECT $select FROM word2word AS ww, word AS sw, word AS tw
+    WHERE ww.s_code = :s_code AND ww.t_code = :t_code
+    AND sw.id = ww.s_id AND tw.id = ww.t_id $order";
+    $bind = array('s_code'=>$s_code, 't_code'=>$t_code);
+    $r = $this->db->query($sql,$bind);
+    return $r;
+  }
+
+  /**
    * get_translation()
    *
    * @param string $word The Source Word
    * @param string $s_code The Source Language Code
    * @param string $t_code Optional. The Target Language Code
-   * @return array
+   *
+   * @return array list of word pairs
    */
   function get_translation($word, $s_code, $t_code='') {
 
@@ -255,6 +257,10 @@ class ote {
    */
   function do_import( $w, $d, $s, $t, $sn='', $tn='' ) {
 
+  
+    // todo -- normalize 
+    
+    
     $d = str_replace('\t', "\t", $d); // allow real tabs
     $sn = $this->get_language_name_from_code($s, $default=$sn);
     $tn = $this->get_language_name_from_code($t, $default=$tn);
@@ -342,6 +348,8 @@ class ote {
         continue;
       }
 
+      // TODO split into $this->insert_word2word()
+      
       $sql = '
         INSERT INTO word2word (
           s_id, s_code, t_id, t_code
@@ -468,5 +476,3 @@ class ote {
   }
 
 } // end class ote
-
-
