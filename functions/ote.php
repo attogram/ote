@@ -257,10 +257,10 @@ class ote {
    */
   function do_import( $w, $d, $s, $t, $sn='', $tn='' ) {
 
-  
-    // todo -- normalize 
-    
-    
+
+    // todo -- normalize
+
+
     $d = str_replace('\t', "\t", $d); // allow real tabs
     $sn = $this->get_language_name_from_code($s, $default=$sn);
     $tn = $this->get_language_name_from_code($t, $default=$tn);
@@ -349,7 +349,7 @@ class ote {
       }
 
       // TODO split into $this->insert_word2word()
-      
+
       $sql = '
         INSERT INTO word2word (
           s_id, s_code, t_id, t_code
@@ -415,7 +415,7 @@ class ote {
   * @param string $s_code Source Language Code
   * @param string $t_code Target Language Code
   *
-  * @return array An array of the normlized order (source_code, language_code)
+  * @return array An array of the normalized order (source_code, language_code)
   */
   function normalize_language_pair( $s_code, $t_code ) {
     $nlp_norm = $s_code . '-' . $t_code;
@@ -463,7 +463,7 @@ class ote {
   */
   function normalize_word2word_table( $s_code, $t_code ) {
     // find all reverse entries:  where s_code=$t_code and t_code=$s_code
-    //  update entries reverse entries to normal: switch s_id/t_id and switch s_code/t_code
+    //  update reverse entries to normal: switch s_id/t_id and switch s_code/t_code
     $sql = 'UPDATE word2word
     SET s_code = t_code, t_code = s_code, s_id = t_id, t_id = s_id
     WHERE s_code = :s_code AND t_code = :t_code';
