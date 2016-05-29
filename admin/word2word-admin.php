@@ -1,4 +1,6 @@
 <?php
+// Open Translation Engine - word2word Admin v0.0.1
+
 namespace Attogram;
 
 $this->page_header('Word2Word Admin - OTE 1.0.0-dev');

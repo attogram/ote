@@ -1,4 +1,6 @@
 <?php
+// Open Translation Engine - Languages Page v0.0.1
+
 namespace Attogram;
 
 $this->page_header('Languages - OTE 1.0.0-dev');

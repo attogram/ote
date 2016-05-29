@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Word Page
+ OTE Word Page v0.0.1
 
  Requires config setup:
    $config['depth']['word'] = 5;
@@ -81,14 +81,14 @@ print '<div class="container">';
 print '<h1><kbd><strong>' . htmlentities($word) . '</strong></kbd></h1>';
 
 if( $s_code && $t_code ) {
-  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>) to ' 
+  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>) to '
   . '<strong>' . $langs[$t_code] . '</strong> (<code>' . $t_code . '</code>)';
 } elseif( $s_code && !$t_code) {
   $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>)';
 } else {
   $header = '<code>ALL</code>';
 }
-print '<br /><p class="text-muted">language: ' . $header . '</p>';  
+print '<br /><p class="text-muted">language: ' . $header . '</p>';
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
 $sub_header = $prev_sub_header = '';
@@ -111,12 +111,12 @@ foreach( $r as $w ) {
     $s_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['s_code'] . '//' . urlencode($w['s_word']);
     $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
   }
-  
+
   $t_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['t_code'] . '//' . urlencode($w['t_word']);
   $t_word_display = '<a href="' . $t_word_url . '">' . $w['t_word'] . '</a>';
 
   print "<strong>$s_word_display</strong> = $t_word_display<br />";
- 
+
   $prev_sub_header = $sub_header;
 }
 print '</p>';

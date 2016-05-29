@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Dictionary Page
+ OTE Dictionary Page v0.0.1
 
  Requires config setup:
    $config['depth']['dictionary'] = 4;
@@ -31,12 +31,12 @@ if( sizeof($this->uri) == 2 ) { // list all dictionaries
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
     }
-    print '</ul></div>';   
+    print '</ul></div>';
     $this->page_footer();
     exit;
 }
 
-if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code 
+if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code
   header("Location: $rel_url");
 }
 if( !isset($this->uri[2]) || !$this->uri[2] ) {  // Please select Target Language Code
@@ -47,7 +47,7 @@ $s_code = $this->uri[1];
 $t_code = $this->uri[2];
 
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
-  header("Location: $rel_url");  
+  header("Location: $rel_url");
 }
 
 $langs = $ote->get_languages();
@@ -75,13 +75,13 @@ $prev = '';
 foreach( $d as $i ) {
   if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
   print '<strong>'
-  . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">' 
-  . $i['s_word'] 
+  . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">'
+  . $i['s_word']
   . '</a>'
-  . '</strong>' 
+  . '</strong>'
   . $sep
-  . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">' 
-  . $i['t_word'] 
+  . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">'
+  . $i['t_word']
   . '</a>'
   . '<br />';
   $prev = $i['s_word'];

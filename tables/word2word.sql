@@ -1,3 +1,5 @@
+-- Open Translation Engine - word2word table v0.0.1
+
 CREATE TABLE IF NOT EXISTS 'word2word' (
   'id'     INTEGER PRIMARY KEY,
   's_id'   INTEGER NOT NULL DEFAULT '0',

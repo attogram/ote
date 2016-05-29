@@ -1,4 +1,6 @@
 <?php
+// Open Translation Engine - Words Admin v0.0.1
+
 namespace Attogram;
 
 $this->page_header('Words Admin - OTE 1.0.0-dev');

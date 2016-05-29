@@ -1,4 +1,6 @@
 <?php
+// Open Translation Engine - Home Page v0.0.1
+
 namespace Attogram;
 
 $this->page_header('Open Translation Engine v' . OTE_VERSION);

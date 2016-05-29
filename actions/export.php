@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Export Page
+ OTE Export Page v0.0.1
 
  Requires config setup:
    $config['depth']['export'] = 4;
@@ -31,12 +31,12 @@ if( sizeof($this->uri) == 2 ) { // list all exportable dictionaries
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
     }
-    print '</ul></div>';   
+    print '</ul></div>';
     $this->page_footer();
     exit;
 }
 
-if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code 
+if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code
   header("Location: $rel_url");
 }
 if( !isset($this->uri[2]) || !$this->uri[2] ) {  // Please select Target Language Code
@@ -48,7 +48,7 @@ $t_code = $this->uri[2];
 
 
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
-  header("Location: $rel_url");  
+  header("Location: $rel_url");
 }
 
 $langs = $ote->get_languages();

@@ -1,5 +1,5 @@
 <?php
-// Additional Attogram config setup for OTE
+// Open Translation Engine - Attogram config v0.0.1
 
 $config['site_name'] = 'Open Translation Engine';
 

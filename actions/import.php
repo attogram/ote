@@ -1,4 +1,6 @@
 <?php
+// Open Translation Engine - Import Page v0.0.1
+
 namespace Attogram;
 
 $this->page_header('Import');
@@ -16,10 +18,10 @@ if( $_POST ) {
     }
     if( !isset($_POST['t']) || !$_POST['t'] ) {
       $error[] = 'error - no target language code set';
-    }  
+    }
     if( !isset($_POST['s']) || !$_POST['s'] ) {
       $error[] = 'error - no source language code set';
-    }   
+    }
     if( isset($error) ) {
       print '<div class="container"><p>' . implode( $error, '<br />' ) . '</p></div>';
     } else {
@@ -30,9 +32,9 @@ if( $_POST ) {
 ?>
 <div class="container">
   <h1>Import Translations</h1>
-  
+
   <form action="." method="POST">
-  
+
   <div class="col-xs-4">
     <label for="s">Source Language Code</label>
     <br />
@@ -69,7 +71,7 @@ if( $_POST ) {
     <textarea class="form-control" name="w" rows="8"></textarea>
     <button type="submit" class="btn btn-primary"> &nbsp; &nbsp; Import Word Pairs &nbsp; &nbsp; </button>
   </div>
-  
+
   </form>
 </div>
 <?php
