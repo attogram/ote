@@ -1,4 +1,6 @@
 <?php
+// Attogram Framework - Tabler helper v0.0.1
+
 namespace Attogram;
 
 /**
@@ -16,7 +18,7 @@ function tabler(
   $show_edit
 ) {
 
-  $result = $attogram->sqlite_database->query($sql);
+  $result = $attogram->db->query($sql);
 
   if( $show_edit ) {
     $admin_create = '../db-admin/?table=' . $table .'&amp;action=row_create';
@@ -25,7 +27,7 @@ function tabler(
   } else {
     $admin_create = $admin_edit = $admin_delete = '';
   }
-  
+
   print '<div class="container"><p>'
   . '<strong>' . count($result) . '</strong> <a href="">' . $name_plural . '</a>';
 

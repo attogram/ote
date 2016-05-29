@@ -3,11 +3,11 @@
  * Attogram Framework
  *
  * The Attogram Framework provides developers a skeleton starter site
- * with auto file-based URL routing, IP-protected backend, simple user system,
+ * with file-based URL routing, IP-protected backend, simple user system,
  * integrated SQLite database with phpLiteAdmin, Markdown parser, jQuery and Bootstrap.
  * Attogram is Dual Licensed under the The MIT License or the GNU General Public License, at your choosing.
  *
- * @version 0.4.7
+ * @version 0.4.8
  * @license MIT
  * @license GPL
  * @copyright 2016 Attogram Developers https://github.com/attogram/attogram
@@ -15,7 +15,7 @@
 
 namespace Attogram;
 
-define('ATTOGRAM_VERSION', '0.4.7');
+define('ATTOGRAM_VERSION', '0.4.8');
 $debug = TRUE; // startup debug setting, overriden by config settings
 error_reporting(E_ALL); // dev
 ini_set('display_errors', '1'); // dev
@@ -26,12 +26,12 @@ $attogram = new attogram();
  */
 class attogram {
 
-  public $autoloader, $request, $host, $clientIp, $pathInfo, $requestUri, $path, $uri;
-  public $depth, $fof, $site_name, $skip_files, $log, $force_slash_exceptions;
-  public $sqlite_database, $db_name;
-  public $templates_dir, $functions_dir, $actions_dir, $configs_dir, $admin_dir, $tables_dir;
+  public $autoloader, $site_name, $depth, $force_slash_exceptions, $log, $fof;
+  public $request, $host, $clientIp, $pathInfo, $requestUri, $path, $uri, $session;
+  public $sqlite_database, $db_name, $tables_dir;
+  public $skip_files, $templates_dir, $functions_dir, $actions_dir, $configs_dir;
   public $actions, $action;
-  public $admins, $is_admin, $admin_actions;
+  public $admins, $is_admin, $admin_actions, $admin_dir;
 
   /**
    * __construct() - startup Attogram!
@@ -50,13 +50,12 @@ class attogram {
     $this->request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
 
     $this->init_logger();
-
     if( isset($_GET['debug']) && $this->is_admin() ) {
       $this->debug = $debug = TRUE;
       $this->init_logger();
       $this->log->debug('Admin Debug turned ON');
     }
-
+    $this->sessioning();
     $this->host = $this->request->getHost();
     $this->clientIp = $this->request->getClientIp();
     $this->log->debug("client: $this->host : $this->clientIp");
@@ -101,9 +100,8 @@ class attogram {
       $this->error404();
     }
 
-    $this->sessioning();
     $this->get_functions();
-    $this->sqlite_database = new sqlite_database( $this->db_name, $this->tables_dir );
+    $this->db = new sqlite_database( $this->db_name, $this->tables_dir );
     $this->route();
     $this->log->debug('END Attogram v' . ATTOGRAM_VERSION);
     exit;
@@ -164,6 +162,7 @@ class attogram {
     if( !isset($this->depth['*']) ) { $this->depth['*'] = 2; } // reset default depth
     if( !isset($this->depth['']) ) { $this->depth[''] = 1; } // reset homepage depth
     $this->set_config('force_slash_exceptions', @$config['force_slash_exceptions'], array() );
+    $this->set_config('autoloader', @$config['autoloader'], $this->autoloader );
   }
 
   /**
@@ -175,7 +174,7 @@ class attogram {
    *
    * @return void
    */
-   function set_config( $var_name, $config_val='', $default_val ) {
+  function set_config( $var_name, $config_val='', $default_val ) {
     if( $config_val ) {
       $this->{$var_name} = $config_val;
     } else {
@@ -192,7 +191,8 @@ class attogram {
     if( isset($this->autoloader) && is_readable_file($this->autoloader,'.php') ) {
       include_once($this->autoloader);
       $check = array(
-        '\Symfony\Component\HttpFoundation\Request',  // REQUIRED
+        '\Symfony\Component\HttpFoundation\Request', // REQUIRED
+        '\Symfony\Component\HttpFoundation\Session\Session', // REQUIRED
         //'\Monolog\Logger',  // Optional
         //'\Monolog\Handler\StreamHandler',  // Optional
         //'\Monolog\Formatter\LineFormatter',  // Optional
@@ -271,14 +271,13 @@ class attogram {
    * @return void
    */
   function sessioning() {
-    session_start();
+    $this->session = new \Symfony\Component\HttpFoundation\Session\Session();
+    $this->session->start();
+    $this->log->debug('Session started.', $this->session->all());
     if( isset($_GET['logoff']) ) {
-      $_SESSION = array();
-      session_destroy();
-      session_start();
+      $this->session->invalidate();
       $this->log->info('User loggged off');
     }
-    $this->log->debug('Session started.', $_SESSION);
   }
 
   /**
@@ -393,7 +392,7 @@ class attogram {
     exit;
   }
 
-   /**
+  /**
    * get_site_url()
    *
    * @return string
@@ -440,9 +439,9 @@ class attogram {
       return;
     }
     // Default page header
-    print '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>' . $title . '</title></head><body>';
+    print '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
+    . '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    . '<title>' . $title . '</title></head><body>';
     $this->log->error('missing page_header ' . $file . ' - using default header');
   }
 
@@ -580,11 +579,11 @@ class attogram {
       $this->log->error('LOGIN: Please enter username and password');
       return FALSE;
     }
-    $user = $this->sqlite_database->query(
+    $user = $this->db->query(
       'SELECT id, username, level, email FROM user WHERE username = :u AND password = :p',
       $bind=array(':u'=>$_POST['u'],':p'=>$_POST['p']) );
 
-    if( $this->sqlite_database->db->errorCode() != '00000' ) { // query failed
+    if( $this->db->db->errorCode() != '00000' ) { // query failed
       $this->log->error('LOGIN: Login system offline');
       return FALSE;
     }
@@ -597,11 +596,11 @@ class attogram {
       return FALSE;
     }
     $user = $user[0];
-    $_SESSION['attogram_id'] = $user['id'];
-    $_SESSION['attogram_username'] = $user['username'];
-    $_SESSION['attogram_level'] = $user['level'];
-    $_SESSION['attogram_email'] = $user['email'];
-    if( !$this->sqlite_database->queryb(
+    $this->session->set('attogram_id', $user['id']);
+    $this->session->set('attogram_username', $user['username']);
+    $this->session->set('attogram_level', $user['level']);
+    $this->session->set('attogram_email', $user['email']);
+    if( !$this->db->queryb(
       "UPDATE user SET last_login = datetime('now'), last_host = :last_host WHERE id = :id",
       $bind = array(':id'=>$user['id'], ':last_host'=>$_SERVER['REMOTE_ADDR'])
       ) ) {
@@ -617,8 +616,8 @@ class attogram {
    * @return boolean
    */
   function is_logged_in() {
-    if( isset($_SESSION['attogram_id']) && $_SESSION['attogram_id']
-     && isset($_SESSION['attogram_username']) && $_SESSION['attogram_username'] ) {
+    if( !is_object($this->session) ) { return FALSE; } // dev
+    if( $this->session->get('attogram_id', FALSE) && $this->session->get('attogram_username', FALSE) ) {
       return TRUE;
     }
     return FALSE;

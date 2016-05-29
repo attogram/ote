@@ -1,5 +1,7 @@
 <?php
-// Attogram - action - contact
+// Attogram Framework - Contact Page v0.0.1
+
+namespace Attogram;
 
 $this->page_header('Attogram - Contact');
 
@@ -16,13 +18,13 @@ if( isset($_POST['msg']) && isset($_POST['email']) ) {
 
   $ok_msg = '<div class="container">Thank You.  Message received.</div>';
 
-  if( $this->sqlite_database->queryb($sql,$bind) ) {
+  if( $this->db->queryb($sql,$bind) ) {
     print $ok_msg;
     include($this->templates_dir . '/footer.php');
     exit;
   }
 
-  if( $this->sqlite_database->get_db()->errorCode() == 'HY000' ) {
+  if( $this->db->get_db()->errorCode() == 'HY000' ) {
     $this->error[] = 'Message system offline';
     include($this->templates_dir . '/footer.php');
     exit;

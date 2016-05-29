@@ -14,7 +14,7 @@ $this->page_header('Search');
 <?php
 
 if( isset($_GET['q']) && $_GET['q'] ) {
-  $ote = new ote($this->sqlite_database);
+  $ote = new ote($this->db);
   $result = $ote->search($_GET['q']);
   print $result;
 }

@@ -1,10 +1,9 @@
 <?php
-// Attogram - template - footer
+// Attogram Framework - Footer v0.0.2
 
 namespace Attogram;
 
 ?>
-
 <footer class="footer">
  <div class="container">
   <p><small>
@@ -13,18 +12,16 @@ namespace Attogram;
   </small></p>
  </div>
 </footer>
-
 <?php
 if( isset($debug) && $debug && isset($this->log->stack) && $this->log->stack ) {
-  print '<div class="container"><pre class="alert alert-debug">System Debug:<br />' 
+  print '<div class="container"><pre class="alert alert-debug">System Debug:<br />'
   . implode($this->log->stack, '<br />')
   . '</pre></div>';
 }
 
-if( isset($this->sqlite_database->log->stack) && $this->sqlite_database->log->stack ) {
-  print '<div class="container"><pre class="alert alert-debug">Database Debug:<br />' 
-  . implode($this->sqlite_database->log->stack, '<br />')
+if( isset($this->db->log->stack) && $this->db->log->stack ) {
+  print '<div class="container"><pre class="alert alert-debug">Database Debug:<br />'
+  . implode($this->db->log->stack, '<br />')
   . '</pre></div> ';}
 ?>
-
 </body></html>

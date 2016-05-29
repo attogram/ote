@@ -19,7 +19,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->sqlite_database);
+$ote = new ote($this->db);
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 

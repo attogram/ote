@@ -25,7 +25,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->sqlite_database);
+$ote = new ote($this->db);
 
 if( sizeof($this->uri) == 2 ) { // Show All Words
   $all = $ote->get_all_words();
