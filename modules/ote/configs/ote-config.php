@@ -1,6 +1,10 @@
 <?php
 // Open Translation Engine - Attogram config v0.0.1
 
+namespace Attogram;
+
+global $config;
+
 $config['site_name'] = 'Open Translation Engine';
 
 $config['depth']['dictionary'] = 4; // Dictionary Depth
