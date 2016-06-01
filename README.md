@@ -1,9 +1,21 @@
-Open Translation Engine (OTE)
-===
-The OTE is a **translation dictionary** manager for the web.
+Attogram Framework
+==================
 
-[Find out more about The OTE](actions/about.md)
+The Attogram Framework gives developers a jumpstart to quickly create web sites. Attogram uses PHP with Apache2. It includes URL routing, an IP-protected backend, a user system, an integrated SQLite database with web administration, a Markdown parser,
+jQuery and Bootstrap.
 
-This is version 1.0.0-dev, built with the [Attogram Framework](https://github.com/attogram/attogram)
+After that, Attogram tries to stay out of your way while you do your thing!
 
-For old stable version, see [https://github.com/attogram/ote](https://github.com/attogram/ote)
+[Read more about how to install, setup and extend Attogram](actions/about.md).
+
+
+More Info
+=========
+* Attogram @ GitHub: https://github.com/attogram/attogram
+* Attogram vendor package @ GitHub: https://github.com/attogram/attogram-vendor
+* Attogram @ Packagist: https://packagist.org/packages/attogram/attogram-framework
+* Demo: http://getitdaily.com/attogram/
+
+Notes
+=====
+* Need the `vendor` directory and can't run composer?  Download and install the [Attogram vendor package](https://github.com/attogram/attogram-vendor/archive/master.zip) instead.

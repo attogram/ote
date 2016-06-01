@@ -5,7 +5,7 @@
 */
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev01');
+define('OTE_VERSION', '1.0.0-dev02');
 
 /**
  * Open Translation Engine (OTE) class
@@ -91,9 +91,9 @@ class ote {
    * @return array
    */
   function get_all_words() {
-    $sql = 'SELECT word FROM word ORDER BY word';
-    $limit = ' LIMIT 0,100'; // dev
-    $sql .= $limit;
+    $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
+    //$limit = ' LIMIT 0,100'; // dev
+    //$sql .= $limit;
     return $this->db->query($sql);
   }
 
@@ -109,10 +109,10 @@ class ote {
     list($s_code_norm,$t_code_norm) = $this->normalize_language_pair($s_code,$t_code);
     if( ($s_code_norm==$s_code) && ($t_code_norm==$t_code) ) {
       $select = 'sw.word AS s_word, tw.word AS t_word';
-      $order ='ORDER BY sw.word, tw.word';
+      $order ='ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
     } else {
       $select = 'sw.word AS t_word, tw.word AS s_word';
-      $order ='ORDER BY tw.word, sw.word';
+      $order ='ORDER BY tw.word COLLATE NOCASE, sw.word COLLATE NOCASE';
       $s_code = $s_code_norm;
       $t_code = $t_code_norm;
     }
