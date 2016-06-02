@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Dictionary Page v0.0.2
+ OTE Dictionary Page v0.0.3
 
  Requires config setup:
    $config['depth']['dictionary'] = 3;
@@ -19,7 +19,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->db);
+$ote = new ote($this->db, $this->log);
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 

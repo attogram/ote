@@ -1,28 +1,29 @@
 <?php
 /*
- * Open Translation Engine (OTE) - ote class v0.0.1
+ * Open Translation Engine (OTE)
  * powered by Attogram Framework
 */
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev03');
+define('OTE_VERSION', '1.0.0-dev04');
 
 /**
  * Open Translation Engine (OTE) class
  */
 class ote {
 
-  public $db;
-  public $normalized_language_pairs;
+  public $db, $log, $normalized_language_pairs;
 
   /**
    * __construct()
-   *
-   * @param object $db
+   * @param object $db Attogram PDO database object
+   * @param object $log PSR-3 compliant logger
    * @return void
    */
-  function __construct( $db ) {
+  function __construct( $db, $log ) {
     $this->db = $db;
+    $this->log = $log;
+    $this->log->debug('OTE started');
   }
 
   /**
@@ -49,22 +50,90 @@ class ote {
   }
 
   /**
-   * get_language_name_from_code()
+   * get_language_from_code()
    *
    * @param string $code The Language Code
-   * @param string $default Optional. The default language name to use & insert, if none found
-   * @return string
+   * @param string $default (optional) The default language name to use & insert, if none found
+   * @return array
    */
-  function get_language_name_from_code($code, $default=FALSE) {
-    $sql = 'SELECT language FROM language WHERE code = :code';
-    $bind = array( 'code'=>$code);
+  function get_language_from_code($code, $default=FALSE) {
+    $this->log->debug('get_language_from_code: code=' . $code . ' default=' . $default);
+    $sql = 'SELECT id, code, language FROM language WHERE code = :code LIMIT 1';
+    $bind = array('code'=>$code);
     $r = $this->db->query($sql, $bind);
-    if( isset($r[0]['language']) ) {
-      return $r[0]['language'];
+    if( $r ) {
+      return $r[0];
     }
     if( !$default ) { $default = $code; }
-    // print '<p>Error: no language name found. code: ' . htmlentities($code) . '</p>';
-    return $this->insert_language($code, $default);
+    $this->log->debug('get_language_from_code: no language found. code=' . htmlentities($code));
+    $lang_id = $this->insert_language($code, $default);
+    if( !$lang_id ) {
+      $this->log->error('get_language_from_code: Can not insert language.');
+      return array();
+    }
+    return array('id'=>$lang_id, 'code'=>$code, 'language'=>$default);
+  }
+
+  /**
+   * insert_language()
+   * @param string $code The Language Code
+   * @param string $language_name The Language Name
+   * @return integer ID of the new language, or FALSE
+   */
+  function insert_language($code, $language_name) {
+    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
+    $bind=array('code'=>$code, 'language'=>$language_name);
+    $r = $this->db->queryb($sql, $bind);
+    if( !$r ) {
+      $this->log->error('insert_language: can not insert language');
+      return FALSE;
+    }
+    $this->log->debug('insert_language: OK. code=' . htmlentities($code) . ' name=' . htmlentities($language_name));
+    return $this->db->db->lastInsertId();
+  }
+
+  /**
+   * insert_word()
+   */
+  function insert_word($word) {
+    $sql = 'INSERT INTO word (word) VALUES (:word)';
+    $bind=array('word'=>$word);
+    $r = $this->db->queryb($sql, $bind);
+    if( !$r ) {
+      print '<p>ERROR: can not insert word</p>';
+      return 0;
+    }
+    return $this->db->db->lastInsertId();
+  }
+
+  /**
+   * insert_word2word()
+   * @param integer $s_id Source Word ID
+   * @param integer $s_code_id Source Language ID
+   * @param integer $t_id Target Word ID
+   * @param integer $t_code_id Target Language ID
+   * @return interger Inserted record ID, or FALSE
+   */
+  function insert_word2word( $s_id, $s_code_id, $t_id, $t_code_id ) {
+    $bind = array('s_id'=>$s_id, 's_code_id'=>$s_code_id, 't_id'=>$t_id, 't_code_id'=>$t_code_id);
+    $this->log->debug('insert_word2word', $bind);
+    $sql = '
+      INSERT INTO word2word (
+        s_id, s_code_id, t_id, t_code_id
+      ) VALUES (
+        :s_id, :s_code_id, :t_id, :t_code_id
+      )';
+    $r = $this->db->queryb($sql, $bind);
+    if( $r ) {
+      $this->log->debug("insert_word2word: OK $s_id:$s_code_id:$t_id:$t_code_id");
+      return $this->db->db->lastInsertId();
+    }
+    if( $this->db->db->errorCode() == '0000' ) {
+      $this->log->notice('insert_word2word: Insert failed: duplicate entry.');
+    } else {
+      $this->log->error('insert_word2word: can not insert. errorInfo: ' . print_r($this->db->db->errorInfo(),1) );
+    }
+    return FALSE;
   }
 
   /**
@@ -192,34 +261,6 @@ class ote {
   }
 
   /**
-   * insert_word()
-   */
-  function insert_word($word) {
-    $sql = 'INSERT INTO word (word) VALUES (:word)';
-    $bind=array('word'=>$word);
-    $r = $this->db->queryb($sql, $bind);
-    if( !$r ) {
-      print '<p>ERROR: can not insert word</p>';
-      return 0;
-    }
-    return $this->db->db->lastInsertId();
-  }
-
-  /**
-   * insert_language()
-   */
-  function insert_language($code, $language_name) {
-    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
-    $bind=array('code'=>$code, 'language'=>$language_name);
-    $r = $this->db->queryb($sql, $bind);
-    if( !$r ) {
-      print '<p>ERROR: can not insert language</p>';
-      return 'error';
-    }
-    return $language_name;
-  }
-
-  /**
    * multiSort()
    */
   function multiSort() {
@@ -257,18 +298,19 @@ class ote {
    */
   function do_import( $w, $d, $s, $t, $sn='', $tn='' ) {
 
-
-    // todo -- normalize
-
-
+    $this->log->debug("do_import: s=$s t=$t");
     $d = str_replace('\t', "\t", $d); // allow real tabs
-    $sn = $this->get_language_name_from_code($s, $default=$sn);
-    $tn = $this->get_language_name_from_code($t, $default=$tn);
+    $sn = $this->get_language_from_code($s, $default=$sn);
+    if( !$sn ) { print 'Error: can not get/set source language'; return; }
+    $tn = $this->get_language_from_code($t, $default=$tn);
+    if( !$tn ) { print 'Error: can not get/set target language'; return; }
 
+    $this->log->debug('do_import: sn.id=' . $sn['id'] . ', sn:' . print_r($sn,1));
+    $this->log->debug('do_import: tn.id=' . $tn['id'] . ', tn:' . print_r($tn,1));
     $lines = explode("\n", $w);
     print '<div class="container">';
-    print 'Source Language: Code: <code>' . htmlentities($s) . '</code> Name: <code>' . htmlentities($sn) . '</code><br />';
-    print 'Target Language: Code: <code>' . htmlentities($t) . '</code> Name: <code>' . htmlentities($tn) . '</code><br />';
+    print 'Source Language: ID: <code>' . $sn['id'] . '</code> Code: <code>' . htmlentities($s) . '</code> Name: <code>' . htmlentities($sn['code']) . '</code><br />';
+    print 'Target Language: ID: <code>' . $tn['id'] . '</code> Code: <code>' . htmlentities($t) . '</code> Name: <code>' . htmlentities($tn['code']) . '</code><br />';
     print 'Deliminator: <code>' . htmlentities($d) . '</code><br />';
     print 'Lines: <code>' . sizeof($lines) . '</code><hr /><small>';
 
@@ -329,7 +371,7 @@ class ote {
 
       list($s,$t) = $this->normalize_language_pair($s,$t);
 
-      $bind = array( 's_id'=>$si, 's_code'=>$s, 't_id'=>$ti, 't_code'=>$t);
+      $bind = array( 's_id'=>$si, 's_code_id'=>$sn['id'], 't_id'=>$ti, 't_code_id'=>$tn['id']);
 
       // check if REVERSE pair already exists...
       $sql = '
@@ -337,8 +379,8 @@ class ote {
         FROM word2word
         WHERE s_id = :t_id
         AND t_id = :s_id
-        AND s_code = :t_code
-        AND t_code = :s_code
+        AND s_code_id = :t_code_id
+        AND t_code_id = :s_code_id
         LIMIT 1
       ';
       $check = $this->db->query($sql,$bind);
@@ -348,15 +390,7 @@ class ote {
         continue;
       }
 
-      // TODO split into $this->insert_word2word()
-
-      $sql = '
-        INSERT INTO word2word (
-          s_id, s_code, t_id, t_code
-        ) VALUES (
-          :s_id, :s_code, :t_id, :t_code
-        )';
-      $r = $this->db->queryb($sql, $bind);
+      $r = $this->insert_word2word( $si, $sn['id'], $ti, $tn['id']);
       if( !$r ) {
         if( $this->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
@@ -409,14 +443,14 @@ class ote {
     return $r;
   }
 
- /**
-  * normalize_language_pair()
-  *
-  * @param string $s_code Source Language Code
-  * @param string $t_code Target Language Code
-  *
-  * @return array An array of the normalized order (source_code, language_code)
-  */
+  /**
+   * normalize_language_pair()
+   *
+   * @param string $s_code Source Language Code
+   * @param string $t_code Target Language Code
+   *
+   * @return array An array of the normalized order (source_code, language_code)
+   */
   function normalize_language_pair( $s_code, $t_code ) {
     $nlp_norm = $s_code . '-' . $t_code;
     $nlp_rev  = $t_code . '-' . $s_code;
@@ -452,15 +486,15 @@ class ote {
     }
   } // end function normalize_language_pair()
 
- /**
-  * normalize_word2word_table()
-  * update word2word table to use only one form of SOURCE-TARGET
-  *
-  * @param string $s_code Source Language Code
-  * @param string $t_code Target Language Code
-  *
-  * @return array An array of the normlized order (source_code, language_code)
-  */
+  /**
+   * normalize_word2word_table()
+   * update word2word table to use only one form of SOURCE-TARGET
+   *
+   * @param string $s_code Source Language Code
+   * @param string $t_code Target Language Code
+   *
+   * @return array An array of the normlized order (source_code, language_code)
+   */
   function normalize_word2word_table( $s_code, $t_code ) {
     // find all reverse entries:  where s_code=$t_code and t_code=$s_code
     //  update reverse entries to normal: switch s_id/t_id and switch s_code/t_code

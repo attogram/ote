@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Word Page v0.0.2
+ OTE Word Page v0.0.3
 
  Requires config setup:
    $config['depth']['word'] = 4;
@@ -25,7 +25,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->db);
+$ote = new ote($this->db, $this->log);
 
 if( sizeof($this->uri) == 1 ) { // Show All Words
   $all = $ote->get_all_words();

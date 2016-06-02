@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Export Page v0.0.2
+ OTE Export Page v0.0.3
 
  Requires config setup:
    $config['depth']['export'] = 3;
@@ -19,7 +19,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->db);
+$ote = new ote($this->db, $this->log);
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
