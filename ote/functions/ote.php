@@ -73,7 +73,7 @@ class ote {
    * @return array
    */
   function get_languages() {
-    $sql = 'SELECT code, language FROM language ORDER by id';
+    $sql = 'SELECT id, code, language FROM language ORDER by id';
     $r = $this->db->query($sql);
     if( !$r ) {
       return array();

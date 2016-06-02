@@ -1,10 +1,12 @@
--- Open Translation Engine - word2word table v0.0.1
+-- Open Translation Engine - word2word table v0.0.2
 
 CREATE TABLE IF NOT EXISTS 'word2word' (
-  'id'     INTEGER PRIMARY KEY,
-  's_id'   INTEGER NOT NULL DEFAULT '0',
+  'id' INTEGER PRIMARY KEY,
+  's_id' INTEGER NOT NULL DEFAULT '0', -- Source word.id
+  's_code_id' INTEGER NOT NULL DEFAULT '0', -- Source language.id
   's_code' TEXT NOT NULL,
-  't_id'   INTEGER NOT NULL DEFAULT '0',
+  't_id' INTEGER NOT NULL DEFAULT '0', -- Target word.id
+  't_code_id' INTEGER NOT NULL DEFAULT '0', -- Target language.id
   't_code' TEXT NOT NULL,
-  unique(s_id,s_code,t_id,t_code)
+  unique(s_id,s_code_id,t_id,t_code_id)
 )
