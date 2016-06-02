@@ -1,9 +1,9 @@
 <?php
-// Open Translation Engine - Words Admin v0.0.1
+// Open Translation Engine - Words Admin v0.0.2
 
 namespace Attogram;
 
-$this->page_header('Words Admin - OTE 1.0.0-dev');
+$this->page_header('Words Admin');
 
 tabler(
   $attogram = $this,

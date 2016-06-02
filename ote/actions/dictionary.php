@@ -1,19 +1,19 @@
 <?php
 /*
- OTE Export Page v0.0.1
+ OTE Dictionary Page v0.0.2
 
  Requires config setup:
-   $config['depth']['export'] = 4;
+   $config['depth']['dictionary'] = 3;
 
  URL formats:
 
-  export/source_language_code/target_language_code/
-    export all translations, from source language, into target language
+  dictionary/source_language_code/target_language_code/
+    all translations, from source language, into target language
 
-  export/source_language_code/
-    export all translations, from source language, into any language
+  dictionary/source_language_code/
+    all translations, from source language, into any language
 
-  export/
+  dictionary/
     list all dictionaries
 
 */
@@ -23,9 +23,9 @@ $ote = new ote($this->db);
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
-if( sizeof($this->uri) == 2 ) { // list all exportable dictionaries
-    $this->page_header('Export list');
-    print '<div class="container"><h1>Export list</h1>';
+if( sizeof($this->uri) == 1 ) { // list all dictionaries
+    $this->page_header('Dictionary list');
+    print '<div class="container"><h1>Dictionary list</h1>';
     $dlist = $ote->get_dictionary_list($rel_url);
     print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><ul>';
     foreach( $dlist as $url=>$name ) {
@@ -46,7 +46,6 @@ if( !isset($this->uri[2]) || !$this->uri[2] ) {  // Please select Target Languag
 $s_code = $this->uri[1];
 $t_code = $this->uri[2];
 
-
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
   header("Location: $rel_url");
 }
@@ -60,27 +59,34 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
   header("Location: $rel_url");
 }
 
-$title = 'Export ' . $langs[$s_code] . ' to ' . $langs[$t_code];
-$this->page_header($title);
+$title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
 
-$result = $ote->get_dictionary( $s_code, $t_code );
+$this->page_header($title);
+print '<div class="container">';
+print '<h1>' . $title . '</h1>';
+$d = $ote->get_dictionary( $s_code, $t_code);
+print '<p><code>' . sizeof($d) . '</code> translations:</p>';
+
+print '<hr /><p>';
 
 $sep = ' = ';
+$prev = '';
 
-?>
-<div class="container">
-<h1><?php print $title; ?></h1>
-<textarea class="form-control" rows="20" id="export">
-# <?php print $langs[$s_code] . ' to ' . $langs[$t_code] . "\n"; ?>
-# <?php print "$s_code to $t_code\n"; ?>
-# <?php print sizeof($result) . " word pairs\n"; ?>
-# <?php print "deliminator: $sep\n"; ?>
-#
-<?php
-foreach( $result as $r ) {
-  print $r['s_word'] . $sep . $r['t_word'] . "\n";
+foreach( $d as $i ) {
+  if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
+  print '<strong>'
+  . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">'
+  . $i['s_word']
+  . '</a>'
+  . '</strong>'
+  . $sep
+  . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">'
+  . $i['t_word']
+  . '</a>'
+  . '<br />';
+  $prev = $i['s_word'];
 }
-?></textarea>
-</div>
-<?php
+
+
+print '</p></div>';
 $this->page_footer();

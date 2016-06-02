@@ -1,9 +1,9 @@
 <?php
-// Open Translation Engine - word2word page v0.0.1
+// Open Translation Engine - word2word page v0.0.2
 
 namespace Attogram;
 
-$this->page_header('Word2Word - OTE 1.0.0-dev');
+$this->page_header('Word2Word');
 
 tabler(
   $attogram = $this,

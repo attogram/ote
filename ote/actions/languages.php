@@ -1,9 +1,9 @@
 <?php
-// Open Translation Engine - Languages Page v0.0.1
+// Open Translation Engine - Languages Page v0.0.2
 
 namespace Attogram;
 
-$this->page_header('Languages - OTE 1.0.0-dev');
+$this->page_header('Languages');
 
 tabler(
   $attogram = $this,

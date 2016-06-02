@@ -1,9 +1,9 @@
 <?php
 /*
- OTE Word Page v0.0.1
+ OTE Word Page v0.0.2
 
  Requires config setup:
-   $config['depth']['word'] = 5;
+   $config['depth']['word'] = 4;
 
  URL formats:
 
@@ -27,7 +27,7 @@ namespace Attogram;
 
 $ote = new ote($this->db);
 
-if( sizeof($this->uri) == 2 ) { // Show All Words
+if( sizeof($this->uri) == 1 ) { // Show All Words
   $all = $ote->get_all_words();
   $title = 'Word list';
   $this->page_header($title);
@@ -45,7 +45,7 @@ if( sizeof($this->uri) == 2 ) { // Show All Words
   exit;
 }
 
-if( sizeof($this->uri) != 5 ) {
+if( sizeof($this->uri) != 4 ) {
   $this->error404();
 }
 
