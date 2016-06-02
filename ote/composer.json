@@ -1,0 +1,22 @@
+{
+  "name": "attogram/open-translation-engine",
+  "description": "Open Translation Engine (OTE) module for The Attogram Framework",
+  "type": "project",
+  "homepage": "https://github.com/attogram/ote/tree/attogram-dev",
+  "license": "(MIT or GPL-3.0+)",
+  "require": {
+    "php": ">=5.5.9 || ^7.0"
+  },
+  "authors": [
+    {
+      "name": "OTE Developers",
+      "homepage": "https://github.com/attogram/ote"
+    }
+  ],
+  "keywords": [
+    "translation dictionary",
+    "translation",
+    "dictionary",
+    "attogram"
+  ]
+}
