@@ -27,6 +27,24 @@ class ote {
   }
 
   /**
+   * get_languages()
+   *
+   * @return array
+   */
+  function get_languages() {
+    $sql = 'SELECT id, code, language FROM language ORDER by id';
+    $r = $this->db->query($sql);
+    if( !$r ) {
+      return array();
+    }
+    $rv = array();
+    foreach( $r as $g ) {
+      $rv[ $g['code'] ] = $g['language'];
+    }
+    return $rv;
+  }
+
+  /**
    * get_dictionary_list()
    *
    * @param string $rel_url Optional. Relative URL of page
@@ -47,6 +65,24 @@ class ote {
     }
     asort($dlist);
     return $dlist;
+  }
+
+  /**
+   * insert_language()
+   * @param string $code The Language Code
+   * @param string $language_name The Language Name
+   * @return integer ID of the new language, or FALSE
+   */
+  function insert_language($code, $language_name) {
+    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
+    $bind=array('code'=>$code, 'language'=>$language_name);
+    $r = $this->db->queryb($sql, $bind);
+    if( !$r ) {
+      $this->log->error('insert_language: can not insert language');
+      return FALSE;
+    }
+    $this->log->debug('insert_language: OK. code=' . htmlentities($code) . ' name=' . htmlentities($language_name));
+    return $this->db->db->lastInsertId();
   }
 
   /**
@@ -75,24 +111,6 @@ class ote {
   }
 
   /**
-   * insert_language()
-   * @param string $code The Language Code
-   * @param string $language_name The Language Name
-   * @return integer ID of the new language, or FALSE
-   */
-  function insert_language($code, $language_name) {
-    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
-    $bind=array('code'=>$code, 'language'=>$language_name);
-    $r = $this->db->queryb($sql, $bind);
-    if( !$r ) {
-      $this->log->error('insert_language: can not insert language');
-      return FALSE;
-    }
-    $this->log->debug('insert_language: OK. code=' . htmlentities($code) . ' name=' . htmlentities($language_name));
-    return $this->db->db->lastInsertId();
-  }
-
-  /**
    * insert_word()
    */
   function insert_word($word) {
@@ -104,6 +122,35 @@ class ote {
       return 0;
     }
     return $this->db->db->lastInsertId();
+  }
+
+  /**
+   * get_id_from_word()
+   *
+   * @param string $word The Source Word
+   * @return int
+   */
+  function get_id_from_word($word) {
+    $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
+    $bind=array('word'=>$word);
+    $r = $this->db->query($sql, $bind);
+    if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
+      //print '<p>ERROR: no word.id found.  Inserting word: ' . $word . '</p>';
+      return $this->insert_word($word);
+    }
+    return $r[0]['id'];
+  }
+
+  /**
+   * get_all_words()
+   *
+   * @return array
+   */
+  function get_all_words() {
+    $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
+    //$limit = ' LIMIT 0,100'; // dev
+    //$sql .= $limit;
+    return $this->db->query($sql);
   }
 
   /**
@@ -137,33 +184,32 @@ class ote {
   }
 
   /**
-   * get_languages()
-   *
-   * @return array
+   * get_word2word()
+   * @param integer $s_id Source Word ID
+   * @param integer $s_code_id Source Language ID
+   * @param integer $t_id Target Word ID
+   * @param integer $t_code_id Target Language ID
+   * @return boolean
    */
-  function get_languages() {
-    $sql = 'SELECT id, code, language FROM language ORDER by id';
-    $r = $this->db->query($sql);
-    if( !$r ) {
-      return array();
+  function get_word2word( $s_id, $s_code_id, $t_id, $t_code_id ) {
+    $bind = array('s_id'=>$s_id, 's_code_id'=>$s_code_id, 't_id'=>$t_id, 't_code_id'=>$t_code_id);
+    $this->log->debug('get_word2word', $bind);
+    $sql = '
+      SELECT s_id
+      FROM word2word
+      WHERE s_id = :t_id
+      AND t_id = :s_id
+      AND s_code_id = :t_code_id
+      AND t_code_id = :s_code_id
+      LIMIT 1';
+    $r = $this->db->query($sql,$bind);
+    if( $r ) {
+      $this->log->debug('get_word2word: exists');
+      return TRUE;
+    } else {
+      $this->log->debug('get_word2word: does not exist');
+      return FALSE;
     }
-    $rv = array();
-    foreach( $r as $g ) {
-      $rv[ $g['code'] ] = $g['language'];
-    }
-    return $rv;
-  }
-
-  /**
-   * get_all_words()
-   *
-   * @return array
-   */
-  function get_all_words() {
-    $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
-    //$limit = ' LIMIT 0,100'; // dev
-    //$sql .= $limit;
-    return $this->db->query($sql);
   }
 
   /**
@@ -241,23 +287,6 @@ class ote {
     $r = array_merge($r,$r_r);
     $r = $this->multiSort($r, 's_code', 't_code', 's_word', 't_word');
     return $r;
-  }
-
-  /**
-   * get_id_from_word()
-   *
-   * @param string $word The Source Word
-   * @return int
-   */
-  function get_id_from_word($word) {
-    $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
-    $bind=array('word'=>$word);
-    $r = $this->db->query($sql, $bind);
-    if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
-      //print '<p>ERROR: no word.id found.  Inserting word: ' . $word . '</p>';
-      return $this->insert_word($word);
-    }
-    return $r[0]['id'];
   }
 
   /**
@@ -374,23 +403,16 @@ class ote {
       $bind = array( 's_id'=>$si, 's_code_id'=>$sn['id'], 't_id'=>$ti, 't_code_id'=>$tn['id']);
 
       // check if REVERSE pair already exists...
-      $sql = '
-        SELECT s_id
-        FROM word2word
-        WHERE s_id = :t_id
-        AND t_id = :s_id
-        AND s_code_id = :t_code_id
-        AND t_code_id = :s_code_id
-        LIMIT 1
-      ';
-      $check = $this->db->query($sql,$bind);
+      $check = $this->get_word2word( $si, $sn['id'], $ti, $tn['id'] );
       if( $check ) {
         //print '<p>Info: Line #' . $line_count . ': Duplicate (reverse). Skipping line';
         $error_count++; $dupe_count++; $skip_count++;
         continue;
       }
 
-      $r = $this->insert_word2word( $si, $sn['id'], $ti, $tn['id']);
+
+      $r = $this->insert_word2word( $si, $sn['id'], $ti, $tn['id'] );
+
       if( !$r ) {
         if( $this->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
