@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Export Page v0.0.3
+ OTE Export Page v0.0.5
 
  Requires config setup:
    $config['depth']['export'] = 3;
@@ -62,10 +62,10 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
   header("Location: $rel_url");
 }
 
-$title = 'Export ' . $langs[$s_code] . ' to ' . $langs[$t_code];
+$title = 'Export ' . $langs[$s_code]['name'] . ' to ' . $langs[$t_code]['name'];
 $this->page_header($title);
 
-$result = $ote->get_dictionary( $s_code, $t_code );
+$result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 
 $sep = ' = ';
 
@@ -73,7 +73,7 @@ $sep = ' = ';
 <div class="container">
 <h1><?php print $title; ?></h1>
 <textarea class="form-control" rows="20" id="export">
-# <?php print $langs[$s_code] . ' to ' . $langs[$t_code] . "\n"; ?>
+# <?php print $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . "\n"; ?>
 # <?php print "$s_code to $t_code\n"; ?>
 # <?php print sizeof($result) . " word pairs\n"; ?>
 # <?php print "deliminator: $sep\n"; ?>

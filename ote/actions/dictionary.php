@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Dictionary Page v0.0.3
+ OTE Dictionary Page v0.0.4
 
  Requires config setup:
    $config['depth']['dictionary'] = 3;
@@ -59,12 +59,12 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
   header("Location: $rel_url");
 }
 
-$title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
+$title = $langs[$s_code]['name'] . ' to ' . $langs[$t_code]['name'] . ' Dictionary';
 
 $this->page_header($title);
 print '<div class="container">';
 print '<h1>' . $title . '</h1>';
-$d = $ote->get_dictionary( $s_code, $t_code);
+$d = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
 print '<hr /><p>';

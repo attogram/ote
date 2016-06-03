@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Word Page v0.0.3
+ OTE Word Page v0.0.4
 
  Requires config setup:
    $config['depth']['word'] = 4;
@@ -81,10 +81,10 @@ print '<div class="container">';
 print '<h1><kbd><strong>' . htmlentities($word) . '</strong></kbd></h1>';
 
 if( $s_code && $t_code ) {
-  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>) to '
+  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>) to '
   . '<strong>' . $langs[$t_code] . '</strong> (<code>' . $t_code . '</code>)';
 } elseif( $s_code && !$t_code) {
-  $header = '<strong>' . $langs[$s_code] . '</strong> (<code>' . $s_code . '</code>)';
+  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)';
 } else {
   $header = '<code>ALL</code>';
 }
@@ -94,25 +94,32 @@ print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 $sub_header = $prev_sub_header = '';
 print '<p>';
 foreach( $r as $w ) {
-
-  $sub_header = $langs[ $w['s_code'] ] . ' to ' . $langs[ $w['t_code'] ];
+  if( !$s_code ) {
+    $s_code = $ote->get_language_code_from_id( $w['sl'] );
+  }
+  if( !$t_code ) {
+    $t_code = $ote->get_language_code_from_id( $w['tl'] );
+  }
+  $sub_header = $langs[$s_code]['name'] . ' to ' . $langs[$t_code]['name'];
 
   if( $sub_header != $prev_sub_header ) {
     print '<hr /><em>' . $sub_header . '</em><br />';
   }
 
+  $base = $this->path . '/' . $this->uri[0];
+
   if( $s_code && $t_code ) {
-    $s_word_url = $this->path . '/' . $this->uri[0] . '///' . urlencode($w['s_word']);
+    $s_word_url = $base . '///' . urlencode($w['s_word']);
     $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
   } elseif( $s_code && !$t_code ) {
-    $s_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['s_code'] . '/' . $w['t_code'] . '/' . urlencode($w['s_word']);
+    $s_word_url = $base . '/' . $s_code . '/' . $t_code . '/' . urlencode($w['s_word']);
     $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
   } else {
-    $s_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['s_code'] . '//' . urlencode($w['s_word']);
+    $s_word_url = $base . '/' . $s_code . '//' . urlencode($w['s_word']);
     $s_word_display = '<a href="' . $s_word_url . '">' . $w['s_word'] . '</a>';
   }
 
-  $t_word_url = $this->path . '/' . $this->uri[0] . '/' . $w['t_code'] . '//' . urlencode($w['t_word']);
+  $t_word_url = $base . '/' . $t_code . '//' . urlencode($w['t_word']);
   $t_word_display = '<a href="' . $t_word_url . '">' . $w['t_word'] . '</a>';
 
   print "<strong>$s_word_display</strong> = $t_word_display<br />";
