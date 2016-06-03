@@ -13,35 +13,113 @@ define('OTE_VERSION', '1.0.0-dev04');
 class ote {
 
   public $db, $log, $normalized_language_pairs;
+  public $languages;
 
   /**
    * __construct()
-   * @param object $db Attogram PDO database object
-   * @param object $log PSR-3 compliant logger
+   * @param object $db  Attogram PDO database object
+   * @param object $log  PSR-3 compliant logger
    * @return void
    */
-  function __construct( $db, $log ) {
+  function __construct($db, $log) {
     $this->db = $db;
     $this->log = $log;
-    $this->log->debug('OTE started');
+    $this->log->debug('START OTE v' . OTE_VERSION);
   }
 
   /**
-   * get_languages()
-   *
+   * insert_language()
+   * @param string $code The Language Code
+   * @param string $language_name The Language Name
+   * @return integer ID of the new language, or FALSE
+   */
+  function insert_language($code, $name) {
+    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
+    $bind=array('code'=>$code, 'language'=>$name);
+    $r = $this->db->queryb($sql, $bind);
+    if( !$r ) {
+      $this->log->error('insert_language: can not insert language');
+      return FALSE;
+    }
+    $id = $this->db->db->lastInsertId();
+    $this->log->debug('insert_language: inserted id=' . $id
+      . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
+    return $id;
+  }
+
+  /**
+   * get_languages() - get a list of all languages
+   * @uses $languages
    * @return array
    */
   function get_languages() {
+    //$this->log->debug('get_languages: backtrace=' . debug_backtrace()[1]['function'] );
+    if( isset($this->languages) && is_array($this->languages) ) {
+      return $this->languages;
+    }
+    $this->languages = array();
     $sql = 'SELECT id, code, language FROM language ORDER by id';
     $r = $this->db->query($sql);
     if( !$r ) {
-      return array();
+      $this->log->error('get_languages: Languages Not Found, or Query Failed');
+      return $this->languages;
     }
-    $rv = array();
     foreach( $r as $g ) {
-      $rv[ $g['code'] ] = $g['language'];
+      $this->languages[ $g['code'] ] = array( 'id'=>$g['id'], 'language'=>$g['language'] );
     }
-    return $rv;
+    $this->log->debug('get_languages: got ' . sizeof($this->languages)
+      . ' languages', array_keys($this->languages));
+    return $this->languages;
+  } // end function get_languages()
+
+  /**
+   * get_language_code_from_id
+   * @param integer $id The Language ID
+   * @return string The Language Code, or FALSE
+   */
+  function get_language_code_from_id($id) {
+    //$this->log->debug('get_language_code_from_id: id=' . $id
+    //  . ' backtrace=' . debug_backtrace()[1]['function'] );
+    $langs = $this->get_languages();
+    foreach( $langs as $code => $lang ) {
+      if( $lang['id'] == $id ) {
+        $this->log->debug('get_language_code_from_id: id=' . $id . ' code=' . $code );
+        return $code;
+      }
+    }
+    $this->log->error('get_language_code_from_id: id=' . $id . ' Not Found');
+    return FALSE;
+  } // end function get_language_code_from_id()
+
+  /**
+   * get_language_name_from_code() - Gets a Language Name.
+   * If the language is not found, inserts the language into the database.
+   *
+   * @param string $code    The Language Code
+   * @param string $default (optional) The default language name to use & insert, if none found
+   * @return string   The Language Name, or FALSE
+   */
+  function get_language_name_from_code($code, $default=FALSE) {
+    $this->log->debug('get_language_name_from_code: code='
+      . htmlentities($code) . ' default=' . htmlentities($default));
+    $langs = $this->get_languages();
+    foreach( $langs as $lang_code => $lang ) {
+      if( $lang_code == $code ) {
+        $this->log->debug('get_language_name_from_code: code='
+          . htmlentities($code) . ' name=' . htmlentities($lang['language']));
+        return $lang['language'];
+      }
+    }
+    $this->log->error('get_language_name_from_code: Not Found.  Attempting insert:');
+    if( !$default ) {
+      $default = $code;
+    }
+    $lang_id = $this->insert_language($code, $default);
+    if( !$lang_id ) {
+      $this->log->error('get_language_name_from_code: Can not insert language.');
+      return FALSE;
+    }
+    return $default;
   }
 
   /**
@@ -51,64 +129,28 @@ class ote {
    * @return array List of dictionaries
    */
   function get_dictionary_list($rel_url='') {
-    $sql = 'SELECT DISTINCT s_code, t_code FROM word2word';
+    $this->log->debug('get_dictionary_list: rel_url=' . $rel_url
+      . ' backtrace=' . debug_backtrace()[1]['function'] );
+    $sql = 'SELECT DISTINCT s_code_id, t_code_id FROM word2word';
     $r = $this->db->query($sql);
     $dlist = array();
     $langs = $this->get_languages();
     foreach( $r as $d ) {
-      $url = $rel_url . $d['s_code'] . '/' . $d['t_code'] . '/';
-      $dlist[ $url ] = $langs[ $d['s_code'] ] . ' to ' . $langs[ $d['t_code'] ];
-      $r_url = $rel_url . $d['t_code'] . '/' . $d['s_code'] . '/';
+      $this->log->debug("loop d=",$d);
+      $s_code = $this->get_language_code_from_id( $d['s_code_id'] );
+      $t_code = $this->get_language_code_from_id( $d['t_code_id'] );
+      $url = $rel_url . $s_code . '/' . $t_code . '/';
+      $dlist[ $url ] = $langs[$s_code] . ' to ' . $langs[$t_code];
+      $r_url = $rel_url . $t_code . '/' . $s_code . '/';
       if( !array_key_exists($r_url,$dlist) ) {
-        $dlist[ $r_url ] = $langs[ $d['t_code'] ] . ' to ' . $langs[ $d['s_code'] ];
+        $dlist[ $r_url ] = $langs[$t_code] . ' to ' . $langs[$s_code];
       }
     }
     asort($dlist);
+    $this->log->debug('get_dictionary_list: got ' . sizeof($dlist)
+      . ' dictionaries', array_keys($dlist));
     return $dlist;
-  }
-
-  /**
-   * insert_language()
-   * @param string $code The Language Code
-   * @param string $language_name The Language Name
-   * @return integer ID of the new language, or FALSE
-   */
-  function insert_language($code, $language_name) {
-    $sql = 'INSERT INTO language (code, language) VALUES (:code, :language)';
-    $bind=array('code'=>$code, 'language'=>$language_name);
-    $r = $this->db->queryb($sql, $bind);
-    if( !$r ) {
-      $this->log->error('insert_language: can not insert language');
-      return FALSE;
-    }
-    $this->log->debug('insert_language: OK. code=' . htmlentities($code) . ' name=' . htmlentities($language_name));
-    return $this->db->db->lastInsertId();
-  }
-
-  /**
-   * get_language_from_code()
-   *
-   * @param string $code The Language Code
-   * @param string $default (optional) The default language name to use & insert, if none found
-   * @return array
-   */
-  function get_language_from_code($code, $default=FALSE) {
-    $this->log->debug('get_language_from_code: code=' . $code . ' default=' . $default);
-    $sql = 'SELECT id, code, language FROM language WHERE code = :code LIMIT 1';
-    $bind = array('code'=>$code);
-    $r = $this->db->query($sql, $bind);
-    if( $r ) {
-      return $r[0];
-    }
-    if( !$default ) { $default = $code; }
-    $this->log->debug('get_language_from_code: no language found. code=' . htmlentities($code));
-    $lang_id = $this->insert_language($code, $default);
-    if( !$lang_id ) {
-      $this->log->error('get_language_from_code: Can not insert language.');
-      return array();
-    }
-    return array('id'=>$lang_id, 'code'=>$code, 'language'=>$default);
-  }
+  } // end function get_dictionary_list()
 
   /**
    * insert_word()
@@ -329,13 +371,13 @@ class ote {
 
     $this->log->debug("do_import: s=$s t=$t");
     $d = str_replace('\t', "\t", $d); // allow real tabs
-    $sn = $this->get_language_from_code($s, $default=$sn);
+    $sn = $this->get_language_name_from_code($s, $default=$sn);
     if( !$sn ) { print 'Error: can not get/set source language'; return; }
-    $tn = $this->get_language_from_code($t, $default=$tn);
+    $tn = $this->get_language_name_from_code($t, $default=$tn);
     if( !$tn ) { print 'Error: can not get/set target language'; return; }
 
-    $this->log->debug('do_import: sn.id=' . $sn['id'] . ', sn:' . print_r($sn,1));
-    $this->log->debug('do_import: tn.id=' . $tn['id'] . ', tn:' . print_r($tn,1));
+    //$this->log->debug('do_import: sn.id=' . $sn['id'] . ', sn:' . print_r($sn,1));
+    //$this->log->debug('do_import: tn.id=' . $tn['id'] . ', tn:' . print_r($tn,1));
     $lines = explode("\n", $w);
     print '<div class="container">';
     print 'Source Language: ID: <code>' . $sn['id'] . '</code> Code: <code>' . htmlentities($s) . '</code> Name: <code>' . htmlentities($sn['code']) . '</code><br />';
@@ -410,9 +452,7 @@ class ote {
         continue;
       }
 
-
       $r = $this->insert_word2word( $si, $sn['id'], $ti, $tn['id'] );
-
       if( !$r ) {
         if( $this->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
