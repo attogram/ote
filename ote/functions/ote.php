@@ -307,7 +307,12 @@ class ote {
     sl.code AS sc,     tl.code AS tc,
     sl.name AS sn,     tl.name AS tn';
 
-    $order =   'ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
+    $order = 'ORDER BY
+      sw.word COLLATE NOCASE,
+      sl.name COLLATE NOCASE,
+      tl.name COLLATE NOCASE,
+      tw.word COLLATE NOCASE
+      ';
 
     $this->log->debug("get_dictionary: normalized: sl=$sl tl=$tl");
 
@@ -335,7 +340,6 @@ class ote {
     $order";
 
     $r = $this->db->query($sql,$bind);
-    $r = $this->multiSort($r, 's_word', 'sn', 'tn', 't_word');
     return $r;
 
   } // end function get_dictionary()
@@ -356,9 +360,9 @@ class ote {
       sl.name AS sn,     tl.name AS tn';
       $order = 'ORDER BY
         sw.word COLLATE NOCASE,
-        sl.code COLLATE NOCASE,
-        tw.word COLLATE NOCASE,
-        tl.code COLLATE NOCASE
+        sl.name COLLATE NOCASE,
+        tl.name COLLATE NOCASE,
+        tw.word COLLATE NOCASE
         ';
 
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
@@ -389,12 +393,13 @@ class ote {
 
       $bind['sw'] = $word;
       $r = $this->db->query($sql,$bind);
-      $r = $this->multiSort($r, 's_word', 'sn', 'tn', 't_word');
       return $r;
   }
 
   /**
    * multiSort()
+   * @params array ARG1
+   * @params string ARG2, ARG3, ...
    */
   function multiSort() {
     $args = func_get_args();
