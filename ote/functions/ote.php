@@ -292,40 +292,24 @@ class ote {
     sw.word AS s_word, tw.word AS t_word,
     sl.code AS sc,     tl.code AS tc,
     sl.name AS sn,     tl.name AS tn';
-    $select_r = '
-    tw.word AS s_word, sw.word AS t_word,
-    tl.code AS sc,     sl.code AS tc,
-    tl.name AS sn,     sl.name AS tn';
+
     $order =   'ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
-    $order_r = 'ORDER BY tw.word COLLATE NOCASE, sw.word COLLATE NOCASE';
+
     $this->log->debug("get_dictionary: normalized: sl=$sl tl=$tl");
 
     $lang = '';
     $bind = array();
 
     if( $sl && $tl ) {
-
-      list($sl_norm,$tl_norm) = $this->normalize_language_pair($sl,$tl);
-      if( ($sl==$sl_norm) && ($tl==$tl_norm) ) {
-        $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-      } else {
-        $select = $select_r;
-        $order = $order_r;
-        $lang = 'AND ww.sl = :tl AND ww.tl = :sl';
-      }
+      $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
       $bind['sl'] = $sl;
       $bind['tl'] = $tl;
-
     } elseif( $sl && !$tl ) {
-
       $lang = 'AND ww.sl=:sl';
       $bind['sl'] = $sl;
-
     } elseif( !$sl && $tl ) {
-
       $lang = 'AND ww.tl=:tl';
       $bind['tl'] = $tl;
-
     }
 
     $sql = "
@@ -429,7 +413,7 @@ class ote {
     $r .= '<p>search: ' . htmlentities($q) . '</p>';
 
     $s = $this->search_dictionary( $q, $sl=0, $tl=0 );
-    $r .= '<pre>' . print_r($s,1) . '</pre>';  
+    $r .= '<pre>' . print_r($s,1) . '</pre>';
 
     return $r;
   }
