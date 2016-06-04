@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Search Page v0.0.1
+// Open Translation Engine - Search Page v0.0.2
 
 namespace Attogram;
 
@@ -14,7 +14,7 @@ $this->page_header('Search');
 <?php
 
 if( isset($_GET['q']) && $_GET['q'] ) {
-  $ote = new ote($this->db);
+  $ote = new ote($this->db, $this->log);
   $result = $ote->search($_GET['q']);
   print $result;
 }

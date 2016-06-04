@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Dictionary Page v0.0.2
+ OTE Dictionary Page v0.0.5
 
  Requires config setup:
    $config['depth']['dictionary'] = 3;
@@ -10,8 +10,12 @@
   dictionary/source_language_code/target_language_code/
     all translations, from source language, into target language
 
-  dictionary/source_language_code/
+  dictionary/source_language_code//
     all translations, from source language, into any language
+
+  dictionary///
+  dictionary//
+    all translations, from any language, into any language
 
   dictionary/
     list all dictionaries
@@ -19,7 +23,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->db);
+$ote = new ote($this->db, $this->log);
 
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
@@ -36,57 +40,62 @@ if( sizeof($this->uri) == 1 ) { // list all dictionaries
     exit;
 }
 
+/*
 if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code
-  header("Location: $rel_url");
+  $this->error404('Source language missing in action');
 }
 if( !isset($this->uri[2]) || !$this->uri[2] ) {  // Please select Target Language Code
-  header("Location: $rel_url");
+  $this->error404('Target language missing in action');
 }
+*/
 
-$s_code = $this->uri[1];
-$t_code = $this->uri[2];
+$s_code = isset($this->uri[1]) ? $this->uri[1] : '';
+$t_code = isset($this->uri[2]) ? $this->uri[2] : '';
 
-if( $s_code == $t_code ) { // Error - Source and Target language code the same
-  header("Location: $rel_url");
+if( $s_code && $t_code && ($s_code == $t_code) ) { // Error - Source and Target language code the same
+  $this->error404('Source and Target language the same');
 }
 
 $langs = $ote->get_languages();
 
-if( !isset($langs[$s_code]) ) { // Source Language Code Not Found
-  header("Location: $rel_url");
+if( $s_code && !isset($langs[$s_code]) ) { // Source Language Code Not Found
+  $this->error404('Source language not found yet');
 }
-if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
-  header("Location: $rel_url");
+if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
+  $this->error404('Target language not found yet');
 }
 
-$title = $langs[$s_code] . ' to ' . $langs[$t_code] . ' Dictionary';
+$s_name = isset($langs[$s_code]['name']) ? $langs[$s_code]['name'] : '*';
+$t_name = isset($langs[$t_code]['name']) ? $langs[$t_code]['name'] : '*';
 
+$title = $s_name . ' to ' . $t_name . ' Dictionary';
 $this->page_header($title);
-print '<div class="container">';
-print '<h1>' . $title . '</h1>';
-$d = $ote->get_dictionary( $s_code, $t_code);
-print '<p><code>' . sizeof($d) . '</code> translations:</p>';
+print '<div class="container"><h1>' . $title . '</h1>';
 
-print '<hr /><p>';
+$s_id = isset($langs[$s_code]['id']) ? $langs[$s_code]['id'] : 0;
+$t_id = isset($langs[$t_code]['id']) ? $langs[$t_code]['id'] : 0;
+
+$d = $ote->get_dictionary( $s_id, $t_id );
+
+print '<p><code>' . sizeof($d) . '</code> translations:<hr /></p>';
 
 $sep = ' = ';
 $prev = '';
 
 foreach( $d as $i ) {
   if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
+  $prev = $i['s_word'];
   print '<strong>'
   . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">'
-  . $i['s_word']
+  . htmlentities($i['s_word'])
   . '</a>'
   . '</strong>'
   . $sep
   . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">'
-  . $i['t_word']
+  . htmlentities($i['t_word'])
   . '</a>'
   . '<br />';
-  $prev = $i['s_word'];
 }
-
 
 print '</p></div>';
 $this->page_footer();

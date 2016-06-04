@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Languages Page v0.0.2
+// Open Translation Engine - Languages Page v0.0.4
 
 namespace Attogram;
 
@@ -12,10 +12,10 @@ tabler(
   $name_plural = 'languages',
   $public_link = '../languages/',
   $col = array(
-    array('class'=>'col-md-9', 'title'=>'language', 'key'=>'language'),
+    array('class'=>'col-md-9', 'title'=>'name', 'key'=>'name'),
     array('class'=>'col-md-3', 'title'=>'<code>code</code>', 'key'=>'code'),
   ),
-  $sql = 'SELECT language, code FROM language ORDER BY id',
+  $sql = 'SELECT name, code FROM language ORDER BY id',
   $admin_link = '../languages-admin/',
   $show_edit = FALSE
 );
