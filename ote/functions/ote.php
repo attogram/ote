@@ -149,6 +149,31 @@ class ote {
   }
 
   /**
+    * get_languages_pulldown()
+    * @param  string $name      (optional) Name of the select element
+    * @param  string $selected  (optional) Name of option to mark as selected
+    * @return string            HTML pulldown selector with all  listed
+  */
+  function get_languages_pulldown( $name='language',  $selected='' ) {
+    //$this->log->debug("get_languages_pulldown: name=$name selected=$selected");
+    $r = '<select class="form-control" name="' . $name . '">';
+    $r .= '<option value="">All Languages</option>';
+    $langs = $this->get_languages();
+    foreach( $langs as $lang_code => $lang ) {
+      if( $lang_code == $selected ) {
+        $select = ' selected';
+      } else {
+        $select = '';
+      }
+      $r .= '<option value="' . $lang_code . '"' . $select . '>'
+      . $lang['name']  . '  (' . $lang_code . ')</option>';
+    }
+    $r .= '</select>';
+    return $r;
+
+  } // end get_languages_pulldown()
+
+  /**
    * get_dictionary_list()
    * @param  string $rel_url (opional) Relative URL of page
    * @return array           List of dictionaries
@@ -323,7 +348,7 @@ class ote {
    * @return array         list of word pairs
    */
   function search_dictionary( string $word, int $sl=0, int $tl=0 ) {
-      $this->log->debug("get_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
+      $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
       $select = '
       sw.word AS s_word, tw.word AS t_word,
@@ -331,7 +356,7 @@ class ote {
       sl.name AS sn,     tl.name AS tn';
       $order = 'ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
 
-      $this->log->debug("get_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
+      $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
       if( $sl && $tl ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
@@ -389,15 +414,23 @@ class ote {
 
   /**
    * search()
-   * @param string $q Search String
+   * @param string $q   The Search Query String
+   * @param string $sl  (optional) Source Language Code
+   * @param string $tl  (optional) Target Language Code
    */
-  function search( string $q ) {
+  function search( string $q, string $sl='', string $tl='' ) {
+    $this->log->debug("search: sl=$sl tl=$tl q=" . htmlentities($q));
     $r = '';
-    $r .= '<p>search: ' . htmlentities($q) . '</p>';
+    $sli = $tli = 0;
+    if( $sl && $sl !=  '' ) {
+      $sli = $this->get_language_id_from_code($sl);
+    }
+    if( $tl && $tl != '' ) {
+      $tli = $this->get_language_id_from_code($tl);
+    }
 
-    $s = $this->search_dictionary( $q, $sl=0, $tl=0 );
+    $s = $this->search_dictionary( $q, $sli, $tli );
     $r .= '<pre>' . print_r($s,1) . '</pre>';
-
     return $r;
   }
 
