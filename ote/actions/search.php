@@ -71,7 +71,6 @@ if( isset($_GET['q']) && $_GET['q'] ) {
     $t = '';
   }
 
-
   $result = $ote->search($q, $s, $t);
   print $result;
 }

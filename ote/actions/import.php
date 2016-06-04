@@ -69,7 +69,7 @@ if( $_POST ) {
   <div class="col-xs-12">
     <label for="w">Word pairs:</label>
     <textarea class="form-control" name="w" rows="8"></textarea>
-    <button type="submit" class="btn btn-primary"> &nbsp; &nbsp; Import Word Pairs &nbsp; &nbsp; </button>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Import Translations</button>
   </div>
 
   </form>

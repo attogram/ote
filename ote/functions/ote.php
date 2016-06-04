@@ -155,7 +155,7 @@ class ote {
     * @param  string $selected  (optional) Name of option to mark as selected
     * @return string            HTML pulldown selector with all  listed
     */
-  function get_languages_pulldown( $name='language',  $selected='' ) {
+  function get_languages_pulldown( string $name='language',  string $selected='' ) {
     //$this->log->debug("get_languages_pulldown: name=$name selected=$selected");
     $r = '<select class="form-control" name="' . $name . '">';
     $r .= '<option value="">All Languages</option>';
