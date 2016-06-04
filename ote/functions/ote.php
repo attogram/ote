@@ -51,15 +51,16 @@ class ote {
 
   /**
    * get_languages() - get a list of all languages
+   * @param  string $orderby  (optional) Column to sort on: id, code, or name
    * @return array
    */
-  function get_languages() {
+  function get_languages( $orderby='id' ) {
     $this->log->debug('get_languages: backtrace=' . debug_backtrace()[1]['function'] );
     if( isset($this->languages) && is_array($this->languages) ) {
       return $this->languages;
     }
     $this->languages = array();
-    $sql = 'SELECT id, code, name FROM language ORDER by id';
+    $sql = 'SELECT id, code, name FROM language ORDER by ' . $orderby;
     $r = $this->db->query($sql);
     if( !$r ) {
       $this->log->error('get_languages: Languages Not Found, or Query Failed');
@@ -153,20 +154,19 @@ class ote {
     * @param  string $name      (optional) Name of the select element
     * @param  string $selected  (optional) Name of option to mark as selected
     * @return string            HTML pulldown selector with all  listed
-  */
+    */
   function get_languages_pulldown( $name='language',  $selected='' ) {
     //$this->log->debug("get_languages_pulldown: name=$name selected=$selected");
     $r = '<select class="form-control" name="' . $name . '">';
     $r .= '<option value="">All Languages</option>';
-    $langs = $this->get_languages();
+    $langs = $this->get_languages( $orderby='name' );
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $selected ) {
         $select = ' selected';
       } else {
         $select = '';
       }
-      $r .= '<option value="' . $lang_code . '"' . $select . '>'
-      . $lang['name']  . '  (' . $lang_code . ')</option>';
+      $r .= '<option value="' . $lang_code . '"' . $select . '>' . $lang['name']  . '</option>';
     }
     $r .= '</select>';
     return $r;

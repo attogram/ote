@@ -7,10 +7,16 @@ $ote = new ote($this->db, $this->log);
 
 $this->page_header('Search');
 
-if( isset($_GET['l']) && $_GET['l'] ) {
-  $selected = urldecode( $_GET['l'] );
+if( isset($_GET['s']) && $_GET['s'] ) {
+  $s_selected = urldecode( $_GET['s'] );
 } else {
-  $selected = '';
+  $s_selected = '';
+}
+
+if( isset($_GET['t']) && $_GET['t'] ) {
+  $t_selected = urldecode( $_GET['t'] );
+} else {
+  $t_selected = '';
 }
 
 if( isset($_GET['q']) && $_GET['q'] ) {
@@ -24,18 +30,23 @@ if( isset($_GET['q']) && $_GET['q'] ) {
 
  <form action="." method="GET">
 
- <div class="form-group">
-  <label for="q">Query</label>
-  <input type="text" class="form-control" name="q" value="<?php print $q_default; ?>">
- </div>
-
-  <div class="form-group">
-   <label for="l">Language</label>
-   <?php print $ote->get_languages_pulldown($name='l', $selected); ?>
+  <div class="form-group col-xs-6">
+   <label for="s">Source Language:</label>
+   <?php print $ote->get_languages_pulldown($name='s', $s_selected); ?>
   </div>
 
-  <div class="form-group">
-   <button type="submit" class="btn btn-primary">Search</button>
+  <div class="form-group col-xs-6">
+   <label for="t">Target Language:</label>
+   <?php print $ote->get_languages_pulldown($name='t', $t_selected); ?>
+  </div>
+
+  <div class="form-group col-xs-12">
+   <label for="q">Query:</label>
+   <input type="text" class="form-control" name="q" value="<?php print $q_default; ?>">
+  </div>
+
+  <div class="form-group col-xs-12">
+   <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
   </div>
 
  </form>
@@ -46,16 +57,22 @@ if( isset($_GET['q']) && $_GET['q'] ) {
 
 print '<div class="container">';
 if( isset($_GET['q']) && $_GET['q'] ) {
-  $q = urldecode($_GET['q']);
+  $q = trim(urldecode($_GET['q']));
 
-  if( isset($_GET['l']) && $_GET['l'] ) {
-    $sl = urldecode($_GET['l']);
+  if( isset($_GET['s']) && $_GET['s'] ) {
+    $s = urldecode($_GET['s']);
   } else {
-    $sl = '';
+    $s = '';
+  }
+
+  if( isset($_GET['t']) && $_GET['t'] ) {
+    $t = urldecode($_GET['t']);
+  } else {
+    $t = '';
   }
 
 
-  $result = $ote->search($q, $sl);
+  $result = $ote->search($q, $s, $t);
   print $result;
 }
 print '</div>';
