@@ -4,7 +4,7 @@
 */
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev06');
+define('OTE_VERSION', '1.0.0-dev07');
 
 /**
  * Open Translation Engine (OTE) class
@@ -280,78 +280,118 @@ class ote {
 
   /**
    * get_dictionary()
-   * @param  int $sl   Source Language ID
-   * @param  int $tl   Target Language ID
+   * @param  int     $sl   (optional) Source Language ID
+   * @param  int     $tl   (optional) Target Language ID
    * @return array         list of word pairs
    */
-  function get_dictionary( int $sl, int $tl ) {
+  function get_dictionary( int $sl=0, int $tl=0 ) {
+
     $this->log->debug("get_dictionary: sl=$sl tl=$tl");
-    list($sl_norm,$tl_norm) = $this->normalize_language_pair($sl,$tl);
-    if( ($sl_norm==$sl) && ($tl_norm==$tl) ) {
-      $select = 'sw.word AS s_word, tw.word AS t_word';
-      $order ='ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
-    } else {
-      $select = 'sw.word AS t_word, tw.word AS s_word';
-      $order ='ORDER BY tw.word COLLATE NOCASE, sw.word COLLATE NOCASE';
-      $sl = $sl_norm;
-      $tl = $tl_norm;
+
+    $select = '
+    sw.word AS s_word, tw.word AS t_word,
+    sl.code AS sc,     tl.code AS tc,
+    sl.name AS sn,     tl.name AS tn';
+    $select_r = '
+    tw.word AS s_word, sw.word AS t_word,
+    tl.code AS sc,     sl.code AS tc,
+    tl.name AS sn,     sl.name AS tn';
+    $order =   'ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
+    $order_r = 'ORDER BY tw.word COLLATE NOCASE, sw.word COLLATE NOCASE';
+    $this->log->debug("get_dictionary: normalized: sl=$sl tl=$tl");
+
+    $lang = '';
+    $bind = array();
+
+    if( $sl && $tl ) {
+
+      list($sl_norm,$tl_norm) = $this->normalize_language_pair($sl,$tl);
+      if( ($sl==$sl_norm) && ($tl==$tl_norm) ) {
+        $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
+      } else {
+        $select = $select_r;
+        $order = $order_r;
+        $lang = 'AND ww.sl = :tl AND ww.tl = :sl';
+      }
+      $bind['sl'] = $sl;
+      $bind['tl'] = $tl;
+
+    } elseif( $sl && !$tl ) {
+
+      $lang = 'AND ww.sl=:sl';
+      $bind['sl'] = $sl;
+
+    } elseif( !$sl && $tl ) {
+
+      $lang = 'AND ww.tl=:tl';
+      $bind['tl'] = $tl;
+
     }
-    $sql = "SELECT $select FROM word2word AS ww, word AS sw, word AS tw
-    WHERE ww.sl = :sl AND ww.tl = :tl
-    AND sw.id = ww.sw AND tw.id = ww.tw $order";
-    $bind = array('sl'=>$sl, 'tl'=>$tl);
+
+    $sql = "
+    SELECT $select
+    FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+    WHERE sw.id = ww.sw AND tw.id = ww.tw
+    AND   sl.id = ww.sl AND tl.id = ww.tl
+    $lang
+    $order";
+
+    //print "<pre>$sql  bind=" . print_r($bind,1) . "</pre>";
     $r = $this->db->query($sql,$bind);
+
     return $r;
-  }
+
+  } // end function get_dictionary()
 
   /**
-   * get_translation()
-   *
-   * @param string $word The Source Word
-   * @param string $s_code The Source Language Code
-   * @param string $t_code Optional. The Target Language Code
-   *
-   * @return array list of word pairs
+   * search_dictionary()
+   * @param  string  $sw   The Word to search thereupon
+   * @param  int     $sl   (optional) Source Language ID
+   * @param  int     $tl   (optional) Target Language ID
+   * @return array         list of word pairs
    */
-  function get_translation( string $word, string $s_code, string $t_code='' ) {
+  function search_dictionary( string $word, int $sl=0, int $tl=0 ) {
+      $this->log->debug("get_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
-    // TODO list($s,$t) = $this->normalize_language_pair($s_code,$t_code);
-    // TODO: comp/merge with get_dictionary()
+      $select = '
+      sw.word AS s_word, tw.word AS t_word,
+      sl.code AS sc,     tl.code AS tc,
+      sl.name AS sn,     tl.name AS tn';
+      $order = 'ORDER BY sw.word COLLATE NOCASE, tw.word COLLATE NOCASE';
 
-    $and = $r_and = '';
-    $bind = array();
-    $sql = '
-    SELECT sw.word AS s_word, word2word.sl, tw.word AS t_word, word2word.tl
-    FROM word2word, word AS sw, word AS tw
-    WHERE sw.word = :word AND sw.id = word2word.sw AND tw.id = word2word.tw
-    ';
-    $r_sql = '
-    SELECT sw.word AS t_word, word2word.tl AS s_code, tw.word AS s_word, word2word.sl AS t_code
-    FROM word2word, word AS sw, word AS tw
-    WHERE tw.word = :word AND sw.id = word2word.sw AND tw.id = word2word.tw
-    ';
-    $bind['word'] = $word;
+      $this->log->debug("get_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
-    if( $s_code && $t_code ) {
-      $and = 'AND word2word.sl = :s_code AND word2word.tl = :t_code';
-      $r_and = 'AND word2word.sl = :t_code AND word2word.tl = :s_code';
-      $bind['s_code']=$s_code; $bind['t_code']=$t_code;
-    } elseif ( $s_code && !$t_code ) {
-      $and = 'AND word2word.sl = :s_code';
-      $r_and = 'AND word2word.tl = :s_code';
-      $bind['s_code']=$s_code;
-    }
+      if( $sl && $tl ) {
+        $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
+        $bind['sl'] = $sl;
+        $bind['tl'] = $tl;
+      } elseif( $sl && !$tl ) {
+        $lang = 'AND ww.sl = :sl';
+        $bind['sl'] = $sl;
+      } elseif( !$sl && $tl ) {
+        $lang = 'AND ww.tl = :tl';
+        $bind['tl'] = $tl;
+      } else {
+        $lang = '';
+      }
 
-    $limit = ' LIMIT 0,100';  // dev
-    $sql .= "$and $limit";
-    $r_sql .= "$r_and $limit";
+      $sql = "
+      SELECT $select
+      FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+      WHERE sw.id = ww.sw AND tw.id = ww.tw
+      AND   sl.id = ww.sl AND tl.id = ww.tl
+      $lang
+      AND sw.word = :sw
+      $order
+      ";
 
-    $r = $this->db->query($sql, $bind);
-    $r_r = $this->db->query($r_sql, $bind);
+      $bind['sw'] = $word;
 
-    $r = array_merge($r,$r_r);
-    $r = $this->multiSort($r, 's_code', 't_code', 's_word', 't_word');
-    return $r;
+      //print "<pre>$sql  bind=" . print_r($bind,1) . "</pre>";
+      $r = $this->db->query($sql,$bind);
+
+      return $r;
+
   }
 
   /**
@@ -387,75 +427,11 @@ class ote {
   function search( string $q ) {
     $r = '';
     $r .= '<p>search: ' . htmlentities($q) . '</p>';
-    $s_code = 'eng';
-    $t_code = '';
-    $t = $this->get_translation($q, $s_code, $t_code);
-    $r .=  '<pre>' . print_r($t,1) . '</pre>';
+
+    $s = $this->search_dictionary( $q, $sl=0, $tl=0 );
+    $r .= '<pre>' . print_r($s,1) . '</pre>';  
+
     return $r;
-  }
-
-  /**
-   * normalize_language_pair()
-   * @param  int $sl   Source Language ID
-   * @param  int $tl   Target Language ID
-   * @return array         An array of the normalized order (source_lang_id, target_lang_id)
-   */
-  function normalize_language_pair( int $sl, int $tl ) {
-    $nlp_norm = $sl . '-' . $tl;
-    $nlp_rev  = $tl . '-' . $sl;
-    if( isset($this->normalized_language_pairs[$nlp_norm]) ) {
-      return $this->normalized_language_pairs[$nlp_norm];
-    }
-    // lookup any source=sl, target=tl entries in word2word
-    $sql = 'SELECT count(sl) AS count FROM word2word WHERE sl = :sl AND tl = :tl';
-    $bind = array( 'sl'=>$sl, 'tl'=>$tl );
-    $norm = $this->db->query($sql,$bind);
-    if( $norm ) { $norm = $norm[0]['count']; } else { $norm = 0; }
-    // lookup any source=tl, target=sl entries in word2word
-    $bind = array( 'tl'=>$sl, 'sl'=>$tl );
-    $rev = $this->db->query($sql,$bind);
-    if( $rev ) { $rev = $rev[0]['count']; } else { $rev = 0; }
-    if( $norm && !$rev ) { // only normal form exists, use normal
-      return $this->normalized_language_pairs[$nlp_norm]
-        = $this->normalized_language_pairs[$nlp_rev]
-        = array($sl,$tl);
-    } elseif( !$norm && $rev ) { // only reverse form exists, use reverse
-      return $this->normalized_language_pairs[$nlp_norm]
-        = $this->normalized_language_pairs[$nlp_rev]
-        = array($tl,$sl);
-    } elseif( !$norm && !$rev ) { // nothing exists, use normal
-      return $this->normalized_language_pairs[$nlp_norm]
-        = $this->normalized_language_pairs[$nlp_rev]
-        = array($sl,$tl);
-    } else { // both normal and reverse exists -- ERROR!
-      if( $norm >= $rev ) {
-        $dn = array( $sl, $tl ); // norm has same amount or more entries, use norm
-      } else {
-        $dn = array( $tl, $sl ); // reverse has more entries, use rev
-      }
-      return $this->normalized_language_pairs[$nlp_norm]
-        = $this->normalized_language_pairs[$nlp_rev]
-        = $this->normalize_word2word_table( $dn[0], $dn[1] );
-    }
-  } // end function normalize_language_pair()
-
-  /**
-   * normalize_word2word_table()
-   * update word2word table to use only one form of SOURCE-TARGET
-   * @param  int $sl   Source Language ID
-   * @param  int $tl   Target Language ID
-   * @return array         An array of the normlized order (source_lang_id, target_lang_id)
-   */
-  function normalize_word2word_table( int $sl, int $tl ) {
-    $sql = 'UPDATE word2word SET sl=tl, tl=sl, sw=tw, tw=sw WHERE sl=:sl AND tl=:tl';
-    $bind = array( 'sl'=>$tl, 'tl'=>$sl );
-    $r = $this->db->queryb($sql,$bind);
-    if( !$r ) {
-      $this->log->error("normalize_word2word_table: FAILED: sl=$sl tl=$tl");
-    } else {
-      $this->log->debug("normalize_word2word_table: OK sl=$sl tl=$tl");
-    }
-    return array($sl, $tl);
   }
 
   /**
@@ -506,9 +482,6 @@ class ote {
     }
 
     $this->log->debug("do import: sn=$sn si=$si tn=$tn ti=$ti");
-
-    list($si,$ti) = $this->normalize_language_pair($si,$ti);
-    // TODO - need to check if old si/ti NOT EQ new si/ti, and change lang/words around
 
     $lines = explode("\n", $w);
 
@@ -589,14 +562,6 @@ class ote {
 
       $bind = array( 'sw'=>$si, 'sl'=>$si, 'tw'=>$ti, 'tl'=>$ti );
 
-      // check if REVERSE pair already exists...
-      $check = $this->get_word2word( $swi, $si, $twi, $ti );
-      if( $check ) {
-        //print '<p>Info: Line #' . $line_count . ': Duplicate (reverse). Skipping line';
-        $error_count++; $dupe_count++; $skip_count++;
-        continue;
-      }
-
       $r = $this->insert_word2word( $swi, $si, $twi, $ti );
       if( !$r ) {
         if( $this->db->db->errorCode() == '0000' ) {
@@ -604,22 +569,32 @@ class ote {
           $error_count++; $dupe_count++; $skip_count++;
           continue;
         }
-        print '<p>Error: Line #' . $line_count . ': Database Insert Error.'
-        . ' sw: ' . htmlentities($sw)
-        . ' tw: ' . htmlentities($tw)
-        . ' Bind: ' . print_r($bind,1)
-        . ' errorInfo: ' . print_r($this->db->db->errorInfo(),1)
-        . '</p>';
+        print '<p>Error: Line #' . $line_count . ': Database Insert Error';
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        if( $line_count % 100 == 0 ) {
-          print ' ' . $line_count . ' ';
-          @ob_flush(); flush();
-        } elseif( $line_count % 10 == 0 ) {
-          print '.';
-          @ob_flush(); flush();
+      }
+
+      // insert reverse pair
+      $r = $this->insert_word2word( $twi, $ti, $swi, $si );
+      if( !$r ) {
+        if( $this->db->db->errorCode() == '0000' ) {
+          //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
+          $error_count++; $dupe_count++; $skip_count++;
+          continue;
         }
+        print '<p>Error: Line #' . $line_count . ': Database Insert Error';
+        $error_count++; $skip_count++;
+      } else {
+        $import_count++;
+      }
+
+      if( $line_count % 100 == 0 ) {
+        print ' ' . $line_count . ' ';
+        @ob_flush(); flush();
+      } elseif( $line_count % 10 == 0 ) {
+        print '.';
+        @ob_flush(); flush();
       }
 
     } // end foreach line
