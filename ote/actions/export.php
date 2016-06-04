@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Export Page v0.0.5
+ OTE Export Page v0.0.8
 
  Requires config setup:
    $config['depth']['export'] = 3;

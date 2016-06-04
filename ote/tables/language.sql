@@ -1,4 +1,4 @@
--- Open Translation Engine - language table v0.0.2
+-- Open Translation Engine - language table v0.0.8
 
 CREATE TABLE IF NOT EXISTS 'language' (
   'id'   INTEGER PRIMARY KEY,

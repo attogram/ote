@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Attogram config v0.0.1
+// Open Translation Engine - Attogram config v0.0.8
 
 namespace Attogram;
 

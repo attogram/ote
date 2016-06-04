@@ -1,6 +1,6 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.0.1 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.0.8 )
 
 * The OTE is a **translation dictionary** manager for the web.
 

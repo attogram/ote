@@ -4,7 +4,7 @@
 */
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev07');
+define('OTE_VERSION', '1.0.0-dev08');
 
 /**
  * Open Translation Engine (OTE) class
@@ -13,7 +13,6 @@ class ote {
 
   public $db;
   public $log;
-  public $normalized_language_pairs;
   public $languages;
 
   /**
@@ -30,9 +29,9 @@ class ote {
 
   /**
    * insert_language()
-   * @param string $code   The Language Code
-   * @param string $name   The Language Name
-   * @param int            ID of the new language, or FALSE
+   * @param  string $code   The Language Code
+   * @param  string $name   The Language Name
+   * @return int            ID of the new language, or FALSE
    */
   function insert_language( string $code, string $name ) {
     $sql = 'INSERT INTO language (code, name) VALUES (:code, :name)';
@@ -45,14 +44,13 @@ class ote {
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id
       . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
-      unset($this->languages); // reset the language list
-      $langs = $this->get_languages();
+    unset($this->languages); // reset the language list
+    $langs = $this->get_languages();
     return $id;
   }
 
   /**
-   * get_languages()
-   * get a list of all languages
+   * get_languages() - get a list of all languages
    * @return array
    */
   function get_languages() {
@@ -81,8 +79,6 @@ class ote {
    * @return string       The Language Code, or FALSE
    */
   function get_language_code_from_id( int $id ) {
-    //$this->log->debug('get_language_code_from_id: id=' . $id
-    //  . ' backtrace=' . debug_backtrace()[1]['function'] );
     $langs = $this->get_languages();
     foreach( $langs as $code => $lang ) {
       if( $lang['id'] == $id ) {
@@ -100,7 +96,6 @@ class ote {
    * @param int            The Language ID, or FALSE
    */
   function get_language_id_from_code( string $code ) {
-    //$this->log->debug('get_language_id_from_code: code=' . $code);
     $langs = $this->get_languages();
     if( !$langs ) {
       $this->log->error('get_language_id_from_code: no languages found');
@@ -124,7 +119,6 @@ class ote {
    * @return string           The Language Name, or FALSE
    */
   function get_language_name_from_code( string $code, string $default='' ) {
-    $this->log->debug('get_language_name_from_code: code=' . htmlentities($code) . ' default=' . htmlentities($default));
     if( !$default ) {
       $default = $code;
     }
@@ -160,8 +154,6 @@ class ote {
    * @return array           List of dictionaries
    */
   function get_dictionary_list( string $rel_url='' ) {
-    $this->log->debug('get_dictionary_list: rel_url=' . $rel_url
-      . ' backtrace=' . debug_backtrace()[1]['function'] );
     $sql = 'SELECT DISTINCT sl, tl FROM word2word';
     $r = $this->db->query($sql);
     $langs = $this->get_languages();
@@ -224,8 +216,6 @@ class ote {
    */
   function get_all_words() {
     $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
-    //$limit = ' LIMIT 0,100'; // dev
-    //$sql .= $limit;
     return $this->db->query($sql);
   }
 
@@ -285,7 +275,6 @@ class ote {
    * @return array         list of word pairs
    */
   function get_dictionary( int $sl=0, int $tl=0 ) {
-
     $this->log->debug("get_dictionary: sl=$sl tl=$tl");
 
     $select = '
@@ -320,7 +309,6 @@ class ote {
     $lang
     $order";
 
-    //print "<pre>$sql  bind=" . print_r($bind,1) . "</pre>";
     $r = $this->db->query($sql,$bind);
 
     return $r;
@@ -370,12 +358,8 @@ class ote {
       ";
 
       $bind['sw'] = $word;
-
-      //print "<pre>$sql  bind=" . print_r($bind,1) . "</pre>";
       $r = $this->db->query($sql,$bind);
-
       return $r;
-
   }
 
   /**
@@ -405,7 +389,6 @@ class ote {
 
   /**
    * search()
-   *
    * @param string $q Search String
    */
   function search( string $q ) {

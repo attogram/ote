@@ -1,4 +1,4 @@
--- Open Translation Engine - word2word table v0.0.4
+-- Open Translation Engine - word2word table v0.0.8
 
 CREATE TABLE IF NOT EXISTS 'word2word' (
   'id' INTEGER PRIMARY KEY,

@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Word Page v0.0.5
+ OTE Word Page v0.0.8
 
  Requires config setup:
    $config['depth']['word'] = 4;

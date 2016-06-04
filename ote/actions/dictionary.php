@@ -1,6 +1,6 @@
 <?php
 /*
- OTE Dictionary Page v0.0.5
+ OTE Dictionary Page v0.0.8
 
  Requires config setup:
    $config['depth']['dictionary'] = 3;
