@@ -46,7 +46,12 @@ if( isset($_GET['q']) && $_GET['q'] ) {
   </div>
 
   <div class="form-group col-xs-12">
-   <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+   <button type="submit" class="btn btn-primary btn-block">
+     <h4>
+       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+       &nbsp; Search
+     </h4>
+    </button>
   </div>
 
  </form>
