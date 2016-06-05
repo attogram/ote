@@ -608,4 +608,28 @@ class ote {
 
   } // end do_import
 
+  /**
+   * display_pair() - HTML display for a singl translation word pair
+   * @param  string  $sw   The Source word
+   * @param  string  $sc   The Source Language Code
+   * @param  string  $tw   The Target word
+   * @param  string  $tc   The Target Language Code
+   * @param  string  $path (optional) URL path
+   * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+   * @return string         HTML fragment
+   */
+  function display_pair( string $sw, string $sc,
+                         string $tw, string $tc,
+                         string $path='',
+                         string $d=' = '
+                       ) {
+    $s_url = $path . '/word/' . $sc . '//' . urlencode($sw);
+    $t_url = $path . '/word/' . $tc . '//' . urlencode($tw);
+    $sw = htmlentities($sw);
+    $tw = htmlentities($tw);
+    $r = '<strong><a href="' . $s_url . '">' . $sw . '</a></strong>'
+    . $d .' <a href="' . $t_url . '">' . $tw . '</a>';
+    return $r;
+  } // end function display_pair
+
 } // end class ote

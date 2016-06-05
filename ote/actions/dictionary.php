@@ -40,15 +40,6 @@ if( sizeof($this->uri) == 1 ) { // list all dictionaries
     exit;
 }
 
-/*
-if( !isset($this->uri[1]) || !$this->uri[1] ) { // Please select Source Langauge Code
-  $this->error404('Source language missing in action');
-}
-if( !isset($this->uri[2]) || !$this->uri[2] ) {  // Please select Target Language Code
-  $this->error404('Target language missing in action');
-}
-*/
-
 $s_code = isset($this->uri[1]) ? $this->uri[1] : '';
 $t_code = isset($this->uri[2]) ? $this->uri[2] : '';
 
@@ -86,11 +77,12 @@ foreach( $d as $i ) {
     print '<br />';
   }
   $prev = $i['s_word'];
-  print '<strong>'
-  . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">'
-  . htmlentities($i['s_word']) . '</a></strong>' . $sep
-  . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">'
-  . htmlentities($i['t_word']) . '</a><br />';
+
+  print $ote->display_pair( $i['s_word'], $s_code,
+                            $i['t_word'], $t_code, 
+                            $this->path, $sep );
+  print '<br />';
+
 }
 
 print '</p></div>';
