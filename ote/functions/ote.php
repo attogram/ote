@@ -173,21 +173,27 @@ class ote {
 
   /**
    * get_dictionary_list()
-   * @param  string $rel_url (opional) Relative URL of page
+   * @param  string  $path    (optional) URL path, defaults to ''
+   * @param  string  $limit   (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
-  function get_dictionary_list( string $rel_url='' ) {
+  function get_dictionary_list( string $path='', string $limit='' ) {
+    $this->log->debug("get_dictionary_list: path=$path limit=$limit");
     $sql = 'SELECT DISTINCT sl, tl FROM word2word';
-    $r = $this->db->query($sql);
+    $bind = array();
+    if( $limit ) {
+      $sql .= ' WHERE ( sl = :sl ) OR ( tl = :sl )';
+      $bind['sl'] = $this->get_language_id_from_code($limit);
+    }
+    $r = $this->db->query($sql,$bind);
     $langs = $this->get_languages();
     $dlist = array();
     foreach( $r as $d ) {
-      $this->log->debug('d=',$d); $this->log->debug('langs=',$langs);
       $sl = $this->get_language_code_from_id($d['sl']); // Source Language Name
       $tl = $this->get_language_code_from_id($d['tl']); // Target Language Name
-      $url = $rel_url . $sl . '/' . $tl . '/';
+      $url = $path . $sl . '/' . $tl . '/';
       $dlist[$url] = $langs[$sl]['name'] . ' to ' . $langs[$tl]['name'];
-      $r_url = $rel_url . $tl . '/' . $sl . '/';
+      $r_url = $path . $tl . '/' . $sl . '/';
       if( !array_key_exists($r_url,$dlist) ) {
         $dlist[$r_url] = $langs[$tl]['name'] . ' to ' . $langs[$sl]['name'];
       }
@@ -417,6 +423,7 @@ class ote {
    * @param string $q   The Search Query String
    * @param string $sl  (optional) Source Language Code
    * @param string $tl  (optional) Target Language Code
+   * @return array
    */
   function search( string $q, string $sl='', string $tl='' ) {
     $this->log->debug("search: sl=$sl tl=$tl q=" . htmlentities($q));
@@ -430,8 +437,7 @@ class ote {
     }
 
     $s = $this->search_dictionary( $q, $sli, $tli );
-    $r .= '<pre>' . print_r($s,1) . '</pre>';
-    return $r;
+    return $s;
   }
 
   /**
@@ -609,22 +615,23 @@ class ote {
   } // end do_import
 
   /**
-   * display_pair() - HTML display for a singl translation word pair
-   * @param  string  $sw   The Source word
+   * display_pair() - HTML display for a single translation word pair
+   * @param  string  $sw   The Source Word
    * @param  string  $sc   The Source Language Code
-   * @param  string  $tw   The Target word
+   * @param  string  $tw   The Target Word
    * @param  string  $tc   The Target Language Code
-   * @param  string  $path (optional) URL path
+   * @param  string  $path (optional) URL path, defaults to ''
    * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+   * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
+   * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
    * @return string         HTML fragment
    */
-  function display_pair( string $sw, string $sc,
-                         string $tw, string $tc,
-                         string $path='',
-                         string $d=' = '
+  function display_pair( string $sw, string $sc, string $tw, string $tc,
+                         string $path = '', string $d = ' = ',
+                         bool $usc = TRUE, bool $utc = FALSE
                        ) {
-    $s_url = $path . '/word/' . $sc . '//' . urlencode($sw);
-    $t_url = $path . '/word/' . $tc . '//' . urlencode($tw);
+    $s_url = $path . '/word/' . ($usc ? $sc : '') . '/' . ($utc ? $tc : '') . '/' . urlencode($sw);
+    $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
     $sw = htmlentities($sw);
     $tw = htmlentities($tw);
     $r = '<strong><a href="' . $s_url . '">' . $sw . '</a></strong>'

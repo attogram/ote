@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.0.8
+<?php // Open Translation Engine - Dictionary Page v0.0.9
 /*
  OTE Dictionary Page
 
@@ -79,8 +79,8 @@ foreach( $d as $i ) {
   $prev = $i['s_word'];
 
   print $ote->display_pair( $i['s_word'], $s_code,
-                            $i['t_word'], $t_code, 
-                            $this->path, $sep );
+                            $i['t_word'], $t_code,
+                            $this->path, $sep, TRUE, FALSE );
   print '<br />';
 
 }

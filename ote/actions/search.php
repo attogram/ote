@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.0.8
+<?php // Open Translation Engine - Search Page v0.0.9
 
 namespace Attogram;
 
@@ -76,7 +76,12 @@ if( isset($_GET['q']) && $_GET['q'] ) {
   }
 
   $result = $ote->search($q, $s, $t);
-  print $result;
+  //print '<pre>' . print_r($result,1) . '<pre>';
+  reset($result);
+  foreach( $result as $r ) {
+    print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', TRUE, TRUE );
+    print '<br />';
+  }
 }
 print '</div>';
 

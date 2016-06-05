@@ -1,22 +1,46 @@
-<?php // Open Translation Engine - Languages Page v0.0.8
+<?php // Open Translation Engine - Languages Page v0.0.9
 
 namespace Attogram;
 
 $this->page_header('Languages');
 
-tabler(
-  $attogram = $this,
-  $table = 'language',
-  $name_singular = 'language',
-  $name_plural = 'languages',
-  $public_link = '../languages/',
-  $col = array(
-    array('class'=>'col-md-9', 'title'=>'name', 'key'=>'name'),
-    array('class'=>'col-md-3', 'title'=>'<code>code</code>', 'key'=>'code'),
-  ),
-  $sql = 'SELECT name, code FROM language ORDER BY id',
-  $admin_link = '../languages-admin/',
-  $show_edit = FALSE
-);
+$ote = new ote( $this->db, $this->log );
 
+$langs = $ote->get_languages('name');
+
+?>
+<div class="container">
+ <h1>Languages</h1>
+ <dl class="dl-horizontal"><?php
+    foreach( $langs as $code => $lang ) {
+
+      $qr = $this->db->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
+      $num_words = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
+
+      $qr = $this->db->query('SELECT count(sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
+      $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
+
+      $qr = $this->db->query('SELECT DISTINCT sl, tl FROM word2word WHERE ( sl = :sl ) OR ( tl = :sl )', array('sl'=>$lang['id']) );
+      $num_dictionaries = sizeof($qr);
+
+      $dr = $ote->get_dictionary_list( $this->path . '/dictionary/', $code );
+      $dictionaries = '';
+      foreach( $dr as $url => $name) {
+        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $url . '">' 
+        . '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a><br />';
+      }
+
+
+
+      print '<hr />';
+      print '<dt><h3 class="squished"><strong><kbd>' . $lang['name'] . '</kbd></strong></h3></dt>';
+      print '<dd>code: <code>' . $code . '</code></dd>';
+      print '<dd>words: <code>' . $num_words . '</code></dd>';
+      print '<dd>translations: <code>' . $num_translations . '</code></dd>';
+      print '<dd>dictionaries: <code>' . $num_dictionaries . '</code></dd>';
+      print '<dd>' .$dictionaries . '</dd>';
+    }
+  ?></dl><hr />
+ </div>
+<?php
 $this->page_footer();

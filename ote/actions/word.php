@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.0.8
+<?php // Open Translation Engine - Word Page v0.0.9
 /*
  OTE Word Page
 
@@ -77,7 +77,7 @@ if( !$r ) {
 
 $this->page_header('Word: ' . htmlentities($word) );
 print '<div class="container">';
-print '<h1><kbd><strong>' . htmlentities($word) . '</strong></kbd></h1>';
+print '<h1><strong><kbd>' . htmlentities($word) . '<kbd></strong></h1>';
 
 if( $s_code && $t_code ) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>) to '
@@ -104,10 +104,6 @@ foreach( $r as $w ) {
   $t_word = $w['t_word'];
 
   $sub_header = $s_name . ' to ' . $t_name;
-
-//  print "<pre>  word=$word \t\t\t sub_header=$sub_header
-//s_word=$s_word \t s_code=$s_code \t s_name=$s_name
-//t_word=$t_word \t t_code=$t_code \t t_name=$t_name</pre>";
 
   if( $sub_header != $prev_sub_header ) {
     print '<hr /><em>' . $sub_header . '</em><br />';
