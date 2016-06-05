@@ -1,6 +1,6 @@
-<?php
+<?php // Open Translation Engine - Export Page v0.0.8
 /*
- OTE Export Page v0.0.8
+ OTE Export Page
 
  Requires config setup:
    $config['depth']['export'] = 3;

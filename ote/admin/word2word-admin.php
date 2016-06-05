@@ -1,5 +1,4 @@
-<?php
-// Open Translation Engine - word2word Admin v0.0.8
+<?php // Open Translation Engine - word2word Admin v0.0.8
 
 namespace Attogram;
 

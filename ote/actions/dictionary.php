@@ -1,6 +1,6 @@
-<?php
+<?php // Open Translation Engine - Dictionary Page v0.0.8
 /*
- OTE Dictionary Page v0.0.8
+ OTE Dictionary Page
 
  Requires config setup:
    $config['depth']['dictionary'] = 3;
@@ -67,13 +67,12 @@ if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
 
 $s_name = isset($langs[$s_code]['name']) ? $langs[$s_code]['name'] : '*';
 $t_name = isset($langs[$t_code]['name']) ? $langs[$t_code]['name'] : '*';
+$s_id = isset($langs[$s_code]['id']) ? $langs[$s_code]['id'] : 0;
+$t_id = isset($langs[$t_code]['id']) ? $langs[$t_code]['id'] : 0;
 
 $title = $s_name . ' to ' . $t_name . ' Dictionary';
 $this->page_header($title);
 print '<div class="container"><h1>' . $title . '</h1>';
-
-$s_id = isset($langs[$s_code]['id']) ? $langs[$s_code]['id'] : 0;
-$t_id = isset($langs[$t_code]['id']) ? $langs[$t_code]['id'] : 0;
 
 $d = $ote->get_dictionary( $s_id, $t_id );
 
@@ -83,18 +82,15 @@ $sep = ' = ';
 $prev = '';
 
 foreach( $d as $i ) {
-  if( $i['s_word'] != $prev && $prev != '') { print '<br />'; }
+  if( $i['s_word'] != $prev && $prev != '') {
+    print '<br />';
+  }
   $prev = $i['s_word'];
   print '<strong>'
   . '<a href="' . $this->path . '/word/' . $s_code . '//' . urlencode($i['s_word']) . '">'
-  . htmlentities($i['s_word'])
-  . '</a>'
-  . '</strong>'
-  . $sep
+  . htmlentities($i['s_word']) . '</a></strong>' . $sep
   . '<a href="' . $this->path . '/word/' . $t_code . '//' . urlencode($i['t_word']) . '">'
-  . htmlentities($i['t_word'])
-  . '</a>'
-  . '<br />';
+  . htmlentities($i['t_word']) . '</a><br />';
 }
 
 print '</p></div>';

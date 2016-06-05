@@ -1,6 +1,6 @@
-<?php
+<?php // Open Translation Engine - Word Page v0.0.8
 /*
- OTE Word Page v0.0.8
+ OTE Word Page
 
  Requires config setup:
    $config['depth']['word'] = 4;

@@ -1,7 +1,5 @@
-<?php
-/*
- * The Open Translation Engine (OTE)
-*/
+<?php // Open Translation Engine - ote class v0.0.9
+
 namespace Attogram;
 
 define('OTE_VERSION', '1.0.0-dev08');
@@ -55,7 +53,7 @@ class ote {
    * @return array
    */
   function get_languages( $orderby='id' ) {
-    $this->log->debug('get_languages: backtrace=' . debug_backtrace()[1]['function'] );
+    //$this->log->debug('get_languages: backtrace=' . debug_backtrace()[1]['function'] );
     if( isset($this->languages) && is_array($this->languages) ) {
       return $this->languages;
     }
@@ -69,8 +67,8 @@ class ote {
     foreach( $r as $g ) {
       $this->languages[ $g['code'] ] = array( 'id'=>$g['id'], 'name'=>$g['name'] );
     }
-    $this->log->debug('get_languages: got ' . sizeof($this->languages). ' languages');
-    //, array_keys($this->languages));
+    $this->log->debug('get_languages: got ' . sizeof($this->languages)
+      . ' languages', $this->languages);
     return $this->languages;
   } // end function get_languages()
 
@@ -311,8 +309,7 @@ class ote {
       sw.word COLLATE NOCASE,
       sl.name COLLATE NOCASE,
       tl.name COLLATE NOCASE,
-      tw.word COLLATE NOCASE
-      ';
+      tw.word COLLATE NOCASE';
 
     $this->log->debug("get_dictionary: normalized: sl=$sl tl=$tl");
 
@@ -331,13 +328,10 @@ class ote {
       $bind['tl'] = $tl;
     }
 
-    $sql = "
-    SELECT $select
+    $sql = "SELECT $select
     FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
     WHERE sw.id = ww.sw AND tw.id = ww.tw
-    AND   sl.id = ww.sl AND tl.id = ww.tl
-    $lang
-    $order";
+    AND   sl.id = ww.sl AND tl.id = ww.tl $lang $order";
 
     $r = $this->db->query($sql,$bind);
     return $r;
@@ -352,20 +346,19 @@ class ote {
    * @return array         list of word pairs
    */
   function search_dictionary( string $word, int $sl=0, int $tl=0 ) {
+
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
       $select = '
       sw.word AS s_word, tw.word AS t_word,
       sl.code AS sc,     tl.code AS tc,
       sl.name AS sn,     tl.name AS tn';
+
       $order = 'ORDER BY
         sw.word COLLATE NOCASE,
         sl.name COLLATE NOCASE,
         tl.name COLLATE NOCASE,
-        tw.word COLLATE NOCASE
-        ';
-
-      $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
+        tw.word COLLATE NOCASE';
 
       if( $sl && $tl ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
@@ -381,15 +374,11 @@ class ote {
         $lang = '';
       }
 
-      $sql = "
-      SELECT $select
+      $sql = "SELECT $select
       FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
       WHERE sw.id = ww.sw AND tw.id = ww.tw
       AND   sl.id = ww.sl AND tl.id = ww.tl
-      $lang
-      AND sw.word = :sw
-      $order
-      ";
+      $lang AND sw.word = :sw $order";
 
       $bind['sw'] = $word;
       $r = $this->db->query($sql,$bind);
