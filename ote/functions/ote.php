@@ -347,11 +347,13 @@ class ote {
   /**
    * search_dictionary()
    * @param  string  $sw   The Word to search thereupon
-   * @param  int     $sl   (optional) Source Language ID
-   * @param  int     $tl   (optional) Target Language ID
+   * @param  int     $sl   (optional) Source Language ID, defaults to none
+   * @param  int     $tl   (optional) Target Language ID, defaults to none
+   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to FALSE
+   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to FALSE
    * @return array         list of word pairs
    */
-  function search_dictionary( string $word, int $sl=0, int $tl=0 ) {
+  function search_dictionary( string $word, int $sl=0, int $tl=0, bool $f=FALSE, bool $c=FALSE ) {
 
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
@@ -360,11 +362,16 @@ class ote {
       sl.code AS sc,     tl.code AS tc,
       sl.name AS sn,     tl.name AS tn';
 
-      $order = 'ORDER BY
-        sw.word COLLATE NOCASE,
-        sl.name COLLATE NOCASE,
-        tl.name COLLATE NOCASE,
-        tw.word COLLATE NOCASE';
+      if( $c ) { // 🔠🔡 Case Sensitive Search
+        $order_c = 'COLLATE NOCASE';
+      } else {
+        $order_c = '';
+      }
+      $order = "ORDER BY
+        sw.word $order_c,
+        sl.name $order_c,
+        tl.name $order_c,
+        tw.word $order_c";
 
       if( $sl && $tl ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
@@ -384,10 +391,14 @@ class ote {
       FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
       WHERE sw.id = ww.sw AND tw.id = ww.tw
       AND   sl.id = ww.sl AND tl.id = ww.tl
-      $lang
-      -- AND sw.word = :sw COLLATE NOCASE -- Exact Search
-      AND sw.word LIKE '%' || :sw || '%' COLLATE NOCASE -- Fuzzy Search (should be fulltext word table?)
-      $order";
+      $lang";
+      if( $f ) { // 💭 Fuzzy Search
+        $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
+      } else {
+        $qword = 'AND sw.word = :sw ' . $order_c;
+      }
+
+      $sql .= " $qword $order";
 
       $bind['sw'] = $word;
       $r = $this->db->query($sql,$bind);
@@ -399,9 +410,11 @@ class ote {
    * @param string $q   The Search Query String
    * @param string $sl  (optional) Source Language Code
    * @param string $tl  (optional) Target Language Code
+   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to FALSE
+   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to FALSE
    * @return array
    */
-  function search( string $q, string $sl='', string $tl='' ) {
+  function search( string $q, string $sl='', string $tl='', bool $f=FALSE, bool $c=FALSE ) {
     $this->log->debug("search: sl=$sl tl=$tl q=" . htmlentities($q));
     $r = '';
     $sli = $tli = 0;
@@ -412,7 +425,7 @@ class ote {
       $tli = $this->get_language_id_from_code($tl);
     }
 
-    $s = $this->search_dictionary( $q, $sli, $tli );
+    $s = $this->search_dictionary( $q, $sli, $tli, $f, $c );
     return $s;
   }
 

@@ -56,19 +56,7 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
    <input type="text" class="form-control" name="q" value="<?php print $q_default; ?>">
   </div>
 
-  <div class="form-group col-md-12">
-   <button type="submit" class="btn btn-primary btn-block">
-     <h4>
-       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-       &nbsp; Search
-     </h4>
-    </button>
-  </div>
-
-  <div class="form-group col-md-2">
-    Options:
-  </div>
-  <div class="form-group col-md-10">
+  <div class="form-group col-md-12 text-right">
     <label class="checkbox-inline">
      <input name="f" type="checkbox" value="f"<?php print $f_default; ?>>💭 Fuzzy Search
     </label>
@@ -78,6 +66,15 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
     </lable>
   </div>
 
+  <div class="form-group col-md-12">
+   <button type="submit" class="btn btn-primary btn-block">
+     <h4>
+       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+       &nbsp; Search
+     </h4>
+    </button>
+  </div>
+
  </form>
 
 </div>
@@ -85,28 +82,53 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
 <?php
 
 
-if( isset($_GET['q']) && $_GET['q'] ) {
+if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
+
   $q = trim(urldecode($_GET['q']));
 
-  if( isset($_GET['s']) && $_GET['s'] ) {
+  if( isset($_GET['s']) && $_GET['s'] ) { // Source Language
     $s = urldecode($_GET['s']);
   } else {
     $s = '';
   }
 
-  if( isset($_GET['t']) && $_GET['t'] ) {
+  if( isset($_GET['t']) && $_GET['t'] ) { // Target Language
     $t = urldecode($_GET['t']);
   } else {
     $t = '';
   }
 
+  if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search ?
+    $fs = TRUE;
+  } else {
+    $fs = FALSE;
+  }
+
+  if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensitive Search?
+    $fc = FALSE;
+  } else {
+    $fc = TRUE;
+  }
+
   print '<div class="container"><h1>Search: <kbd>' . htmlentities($q) . '</kbd></h1>';
-  $result = $ote->search($q, $s, $t);
+
+
+
+  $sli = $tli = 0;
+  if( $s && $s !=  '' ) {
+    $sli = $this->get_language_id_from_code($s);
+  }
+  if( $t && $t != '' ) {
+    $tli = $this->get_language_id_from_code($t);
+  }
+
+  $result = $ote->search_dictionary( $q, $sli, $tli, $fs, $fc );
+
   print '<p><code>' . sizeof($result) . '</code> translations</p><hr />';
   $subhead = $prev_subhead = '';
   foreach( $result as $r ) {
     $durl = $this->path . '/dictionary/' . $r['sc'] . '/' . $r['tc'] . '/';
-    $subhead = '<a href="' . $durl . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> '
+    $subhead = '<br /><a href="' . $durl . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> '
     . $r['sn'] . ' to ' . $r['tn'] . '</a><br />';
     if( $subhead != $prev_subhead ) {
         print $subhead;
@@ -118,5 +140,5 @@ if( isset($_GET['q']) && $_GET['q'] ) {
   print '</div>';
 }
 
-
+print '<br /><br />';
 $this->page_footer();
