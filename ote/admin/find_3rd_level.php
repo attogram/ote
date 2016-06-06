@@ -4,8 +4,11 @@ namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
 
-$join_language_id = 1;
-
+if( isset($_GET['j']) && $_GET['j'] ) {
+  $join_language_id = (int)$_GET['j'];
+} else {
+  $join_language_id = 1;
+}
 //     FIRST_LANG.word to JOIN_1_LANG.word
 //   + JOIN_2_LANG.word  to SECOND_LANG.word
 //  = FIRST_LANG.word to SECOND_LANG.word
@@ -48,7 +51,8 @@ $langs = $ote->get_languages();
 
 $this->page_header('3rd test');
 print '<div class="container">';
-print '<p>Join Language: <code>' . $ote->get_language_code_from_id($join_language_id) . '</code>';
+print '<p>Join Language: <code><a href="?j=' . $join_language_id . '">' 
+. $ote->get_language_code_from_id($join_language_id) . '</a></code>';
 print '<p><code>' . sizeof($r) . '</code> possible 3rd level translations:</p>';
 
 $cleaned_r = array();
