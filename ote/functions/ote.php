@@ -12,6 +12,7 @@ class ote {
   public $db;
   public $log;
   public $languages;
+  public $dictionary_list;
 
   /**
    * __construct()
@@ -71,6 +72,10 @@ class ote {
       . ' languages', $this->languages);
     return $this->languages;
   } // end function get_languages()
+
+  function get_languages_count() {
+    return sizeof($this->get_languages());
+  }
 
   /**
    * get_language_code_from_id()
@@ -174,16 +179,20 @@ class ote {
   /**
    * get_dictionary_list()
    * @param  string  $path    (optional) URL path, defaults to ''
-   * @param  string  $limit   (optional) Limit search to specific Language Code
+   * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
-  function get_dictionary_list( string $path='', string $limit='' ) {
-    $this->log->debug("get_dictionary_list: path=$path limit=$limit");
+  function get_dictionary_list( string $path='', string $lcode='' ) {
+    $this->log->debug("get_dictionary_list: path=$path lcode=$lcode");
+    if( isset($this->dictionary_list) && is_array($this->dictionary_list) ) {
+      //return $this->dictionary_list;  need to first get rid of $path arg - not needed, do on page side
+    }
+    $path = '';
     $sql = 'SELECT DISTINCT sl, tl FROM word2word';
     $bind = array();
-    if( $limit ) {
+    if( $lcode ) {
       $sql .= ' WHERE ( sl = :sl ) OR ( tl = :sl )';
-      $bind['sl'] = $this->get_language_id_from_code($limit);
+      $bind['sl'] = $this->get_language_id_from_code($lcode);
     }
     $r = $this->db->query($sql,$bind);
     $langs = $this->get_languages();
@@ -199,9 +208,18 @@ class ote {
       }
     }
     asort($dlist);
-    $this->log->debug('get_dictionary_list: got ' . sizeof($dlist) . ' dictionaries', array_keys($dlist));
-    return $dlist;
+    $this->log->debug('get_dictionary_list: got ' . sizeof($dlist) . ' dictionaries', $dlist);
+    return $this->dictionary_list = $dlist;
   } // end function get_dictionary_list()
+
+  /**
+   * get_dictionary_count()
+   * @param  string  $lcode   (optional) Limit search to specific Language Code
+   * @return int              Number of dictionaries
+   */
+  function get_dictionary_count( $lcode='' ) {
+    return sizeof( $this->get_dictionary_list( '', $lcode ) );
+  }
 
   /**
    * insert_word()
@@ -246,6 +264,15 @@ class ote {
   function get_all_words() {
     $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
     return $this->db->query($sql);
+  }
+
+  /**
+   * get_word_count()
+   * @return int
+   */
+  function get_word_count() {
+    $c = $this->db->query('SELECT count(id) AS count FROM word');
+    return isset($c[0]['count']) ? $c[0]['count'] : '0';
   }
 
   /**
@@ -629,6 +656,13 @@ class ote {
       return $cmp;
     });
     return $array;
+  }
+
+  /**
+   * is_admin()
+   */
+  function is_admin() {
+    // place holder ...
   }
 
 } // end class ote

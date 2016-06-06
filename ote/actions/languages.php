@@ -22,8 +22,8 @@ $langs = $ote->get_languages('name');
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
       $translations_url = $this->path . '/dictionary/' . $code . '//';
 
-      $qr = $this->db->query('SELECT DISTINCT sl, tl FROM word2word WHERE ( sl = :sl ) OR ( tl = :sl )', array('sl'=>$lang['id']) );
-      $num_dictionaries = sizeof($qr);
+
+      $num_dictionaries = $ote->get_dictionary_count( $code );
 
       $dr = $ote->get_dictionary_list( $this->path . '/dictionary/', $code );
       $dictionaries = '';

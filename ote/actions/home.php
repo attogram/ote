@@ -4,6 +4,7 @@ namespace Attogram;
 
 $this->page_header('Open Translation Engine v' . OTE_VERSION);
 
+$ote = new ote( $this->db, $this->log );
 ?>
 <div class="container">
 <h1>Open Translation Engine (OTE)</h1>
@@ -11,9 +12,9 @@ $this->page_header('Open Translation Engine v' . OTE_VERSION);
 <a href="about/">More about the OTE...</a></p>
 <h2>
 <p><a href="search/">🔎 Search</a></p>
-<p><a href="languages/">🌐 Languages</a></p>
-<p><a href="dictionary/">📚 Dictionaries</a></p>
-<p><a href="word/">🔤 Words</a></p>
+<p><a href="languages/">🌐 <?php print $ote->get_languages_count(); ?> Languages</a></p>
+<p><a href="dictionary/">📚 <?php print $ote->get_dictionary_count(); ?> Dictionaries</a></p>
+<p><a href="word/">🔤 <?php print $ote->get_word_count(); ?> Words</a></p>
 <p><a href="export/">📤 Export</a></p>
 <p><a href="import/">📥 Import</a></p>
 </h2>
