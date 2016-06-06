@@ -28,7 +28,7 @@ $langs = $ote->get_languages('name');
       $dr = $ote->get_dictionary_list( $this->path . '/dictionary/', $code );
       $dictionaries = '';
       foreach( $dr as $url => $name) {
-        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $url . '">'
+        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $this->path . '/dictionary/' . $url . '">'
         . '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a><br />';
       }
 
