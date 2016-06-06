@@ -27,7 +27,7 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
   $all = $ote->get_all_words();
   $title = 'Word list';
   $this->page_header($title);
-  print '<div class="container"><h1>' . $title . '</h1><p><code>' . sizeof($all) . '</code> words:</p><ul>';
+  print '<div class="container"><h1>' . $title . '</h1><p><code>' . sizeof($all) . '</code> words:</p><hr /><ul>';
   foreach( $all as $w ) {
     print '<li><a href="' . $this->path . '/' . $this->uri[0] . '///'
     . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a></li>';

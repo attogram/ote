@@ -59,7 +59,7 @@ if( isset($_GET['q']) && $_GET['q'] ) {
 
 <?php
 
-print '<div class="container">';
+
 if( isset($_GET['q']) && $_GET['q'] ) {
   $q = trim(urldecode($_GET['q']));
 
@@ -75,14 +75,23 @@ if( isset($_GET['q']) && $_GET['q'] ) {
     $t = '';
   }
 
+  print '<div class="container"><h1>Search: <kbd>' . htmlentities($q) . '<kbd></h1>';
   $result = $ote->search($q, $s, $t);
-  //print '<pre>' . print_r($result,1) . '<pre>';
-  reset($result);
+  print '<p><code>' . sizeof($result) . '</code> translations</p><hr />';
+  $subhead = $prev_subhead = '';
   foreach( $result as $r ) {
+    $durl = $this->path . '/dictionary/' . $r['sc'] . '/' . $r['tc'] . '/';
+    $subhead = '<a href="' . $durl . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> '
+    . $r['sn'] . ' to ' . $r['tn'] . '</a><br />';
+    if( $subhead != $prev_subhead ) {
+        print $subhead;
+    }
+    $prev_subhead = $subhead;
     print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', TRUE, TRUE );
     print '<br />';
   }
+  print '</div>';
 }
-print '</div>';
+
 
 $this->page_footer();

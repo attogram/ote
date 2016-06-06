@@ -31,11 +31,11 @@ if( sizeof($this->uri) == 1 ) { // list all dictionaries
     $this->page_header('Dictionary list');
     print '<div class="container"><h1>Dictionary list</h1>';
     $dlist = $ote->get_dictionary_list($rel_url);
-    print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><ul>';
+    print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><hr />';
     foreach( $dlist as $url=>$name ) {
-      print '<li><a href="' . $url . '">' . $name . '</a></li>';
+      print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';
     }
-    print '</ul></div>';
+    print '</div>';
     $this->page_footer();
     exit;
 }

@@ -10,7 +10,8 @@ $langs = $ote->get_languages('name');
 
 ?>
 <div class="container">
- <h1>Languages</h1>
+ <h1>Language List</h1>
+ <p><code><?php print sizeof($langs); ?></code> Languages:</p>
  <dl class="dl-horizontal"><?php
     foreach( $langs as $code => $lang ) {
 
@@ -19,6 +20,7 @@ $langs = $ote->get_languages('name');
 
       $qr = $this->db->query('SELECT count(sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
+      $translations_url = $this->path . '/dictionary/' . $code . '//';
 
       $qr = $this->db->query('SELECT DISTINCT sl, tl FROM word2word WHERE ( sl = :sl ) OR ( tl = :sl )', array('sl'=>$lang['id']) );
       $num_dictionaries = sizeof($qr);
@@ -26,18 +28,16 @@ $langs = $ote->get_languages('name');
       $dr = $ote->get_dictionary_list( $this->path . '/dictionary/', $code );
       $dictionaries = '';
       foreach( $dr as $url => $name) {
-        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $url . '">' 
+        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $url . '">'
         . '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a><br />';
       }
-
-
 
       print '<hr />';
       print '<dt><h3 class="squished"><strong><kbd>' . $lang['name'] . '</kbd></strong></h3></dt>';
       print '<dd>code: <code>' . $code . '</code></dd>';
-      print '<dd>words: <code>' . $num_words . '</code></dd>';
-      print '<dd>translations: <code>' . $num_translations . '</code></dd>';
-      print '<dd>dictionaries: <code>' . $num_dictionaries . '</code></dd>';
+      print '<dd>' . $num_words . ' words</dd>';
+      print '<dd><a href="' . $translations_url . '">' . $num_translations . '</a> translations</dd>';
+      print '<dd>' . $num_dictionaries . ' dictionaries:</dd>';
       print '<dd>' .$dictionaries . '</dd>';
     }
   ?></dl><hr />
