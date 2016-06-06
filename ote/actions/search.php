@@ -70,11 +70,11 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
   </div>
   <div class="form-group col-md-10">
     <label class="checkbox-inline">
-     <input name="f" type="checkbox" value="f"<?php print $f_default; ?>> Fuzzy Search
+     <input name="f" type="checkbox" value="f"<?php print $f_default; ?>>💭 Fuzzy Search
     </label>
-    &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp;
     <label class="checkbox-inline">
-      <input name="c" type="checkbox" value="c"<?php print $c_default; ?>> Case Sensitive
+      <input name="c" type="checkbox" value="c"<?php print $c_default; ?>>🔠🔡 Case Sensitive
     </lable>
   </div>
 
