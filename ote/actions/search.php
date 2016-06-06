@@ -112,14 +112,12 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
 
   print '<div class="container"><h1>Search: <kbd>' . htmlentities($q) . '</kbd></h1>';
 
-
-
   $sli = $tli = 0;
   if( $s && $s !=  '' ) {
-    $sli = $this->get_language_id_from_code($s);
+    $sli = $ote->get_language_id_from_code($s);
   }
   if( $t && $t != '' ) {
-    $tli = $this->get_language_id_from_code($t);
+    $tli = $ote->get_language_id_from_code($t);
   }
 
   $result = $ote->search_dictionary( $q, $sli, $tli, $fs, $fc );
