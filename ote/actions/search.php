@@ -98,7 +98,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $t = '';
   }
 
-  if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search ?
+  if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search?
     $fs = TRUE;
   } else {
     $fs = FALSE;

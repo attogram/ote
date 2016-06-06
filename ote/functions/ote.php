@@ -2,7 +2,7 @@
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev08');
+define('OTE_VERSION', '1.0.0-dev09');
 
 /**
  * Open Translation Engine (OTE) class
@@ -403,30 +403,6 @@ class ote {
       $bind['sw'] = $word;
       $r = $this->db->query($sql,$bind);
       return $r;
-  }
-
-  /**
-   * search()
-   * @param string $q   The Search Query String
-   * @param string $sl  (optional) Source Language Code
-   * @param string $tl  (optional) Target Language Code
-   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to FALSE
-   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to FALSE
-   * @return array
-   */
-  function search( string $q, string $sl='', string $tl='', bool $f=FALSE, bool $c=FALSE ) {
-    $this->log->debug("search: sl=$sl tl=$tl q=" . htmlentities($q));
-    $r = '';
-    $sli = $tli = 0;
-    if( $sl && $sl !=  '' ) {
-      $sli = $this->get_language_id_from_code($sl);
-    }
-    if( $tl && $tl != '' ) {
-      $tli = $this->get_language_id_from_code($tl);
-    }
-
-    $s = $this->search_dictionary( $q, $sli, $tli, $f, $c );
-    return $s;
   }
 
   /**
