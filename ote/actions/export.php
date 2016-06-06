@@ -48,7 +48,6 @@ if( !isset($this->uri[2]) || !$this->uri[2] ) {
 $s_code = $this->uri[1];
 $t_code = $this->uri[2];
 
-
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
   header("Location: $rel_url");
 }
@@ -75,7 +74,7 @@ $sep = ' = ';
 <textarea class="form-control" rows="20" id="export">
 # <?php print $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . "\n"; ?>
 # <?php print "$s_code to $t_code\n"; ?>
-# <?php print sizeof($result) . " word pairs\n"; ?>
+# <?php print sizeof($result) . " translations\n"; ?>
 # <?php print "deliminator: $sep\n"; ?>
 #
 <?php

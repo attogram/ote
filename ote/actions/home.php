@@ -11,10 +11,10 @@ $this->page_header('Open Translation Engine v' . OTE_VERSION);
 <a href="about/">More about the OTE...</a></p>
 
 <ul>
+  <li><a href="search/">Search</a></li>
+  <li><a href="languages/">Language list</a></li>
   <li><a href="dictionary/">Dictionary list</a></li>
   <li><a href="word/">Word list</a></li>
-</ul>
-<ul>
   <li><a href="export/">Export</a></li>
   <li><a href="import/">Import</a></li>
 </ul>

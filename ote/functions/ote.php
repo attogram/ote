@@ -385,7 +385,8 @@ class ote {
       WHERE sw.id = ww.sw AND tw.id = ww.tw
       AND   sl.id = ww.sl AND tl.id = ww.tl
       $lang
-      AND sw.word = :sw COLLATE NOCASE
+      -- AND sw.word = :sw COLLATE NOCASE -- Exact Search
+      AND sw.word LIKE '%' || :sw || '%' COLLATE NOCASE -- Fuzzy Search (should be fulltext word table?)
       $order";
 
       $bind['sw'] = $word;
