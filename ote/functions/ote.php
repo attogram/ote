@@ -384,38 +384,13 @@ class ote {
       FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
       WHERE sw.id = ww.sw AND tw.id = ww.tw
       AND   sl.id = ww.sl AND tl.id = ww.tl
-      $lang AND sw.word = :sw $order";
+      $lang
+      AND sw.word = :sw COLLATE NOCASE
+      $order";
 
       $bind['sw'] = $word;
       $r = $this->db->query($sql,$bind);
       return $r;
-  }
-
-  /**
-   * multiSort()
-   * @params array ARG1
-   * @params string ARG2, ARG3, ...
-   */
-  function multiSort() {
-    $args = func_get_args();
-    $c = count($args);
-    if ($c < 2) {
-      return false;
-    }
-    $array = array_splice($args, 0, 1);
-    $array = $array[0];
-    usort($array, function($a, $b) use($args) {
-      $i = 0;
-      $c = count($args);
-      $cmp = 0;
-      while($cmp == 0 && $i < $c){
-        //$cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
-        $cmp = strcasecmp( mb_strtolower($a[ $args[$i] ]), mb_strtolower($b[ $args[$i] ]) );
-        $i++;
-      }
-      return $cmp;
-    });
-    return $array;
   }
 
   /**
@@ -634,9 +609,36 @@ class ote {
     $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
     $sw = htmlentities($sw);
     $tw = htmlentities($tw);
-    $r = '<strong><a href="' . $s_url . '">' . $sw . '</a></strong>'
-    . $d .' <a href="' . $t_url . '">' . $tw . '</a>';
+    $r = '<span style="font-size:20px;"><strong><a href="' . $s_url . '">' . $sw . '</a></strong>'
+    . $d .' <a href="' . $t_url . '">' . $tw . '</a></span>';
     return $r;
   } // end function display_pair
+
+  /**
+   * multiSort()
+   * @params array ARG1
+   * @params string ARG2, ARG3, ...
+   */
+  function multiSort() {
+    $args = func_get_args();
+    $c = count($args);
+    if ($c < 2) {
+      return false;
+    }
+    $array = array_splice($args, 0, 1);
+    $array = $array[0];
+    usort($array, function($a, $b) use($args) {
+      $i = 0;
+      $c = count($args);
+      $cmp = 0;
+      while($cmp == 0 && $i < $c){
+        //$cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
+        $cmp = strcasecmp( mb_strtolower($a[ $args[$i] ]), mb_strtolower($b[ $args[$i] ]) );
+        $i++;
+      }
+      return $cmp;
+    });
+    return $array;
+  }
 
 } // end class ote
