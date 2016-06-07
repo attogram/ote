@@ -22,13 +22,42 @@
 */
 namespace Attogram;
 
+if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
+  $limit = (int)$_GET['l'];
+  if( isset($_GET['o']) && $_GET['o'] ) { // OFFSET
+    $offset = (int)$_GET['o'];
+  } else {
+    $offset = 0;
+  }
+} else {
+  $limit = 100;
+  $offset = 0;
+}
+
+
 if( sizeof($this->uri) == 1 ) { // Show All Words
   $ote = new ote($this->db, $this->log);
-  $all = $ote->get_all_words();
+  $all_count = $ote->get_word_count();
   $title = 'Word list';
   $this->page_header($title);
-  print '<div class="container"><h1>' . $title . '</h1><p><code>'
-  . sizeof($all) . '</code> words:</p><hr /><h3>';
+  print '<div class="container">'
+  . '<h1>' . $title . '</h1>'
+  . '<p><code>' . $all_count . '</code> words:</p>';
+
+  if( $limit > $all_count ) {
+    $limit = $all_count;
+  }
+
+  $lim_display = "<p>Showing $limit words";
+  if( $offset ) {
+    $lim_display .= ', starting at #' . ( $offset + 1 );
+  }
+  $lim_display .= "</p>";
+
+  print $lim_display . '<hr />';
+
+  $all = $ote->get_all_words( $limit, $offset );
+  print '<h3>';
   foreach( $all as $w ) {
     print '<a href="' . $this->path . '/' . $this->uri[0] . '///'
     . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
