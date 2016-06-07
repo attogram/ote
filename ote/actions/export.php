@@ -26,7 +26,7 @@ $rel_url = $this->path . '/' . $this->uri[0] . '/';
 if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
     $this->page_header('Export list');
     print '<div class="container"><h1>Export list</h1>';
-    $dlist = $ote->get_dictionary_list($rel_url);
+    $dlist = $ote->get_dictionary_list();
     print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';

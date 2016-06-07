@@ -25,7 +25,7 @@ $langs = $ote->get_languages('name');
 
       $num_dictionaries = $ote->get_dictionary_count( $code );
 
-      $dr = $ote->get_dictionary_list( $this->path . '/dictionary/', $code );
+      $dr = $ote->get_dictionary_list( $code );
       $dictionaries = '';
       foreach( $dr as $url => $name) {
         $dictionaries .= ' &nbsp; &nbsp; <a href="' . $this->path . '/dictionary/' . $url . '">'

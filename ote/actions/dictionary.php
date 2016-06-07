@@ -30,7 +30,7 @@ $rel_url = $this->path . '/' . $this->uri[0] . '/';
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
     $this->page_header('Dictionary list');
     print '<div class="container"><h1>Dictionary list</h1>';
-    $dlist = $ote->get_dictionary_list($rel_url);
+    $dlist = $ote->get_dictionary_list();
     print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><hr />';
     foreach( $dlist as $url=>$name ) {
       print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';

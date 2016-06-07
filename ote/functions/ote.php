@@ -178,16 +178,14 @@ class ote {
 
   /**
    * get_dictionary_list()
-   * @param  string  $path    (optional) URL path, defaults to ''
    * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
-  function get_dictionary_list( string $path='', string $lcode='' ) {
-    $this->log->debug("get_dictionary_list: path=$path lcode=$lcode");
+  function get_dictionary_list( string $lcode='' ) {
+    $this->log->debug("get_dictionary_list: lcode=$lcode");
     if( isset($this->dictionary_list) && is_array($this->dictionary_list) ) {
-      //return $this->dictionary_list;  need to first get rid of $path arg - not needed, do on page side
+      return $this->dictionary_list;
     }
-    $path = '';
     $sql = 'SELECT DISTINCT sl, tl FROM word2word';
     $bind = array();
     if( $lcode ) {
@@ -200,9 +198,9 @@ class ote {
     foreach( $r as $d ) {
       $sl = $this->get_language_code_from_id($d['sl']); // Source Language Name
       $tl = $this->get_language_code_from_id($d['tl']); // Target Language Name
-      $url = $path . $sl . '/' . $tl . '/';
+      $url = $sl . '/' . $tl . '/';
       $dlist[$url] = $langs[$sl]['name'] . ' to ' . $langs[$tl]['name'];
-      $r_url = $path . $tl . '/' . $sl . '/';
+      $r_url = $tl . '/' . $sl . '/';
       if( !array_key_exists($r_url,$dlist) ) {
         $dlist[$r_url] = $langs[$tl]['name'] . ' to ' . $langs[$sl]['name'];
       }
@@ -218,7 +216,7 @@ class ote {
    * @return int              Number of dictionaries
    */
   function get_dictionary_count( $lcode='' ) {
-    return sizeof( $this->get_dictionary_list( '', $lcode ) );
+    return sizeof( $this->get_dictionary_list( $lcode ) );
   }
 
   /**
@@ -259,10 +257,20 @@ class ote {
 
   /**
    * get_all_words()
+   * @param int $limit (optional)
+   * @param int $offset (optional)
    * @return array
    */
-  function get_all_words() {
+  function get_all_words( int $limit=0, int $offset=0 ) {
     $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
+    if( $limit && $offset ) {
+      $sql .= " LIMIT $limit OFFSET $offset";
+    } elseif( $limit && !$offset ) {
+      $sql .= " LIMIT $limit";
+    } elseif( !$limit && $offset ) {
+      $this->log->error('get_all_words: missing limit.  offset=' . $offset);
+      return array();
+    }
     return $this->db->query($sql);
   }
 
