@@ -48,13 +48,7 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
     $limit = $all_count;
   }
 
-  $lim_display = "<p>Showing $limit words";
-  if( $offset ) {
-    $lim_display .= ', starting at #' . ( $offset + 1 );
-  }
-  $lim_display .= "</p>";
-
-  print $lim_display . '<hr />';
+  print pager( $all_count, $limit, $offset) . '<hr />';
 
   $all = $ote->get_all_words( $limit, $offset );
   print '<h3>';
