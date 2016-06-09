@@ -623,18 +623,15 @@ class ote {
     $sn = $this->get_language_name_from_code($sc);
     $tn = $this->get_language_name_from_code($tc);
     $r = '
-<div class="row" style="border:1px solid #eeeeee; padding:2px;">
-  <div class="col-xs-3" style="">
+<div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
+  <div class="col-xs-5 text-left" style="">
     <strong><a href="' . $s_url . '">' . $sw . '</a></strong>
   </div>
-  <div class="col-xs-1 text-center" style="">
-    ' . $d . '
-  </div>
-  <div class="col-xs-3 text-left" style="">
-    <a href="' . $t_url . '">' . $tw . '</a>
-  </div>
   <div class="col-xs-5 text-left" style="">
-    <small>' . "$sn to $tn" . '</small>
+    ' . $d . '<a href="' . $t_url . '">' . $tw . '</a>
+  </div>
+  <div class="col-xs-2 text-left text-nowrap" style="font-size:9pt;">
+    <small>' . "$sn $d $tn" . '</small>
   </div>
 </div>
     ';
