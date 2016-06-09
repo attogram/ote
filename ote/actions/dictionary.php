@@ -67,7 +67,7 @@ print '<div class="container"><h1>' . $title . '</h1>';
 
 $d = $ote->get_dictionary( $s_id, $t_id );
 
-print '<p><code>' . sizeof($d) . '</code> translations:<hr /></p>';
+print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
 $sep = ' = ';
 $prev = '';

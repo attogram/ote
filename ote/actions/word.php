@@ -20,6 +20,7 @@
     all words
 
 */
+
 namespace Attogram;
 
 if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
@@ -39,7 +40,6 @@ if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
   $limit = 1000;
   $offset = 0;
 }
-
 
 if( sizeof($this->uri) == 1 ) { // Show All Words
   $ote = new ote($this->db, $this->log);
@@ -102,7 +102,6 @@ if( !$r ) {
 $this->page_header('Word: ' . htmlentities($word) );
 print '<div class="container">';
 
-//print '<h1><strong><kbd>' . htmlentities($word) . '</kbd></strong></h1>';
 print '<div style="font-size:45pt;">' . htmlentities($word) . '</div>';
 
 if( $s_code && $t_code ) {
@@ -116,27 +115,14 @@ if( $s_code && $t_code ) {
 print '<br /><p class="text-muted">language: ' . $header . '</p>';
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
-//$sub_header = $prev_sub_header = '';
-
 foreach( $r as $w ) {
-
-  //print '<pre>w=' . print_r($w,1) . '</pre>';
-
   $s_code = $w['sc'];
   $s_name = $w['sn'];
   $s_word = $w['s_word'];
   $t_code = $w['tc'];
   $t_name = $w['tn'];
   $t_word = $w['t_word'];
-
-  //$sub_header = $s_name . ' to ' . $t_name;
-
-  //if( $sub_header != $prev_sub_header ) {
-  //  print '<hr /><em>' . $sub_header . '</em><br />';
-  //}
-
   $base = $this->path . '/' . $this->uri[0];
-
   if( $s_code && $t_code ) {
     print $ote->display_pair(
       $s_word, // * @param  string  $sw   The Source Word
@@ -148,7 +134,6 @@ foreach( $r as $w ) {
       FALSE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
       FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
     );
-
   } elseif( $s_code && !$t_code ) {
     print $ote->display_pair(
       $s_word, // * @param  string  $sw   The Source Word
@@ -172,8 +157,6 @@ foreach( $r as $w ) {
       FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
     );
   }
-
-  //$prev_sub_header = $sub_header;
 }
 
 print '</div>';

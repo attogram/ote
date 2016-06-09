@@ -630,13 +630,16 @@ class ote {
     $tn = $this->get_language_name_from_code($tc);
     $r = '
 <div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
-  <div class="col-xs-5 text-left" style="">
+  <div class="col-xs-4 text-left">
     <strong><a href="' . $s_url . '">' . $sw . '</a></strong>
   </div>
-  <div class="col-xs-5 text-left" style="">
-    ' . $d . '<a href="' . $t_url . '">' . $tw . '</a>
+  <div class="col-xs-1 text-center">
+    ' . $d . '
   </div>
-  <div class="col-xs-2 text-left text-nowrap" style="font-size:9pt;">
+  <div class="col-xs-4 text-left">
+    <a href="' . $t_url . '">' . $tw . '</a>
+  </div>
+  <div class="col-xs-3 text-left text-nowrap" style="font-size:9pt;">
     <small>' . "$sn $d $tn" . '</small>
   </div>
 </div>
