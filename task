@@ -1,7 +1,0 @@
-<?php
-// Open Translation Engine
-// task
-
-require_once('ote.class.php');
-$ote->tasker();
-$ote->show_footer();
