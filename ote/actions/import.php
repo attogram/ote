@@ -2,6 +2,8 @@
 
 namespace Attogram;
 
+ob_end_clean(); // turn off attogram ob_gzhandler
+
 $this->page_header('Import');
 
 $default['s'] = '';
