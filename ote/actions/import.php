@@ -36,6 +36,7 @@ if( $_POST ) {
 
   <form action="." method="POST">
 
+<div class="row">
   <div class="col-xs-4">
     <label for="s">Source Language Code</label>
     <br />
@@ -51,9 +52,13 @@ if( $_POST ) {
     <br />
     <input type="text" class="form-control" name="t" value="<?php print $default['t']; ?>">
   </div>
+</div>
 
+ <div class="row">
   <div class="col-xs-12"><br /></div>
+ </div>
 
+<div class="row">
   <div class="col-xs-6">
     <label for="sn">Source Language Name</label>
     <br />
@@ -64,9 +69,13 @@ if( $_POST ) {
     <br />
     <input type="text" class="form-control" name="tn" value="">
   </div>
+ </div>
 
+ <div class="row">
   <div class="col-xs-12"><br /></div>
+ </div>
 
+ <div class="row">
   <div class="col-xs-12">
     <label for="w">Word pairs:</label>
     <textarea class="form-control" name="w" rows="8"></textarea>
@@ -77,6 +86,7 @@ if( $_POST ) {
      </h4>
     </button>
   </div>
+ </div>
 
   </form>
 </div>

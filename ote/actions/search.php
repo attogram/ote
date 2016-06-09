@@ -44,6 +44,7 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
 
  <form action="." method="GET">
 
+ <div class="row">
   <div class="form-group col-md-6">
    <label for="s">Source Language:</label>
    <?php print $ote->get_languages_pulldown($name='s', $s_selected); ?>
@@ -53,12 +54,16 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
    <label for="t">Target Language:</label>
    <?php print $ote->get_languages_pulldown($name='t', $t_selected); ?>
   </div>
+ </div>
 
+ <div class="row">
   <div class="form-group col-md-12">
    <label for="q">Query:</label>
    <input type="text" class="form-control" name="q" value="<?php print $q_default; ?>">
   </div>
+ </div>
 
+ <div class="row">
   <div class="form-group col-md-12 text-right">
     <label class="checkbox-inline">
      <input name="f" type="checkbox" value="f"<?php print $f_default; ?>>💨 Fuzzy Search
@@ -68,7 +73,9 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
       <input name="c" type="checkbox" value="c"<?php print $c_default; ?>>🔠🔡 Case Sensitive
     </lable>
   </div>
+</div>
 
+ <div class="row">
   <div class="form-group col-md-12">
    <button type="submit" class="btn btn-primary btn-block">
      <h4>
@@ -77,6 +84,7 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
      </h4>
     </button>
   </div>
+ </div>
 
  </form>
 
