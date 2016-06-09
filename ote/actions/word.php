@@ -101,7 +101,9 @@ if( !$r ) {
 
 $this->page_header('Word: ' . htmlentities($word) );
 print '<div class="container">';
-print '<h1><strong><kbd>' . htmlentities($word) . '</kbd></strong></h1>';
+
+//print '<h1><strong><kbd>' . htmlentities($word) . '</kbd></strong></h1>';
+print '<div style="font-size:45pt;">' . htmlentities($word) . '</div>';
 
 if( $s_code && $t_code ) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>) to '

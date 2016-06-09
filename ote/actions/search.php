@@ -1,5 +1,8 @@
 <?php // Open Translation Engine - Search Page v0.0.9
 
+// dev - search history - per word  / view history - per word
+// dev - wordbox multi word page
+
 namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
