@@ -10,6 +10,7 @@ Open Translation Engine (OTE)
 
 * Download latest version:  https://github.com/attogram/ote/archive/master.zip
 
+* Or get via Git/SVN: https://github.com/attogram/ote
 
 Install
 ===
