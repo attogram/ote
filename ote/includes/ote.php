@@ -70,6 +70,9 @@ class ote {
     return $this->languages;
   } // end function get_languages()
 
+  /**
+   * get_languages_count()
+   */
   function get_languages_count() {
     return sizeof($this->get_languages());
   }
@@ -169,8 +172,11 @@ class ote {
    */
   function get_dictionary_list( string $lcode='' ) {
     $this->log->debug("get_dictionary_list: lcode=$lcode");
-    if( isset($this->dictionary_list) && is_array($this->dictionary_list) ) {
-      return $this->dictionary_list;
+    if( isset($this->dictionary_list)
+     && is_array($this->dictionary_list)
+     && isset($this->dictionary_list[$lcode])
+    ) {
+      return $this->dictionary_list[$lcode];
     }
     $sql = 'SELECT DISTINCT sl, tl FROM word2word';
     $bind = array();
@@ -193,7 +199,7 @@ class ote {
     }
     asort($dlist);
     $this->log->debug('get_dictionary_list: got ' . sizeof($dlist) . ' dictionaries', $dlist);
-    return $this->dictionary_list = $dlist;
+    return $this->dictionary_list[$lcode] = $dlist;
   } // end function get_dictionary_list()
 
   /**
