@@ -20,7 +20,7 @@ class ote {
    * @param  object $log  PSR-3 compliant logger
    * @return void
    */
-  function __construct($db, $log) {
+  function __construct( $db, $log ) {
     $this->db = $db;
     $this->log = $log;
     $this->log->debug('START OTE v' . OTE_VERSION);
@@ -44,7 +44,6 @@ class ote {
     $this->log->debug('insert_language: inserted id=' . $id
       . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
     unset($this->languages); // reset the language list
-    $langs = $this->get_languages();
     return $id;
   }
 
@@ -54,7 +53,6 @@ class ote {
    * @return array
    */
   function get_languages( $orderby='id' ) {
-    //$this->log->debug('get_languages: backtrace=' . debug_backtrace()[1]['function'] );
     if( isset($this->languages) && is_array($this->languages) ) {
       return $this->languages;
     }
@@ -68,8 +66,7 @@ class ote {
     foreach( $r as $g ) {
       $this->languages[ $g['code'] ] = array( 'id'=>$g['id'], 'name'=>$g['name'] );
     }
-    $this->log->debug('get_languages: got ' . sizeof($this->languages)
-      . ' languages', $this->languages);
+    $this->log->debug('get_languages: got ' . sizeof($this->languages) . ' languages', $this->languages);
     return $this->languages;
   } // end function get_languages()
 
@@ -86,7 +83,7 @@ class ote {
     $langs = $this->get_languages();
     foreach( $langs as $code => $lang ) {
       if( $lang['id'] == $id ) {
-        $this->log->debug('get_language_code_from_id: id=' . $id . ' code=' . $code );
+        //$this->log->debug('get_language_code_from_id: id=' . $id . ' code=' . $code );
         return $code;
       }
     }
@@ -107,7 +104,7 @@ class ote {
     }
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $code ) {
-        $this->log->debug('get_language_id_from_code: code=' . $code . ' id=' . $lang['id'] );
+        //$this->log->debug('get_language_id_from_code: code=' . $code . ' id=' . $lang['id'] );
         return $lang['id'];
       }
     }
@@ -127,19 +124,9 @@ class ote {
       $default = $code;
     }
     $langs = $this->get_languages();
-    if( !$langs ) {
-      $this->log->notice('get_language_name_from_code: no languages found.  Attempting insert: ');
-      $lang_id = $this->insert_language($code, $default);
-      if( !$lang_id ) {
-        $this->log->error('get_language_name_from_code: Can not insert language.');
-        return FALSE;
-      }
-      return $default;
-    }
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $code ) {
-        $this->log->debug('get_language_name_from_code: code='
-          . htmlentities($code) . ' name=' . htmlentities($lang['name']));
+        //$this->log->debug('get_language_name_from_code: code=' . htmlentities($code) . ' name=' . htmlentities($lang['name']));
         return $lang['name'];
       }
     }
@@ -173,7 +160,6 @@ class ote {
     }
     $r .= '</select>';
     return $r;
-
   } // end get_languages_pulldown()
 
   /**
@@ -226,7 +212,7 @@ class ote {
    */
   function insert_word( string $word ) {
     $sql = 'INSERT INTO word (word) VALUES (:word)';
-    $bind=array('word'=>$word);
+    $bind = array('word'=>$word);
     $r = $this->db->queryb($sql, $bind);
     if( !$r ) {
       $this->log->error('insert_word: can not insert. word=' . htmlentities($word));
@@ -664,13 +650,6 @@ class ote {
       return $cmp;
     });
     return $array;
-  }
-
-  /**
-   * is_admin()
-   */
-  function is_admin() {
-    // place holder ...
   }
 
 } // end class ote
