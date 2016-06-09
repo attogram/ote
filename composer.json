@@ -13,6 +13,9 @@
       "homepage": "https://github.com/attogram/ote"
     }
   ],
+  "suggest": {
+    "attogram/dams": "open content translation dictionary files from The Dictionary Additions Management System (DAMS)"
+  },
   "keywords": [
     "translation dictionary",
     "translation",
