@@ -620,8 +620,24 @@ class ote {
     $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
     $sw = htmlentities($sw);
     $tw = htmlentities($tw);
-    $r = '<span style="font-size:20px;"><strong><a href="' . $s_url . '">' . $sw . '</a></strong>'
-    . $d .' <a href="' . $t_url . '">' . $tw . '</a></span>';
+    $sn = $this->get_language_name_from_code($sc);
+    $tn = $this->get_language_name_from_code($tc);
+    $r = '
+<div class="row" style="border:1px solid #eeeeee; padding:2px;">
+  <div class="col-xs-3" style="">
+    <strong><a href="' . $s_url . '">' . $sw . '</a></strong>
+  </div>
+  <div class="col-xs-1 text-center" style="">
+    ' . $d . '
+  </div>
+  <div class="col-xs-3 text-left" style="">
+    <a href="' . $t_url . '">' . $tw . '</a>
+  </div>
+  <div class="col-xs-5 text-left" style="">
+    <small>' . "$sn to $tn" . '</small>
+  </div>
+</div>
+    ';
     return $r;
   } // end function display_pair
 

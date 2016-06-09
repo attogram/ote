@@ -116,8 +116,8 @@ if( $s_code && $t_code ) {
 print '<br /><p class="text-muted">language: ' . $header . '</p>';
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
-$sub_header = $prev_sub_header = '';
-print '<p>';
+//$sub_header = $prev_sub_header = '';
+
 foreach( $r as $w ) {
 
   //print '<pre>w=' . print_r($w,1) . '</pre>';
@@ -129,32 +129,52 @@ foreach( $r as $w ) {
   $t_name = $w['tn'];
   $t_word = $w['t_word'];
 
-  $sub_header = $s_name . ' to ' . $t_name;
+  //$sub_header = $s_name . ' to ' . $t_name;
 
-  if( $sub_header != $prev_sub_header ) {
-    print '<hr /><em>' . $sub_header . '</em><br />';
-  }
+  //if( $sub_header != $prev_sub_header ) {
+  //  print '<hr /><em>' . $sub_header . '</em><br />';
+  //}
 
   $base = $this->path . '/' . $this->uri[0];
 
   if( $s_code && $t_code ) {
-    $s_word_url = $base . '///' . urlencode($s_word);
-    $s_word_display = '<a href="' . $s_word_url . '">' . htmlentities($s_word) . '</a>';
+    print $ote->display_pair(
+      $s_word, // * @param  string  $sw   The Source Word
+      $s_code, // * @param  string  $sc   The Source Language Code
+      $t_word, // * @param  string  $tw   The Target Word
+      $t_code, // * @param  string  $tc   The Target Language Code
+      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
+      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+      FALSE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
+      FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+    );
+
   } elseif( $s_code && !$t_code ) {
-    $s_word_url = $base . '/' . $s_code . '/' . $t_code . '/' . urlencode($s_word);
-    $s_word_display = '<a href="' . $s_word_url . '">' . htmlentities($s_word) . '</a>';
+    print $ote->display_pair(
+      $s_word, // * @param  string  $sw   The Source Word
+      $s_code, // * @param  string  $sc   The Source Language Code
+      $t_word, // * @param  string  $tw   The Target Word
+      $t_code, // * @param  string  $tc   The Target Language Code
+      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
+      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+      TRUE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
+      TRUE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+    );
   } else {
-    $s_word_url = $base . '/' . $s_code . '//' . urlencode($s_word);
-    $s_word_display = '<a href="' . $s_word_url . '">' . htmlentities($s_word) . '</a>';
+    print $ote->display_pair(
+      $s_word, // * @param  string  $sw   The Source Word
+      $s_code, // * @param  string  $sc   The Source Language Code
+      $t_word, // * @param  string  $tw   The Target Word
+      $t_code, // * @param  string  $tc   The Target Language Code
+      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
+      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+      TRUE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
+      FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+    );
   }
 
-  $t_word_url = $base . '/' . $t_code . '//' . urlencode($t_word);
-  $t_word_display = '<a href="' . $t_word_url . '">' . htmlentities($t_word) . '</a>';
-
-  print "<strong>$s_word_display</strong> = $t_word_display<br />";
-
-  $prev_sub_header = $sub_header;
+  //$prev_sub_header = $sub_header;
 }
-print '</p>';
+
 print '</div>';
 $this->page_footer();

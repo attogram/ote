@@ -74,15 +74,13 @@ $prev = '';
 
 foreach( $d as $i ) {
   if( $i['s_word'] != $prev && $prev != '') {
-    print '<br />';
+    //print '<br />';
   }
   $prev = $i['s_word'];
 
   print $ote->display_pair( $i['s_word'], $s_code,
                             $i['t_word'], $t_code,
                             $this->path, $sep, TRUE, FALSE );
-  print '<br />';
-
 }
 
 print '</p></div>';

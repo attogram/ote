@@ -126,17 +126,17 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   $result = $ote->search_dictionary( $q, $sli, $tli, $fs, $fc );
 
   print '<p><code>' . sizeof($result) . '</code> translations</p><hr />';
-  $subhead = $prev_subhead = '';
+  //$subhead = $prev_subhead = '';
   foreach( $result as $r ) {
-    $durl = $this->path . '/dictionary/' . $r['sc'] . '/' . $r['tc'] . '/';
-    $subhead = '<br /><a href="' . $durl . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> '
-    . $r['sn'] . ' to ' . $r['tn'] . '</a><br />';
-    if( $subhead != $prev_subhead ) {
-        print $subhead;
-    }
-    $prev_subhead = $subhead;
+    //$durl = $this->path . '/dictionary/' . $r['sc'] . '/' . $r['tc'] . '/';
+    //$subhead = '<br /><a href="' . $durl . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> '
+    //. $r['sn'] . ' to ' . $r['tn'] . '</a><br />';
+    //if( $subhead != $prev_subhead ) {
+    //    print $subhead;
+    //}
+    //$prev_subhead = $subhead;
     print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', TRUE, TRUE );
-    print '<br />';
+    //print '<br />';
   }
   print '</div>';
 }
