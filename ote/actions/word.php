@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.0.9
+<?php // Open Translation Engine - Word Page v0.1.0
 /*
  OTE Word Page
 
@@ -24,13 +24,19 @@ namespace Attogram;
 
 if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
   $limit = (int)$_GET['l'];
+  if( $limit < 100 ) {
+    $this->error404('No small limits');
+  }
+  if( $limit > 5000 ) {
+    $this->error404('No big limits');
+  }
   if( isset($_GET['o']) && $_GET['o'] ) { // OFFSET
     $offset = (int)$_GET['o'];
   } else {
     $offset = 0;
   }
 } else {
-  $limit = 100;
+  $limit = 1000;
   $offset = 0;
 }
 
@@ -40,15 +46,8 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
   $all_count = $ote->get_word_count();
   $title = 'Word list';
   $this->page_header($title);
-  print '<div class="container">'
-  . '<h1>' . $title . '</h1>'
-  . '<p><code>' . $all_count . '</code> words:</p>';
-
-  if( $limit > $all_count ) {
-    $limit = $all_count;
-  }
-
-  print pager( $all_count, $limit, $offset) . '<hr />';
+  print '<div class="container"><h1>' . $title . '</h1>';
+  print pager( $all_count, $limit, $offset );
 
   $all = $ote->get_all_words( $limit, $offset );
   print '<h3>';
@@ -57,6 +56,7 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
     . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
   }
   print '</h3></div>';
+  print pager( $all_count, $limit, $offset );
   $this->page_footer();
   exit;
 }
