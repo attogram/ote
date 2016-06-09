@@ -61,27 +61,22 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
   header("Location: $rel_url");
 }
 
-$title = 'Export ' . $langs[$s_code]['name'] . ' to ' . $langs[$t_code]['name'];
-$this->page_header($title);
-
 $result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 
 $sep = ' = ';
 
-?>
-<div class="container">
-<h1><?php print $title; ?></h1>
-<textarea class="form-control" rows="20" id="export">
-# <?php print $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . "\n"; ?>
-# <?php print "$s_code to $t_code\n"; ?>
-# <?php print sizeof($result) . " translations\n"; ?>
-# <?php print "deliminator: $sep\n"; ?>
-#
-<?php
+header('Content-Type: text/plain');
+
+print '# ' . $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . " \n";
+print "# ($s_code to $t_code)\n";
+print "#\n";
+print '# translations: ' . sizeof($result) . "\n";
+print "# deliminator: $sep\n";
+print "#\n";
+print "# export from: " . $this->get_site_url() . "/\n";
+print '# export time: ' . gmdate('r') . " UTC\n";
+print "#\n";
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
-?></textarea>
-</div>
-<?php
-$this->page_footer();
+exit;
