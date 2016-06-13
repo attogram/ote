@@ -634,7 +634,7 @@ class ote {
     $r = '
 <div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
   <div class="col-xs-4 text-left">
-    <strong><a href="' . $s_url . '">' . $sw . '</a></strong>
+    <a href="' . $s_url . '">' . $sw . '</a>
   </div>
   <div class="col-xs-1 text-center">
     ' . $d . '
