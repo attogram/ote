@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - ote class v0.0.9
+<?php // The Open Translation Engine (OTE) - Attogram Framework Module
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev10');
+define('OTE_VERSION', '1.0.0-dev11');
 
 /**
  * Open Translation Engine (OTE) class
@@ -116,31 +116,34 @@ class ote {
   } // end function get_language_code_from_id()
 
   /**
-   * get_language_name_from_code() - Gets a Language Name.
+   * Gets a Language Name.
    * If the language is not found, inserts the language into the database.
-   * @param  string $code     The Language Code
-   * @param  string $default  (optional) The default language name to use & insert, if none found
-   * @return string           The Language Name, or FALSE
+   * @param  string $code The Language Code
+   * @param  string $default_name  (optional) The default language name to use & insert, if none found
+   * @return string The Language Name, or The Language Code on error
    */
-  function get_language_name_from_code( string $code, string $default='' ) {
-    if( !$default ) {
-      $default = $code;
+  function get_language_name_from_code( string $code, string $default_name='' ) {
+    if( !$default_name ) {
+      $default_name = $code;
     }
     $langs = $this->get_languages();
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $code ) {
-        //$this->log->debug('get_language_name_from_code: code=' . htmlentities($code) . ' name=' . htmlentities($lang['name']));
+        $this->log->debug('get_language_name_from_code: code='
+          . htmlentities($code) . ' name=' . htmlentities($lang['name']));
         return $lang['name'];
       }
     }
-    $this->log->notice('get_language_name_from_code: Not Found.  Attempting insert:');
-    $lang_id = $this->insert_language($code, $default);
-    if( !$lang_id ) {
-      $this->log->error('get_language_name_from_code: Can not insert language.');
-      return FALSE;
+    $this->log->notice('get_language_name_from_code: Not Found: ' . $code);
+    if( $code ) {
+      $this->log->notice('get_language_name_from_code: insert new language: code='
+        . htmlentities($code) . ' name=' . htmlentities($lang['name']));
+      if( !$this->insert_language($code, $default) ) {
+        $this->log->error('get_language_name_from_code: Can not insert language.');
+      }
     }
-    return $default;
-  }
+    return $default_name;
+  } // end function get_language_name_from_code()
 
   /**
     * get_languages_pulldown()

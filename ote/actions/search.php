@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.0.9
+<?php // Open Translation Engine - Search Page v0.1.0
 
 // dev - search history - per word  / view history - per word
 // dev - wordbox multi word page
@@ -70,7 +70,7 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
     </label>
     &nbsp; &nbsp; &nbsp;
     <label class="checkbox-inline">
-      <input name="c" type="checkbox" value="c"<?php print $c_default; ?>>🔠🔡 Case Sensitive
+      <input name="c" type="checkbox" value="c"<?php print $c_default; ?>>🔠 Case Sensitive
     </lable>
   </div>
 </div>

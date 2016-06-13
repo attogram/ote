@@ -1,8 +1,10 @@
-<?php // Open Translation Engine - Tags Page v0.0.1
+<?php // Open Translation Engine - Tags Page v0.0.2
 
 namespace Attogram;
 
 $this->page_header('Tags');
+
+print '<div class="container"><h1>⛓ Tags</h1></div>';
 
 tabler(
   $attogram = $this,

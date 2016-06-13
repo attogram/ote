@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.0.9
+<?php // Open Translation Engine - Dictionary Page v0.1.0
 /*
  OTE Dictionary Page
 
@@ -28,10 +28,10 @@ $ote = new ote($this->db, $this->log);
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
-    $this->page_header('Dictionary list');
-    print '<div class="container"><h1>Dictionary list</h1>';
+
     $dlist = $ote->get_dictionary_list();
-    print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><hr />';
+    $this->page_header(sizeof($dlist) . ' Dictionaries');
+    print '<div class="container"><h1>📚 <code>' . sizeof($dlist) . '</code>Dictionaries</h1><hr />';
     foreach( $dlist as $url=>$name ) {
       print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';
     }
@@ -63,10 +63,9 @@ $t_id = isset($langs[$t_code]['id']) ? $langs[$t_code]['id'] : 0;
 
 $title = $s_name . ' to ' . $t_name . ' Dictionary';
 $this->page_header($title);
-print '<div class="container"><h1>' . $title . '</h1>';
 
 $d = $ote->get_dictionary( $s_id, $t_id );
-
+print '<div class="container"><h1>📚 ' . $title . '</h1>';
 print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
 $sep = ' = ';

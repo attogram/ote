@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Import Page v0.0.8
+<?php // Open Translation Engine - Import Page v0.1.0
 
 namespace Attogram;
 
@@ -32,10 +32,8 @@ if( $_POST ) {
 }
 ?>
 <div class="container">
-  <h1>Import Translations</h1>
-
+  <h1>📥 Import Translations</h1>
   <form action="." method="POST">
-
 <div class="row">
   <div class="col-xs-4">
     <label for="s">Source Language Code</label>

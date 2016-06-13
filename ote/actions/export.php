@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.0.8
+<?php // Open Translation Engine - Export Page v0.1.0
 /*
  OTE Export Page
 
@@ -24,10 +24,10 @@ $ote = new ote($this->db, $this->log);
 $rel_url = $this->path . '/' . $this->uri[0] . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
-    $this->page_header('Export list');
-    print '<div class="container"><h1>Export list</h1>';
+    $this->page_header('Export Translations');
+    print '<div class="container"><h1>📤 Export Translations</h1>';
     $dlist = $ote->get_dictionary_list();
-    print '<p><code>' . sizeof($dlist) . '</code> Dictionaries:</p><ul>';
+    print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
     }

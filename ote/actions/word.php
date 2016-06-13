@@ -44,9 +44,9 @@ if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
 if( sizeof($this->uri) == 1 ) { // Show All Words
   $ote = new ote($this->db, $this->log);
   $all_count = $ote->get_word_count();
-  $title = 'Word list';
+  $title = 'Words';
   $this->page_header($title);
-  print '<div class="container"><h1>' . $title . '</h1>';
+  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
   print pager( $all_count, $limit, $offset );
 
   $all = $ote->get_all_words( $limit, $offset );
