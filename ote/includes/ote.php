@@ -2,7 +2,7 @@
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev11');
+define('OTE_VERSION', '1.0.0-dev.12');
 
 /**
  * Open Translation Engine (OTE) class
