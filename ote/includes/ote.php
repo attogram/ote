@@ -137,8 +137,8 @@ class ote {
     $this->log->notice('get_language_name_from_code: Not Found: ' . $code);
     if( $code ) {
       $this->log->notice('get_language_name_from_code: insert new language: code='
-        . htmlentities($code) . ' name=' . htmlentities($lang['name']));
-      if( !$this->insert_language($code, $default) ) {
+        . htmlentities($code) . ' name=' . $default_name);
+      if( !$this->insert_language($code, $default_name) ) {
         $this->log->error('get_language_name_from_code: Can not insert language.');
       }
     }
