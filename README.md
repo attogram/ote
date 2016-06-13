@@ -8,6 +8,10 @@ Open Translation Engine (OTE)
 
 * [Find out more about The OTE](ote/actions/about.md)
 
+* Feature Requests:
+
+[![Feature Requests](http://feathub.com/attogram/ote?format=svg)](http://feathub.com/attogram/ote)
+
 * This is OTE v1.0.0-dev*, built as an [Attogram Framework](https://github.com/attogram/attogram) module.
 
 * Download latest version:  https://github.com/attogram/ote/archive/master.zip
