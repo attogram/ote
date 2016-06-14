@@ -48,13 +48,48 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
   $this->page_header($title);
   print '<div class="container"><h1>🔤 ' . $title . '</h1>';
   print pager( $all_count, $limit, $offset );
-
   $all = $ote->get_all_words( $limit, $offset );
-  print '<style>
-  a { color: inherit; }
-  </style><h3>';
+  print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {
     print '<a href="' . $this->path . '/' . $this->uri[0] . '///'
+    . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
+  }
+  print '</h3></div>';
+  print pager( $all_count, $limit, $offset );
+  $this->page_footer();
+  exit;
+}
+
+if( sizeof($this->uri) == 2 ) { // Show All Words from SOURCE_LANGUAGE
+  $ote = new ote($this->db, $this->log);
+  $all_count = $ote->get_word_count();
+  $title = 'Words';
+  $this->page_header($title);
+  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
+  print pager( $all_count, $limit, $offset );
+  $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($this->uri[1]) );
+  print '<style>a { color:inherit; }</style><h3>';
+  foreach( $all as $w ) {
+    print '<a href="' . $this->path . '/' . $this->uri[0] . '/' . $this->uri[1] . '//'
+    . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
+  }
+  print '</h3></div>';
+  print pager( $all_count, $limit, $offset );
+  $this->page_footer();
+  exit;
+}
+
+if( sizeof($this->uri) == 3 ) { // Show All Words from SOURCE_LANGUAGE and TARGET_LANGUAGE
+  $ote = new ote($this->db, $this->log);
+  $all_count = $ote->get_word_count();
+  $title = 'Words';
+  $this->page_header($title);
+  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
+  print pager( $all_count, $limit, $offset );
+  $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($this->uri[1]), $ote->get_language_id_from_code($this->uri[2]) );
+  print '<style>a { color:inherit; }</style><h3>';
+  foreach( $all as $w ) {
+    print '<a href="' . $this->path . '/' . $this->uri[0] . '/' . $this->uri[1] . '/' . $this->uri[2] . '/'
     . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
   }
   print '</h3></div>';
