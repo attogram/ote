@@ -264,23 +264,43 @@ class ote
   }
 
   /**
-   * get_all_words()
+   * Get All Words
    * @param int $limit (optional)
    * @param int $offset (optional)
-   * @return array
+   * @param int $sl (optional) The Source Language ID
+   * @param int $tl (optional) The Target Language ID
+   * @return array List of words
    */
-  function get_all_words( $limit = 0, $offset = 0 )
+  function get_all_words( $limit = 0, $offset = 0, $sl = 0, $tl = 0 )
   {
-    $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
+
+    $bind = array();
+    if( !$sl && !$tl ) {      // No Source Language, No Target Language
+      $select = 'SELECT word FROM word';
+    } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
+      $select = 'SELECT word FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+      $bind['sl'] = $sl;
+    } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
+      $select = 'SELECT word FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+      $bind['tl'] = $tl;
+    } else {                  // Yes Source Language, Yes Target Language
+      $select = 'SELECT word FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+      $bind['sl'] = $sl;
+      $bind['tl'] = $tl;
+    }
+
+    $order = 'ORDER BY word COLLATE NOCASE';
     if( $limit && $offset ) {
-      $sql .= " LIMIT $limit OFFSET $offset";
+      $limit = "LIMIT $limit OFFSET $offset";
     } elseif( $limit && !$offset ) {
-      $sql .= " LIMIT $limit";
+      $limit = "LIMIT $limit";
     } elseif( !$limit && $offset ) {
       $this->log->error('get_all_words: missing limit.  offset=' . $offset);
       return array();
     }
-    return $this->db->query($sql);
+
+    $sql = "$select $order $limit";
+    return $this->db->query( $sql, $bind );
   }
 
   /**
