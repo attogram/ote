@@ -671,32 +671,4 @@ a { color: inherit; }
     return $r;
   } // end function display_pair
 
-  /**
-   * multiSort()
-   * @params array ARG1
-   * @params string ARG2, ARG3, ...
-   */
-  function DEPRECIATED_multiSort()
-  {
-    $args = func_get_args();
-    $c = count($args);
-    if ($c < 2) {
-      return false;
-    }
-    $array = array_splice($args, 0, 1);
-    $array = $array[0];
-    usort($array, function($a, $b) use($args) {
-      $i = 0;
-      $c = count($args);
-      $cmp = 0;
-      while($cmp == 0 && $i < $c){
-        //$cmp = strcmp($a[ $args[ $i ] ], $b[ $args[ $i ] ]);
-        $cmp = strcasecmp( mb_strtolower($a[ $args[$i] ]), mb_strtolower($b[ $args[$i] ]) );
-        $i++;
-      }
-      return $cmp;
-    });
-    return $array;
-  }
-
 } // end class ote
