@@ -2,12 +2,13 @@
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.0-dev.12');
+define('OTE_VERSION', '1.0.0-dev.13');
 
 /**
  * Open Translation Engine (OTE) class
  */
-class ote {
+class ote
+{
 
   public $db;
   public $log;
@@ -20,7 +21,8 @@ class ote {
    * @param  object $log  PSR-3 compliant logger
    * @return void
    */
-  function __construct( $db, $log ) {
+  function __construct( $db, $log )
+  {
     $this->db = $db;
     $this->log = $log;
     $this->log->debug('START OTE v' . OTE_VERSION);
@@ -32,7 +34,8 @@ class ote {
    * @param  string $name   The Language Name
    * @return int            ID of the new language, or false
    */
-  function insert_language( $code, $name ) {
+  function insert_language( $code, $name )
+  {
     $sql = 'INSERT INTO language (code, name) VALUES (:code, :name)';
     $bind=array('code'=>$code, 'name'=>$name);
     $r = $this->db->queryb($sql, $bind);
@@ -52,7 +55,8 @@ class ote {
    * @param  string $orderby  (optional) Column to sort on: id, code, or name
    * @return array
    */
-  function get_languages( $orderby = 'id' ) {
+  function get_languages( $orderby = 'id' )
+  {
     if( isset($this->languages) && is_array($this->languages) ) {
       return $this->languages;
     }
@@ -73,7 +77,8 @@ class ote {
   /**
    * get_languages_count()
    */
-  function get_languages_count() {
+  function get_languages_count()
+  {
     return sizeof($this->get_languages());
   }
 
@@ -82,7 +87,8 @@ class ote {
    * @param  int     $id  The Language ID
    * @return string       The Language Code, or false
    */
-  function get_language_code_from_id( $id ) {
+  function get_language_code_from_id( $id )
+  {
     $langs = $this->get_languages();
     foreach( $langs as $code => $lang ) {
       if( $lang['id'] == $id ) {
@@ -99,7 +105,8 @@ class ote {
    * @param string  $code  The Language Code
    * @param int            The Language ID, or false
    */
-  function get_language_id_from_code( $code ) {
+  function get_language_id_from_code( $code )
+  {
     $langs = $this->get_languages();
     if( !$langs ) {
       $this->log->error('get_language_id_from_code: no languages found');
@@ -122,7 +129,8 @@ class ote {
    * @param  string $default_name  (optional) The default language name to use & insert, if none found
    * @return string The Language Name, or The Language Code on error
    */
-  function get_language_name_from_code( $code, $default_name='' ) {
+  function get_language_name_from_code( $code, $default_name='' )
+  {
     if( !$default_name ) {
       $default_name = $code;
     }
@@ -151,7 +159,8 @@ class ote {
     * @param  string $selected  (optional) Name of option to mark as selected
     * @return string            HTML pulldown selector with all  listed
     */
-  function get_languages_pulldown( $name = 'language',  $selected = '' ) {
+  function get_languages_pulldown( $name = 'language',  $selected = '' )
+  {
     //$this->log->debug("get_languages_pulldown: name=$name selected=$selected");
     $r = '<select class="form-control" name="' . $name . '">';
     $r .= '<option value="">All Languages</option>';
@@ -173,7 +182,8 @@ class ote {
    * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
-  function get_dictionary_list( $lcode = '' ) {
+  function get_dictionary_list( $lcode = '' )
+  {
     $this->log->debug("get_dictionary_list: lcode=$lcode");
     if( isset($this->dictionary_list)
      && is_array($this->dictionary_list)
@@ -210,7 +220,8 @@ class ote {
    * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return int              Number of dictionaries
    */
-  function get_dictionary_count( $lcode = '' ) {
+  function get_dictionary_count( $lcode = '' )
+  {
     return sizeof( $this->get_dictionary_list( $lcode ) );
   }
 
@@ -219,7 +230,8 @@ class ote {
    * @param  string $word  The Word
    * @param  int           The ID of the inserted word, or false
    */
-  function insert_word( $word ) {
+  function insert_word( $word )
+  {
     $sql = 'INSERT INTO word (word) VALUES (:word)';
     $bind = array('word'=>$word);
     $r = $this->db->queryb($sql, $bind);
@@ -238,7 +250,8 @@ class ote {
    * @param  string $word  The Word
    * @return int           The Word ID, or false
    */
-  function get_id_from_word( $word ) {
+  function get_id_from_word( $word )
+  {
     $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
     $bind=array('word'=>$word);
     $r = $this->db->query($sql, $bind);
@@ -256,7 +269,8 @@ class ote {
    * @param int $offset (optional)
    * @return array
    */
-  function get_all_words( $limit = 0, $offset = 0 ) {
+  function get_all_words( $limit = 0, $offset = 0 )
+  {
     $sql = 'SELECT word FROM word ORDER BY word COLLATE NOCASE';
     if( $limit && $offset ) {
       $sql .= " LIMIT $limit OFFSET $offset";
@@ -273,7 +287,8 @@ class ote {
    * get_word_count()
    * @return int
    */
-  function get_word_count() {
+  function get_word_count()
+  {
     $c = $this->db->query('SELECT count(id) AS count FROM word');
     return isset($c[0]['count']) ? $c[0]['count'] : '0';
   }
@@ -286,7 +301,8 @@ class ote {
    * @param  int $tl   Target Language ID
    * @param  int       Inserted record ID, or false
    */
-  function insert_word2word( $sw, $sl, $tw, $tl ) {
+  function insert_word2word( $sw, $sl, $tw, $tl )
+  {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
     $this->log->debug('insert_word2word', $bind);
     $sql = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
@@ -313,7 +329,8 @@ class ote {
    * @param  int $tl   Target Language ID
    * @return boolean       true if word2word entry exists, else false
    */
-  function get_word2word( $sw, $sl, $tw, $tl ) {
+  function get_word2word( $sw, $sl, $tw, $tl )
+  {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
     $this->log->debug('get_word2word', $bind);
     $sql = 'SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl';
@@ -333,7 +350,8 @@ class ote {
    * @param  int     $tl   (optional) Target Language ID
    * @return array         list of word pairs
    */
-  function get_dictionary( $sl = 0, $tl = 0 ) {
+  function get_dictionary( $sl = 0, $tl = 0 )
+  {
     $this->log->debug("get_dictionary: sl=$sl tl=$tl");
 
     $select = '
@@ -383,7 +401,8 @@ class ote {
    * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to false
    * @return array         list of word pairs
    */
-  function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false ) {
+  function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false )
+  {
 
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
@@ -444,7 +463,8 @@ class ote {
    * @param string $sn  (optional) Source Language Name
    * @param string $tn  (optional) Target Language Name
    */
-  function do_import( $w, $d, $s, $t, $sn = '', $tn = '' ) {
+  function do_import( $w, $d, $s, $t, $sn = '', $tn = '' )
+  {
 
     $this->log->debug("do_import: s=$s t=$t d=$d sn=$sn tn=$tn w strlen=" . strlen($w));
 
@@ -621,7 +641,8 @@ class ote {
    * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
    * @return string         HTML fragment
    */
-  function display_pair( $sw, $sc, $tw, $tc, $path = '', $d = ' = ', $usc = true, $utc = false ) {
+  function display_pair( $sw, $sc, $tw, $tc, $path = '', $d = ' = ', $usc = true, $utc = false )
+  {
     $s_url = $path . '/word/' . ($usc ? $sc : '') . '/' . ($utc ? $tc : '') . '/' . urlencode($sw);
     $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
     $sw = htmlentities($sw);
@@ -652,7 +673,8 @@ class ote {
    * @params array ARG1
    * @params string ARG2, ARG3, ...
    */
-  function multiSort() {
+  function DEPRECIATED_multiSort()
+  {
     $args = func_get_args();
     $c = count($args);
     if ($c < 2) {
