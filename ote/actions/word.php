@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.0
+<?php // Open Translation Engine - Word Page v0.1.1
 /*
  OTE Word Page
 

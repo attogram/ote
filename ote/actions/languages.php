@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Languages Page v0.1.0
+<?php // Open Translation Engine - Languages Page v0.1.1
 
 namespace Attogram;
 
@@ -20,7 +20,7 @@ $langs = $ote->get_languages('name');
       $qr = $this->db->query('SELECT count(sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
       $translations_url = $this->path . '/dictionary/' . $code . '//';
-
+      $word_list_url = $this->path .'/word/' . $code . '/';
       $num_dictionaries = $ote->get_dictionary_count( $code );
 
       $dr = $ote->get_dictionary_list( $code );
@@ -33,7 +33,7 @@ $langs = $ote->get_languages('name');
       print '<hr />';
       print '<dt><h3 class="squished"><strong><kbd>' . $lang['name'] . '</kbd></strong></h3></dt>';
       print '<dd>code: <code>' . $code . '</code></dd>';
-      print '<dd>' . $num_words . ' words</dd>';
+      print '<dd><a href="' . $word_list_url . '">' . $num_words . '</a> words</dd>';
       print '<dd><a href="' . $translations_url . '">' . $num_translations . '</a> translations</dd>';
       print '<dd>' . $num_dictionaries . ' dictionaries:</dd>';
       print '<dd>' .$dictionaries . '</dd>';
