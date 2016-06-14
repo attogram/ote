@@ -37,8 +37,8 @@ class ote
   function insert_language( $code, $name )
   {
     $sql = 'INSERT INTO language (code, name) VALUES (:code, :name)';
-    $bind=array('code'=>$code, 'name'=>$name);
-    $r = $this->db->queryb($sql, $bind);
+    $bind=array( 'code' => $code, 'name' => $name );
+    $r = $this->db->queryb( $sql, $bind );
     if( !$r ) {
       $this->log->error('insert_language: can not insert language');
       return false;
@@ -650,6 +650,9 @@ class ote
     $sn = $this->get_language_name_from_code($sc);
     $tn = $this->get_language_name_from_code($tc);
     $r = '
+<style>
+a { color: inherit; }
+</style>
 <div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
   <div class="col-xs-4 text-left">
     <a href="' . $s_url . '">' . $sw . '</a>

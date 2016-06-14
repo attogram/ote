@@ -50,7 +50,9 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
   print pager( $all_count, $limit, $offset );
 
   $all = $ote->get_all_words( $limit, $offset );
-  print '<h3>';
+  print '<style>
+  a { color: inherit; }
+  </style><h3>';
   foreach( $all as $w ) {
     print '<a href="' . $this->path . '/' . $this->uri[0] . '///'
     . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
