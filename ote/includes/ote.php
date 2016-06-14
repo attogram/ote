@@ -30,7 +30,7 @@ class ote {
    * insert_language()
    * @param  string $code   The Language Code
    * @param  string $name   The Language Name
-   * @return int            ID of the new language, or FALSE
+   * @return int            ID of the new language, or false
    */
   function insert_language( $code, $name ) {
     $sql = 'INSERT INTO language (code, name) VALUES (:code, :name)';
@@ -38,7 +38,7 @@ class ote {
     $r = $this->db->queryb($sql, $bind);
     if( !$r ) {
       $this->log->error('insert_language: can not insert language');
-      return FALSE;
+      return false;
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id
@@ -80,7 +80,7 @@ class ote {
   /**
    * get_language_code_from_id()
    * @param  int     $id  The Language ID
-   * @return string       The Language Code, or FALSE
+   * @return string       The Language Code, or false
    */
   function get_language_code_from_id( $id ) {
     $langs = $this->get_languages();
@@ -91,19 +91,19 @@ class ote {
       }
     }
     $this->log->error('get_language_code_from_id: id=' . $id . ' Not Found');
-    return FALSE;
+    return false;
   } // end function get_language_code_from_id()
 
   /**
    * get_language_id_from_code()
    * @param string  $code  The Language Code
-   * @param int            The Language ID, or FALSE
+   * @param int            The Language ID, or false
    */
   function get_language_id_from_code( $code ) {
     $langs = $this->get_languages();
     if( !$langs ) {
       $this->log->error('get_language_id_from_code: no languages found');
-      return FALSE;
+      return false;
     }
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $code ) {
@@ -112,7 +112,7 @@ class ote {
       }
     }
     $this->log->error('get_language_id_from_code: code=' . $code . ' id=Not Found');
-    return FALSE;
+    return false;
   } // end function get_language_code_from_id()
 
   /**
@@ -217,7 +217,7 @@ class ote {
   /**
    * insert_word()
    * @param  string $word  The Word
-   * @param  int           The ID of the inserted word, or FALSE
+   * @param  int           The ID of the inserted word, or false
    */
   function insert_word( $word ) {
     $sql = 'INSERT INTO word (word) VALUES (:word)';
@@ -225,7 +225,7 @@ class ote {
     $r = $this->db->queryb($sql, $bind);
     if( !$r ) {
       $this->log->error('insert_word: can not insert. word=' . htmlentities($word));
-      return FALSE;
+      return false;
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('inser_word: inserted id=' . $id . ' word=' . htmlentities($word));
@@ -236,7 +236,7 @@ class ote {
    * get_id_from_word()
    * Looks up the ID of a word.  If not found, then inserts the word
    * @param  string $word  The Word
-   * @return int           The Word ID, or FALSE
+   * @return int           The Word ID, or false
    */
   function get_id_from_word( $word ) {
     $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
@@ -284,7 +284,7 @@ class ote {
    * @param  int $sl   Source Language ID
    * @param  int $tw   Target Word ID
    * @param  int $tl   Target Language ID
-   * @param  int       Inserted record ID, or FALSE
+   * @param  int       Inserted record ID, or false
    */
   function insert_word2word( $sw, $sl, $tw, $tl ) {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
@@ -302,7 +302,7 @@ class ote {
       $this->log->error('insert_word2word: can not insert. errorInfo: '
         . print_r($this->db->db->errorInfo(),1) );
     }
-    return FALSE;
+    return false;
   }
 
   /**
@@ -311,7 +311,7 @@ class ote {
    * @param  int $sl   Source Language ID
    * @param  int $tw   Target Word ID
    * @param  int $tl   Target Language ID
-   * @return boolean       TRUE if word2word entry exists, else FALSE
+   * @return boolean       true if word2word entry exists, else false
    */
   function get_word2word( $sw, $sl, $tw, $tl ) {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
@@ -320,10 +320,10 @@ class ote {
     $r = $this->db->query($sql,$bind);
     if( $r ) {
       $this->log->debug('get_word2word: exists');
-      return TRUE;
+      return true;
     } else {
       $this->log->debug('get_word2word: does not exist');
-      return FALSE;
+      return false;
     }
   }
 
@@ -379,11 +379,11 @@ class ote {
    * @param  string  $sw   The Word to search thereupon
    * @param  int     $sl   (optional) Source Language ID, defaults to none
    * @param  int     $tl   (optional) Target Language ID, defaults to none
-   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to FALSE
-   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to FALSE
+   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to false
+   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to false
    * @return array         list of word pairs
    */
-  function search_dictionary( $word, $sl = 0, $tl = 0, $f = FALSE, $c = FALSE ) {
+  function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false ) {
 
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
 
@@ -617,11 +617,11 @@ class ote {
    * @param  string  $tc   The Target Language Code
    * @param  string  $path (optional) URL path, defaults to ''
    * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-   * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
-   * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+   * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+   * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
    * @return string         HTML fragment
    */
-  function display_pair( $sw, $sc, $tw, $tc, $path = '', $d = ' = ', $usc = TRUE, $utc = FALSE ) {
+  function display_pair( $sw, $sc, $tw, $tc, $path = '', $d = ' = ', $usc = true, $utc = false ) {
     $s_url = $path . '/word/' . ($usc ? $sc : '') . '/' . ($utc ? $tc : '') . '/' . urlencode($sw);
     $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
     $sw = htmlentities($sw);

@@ -79,7 +79,7 @@ foreach( $d as $i ) {
 
   print $ote->display_pair( $i['s_word'], $s_code,
                             $i['t_word'], $t_code,
-                            $this->path, $sep, TRUE, FALSE );
+                            $this->path, $sep, true, false );
 }
 
 print '</p></div>';

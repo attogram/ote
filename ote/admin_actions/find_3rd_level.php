@@ -13,9 +13,9 @@ if( isset($_GET['j']) && $_GET['j'] ) {
 }
 
 if( isset($_GET['r']) && $_GET['r'] ) {
-  $do_run = TRUE;
+  $do_run = true;
 } else {
-  $do_run = FALSE;
+  $do_run = false;
 }
 
 

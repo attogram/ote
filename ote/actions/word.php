@@ -131,8 +131,8 @@ foreach( $r as $w ) {
       $t_code, // * @param  string  $tc   The Target Language Code
       $this->path, // * @param  string  $path (optional) URL path, defaults to ''
       ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      FALSE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
-      FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+      false, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+      false // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
     );
   } elseif( $s_code && !$t_code ) {
     print $ote->display_pair(
@@ -142,8 +142,8 @@ foreach( $r as $w ) {
       $t_code, // * @param  string  $tc   The Target Language Code
       $this->path, // * @param  string  $path (optional) URL path, defaults to ''
       ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      TRUE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
-      TRUE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+      true, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+      true // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
     );
   } else {
     print $ote->display_pair(
@@ -153,8 +153,8 @@ foreach( $r as $w ) {
       $t_code, // * @param  string  $tc   The Target Language Code
       $this->path, // * @param  string  $path (optional) URL path, defaults to ''
       ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      TRUE, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to TRUE
-      FALSE // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to FALSE
+      true, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+      false // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
     );
   }
 }

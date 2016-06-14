@@ -18,7 +18,7 @@ tabler(
   ),
   $sql = 'SELECT id, code, name FROM tag ORDER BY name',
   $admin_link = '../tags-admin/',
-  $show_edit = FALSE
+  $show_edit = false
 );
 
 $this->page_footer();

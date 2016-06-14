@@ -110,15 +110,15 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   }
 
   if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search?
-    $fs = TRUE;
+    $fs = true;
   } else {
-    $fs = FALSE;
+    $fs = false;
   }
 
   if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensitive Search?
-    $fc = FALSE;
+    $fc = false;
   } else {
-    $fc = TRUE;
+    $fc = true;
   }
 
   print '<div class="container"><h1>Search: <kbd>' . htmlentities($q) . '</kbd></h1>';
@@ -143,7 +143,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     //    print $subhead;
     //}
     //$prev_subhead = $subhead;
-    print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', TRUE, TRUE );
+    print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', true, true );
     //print '<br />';
   }
   print '</div>';

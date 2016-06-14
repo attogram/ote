@@ -9,7 +9,7 @@ tabler(
   $table = 'word2word',
   $name_singular = 'word2word',
   $name_plural = 'word2words',
-  $public_link = FALSE,
+  $public_link = false,
   $col = array(
     array('class'=>'col-md-2', 'title'=>'Source Word', 'key'=>'s_word'),
     array('class'=>'col-md-1', 'title'=>'sw', 'key'=>'sw'),
@@ -35,7 +35,7 @@ AND
 ORDER BY sw.word, tw.word
 ',
   $admin_link = '../word2word-admin/',
-  $show_edit = TRUE
+  $show_edit = true
 );
 
 $this->page_footer();
