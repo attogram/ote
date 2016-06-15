@@ -4,11 +4,10 @@ namespace Attogram;
 
 $divider = '&nbsp;&nbsp; | &nbsp;&nbsp;';
 print '
-<pre>THIS IS ote/templates/footer.php !</pre>
 <footer class="footer">
  <div class="container-fluid">
   <p>
-    <nobr><a href="' . $this->get_site_url() . '/">' .  $this->site_name . '</a></nobr>
+    <nobr><a href="' . $this->get_site_url() . '/">🌐 ' .  $this->site_name . '</a></nobr>
     <small>' . $divider . '
     <nobr>🚀 Powered by <a target="github" href="' . $this->project_github . '">Attogram v' . self::ATTOGRAM_VERSION . '</a></nobr>
     ' . $divider . '

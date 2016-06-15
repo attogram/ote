@@ -3,7 +3,6 @@
 namespace Attogram;
 
 ?>
-<pre>THIS IS ote/templates/navbar.php !</pre>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -16,17 +15,24 @@ namespace Attogram;
       <a class="navbar-brand" href="<?php print $this->path; ?>/"><?php print $this->site_name; ?></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav"><?php
-        foreach( array_keys($this->get_actions()) as $a ) {
-            switch( $a ) {
-              case 'home': case 'login': case 'user':
-                continue;
-              default:
-                print '<li><a href="' . $this->path . '/' . $a . '/">' . $a . '</a></li>';
-                break;
-            }
-          }
-    ?></ul>
+      <ul class="nav navbar-nav">
+        <li><a href="<?php print $this->path; ?>/search/">🔎</a></li>
+        <li><a href="<?php print $this->path; ?>/languages/">🌐</a></li>
+        <li><a href="<?php print $this->path; ?>/dictionary/">📚</a></li>
+        <li><a href="<?php print $this->path; ?>/word/">🔤</a></li>
+        <li><a href="<?php print $this->path; ?>/export/">📤</a></li>
+        <li><a href="<?php print $this->path; ?>/import/">📥</a></li>
+        <li><a href="<?php print $this->path; ?>/about/">💁</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="<?php print $this->path; ?>/tags/">tags</a></li>
+            <li><a href="https://github.com/attogram/ote">OTE @ GitHub</a></li>
+            <li><a href="https://github.com/attogram/DAMS">Open Content Dictionaries (DAMS)</a></li>
+          </ul>
+        </li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
 <?php
   if( class_exists('\Attogram\attogram_user') ) {
