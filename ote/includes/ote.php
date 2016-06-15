@@ -47,7 +47,7 @@ class ote
     $this->log->debug('insert_language: inserted id=' . $id
       . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
     unset($this->languages); // reset the language list
-    unset($this->dictionary_list) // reset the dictionary list
+    unset($this->dictionary_list); // reset the dictionary list
     return $id;
   }
 
