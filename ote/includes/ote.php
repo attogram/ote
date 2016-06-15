@@ -16,7 +16,7 @@ class ote
   public $dictionary_list;
 
   /**
-   * __construct()
+   * initialize OTE
    * @param  object $db   Attogram PDO database object
    * @param  object $log  PSR-3 compliant logger
    * @return void
@@ -29,7 +29,7 @@ class ote
   }
 
   /**
-   * insert_language()
+   * Insert a language into the database
    * @param  string $code   The Language Code
    * @param  string $name   The Language Name
    * @return int            ID of the new language, or false
@@ -47,11 +47,12 @@ class ote
     $this->log->debug('insert_language: inserted id=' . $id
       . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
     unset($this->languages); // reset the language list
+    unset($this->dictionary_list) // reset the dictionary list
     return $id;
   }
 
   /**
-   * get_languages() - get a list of all languages
+   * Get a list of all languages
    * @param  string $orderby  (optional) Column to sort on: id, code, or name
    * @return array
    */
@@ -75,7 +76,8 @@ class ote
   } // end function get_languages()
 
   /**
-   * get_languages_count()
+   * Get the number of languages
+   * @return int
    */
   function get_languages_count()
   {
@@ -83,7 +85,7 @@ class ote
   }
 
   /**
-   * get_language_code_from_id()
+   * Get a Language Code from Language ID
    * @param  int     $id  The Language ID
    * @return string       The Language Code, or false
    */
@@ -101,7 +103,7 @@ class ote
   } // end function get_language_code_from_id()
 
   /**
-   * get_language_id_from_code()
+   * Get a Language ID from Language Code
    * @param string  $code  The Language Code
    * @param int            The Language ID, or false
    */
@@ -123,13 +125,12 @@ class ote
   } // end function get_language_code_from_id()
 
   /**
-   * Gets a Language Name.
-   * If the language is not found, inserts the language into the database.
+   * Get a Language Name. If the language is not found, inserts the language into the database.
    * @param  string $code The Language Code
    * @param  string $default_name  (optional) The default language name to use & insert, if none found
    * @return string The Language Name, or The Language Code on error
    */
-  function get_language_name_from_code( $code, $default_name='' )
+  function get_language_name_from_code( $code, $default_name = '' )
   {
     if( !$default_name ) {
       $default_name = $code;
@@ -154,7 +155,7 @@ class ote
   } // end function get_language_name_from_code()
 
   /**
-    * get_languages_pulldown()
+    * Get an HTML pulldown selector filled with all Languages
     * @param  string $name      (optional) Name of the select element
     * @param  string $selected  (optional) Name of option to mark as selected
     * @return string            HTML pulldown selector with all  listed
@@ -178,7 +179,7 @@ class ote
   } // end get_languages_pulldown()
 
   /**
-   * get_dictionary_list()
+   * Get a list of all Dictionaries
    * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
@@ -216,7 +217,7 @@ class ote
   } // end function get_dictionary_list()
 
   /**
-   * get_dictionary_count()
+   * Get the number of dictionaries
    * @param  string  $lcode   (optional) Limit search to specific Language Code
    * @return int              Number of dictionaries
    */
@@ -226,7 +227,7 @@ class ote
   }
 
   /**
-   * insert_word()
+   * Insert a word into the database
    * @param  string $word  The Word
    * @param  int           The ID of the inserted word, or false
    */
@@ -245,8 +246,7 @@ class ote
   }
 
   /**
-   * get_id_from_word()
-   * Looks up the ID of a word.  If not found, then inserts the word
+   * Get ID of a word - Looks up the ID of a word.  If not found, then inserts the word
    * @param  string $word  The Word
    * @return int           The Word ID, or false
    */
@@ -304,7 +304,7 @@ class ote
   }
 
   /**
-   * get_word_count()
+   * Get number of words
    * @return int
    */
   function get_word_count()
@@ -314,7 +314,7 @@ class ote
   }
 
   /**
-   * insert_word2word()
+   * Insert a translation into the database
    * @param  int $sw   Source Word ID
    * @param  int $sl   Source Language ID
    * @param  int $tw   Target Word ID
@@ -342,7 +342,7 @@ class ote
   }
 
   /**
-   * get_word2word()
+   * Get a translation from the database
    * @param  int $sw   Source Word ID
    * @param  int $sl   Source Language ID
    * @param  int $tw   Target Word ID
@@ -365,7 +365,7 @@ class ote
   }
 
   /**
-   * get_dictionary()
+   * Get all of a dictionary
    * @param  int     $sl   (optional) Source Language ID
    * @param  int     $tl   (optional) Target Language ID
    * @return array         list of word pairs
@@ -413,7 +413,7 @@ class ote
   } // end function get_dictionary()
 
   /**
-   * search_dictionary()
+   * Search dictionaries
    * @param  string  $sw   The Word to search thereupon
    * @param  int     $sl   (optional) Source Language ID, defaults to none
    * @param  int     $tl   (optional) Target Language ID, defaults to none
@@ -475,7 +475,7 @@ class ote
   }
 
   /**
-   * do_import()
+   * Import translations into the database
    * @param string $w   List of word pairs, 1 pair to a line, with \n at end of line
    * @param string $d   Deliminator
    * @param string $s   Source Language Code
@@ -650,7 +650,7 @@ class ote
   } // end do_import
 
   /**
-   * display_pair() - HTML display for a single translation word pair
+   * HTML display for a single translation word pair
    * @param  string  $sw   The Source Word
    * @param  string  $sc   The Source Language Code
    * @param  string  $tw   The Target Word
