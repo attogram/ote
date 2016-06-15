@@ -1,12 +1,12 @@
-<?php // Open Translation Engine - Histoy Page v0.0.2
+<?php // Open Translation Engine - History Page v0.0.2
 
 namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
 
-$this->page_header('Search History');
-
-print '<div class="container"><h1>🔭 Search History</h1>';
+$title = '🔭 History';
+$this->page_header($title);
+print '<div class="container"><h1>' . $title . '</h1>';
 
 $sql = 'SELECT * FROM history ORDER BY date DESC, count DESC';
 $hr = $this->db->query($sql);
