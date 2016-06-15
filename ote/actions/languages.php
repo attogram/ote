@@ -1,17 +1,25 @@
-<?php // Open Translation Engine - Languages Page v0.1.1
+<?php // Open Translation Engine - Languages Page v0.1.2
 
 namespace Attogram;
 
-$this->page_header('Languages');
-
 $ote = new ote( $this->db, $this->log );
 
-$langs = $ote->get_languages('name');
+$langs = $ote->get_languages( $sortby = 'name' );
+
+$this->page_header('🌐 ' . sizeof($langs) . ' Languages');
 
 ?>
 <div class="container">
  <h1>🌐 <code><?php print sizeof($langs); ?></code> Languages</h1>
- <dl class="dl-horizontal"><?php
+
+ <div class="row" style="padding:8px; font-weight:bold; color:#999;">
+   <div class="col-sm-3">Language:</div>
+   <div class="col-sm-2">Code:</div>
+   <div class="col-sm-3">Dictionaries:</div>
+   <div class="col-sm-2">Words:</div>
+   <div class="col-sm-2">Translations:</div>
+ </div>
+<?php
     foreach( $langs as $code => $lang ) {
 
       $qr = $this->db->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
@@ -26,19 +34,20 @@ $langs = $ote->get_languages('name');
       $dr = $ote->get_dictionary_list( $code );
       $dictionaries = '';
       foreach( $dr as $url => $name) {
-        $dictionaries .= ' &nbsp; &nbsp; <a href="' . $this->path . '/dictionary/' . $url . '">'
-        . '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a><br />';
+        $dictionaries .= '<a href="' . $this->path . '/dictionary/' . $url . '">📖 ' . $name . '</a><br />';
       }
 
-      print '<hr />';
-      print '<dt><h3 class="squished"><strong><kbd>' . $lang['name'] . '</kbd></strong></h3></dt>';
-      print '<dd>code: <code>' . $code . '</code></dd>';
-      print '<dd><a href="' . $word_list_url . '">' . $num_words . '</a> words</dd>';
-      print '<dd><a href="' . $translations_url . '">' . $num_translations . '</a> translations</dd>';
-      print '<dd>' . $num_dictionaries . ' dictionaries:</dd>';
-      print '<dd>' .$dictionaries . '</dd>';
+      print '
+      <div class="row" style="border:1px solid #ccc; padding:8px;">
+        <div class="col-sm-3"><h2><kbd>' . $lang['name'] . '</kbd></h2></div>
+        <div class="col-sm-2"><code>' . $code . '</code></div>
+        <div class="col-sm-3">' . $num_dictionaries . ' dictionaries:<br />' .$dictionaries . '</div>
+        <div class="col-sm-2"><a href="' . $word_list_url . '">' . $num_words . '</a> words</div>
+        <div class="col-sm-2"><a href="' . $translations_url . '">' . $num_translations . '</a> translations</div>
+      </div>';
+
     }
-  ?></dl><hr />
+  ?>
  </div>
 <?php
 $this->page_footer();
