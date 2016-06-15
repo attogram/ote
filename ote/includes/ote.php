@@ -415,8 +415,8 @@ class ote
   /**
    * Search dictionaries
    * @param  string  $sw   The Word to search thereupon
-   * @param  int     $sl   (optional) Source Language ID, defaults to none
-   * @param  int     $tl   (optional) Target Language ID, defaults to none
+   * @param  int     $sl   (optional) Source Language ID, defaults to 0
+   * @param  int     $tl   (optional) Target Language ID, defaults to 0
    * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to false
    * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to false
    * @return array         list of word pairs
@@ -425,6 +425,8 @@ class ote
   {
 
       $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
+
+      $hin = $this->insert_history( $word, $sl, $tl );
 
       $select = '
       sw.word AS s_word, tw.word AS t_word,
@@ -473,6 +475,35 @@ class ote
       $r = $this->db->query($sql,$bind);
       return $r;
   }
+
+  /**
+   * insert an search history entry into the database
+   * @param  string  $word   The Word
+   * @param  int     $sl   (optional) Source Language ID, defaults to 0
+   * @param  int     $tl   (optional) Target Language ID, defaults to 0
+   * @return bool
+   */
+  function insert_history( $word, $sl = 0, $tl = 0 )
+  {
+    $now = gmdate('Y-m-d');
+    $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . htmlentities($word) );
+
+
+    $sql = 'SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl';
+    $bind = array( 'word' => $word, 'sl' => $sl, 'tl' => $tl, 'date' => $now );
+    $rid = $this->db->query( $sql, $bind );
+    if( !$rid ) {
+      // insert new history entry for this date
+      $sql = 'INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1 )';
+      $ir = $this->db->queryb( $sql, $bind );
+    } else {
+      // update count
+      $sql = 'UPDATE history SET count = count + 1 WHERE id = :id';
+      $bind = array( 'id' => $rid[0]['id'] );
+      return $this->db->queryb( $sql, $bind );
+    }
+
+  } // end function insert_history()
 
   /**
    * Import translations into the database
