@@ -277,15 +277,15 @@ class ote
 
     $bind = array();
     if( !$sl && !$tl ) {      // No Source Language, No Target Language
-      $select = 'SELECT word FROM word';
+      $select = 'SELECT distinct word FROM word';
     } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
-      $select = 'SELECT word FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
       $bind['sl'] = $sl;
     } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
-      $select = 'SELECT word FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
       $bind['tl'] = $tl;
     } else {                  // Yes Source Language, Yes Target Language
-      $select = 'SELECT word FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
       $bind['sl'] = $sl;
       $bind['tl'] = $tl;
     }
@@ -309,7 +309,7 @@ class ote
    * @return int
    */
   function get_word_count()
-  {
+  {  // dev todo:  $sl, $tl to sync up with get_all_words
     $c = $this->db->query('SELECT count(id) AS count FROM word');
     return isset($c[0]['count']) ? $c[0]['count'] : '0';
   }
