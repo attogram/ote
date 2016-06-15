@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Histoy Page v0.0.1
+<?php // Open Translation Engine - Histoy Page v0.0.2
 
 namespace Attogram;
 
@@ -10,7 +10,15 @@ print '<div class="container"><h1>🔭 Search History</h1>';
 
 $sql = 'SELECT * FROM history ORDER BY date DESC, count DESC';
 $hr = $this->db->query($sql);
-print '<p>DATE: COUNT: SL: TL: WORD</p>';
+
+print '<div class="row" style="padding:1px; font-weight:bold;">
+  <div class="col-xs-2">Word</div>
+  <div class="col-xs-1">#</div>
+  <div class="col-xs-3">Day</div>
+  <div class="col-xs-3"><small>Source Language</small></div>
+  <div class="col-xs-3"><small>Target Language</small></div>
+</div>';
+
 foreach( $hr as $h ) {
   $url = $this->path . '/word///' . htmlentities($h['word']);
   $sl_code = $ote->get_language_code_from_id($h['sl']);
@@ -21,13 +29,13 @@ foreach( $hr as $h ) {
   if( !$tl_code ) {
     $tl_code = '*';
   }
-  print '<p>'
-  . $h['date'] . ': '
-  . $h['count'] . ': '
-  . $sl_code . ': '
-  . $tl_code . ': '
-  . '<a href="' . $url . '">' . $h['word'] . '</a>'
-  . '</p>';
+  print '<div class="row" style="border:1px solid #eeeeee; padding:0px;">
+    <div class="col-xs-2"><a href="' . $url . '">' . $h['word'] . '</a></div>
+    <div class="col-xs-1">' . $h['count'] . '</div>
+    <div class="col-xs-3">' . $h['date'] . '</div>
+    <div class="col-xs-3">' . $sl_code . '</div>
+    <div class="col-xs-3">' . $tl_code. '</div>
+  </div>';
 }
 
 print '</div>';
