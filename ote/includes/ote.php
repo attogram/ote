@@ -91,16 +91,28 @@ class ote
    */
   function get_language_code_from_id( $id )
   {
-    $langs = $this->get_languages();
-    foreach( $langs as $code => $lang ) {
+    foreach( $this->get_languages() as $code => $lang ) {
       if( $lang['id'] == $id ) {
-        //$this->log->debug('get_language_code_from_id: id=' . $id . ' code=' . $code );
         return $code;
       }
     }
-    $this->log->error('get_language_code_from_id: id=' . $id . ' Not Found');
     return false;
   } // end function get_language_code_from_id()
+
+  /**
+   * Get a Language Name from Language ID
+   * @param  int     $id  The Language ID
+   * @return string       The Language Name, or false
+   */
+  function get_language_name_from_id( $id )
+  {
+    foreach( $this->get_languages() as $code => $lang ) {
+      if( $lang['id'] == $id ) {
+        return $lang['name'];
+      }
+    }
+    return false;
+  } // end function get_language_name_from_id()
 
   /**
    * Get a Language ID from Language Code
@@ -109,18 +121,11 @@ class ote
    */
   function get_language_id_from_code( $code )
   {
-    $langs = $this->get_languages();
-    if( !$langs ) {
-      $this->log->error('get_language_id_from_code: no languages found');
-      return false;
-    }
-    foreach( $langs as $lang_code => $lang ) {
+    foreach( $this->get_languages() as $lang_code => $lang ) {
       if( $lang_code == $code ) {
-        //$this->log->debug('get_language_id_from_code: code=' . $code . ' id=' . $lang['id'] );
         return $lang['id'];
       }
     }
-    $this->log->error('get_language_id_from_code: code=' . $code . ' id=Not Found');
     return false;
   } // end function get_language_code_from_id()
 
@@ -132,22 +137,18 @@ class ote
    */
   function get_language_name_from_code( $code, $default_name = '' )
   {
-    if( !$default_name ) {
-      $default_name = $code;
-    }
-    $langs = $this->get_languages();
-    foreach( $langs as $lang_code => $lang ) {
+    foreach( $this->get_languages() as $lang_code => $lang ) {
       if( $lang_code == $code ) {
-        $this->log->debug('get_language_name_from_code: code='
-          . htmlentities($code) . ' name=' . htmlentities($lang['name']));
         return $lang['name'];
       }
     }
     $this->log->notice('get_language_name_from_code: Not Found: ' . $code);
     if( $code ) {
-      $this->log->notice('get_language_name_from_code: insert new language: code='
-        . htmlentities($code) . ' name=' . $default_name);
-      if( !$this->insert_language($code, $default_name) ) {
+      $this->log->notice('get_language_name_from_code: insert new language: code=' . htmlentities($code) . ' name=' . $default_name);
+      if( !$default_name ) {
+        $default_name = $code;
+      }
+      if( !$this->insert_language( $code, $default_name ) ) {
         $this->log->error('get_language_name_from_code: Can not insert language.');
       }
     }
