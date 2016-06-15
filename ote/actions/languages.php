@@ -40,7 +40,7 @@ $this->page_header('🌐 ' . sizeof($langs) . ' Languages');
       print '
       <div class="row" style="border:1px solid #ccc; padding:8px;">
         <div class="col-sm-3"><h2><kbd>' . $lang['name'] . '</kbd></h2></div>
-        <div class="col-sm-2"><code>' . $code . '</code></div>
+        <div class="col-sm-2"><h3><code>' . $code . '</code></h3></div>
         <div class="col-sm-3">' . $num_dictionaries . ' dictionaries:<br />' .$dictionaries . '</div>
         <div class="col-sm-2"><a href="' . $word_list_url . '">' . $num_words . '</a> words</div>
         <div class="col-sm-2"><a href="' . $translations_url . '">' . $num_translations . '</a> translations</div>
