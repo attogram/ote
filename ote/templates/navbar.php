@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.4
+<?php // Open Translation Engine - navbar template v0.0.5
 
 namespace Attogram;
 
@@ -25,10 +25,11 @@ namespace Attogram;
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
+            <li><a href="<?php print $this->path; ?>/import/"><span  class="icon-s">📥</span><small> Import</small></a></li>
             <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
             <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
             <li><a href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
-            <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">➕</span><small> Open Content Dictionaries (DAMS)</small></a></li>
+            <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
           </ul>
         </li>
       </ul>
@@ -37,8 +38,7 @@ namespace Attogram;
 <?php
   if( class_exists('\Attogram\attogram_user') ) {
     if( \Attogram\attogram_user::is_logged_in() ) {
-      print '<li><a href="' . $this->path
-      . '/user/"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>'
+      print '<li><a href="' . $this->path . '/user/"><span class="icon-s">👤</span> <b>'
       . ( (isset($_SESSION['attogram_username']) && $_SESSION['attogram_username'])  ? $_SESSION['attogram_username'] : 'user')
       . '</b></a></li>';
       print '<li><a href="?logoff"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> logoff</a></li>';

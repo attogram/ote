@@ -4,7 +4,7 @@ namespace Attogram;
 
 ob_end_clean(); // turn off attogram ob_gzhandler
 
-$this->page_header('Import');
+$this->page_header('📥 Import Translations');
 
 $default['s'] = '';
 $default['t'] = '';
