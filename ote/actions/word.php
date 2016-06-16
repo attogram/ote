@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.4
+<?php // Open Translation Engine - Word Page v0.1.5
 /*
  OTE Word Page
 
@@ -108,47 +108,16 @@ print '<br /><p class="text-muted">language: ' . $header . '</p>';
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
 foreach( $r as $w ) {
-  $s_code = $w['sc'];
-  $s_name = $w['sn'];
-  $s_word = $w['s_word'];
-  $t_code = $w['tc'];
-  $t_name = $w['tn'];
-  $t_word = $w['t_word'];
-  $base = $this->path . '/' . $this->uri[0];
-  if( $s_code && $t_code ) {
-    print $ote->display_pair(
-      $s_word, // * @param  string  $sw   The Source Word
-      $s_code, // * @param  string  $sc   The Source Language Code
-      $t_word, // * @param  string  $tw   The Target Word
-      $t_code, // * @param  string  $tc   The Target Language Code
-      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
-      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      false, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
-      false // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
-    );
-  } elseif( $s_code && !$t_code ) {
-    print $ote->display_pair(
-      $s_word, // * @param  string  $sw   The Source Word
-      $s_code, // * @param  string  $sc   The Source Language Code
-      $t_word, // * @param  string  $tw   The Target Word
-      $t_code, // * @param  string  $tc   The Target Language Code
-      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
-      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      true, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
-      true // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
-    );
-  } else {
-    print $ote->display_pair(
-      $s_word, // * @param  string  $sw   The Source Word
-      $s_code, // * @param  string  $sc   The Source Language Code
-      $t_word, // * @param  string  $tw   The Target Word
-      $t_code, // * @param  string  $tc   The Target Language Code
-      $this->path, // * @param  string  $path (optional) URL path, defaults to ''
-      ' = ', // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-      true, // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
-      false // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
-    );
-  }
+  print $ote->display_pair(
+    $w['s_word'], // * @param  string  $sw   The Source Word
+    $w['sc'],     // * @param  string  $sc   The Source Language Code
+    $w['t_word'], // * @param  string  $tw   The Target Word
+    $w['tc'],     // * @param  string  $tc   The Target Language Code
+    $this->path,  // * @param  string  $path (optional) URL path, defaults to ''
+    ' = ',        // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+    false,        // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+    false         // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
+  ); // dev todo -- loop urls in /// /sl// /sl/tl/ //tl/ ///
 }
 
 print '</div>';
