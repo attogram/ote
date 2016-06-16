@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.2
+<?php // Open Translation Engine - Word Page v0.1.3
 /*
  OTE Word Page
 
@@ -34,41 +34,18 @@ namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
 
-function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
-{
+$langs = $ote->get_languages();
 
-  // dev check if scode/tcode language exists, or error404
-  
-  if( !$scode && !$tcode ) {
-    $all_count = $ote->get_word_count();
-    $all = $ote->get_all_words( $limit, $offset );
-    $title = 'All Words';
-  } elseif( $scode && !$tcode ) {
-    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode) );
-    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode) );
-    $title = $ote->get_language_name_from_code($sl) . ' Words';
-  } elseif( !$scode && $tcode ) {
-    $all_count = $ote->get_word_count('', $ote->get_language_id_from_code($tcode) );
-    $all = $ote->get_all_words( $limit, $offset, '', $ote->get_language_id_from_code($tcode) );
-    $title =  'Words with translations into ' . $ote->get_language_name_from_code($tcode);
-  } elseif( $scode && $tcode ) {
-    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
-    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
-    $title = $ote->get_language_name_from_code($scode) . ' Words with translations into ' . $ote->get_language_name_from_code($tcode);
-  }
+// Check Languages exist
+$s_code = $this->uri[1];
+if( $s_code && !isset($langs[$s_code]) ) {
+  $this->error404('Source Language not found yet');
+}
+$t_code = $this->uri[2];
+if( $t_code && !isset($langs[$t_code]) ) {
+  $this->error404('Target Language not found yet');
+}
 
-  $attogram->page_header($title);
-  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
-  print pager( $all_count, $limit, $offset );
-  print '<style>a { color:inherit; }</style><h3>';
-  foreach( $all as $w ) {
-    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
-  }
-  print '</h3></div>';
-  print pager( $all_count, $limit, $offset );
-  $attogram->page_footer();
-  exit;
-} // end function show_all_words()
 
 
 if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
@@ -89,40 +66,26 @@ if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
   $offset = 0;
 }
 
-if( sizeof($this->uri) == 1 ) { // Show All Words
-  show_all_words( $ote, $this, $limit, $offset );
+
+switch( sizeof($this->uri) ) { // Show Word lists
+  case 1:
+    show_all_words( $ote, $this, $limit, $offset );
+    break;
+  case 2:
+    show_all_words( $ote, $this, $limit, $offset, $this->uri[1] );
+    break;
+  case 3:
+    show_all_words( $ote, $this, $limit, $offset, $this->uri[1], $this->uri[2] );
+    break;
+  case 4:
+    if( !$this->uri[3] ) {
+      $this->error404('The Word is the Bird.  Missing Bird.');
+    }
+    break;
 }
 
-if( sizeof($this->uri) == 2 ) { // Show All Words from SOURCE_LANGUAGE
-  show_all_words( $ote, $this, $limit, $offset, $this->uri[1] );
-}
-
-if( sizeof($this->uri) == 3 ) { // Show All Words from SOURCE_LANGUAGE and TARGET_LANGUAGE
-  show_all_words( $ote, $this, $limit, $offset, $this->uri[1], $this->uri[2] );
-}
-
-// Check URI is OK
-if( sizeof($this->uri) > 4 ) {
+if( sizeof($this->uri) > 4 ) { // Check URI is OK
   $this->error404('No Swimming in the Deep End of the word');
-}
-if( sizeof($this->uri) < 4 ) {
-  $this->error404('No Swimming in the Shallow End of the word');
-}
-if( !$this->uri[3] ) {
-  $this->error404('The Word is the Bird.  Missing Bird.');
-}
-
-$ote = new ote($this->db, $this->log);
-$langs = $ote->get_languages();
-
-// Check Languages exist
-$s_code = $this->uri[1];
-if( $s_code && !isset($langs[$s_code]) ) {
-  $this->error404('Source Language not found yet');
-}
-$t_code = $this->uri[2];
-if( $t_code && !isset($langs[$t_code]) ) {
-  $this->error404('Target Language not found yet');
 }
 
 $word = urldecode($this->uri[3]);
@@ -201,3 +164,37 @@ foreach( $r as $w ) {
 
 print '</div>';
 $this->page_footer();
+
+
+function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
+{
+  if( !$scode && !$tcode ) {
+    $all_count = $ote->get_word_count();
+    $all = $ote->get_all_words( $limit, $offset );
+    $title = 'All Words';
+  } elseif( $scode && !$tcode ) {
+    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode) );
+    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode) );
+    $title = $ote->get_language_name_from_code($scode) . ' Words';
+  } elseif( !$scode && $tcode ) {
+    $all_count = $ote->get_word_count('', $ote->get_language_id_from_code($tcode) );
+    $all = $ote->get_all_words( $limit, $offset, '', $ote->get_language_id_from_code($tcode) );
+    $title =  'Words with translations into ' . $ote->get_language_name_from_code($tcode);
+  } elseif( $scode && $tcode ) {
+    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
+    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
+    $title = $ote->get_language_name_from_code($scode) . ' Words with translations into ' . $ote->get_language_name_from_code($tcode);
+  }
+
+  $attogram->page_header('🔤 ' . $title);
+  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
+  print pager( $all_count, $limit, $offset );
+  print '<style>a { color:inherit; }</style><h3>';
+  foreach( $all as $w ) {
+    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
+  }
+  print '</h3></div>';
+  print pager( $all_count, $limit, $offset );
+  $attogram->page_footer();
+  exit;
+} // end function show_all_words()
