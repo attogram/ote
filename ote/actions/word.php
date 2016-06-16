@@ -62,7 +62,7 @@ if( sizeof($this->uri) == 1 ) { // Show All Words
 
 if( sizeof($this->uri) == 2 ) { // Show All Words from SOURCE_LANGUAGE
   $ote = new ote($this->db, $this->log);
-  $all_count = $ote->get_word_count();
+  $all_count = $ote->get_word_count($ote->get_language_id_from_code($this->uri[1]));
   $title = 'Words';
   $this->page_header($title);
   print '<div class="container"><h1>🔤 ' . $title . '</h1>';
@@ -81,7 +81,7 @@ if( sizeof($this->uri) == 2 ) { // Show All Words from SOURCE_LANGUAGE
 
 if( sizeof($this->uri) == 3 ) { // Show All Words from SOURCE_LANGUAGE and TARGET_LANGUAGE
   $ote = new ote($this->db, $this->log);
-  $all_count = $ote->get_word_count();
+  $all_count = $ote->get_word_count($ote->get_language_id_from_code( $this->uri[1]), $ote->get_language_id_from_code($this->uri[2]) );
   $title = 'Words';
   $this->page_header($title);
   print '<div class="container"><h1>🔤 ' . $title . '</h1>';

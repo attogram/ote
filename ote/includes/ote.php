@@ -2,7 +2,7 @@
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.14');
+define('OTE_VERSION', '1.0.15-dev');
 
 /**
  * Open Translation Engine (OTE) class
@@ -10,10 +10,10 @@ define('OTE_VERSION', '1.0.14');
 class ote
 {
 
-  public $db;
-  public $log;
-  public $languages;
-  public $dictionary_list;
+  public $db;              // (object) The Attogram Database Object
+  public $log;             // (object) PSR3 Logger object
+  public $languages;       // (array) List of languages
+  public $dictionary_list; // (array) List of dictionaries
 
   /**
    * initialize OTE
@@ -305,12 +305,28 @@ class ote
   }
 
   /**
-   * Get number of words
+   * Get the number of words
+   * @param int $sl (optional) The Source Language ID
+   * @param int $tl (optional) The Target Language ID
    * @return int
    */
-  function get_word_count()
-  {  // dev todo:  $sl, $tl to sync up with get_all_words
-    $c = $this->db->query('SELECT count(id) AS count FROM word');
+  function get_word_count( $sl = 0, $tl = 0 )
+  {
+    $bind = array();
+    if( !$sl && !$tl ) {      // No Source Language, No Target Language
+      $sql = 'SELECT count(word.id) AS count FROM word';
+    } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
+      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+      $bind['sl'] = $sl;
+    } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
+      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+      $bind['tl'] = $tl;
+    } else {                  // Yes Source Language, Yes Target Language
+      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+      $bind['sl'] = $sl;
+      $bind['tl'] = $tl;
+    }
+    $c = $this->db->query( $sql, $bind );
     return isset($c[0]['count']) ? $c[0]['count'] : '0';
   }
 
