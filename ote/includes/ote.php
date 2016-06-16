@@ -319,15 +319,15 @@ class ote
   {
     $bind = array();
     if( !$sl && !$tl ) {      // No Source Language, No Target Language
-      $sql = 'SELECT count(word.id) AS count FROM word';
+      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word';
     } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
-      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
       $bind['sl'] = $sl;
     } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
-      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
       $bind['tl'] = $tl;
     } else {                  // Yes Source Language, Yes Target Language
-      $sql = 'SELECT count(word.id) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
       $bind['sl'] = $sl;
       $bind['tl'] = $tl;
     }
