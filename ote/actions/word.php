@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.3
+<?php // Open Translation Engine - Word Page v0.1.4
 /*
  OTE Word Page
 
@@ -32,7 +32,7 @@
 
 namespace Attogram;
 
-$ote = new ote($this->db, $this->log);
+$ote = new ote( $this->db, $this->log );
 
 $langs = $ote->get_languages();
 
@@ -47,23 +47,12 @@ if( $t_code && !isset($langs[$t_code]) ) {
 }
 
 
-
-if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
-  $limit = (int)$_GET['l'];
-  if( $limit < 100 ) {
-    $this->error404('No small limits');
-  }
-  if( $limit > 5000 ) {
-    $this->error404('No big limits');
-  }
-  if( isset($_GET['o']) && $_GET['o'] ) { // OFFSET
-    $offset = (int)$_GET['o'];
-  } else {
-    $offset = 0;
-  }
-} else {
-  $limit = 1000;
-  $offset = 0;
+list( $limit, $offset ) = get_set_limit_and_offset();
+if( $limit < 100 ) {
+  $this->error404('No small limits');
+}
+if( $limit > 5000 ) {
+  $this->error404('No big limits');
 }
 
 
