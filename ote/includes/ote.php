@@ -130,12 +130,14 @@ class ote
   } // end function get_language_code_from_id()
 
   /**
-   * Get a Language Name. If the language is not found, inserts the language into the database.
-   * @param  string $code The Language Code
-   * @param  string $default_name  (optional) The default language name to use & insert, if none found
-   * @return string The Language Name, or The Language Code on error
+   * Get a Language Name.
+   * Optionally, if the language is not found, inserts the language into the database.
+   * @param  string $code           The Language Code
+   * @param  string $default_name   (optional) The default language name to use & insert, if none found
+   * @param  bool $insert           (optional) Insert language into database, if not found. Defaults to false
+   * @return string                 The Language Name, or false on error
    */
-  function get_language_name_from_code( $code, $default_name = '' )
+  function get_language_name_from_code( $code, $default_name = '', $insert = false )
   {
     foreach( $this->get_languages() as $lang_code => $lang ) {
       if( $lang_code == $code ) {
@@ -143,6 +145,9 @@ class ote
       }
     }
     $this->log->notice('get_language_name_from_code: Not Found: ' . $code);
+    if( !$insert ) {
+      return false;
+    }
     if( $code ) {
       $this->log->notice('get_language_name_from_code: insert new language: code=' . htmlentities($code) . ' name=' . $default_name);
       if( !$default_name ) {
@@ -538,7 +543,7 @@ class ote
 
     $d = str_replace('\t', "\t", $d); // allow real tabs
 
-    $sn = $this->get_language_name_from_code($s, $default=$sn); // The Source Language Name
+    $sn = $this->get_language_name_from_code( $s, $default = $sn, $insert = true ); // The Source Language Name
     if( !$sn ) {
       $error = 'Error: can not get source language name';
       print $error;
@@ -554,7 +559,7 @@ class ote
       return;
     }
 
-    $tn = $this->get_language_name_from_code($t, $default=$tn); // The Target Language Name
+    $tn = $this->get_language_name_from_code( $t, $default = $tn, $insert = true ); // The Target Language Name
     if( !$tn ) {
       $error = 'Error: can not get source language name';
       print $error;

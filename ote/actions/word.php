@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.1
+<?php // Open Translation Engine - Word Page v0.1.2
 /*
  OTE Word Page
 
@@ -16,12 +16,60 @@
   word///word
     translations for this word, from any language, into any language
 
+  word/source_language_code/target_language_code/
+      all words in source language with translations in target language
+
+  word//target_language_code/
+      all words with translations in target language
+
+  word/source_language_code/
+    all words in source language
+
   word/
     all words
 
 */
 
 namespace Attogram;
+
+$ote = new ote($this->db, $this->log);
+
+function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
+{
+
+  // dev check if scode/tcode language exists, or error404
+  
+  if( !$scode && !$tcode ) {
+    $all_count = $ote->get_word_count();
+    $all = $ote->get_all_words( $limit, $offset );
+    $title = 'All Words';
+  } elseif( $scode && !$tcode ) {
+    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode) );
+    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode) );
+    $title = $ote->get_language_name_from_code($sl) . ' Words';
+  } elseif( !$scode && $tcode ) {
+    $all_count = $ote->get_word_count('', $ote->get_language_id_from_code($tcode) );
+    $all = $ote->get_all_words( $limit, $offset, '', $ote->get_language_id_from_code($tcode) );
+    $title =  'Words with translations into ' . $ote->get_language_name_from_code($tcode);
+  } elseif( $scode && $tcode ) {
+    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
+    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
+    $title = $ote->get_language_name_from_code($scode) . ' Words with translations into ' . $ote->get_language_name_from_code($tcode);
+  }
+
+  $attogram->page_header($title);
+  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
+  print pager( $all_count, $limit, $offset );
+  print '<style>a { color:inherit; }</style><h3>';
+  foreach( $all as $w ) {
+    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
+  }
+  print '</h3></div>';
+  print pager( $all_count, $limit, $offset );
+  $attogram->page_footer();
+  exit;
+} // end function show_all_words()
+
 
 if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
   $limit = (int)$_GET['l'];
@@ -42,60 +90,15 @@ if( isset($_GET['l']) && $_GET['l'] ) { // LIMIT
 }
 
 if( sizeof($this->uri) == 1 ) { // Show All Words
-  $ote = new ote($this->db, $this->log);
-  $all_count = $ote->get_word_count();
-  $title = 'Words';
-  $this->page_header($title);
-  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
-  print pager( $all_count, $limit, $offset );
-  $all = $ote->get_all_words( $limit, $offset );
-  print '<style>a { color:inherit; }</style><h3>';
-  foreach( $all as $w ) {
-    print '<a href="' . $this->path . '/' . $this->uri[0] . '///'
-    . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
-  }
-  print '</h3></div>';
-  print pager( $all_count, $limit, $offset );
-  $this->page_footer();
-  exit;
+  show_all_words( $ote, $this, $limit, $offset );
 }
 
 if( sizeof($this->uri) == 2 ) { // Show All Words from SOURCE_LANGUAGE
-  $ote = new ote($this->db, $this->log);
-  $all_count = $ote->get_word_count($ote->get_language_id_from_code($this->uri[1]));
-  $title = 'Words';
-  $this->page_header($title);
-  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
-  print pager( $all_count, $limit, $offset );
-  $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($this->uri[1]) );
-  print '<style>a { color:inherit; }</style><h3>';
-  foreach( $all as $w ) {
-    print '<a href="' . $this->path . '/' . $this->uri[0] . '/' . $this->uri[1] . '//'
-    . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
-  }
-  print '</h3></div>';
-  print pager( $all_count, $limit, $offset );
-  $this->page_footer();
-  exit;
+  show_all_words( $ote, $this, $limit, $offset, $this->uri[1] );
 }
 
 if( sizeof($this->uri) == 3 ) { // Show All Words from SOURCE_LANGUAGE and TARGET_LANGUAGE
-  $ote = new ote($this->db, $this->log);
-  $all_count = $ote->get_word_count($ote->get_language_id_from_code( $this->uri[1]), $ote->get_language_id_from_code($this->uri[2]) );
-  $title = 'Words';
-  $this->page_header($title);
-  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
-  print pager( $all_count, $limit, $offset );
-  $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($this->uri[1]), $ote->get_language_id_from_code($this->uri[2]) );
-  print '<style>a { color:inherit; }</style><h3>';
-  foreach( $all as $w ) {
-    print '<a href="' . $this->path . '/' . $this->uri[0] . '/' . $this->uri[1] . '/' . $this->uri[2] . '/'
-    . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
-  }
-  print '</h3></div>';
-  print pager( $all_count, $limit, $offset );
-  $this->page_footer();
-  exit;
+  show_all_words( $ote, $this, $limit, $offset, $this->uri[1], $this->uri[2] );
 }
 
 // Check URI is OK
