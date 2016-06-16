@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.0.8
+<?php // Open Translation Engine - Home Page v0.0.9
 
 namespace Attogram;
 
@@ -14,7 +14,7 @@ $ote = new ote( $this->db, $this->log );
 <h2><p><a href="word/">🔤 &nbsp; <code><?php print $ote->get_word_count(); ?></code> Words</a></p></h2>
 <hr />
 <h3><p><a href="export/">📤 &nbsp; Export</a></p></h3>
-<h3><p><a href= "import/">📥 &nbsp; Import</a></p></h3>
+<h3><p><a href="history/">🔭 &nbsp; History</a></p></h3>
 <hr />
 <h4><p>The Open Translation Engine (OTE) is an open source <strong>translation dictionary</strong> manager for the web.</p></h4>
 <h4><p><a href="about/">💁 More about the OTE</a></p></h4>

@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.0
+<?php // Open Translation Engine - Dictionary Page v0.1.1
 /*
  OTE Dictionary Page
 
@@ -31,7 +31,7 @@ if( sizeof($this->uri) == 1 ) { // list all dictionaries
 
     $dlist = $ote->get_dictionary_list();
     $this->page_header(sizeof($dlist) . ' Dictionaries');
-    print '<div class="container"><h1>📚 <code>' . sizeof($dlist) . '</code>Dictionaries</h1><hr />';
+    print '<div class="container"><h1>📚 <code>' . sizeof($dlist) . '</code> Dictionaries</h1><hr />';
     foreach( $dlist as $url=>$name ) {
       print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';
     }

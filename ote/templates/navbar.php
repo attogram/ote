@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.2
+<?php // Open Translation Engine - navbar template v0.0.4
 
 namespace Attogram;
 
@@ -14,22 +14,21 @@ namespace Attogram;
       </button>
       <a class="navbar-brand" href="<?php print $this->path; ?>/"><?php print $this->site_name; ?></a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
+    <div id="navbar" class="navbar-collapse collapse ">
       <ul class="nav navbar-nav">
-        <li><a href="<?php print $this->path; ?>/search/">🔎</a></li>
-        <li><a href="<?php print $this->path; ?>/languages/">🌐</a></li>
-        <li><a href="<?php print $this->path; ?>/dictionary/">📚</a></li>
-        <li><a href="<?php print $this->path; ?>/word/">🔤</a></li>
-        <li><a href="<?php print $this->path; ?>/export/">📤</a></li>
-        <li><a href="<?php print $this->path; ?>/import/">📥</a></li>
-        <li><a href="<?php print $this->path; ?>/about/">💁</a></li>
+        <li><a href="<?php print $this->path; ?>/search/"><span     class="icon-s">🔎</span><small> Search</small></a></li>
+        <li><a href="<?php print $this->path; ?>/languages/"><span  class="icon-s">🌐</span><small> Languages</small></a></li>
+        <li><a href="<?php print $this->path; ?>/dictionary/"><span class="icon-s">📚</span><small> Dictionary</small></a></li>
+        <li><a href="<?php print $this->path; ?>/word/"><span       class="icon-s">🔤</span><small> Words</small></a></li>
+        <li><a href="<?php print $this->path; ?>/export/"><span     class="icon-s">📤</span><small> Export</small></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php print $this->path; ?>/history/">🔭 History</a></li>
-            <li><a href="<?php print $this->path; ?>/tags/">⛓ Tags</a></li>
-            <li><a href="https://github.com/attogram/ote">OTE @ GitHub</a></li>
-            <li><a href="https://github.com/attogram/DAMS">Open Content Dictionaries (DAMS)</a></li>
+            <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
+            <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
+            <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
+            <li><a href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
+            <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">➕</span><small> Open Content Dictionaries (DAMS)</small></a></li>
           </ul>
         </li>
       </ul>
