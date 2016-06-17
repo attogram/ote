@@ -10,6 +10,9 @@
   dictionary/source_language_code/target_language_code/
     all translations, from source language, into target language
 
+  dictionary//target_language_code/
+    all translations, from any language, into target language
+
   dictionary/source_language_code//
     all translations, from source language, into any language
 
@@ -30,9 +33,9 @@ $rel_url = $this->path . '/' . $this->uri[0] . '/';
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
 
     $dlist = $ote->get_dictionary_list();
-    $this->page_header(sizeof($dlist) . ' Dictionaries');
+    $this->page_header('📚 ' . sizeof($dlist) . ' Dictionaries');
     print '<div class="container"><h1>📚 <code>' . sizeof($dlist) . '</code> Dictionaries</h1><hr />';
-    foreach( $dlist as $url=>$name ) {
+    foreach( $dlist as $url => $name ) {
       print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';
     }
     print '</div>';
@@ -56,30 +59,33 @@ if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
   $this->error404('Target language not found yet');
 }
 
+
+list( $limit, $offset ) = get_set_limit_and_offset( 250 );
+if( $limit < 10 ) {
+  $this->error404('No small limits');
+}
+if( $limit > 1000 ) {
+  $this->error404('No big limits');
+}
+
 $s_name = isset($langs[$s_code]['name']) ? $langs[$s_code]['name'] : '*';
 $t_name = isset($langs[$t_code]['name']) ? $langs[$t_code]['name'] : '*';
-$s_id = isset($langs[$s_code]['id']) ? $langs[$s_code]['id'] : 0;
-$t_id = isset($langs[$t_code]['id']) ? $langs[$t_code]['id'] : 0;
+$s_id   = isset($langs[$s_code]['id'])   ? $langs[$s_code]['id']   : 0;
+$t_id   = isset($langs[$t_code]['id'])   ? $langs[$t_code]['id']   : 0;
 
 $title = $s_name . ' to ' . $t_name . ' Dictionary';
 $this->page_header($title);
-
-$d = $ote->get_dictionary( $s_id, $t_id );
 print '<div class="container"><h1>📚 ' . $title . '</h1>';
-print '<p><code>' . sizeof($d) . '</code> translations:</p>';
 
-$sep = ' = ';
-$prev = '';
+$d_all = $ote->get_dictionary_translations_count( $s_id, $t_id );
+$d = $ote->get_dictionary( $s_id, $t_id, $limit, $offset );
+
+print '<p><code>' . $d_all . '</code> translations:</p>';
+print pager( $d_all, $limit, $offset );
+
 
 foreach( $d as $i ) {
-  if( $i['s_word'] != $prev && $prev != '') {
-    //print '<br />';
-  }
-  $prev = $i['s_word'];
-
-  print $ote->display_pair( $i['s_word'], $s_code,
-                            $i['t_word'], $t_code,
-                            $this->path, $sep, true, false );
+  print $ote->display_pair( $i['s_word'], $s_code, $i['t_word'], $t_code,  $this->path, ' = ', true, false );
 }
 
 print '</p></div>';
