@@ -1,8 +1,8 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.0 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.1 )
 
-[![OTE Homepage](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.homepage.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.homepage.png)
+[![OTE Introduction](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.png)
 
 * The OTE is a **translation dictionary** manager for the web.
 
