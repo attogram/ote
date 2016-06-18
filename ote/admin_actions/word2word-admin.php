@@ -1,19 +1,17 @@
-<?php // Open Translation Engine - word2word Admin v0.1.0
+<?php // Open Translation Engine - word2word Admin v0.1.1
 
 namespace Attogram;
 
 $this->page_header('Word2Word Admin');
 
-list( $limit, $offset ) = $this->db->get_set_limit_and_offset( 250 );
-if( $limit < 10 ) {
-  $this->error404('No small limits');
-}
-if( $limit > 1000 ) {
-  $this->error404('No big limits');
-}
+list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
+  $default_limit  = 250,
+  $default_offset = 0,
+  $max_limit      = 1000,
+  $min_limit      = 10
+);
 
 print $this->db->pager( $d_all, $limit, $offset );
-
 
 $this->db->tabler(
   $table = 'word2word',

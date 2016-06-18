@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.3
+<?php // Open Translation Engine - Dictionary Page v0.1.4
 /*
  OTE Dictionary Page
 
@@ -59,14 +59,12 @@ if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
   $this->error404('Target language not found yet');
 }
 
-
-list( $limit, $offset ) = $this->db->get_set_limit_and_offset( 250 );
-if( $limit < 10 ) {
-  $this->error404('No small limits');
-}
-if( $limit > 1000 ) {
-  $this->error404('No big limits');
-}
+list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
+  $default_limit  = 250,
+  $default_offset = 0,
+  $max_limit      = 1000,
+  $min_limit      = 10
+);
 
 $s_name = isset($langs[$s_code]['name']) ? $langs[$s_code]['name'] : '*';
 $t_name = isset($langs[$t_code]['name']) ? $langs[$t_code]['name'] : '*';
