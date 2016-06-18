@@ -5,7 +5,6 @@ namespace Attogram;
 $this->page_header('Languages Admin');
 
 $this->db->tabler(
-  $attogram = $this,
   $table = 'language',
   $name_singular = 'language',
   $name_plural = 'languages',

@@ -5,7 +5,6 @@ namespace Attogram;
 $this->page_header('Words Admin');
 
 $this->db->tabler(
-  $attogram = $this,
   $table = 'word',
   $name_singular = 'word',
   $name_plural = 'words',

@@ -16,7 +16,6 @@ print $this->db->pager( $d_all, $limit, $offset );
 
 
 $this->db->tabler(
-  $attogram = $this,
   $table = 'word2word',
   $name_singular = 'word2word',
   $name_plural = 'word2words',

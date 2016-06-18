@@ -5,7 +5,6 @@ namespace Attogram;
 $this->page_header('Tags Admin');
 
 $this->db->tabler(
-  $attogram = $this,
   $table = 'tag',
   $name_singular = 'tag',
   $name_plural = 'tags',
