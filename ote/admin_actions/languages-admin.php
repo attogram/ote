@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Languages Admin v0.0.8
+<?php // Open Translation Engine - Languages Admin v0.1.0
 
 namespace Attogram;
 
 $this->page_header('Languages Admin');
 
-tabler(
+$this->db->tabler(
   $attogram = $this,
   $table = 'language',
   $name_singular = 'language',

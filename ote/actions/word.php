@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.5
+<?php // Open Translation Engine - Word Page v0.1.6
 /*
  OTE Word Page
 
@@ -47,7 +47,7 @@ if( $t_code && !isset($langs[$t_code]) ) {
 }
 
 
-list( $limit, $offset ) = get_set_limit_and_offset();
+list( $limit, $offset ) = $this->db->get_set_limit_and_offset();
 if( $limit < 100 ) {
   $this->error404('No small limits');
 }
@@ -146,13 +146,13 @@ function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 
 
   $attogram->page_header('🔤 ' . $title);
   print '<div class="container"><h1>🔤 ' . $title . '</h1>';
-  print pager( $all_count, $limit, $offset );
+  print $attogram->db->pager( $all_count, $limit, $offset );
   print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {
     print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . htmlentities($w['word']) . '</a>, ';
   }
   print '</h3></div>';
-  print pager( $all_count, $limit, $offset );
+  print $attogram->db->pager( $all_count, $limit, $offset );
   $attogram->page_footer();
   exit;
 } // end function show_all_words()
