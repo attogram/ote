@@ -1,41 +1,37 @@
-<?php // Open Translation Engine - navbar template v0.0.5
+<?php // Open Translation Engine - navbar template v0.0.6
 
 namespace Attogram;
 
 ?>
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="<?php print $this->path; ?>/"><?php print $this->site_name; ?></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse ">
-      <ul class="nav navbar-nav">
-        <li><a href="<?php print $this->path; ?>/search/"><span     class="icon-s">🔎</span><small> Search</small></a></li>
-        <li><a href="<?php print $this->path; ?>/languages/"><span  class="icon-s">🌐</span><small> Languages</small></a></li>
-        <li><a href="<?php print $this->path; ?>/dictionary/"><span class="icon-s">📚</span><small> Dictionary</small></a></li>
-        <li><a href="<?php print $this->path; ?>/word/"><span       class="icon-s">🔤</span><small> Words</small></a></li>
-        <li><a href="<?php print $this->path; ?>/export/"><span     class="icon-s">📤</span><small> Export</small></a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
-            <li><a href="<?php print $this->path; ?>/import/"><span  class="icon-s">📥</span><small> Import</small></a></li>
-            <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
-            <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
-            <li><a href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
-            <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
-          </ul>
-        </li>
-      </ul>
+ <div class="container-fluid">
+  <div class="navbar-header">
+   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+   </button>
+   <a class="navbar-brand" href="<?php print $this->path; ?>/"><?php print $this->site_name; ?></a>
+ </div>
+ <div id="navbar" class="navbar-collapse collapse">
+  <ul class="nav navbar-nav">
+   <li><a href="<?php print $this->path; ?>/search/"><span     class="icon-s">🔎</span><small> Search</small></a></li>
+   <li><a href="<?php print $this->path; ?>/languages/"><span  class="icon-s">🌐</span><small> Languages</small></a></li>
+   <li><a href="<?php print $this->path; ?>/dictionary/"><span class="icon-s">📚</span><small> Dictionary</small></a></li>
+   <li><a href="<?php print $this->path; ?>/word/"><span       class="icon-s">🔤</span><small> Words</small></a></li>
+   <li><a href="<?php print $this->path; ?>/export/"><span     class="icon-s">📤</span><small> Export</small></a></li>
+   <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+     <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
+<?php /*     <li><a href="<?php print $this->path; ?>/import/"><span  class="icon-s">📥</span><small> Import</small></a></li>  */  ?>
+     <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
+     <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
+     <li><a href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
+     <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
+    </ul>
+   </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right"><?php
 
-      <ul class="nav navbar-nav navbar-right">
-<?php
   if( class_exists('\Attogram\attogram_user') ) {
     if( \Attogram\attogram_user::is_logged_in() ) {
       print '<li><a href="' . $this->path . '/user/"><span class="icon-s">👤</span> <b>'
@@ -59,7 +55,7 @@ namespace Attogram;
     }
     print '</ul></li>';
   }
-  ?></ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container-fluid -->
+ ?></ul>
+  </div><?php /* .nav-collapse */ ?>
+ </div><?php /* .container-fluid */ ?>
 </nav>
