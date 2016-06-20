@@ -1,6 +1,6 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.1 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.2 )
 
 [![OTE Introduction](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.png)
 
@@ -21,7 +21,7 @@ Open Translation Engine (OTE)
 Install
 ===
 * Install the [Attogram Framework](https://github.com/attogram/attogram)
-* move `ote/` directory into `./modules/` directory of the Attogram installation.
+* move this module directory into the `./modules/` directory of the Attogram installation.
 
 Misc
 ===
