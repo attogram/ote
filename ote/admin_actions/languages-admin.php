@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Languages Admin v0.1.0
+<?php // Open Translation Engine - Languages Admin v0.2.0
 
 namespace Attogram;
 
@@ -6,6 +6,7 @@ $this->page_header('Languages Admin');
 
 $this->db->tabler(
   $table = 'language',
+  $table_id = 'id',
   $name_singular = 'language',
   $name_plural = 'languages',
   $public_link = '../languages/',
@@ -16,7 +17,8 @@ $this->db->tabler(
   ),
   $sql = 'SELECT name, code, id FROM language ORDER BY id',
   $admin_link = '../languages-admin/',
-  $show_edit = true
+  $show_edit = true,
+  $per_page = 100
 );
 
 $this->page_footer();

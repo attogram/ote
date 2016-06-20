@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Tags Admin v0.1.0
+<?php // Open Translation Engine - Tags Admin v0.2.0
 
 namespace Attogram;
 
@@ -6,6 +6,7 @@ $this->page_header('Tags Admin');
 
 $this->db->tabler(
   $table = 'tag',
+  $table_id = 'id',
   $name_singular = 'tag',
   $name_plural = 'tags',
   $public_link = '../tags/',
@@ -16,7 +17,8 @@ $this->db->tabler(
   ),
   $sql = 'SELECT id, code, name FROM tag ORDER BY name',
   $admin_link = '../tags-admin/',
-  $show_edit = true
+  $show_edit = true,
+  $per_page = 100
 );
 
 $this->page_footer();
