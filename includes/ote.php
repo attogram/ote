@@ -1,8 +1,8 @@
-<?php // The Open Translation Engine (OTE) - Attogram Framework Module - ote class 0.0.17
+<?php // The Open Translation Engine (OTE) - Attogram Framework Module
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.17');
+define('OTE_VERSION', '1.0.18');
 
 /**
  * Open Translation Engine (OTE) class
