@@ -567,7 +567,7 @@ class ote
       if( $limit ) {
         $sql_limit = " LIMIT $limit";
         if( $offset ) {
-          $sql_limit .= ", OFFSET $offset";
+          $sql_limit .= " OFFSET $offset";
         }
       }
 

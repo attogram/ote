@@ -144,7 +144,20 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $offset
    );
 
-  print $ote->db->pager( $result_count, $limit, $offset );
+  $prepend_query_string = 's=' . urlencode($s) . '&amp;t=' . urlencode($t) . '&amp;q=' . urlencode($search_word);
+  if( $fuzzy_search ) {
+      $prepend_query_string .= '&amp;f=f';
+  }
+  if( !$case_sensitive_search ) {
+      $prepend_query_string .= '&amp;c=c';
+  }
+
+  print $ote->db->pager(
+    $result_count,
+    $limit,
+    $offset,
+    $prepend_query_string
+  );
 
   foreach( $result as $r ) {
     print $ote->display_pair(
