@@ -1,11 +1,10 @@
 <?php // Open Translation Engine - Search Page v0.1.0
 
-// dev - search history - per word  / view history - per word
-// dev - wordbox multi word page
+// dev todo - pagination of search results
 
 namespace Attogram;
 
-$ote = new ote($this->db, $this->log);
+$ote = new ote( $this->db, $this->log );
 
 $this->page_header('Search');
 
@@ -41,28 +40,23 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
 
 ?>
 <div class="container">
-
  <form action="." method="GET">
-
  <div class="row">
   <div class="form-group col-md-6">
    <label for="s">Source Language:</label>
    <?php print $ote->get_languages_pulldown($name='s', $s_selected); ?>
   </div>
-
   <div class="form-group col-md-6">
    <label for="t">Target Language:</label>
    <?php print $ote->get_languages_pulldown($name='t', $t_selected); ?>
   </div>
  </div>
-
  <div class="row">
   <div class="form-group col-md-12">
    <label for="q">Query:</label>
    <input type="text" class="form-control" name="q" value="<?php print $q_default; ?>">
   </div>
  </div>
-
  <div class="row">
   <div class="form-group col-md-12 text-right">
     <label class="checkbox-inline">
@@ -74,28 +68,22 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
     </lable>
   </div>
 </div>
-
  <div class="row">
   <div class="form-group col-md-12">
-   <button type="submit" class="btn btn-primary btn-block">
+   <button type="submit" class="btn btn-primary btn-sm btn-block">
      <h4>
-       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-       &nbsp; Search
+       <span class="glyphicon glyphicon-search" aria-hidden="true"></span> &nbsp; Search
      </h4>
     </button>
   </div>
  </div>
-
  </form>
-
 </div>
-
 <?php
-
 
 if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
 
-  $q = trim(urldecode($_GET['q']));
+  $search_word = trim(urldecode($_GET['q']));
 
   if( isset($_GET['s']) && $_GET['s'] ) { // Source Language
     $s = urldecode($_GET['s']);
@@ -110,31 +98,65 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   }
 
   if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search?
-    $fs = true;
+    $fuzzy_search = true;
   } else {
-    $fs = false;
+    $fuzzy_search = false;
   }
 
   if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensitive Search?
-    $fc = false;
+    $case_sensitive_search = false;
   } else {
-    $fc = true;
+    $case_sensitive_search = true;
   }
 
-  print '<div class="container"><h1>Search: <kbd>' . htmlentities($q) . '</kbd></h1>';
+  print '<div class="container"><h1>Search: <kbd>' . htmlentities($search_word) . '</kbd></h1>';
 
-  $sli = $tli = 0;
+  $source_language_id = $target_language_id = 0;
   if( $s && $s !=  '' ) {
-    $sli = $ote->get_language_id_from_code($s);
+    $source_language_id = $ote->get_language_id_from_code($s);
   }
   if( $t && $t != '' ) {
-    $tli = $ote->get_language_id_from_code($t);
+    $target_language_id = $ote->get_language_id_from_code($t);
   }
 
-  $result = $ote->search_dictionary( $q, $sli, $tli, $fs, $fc );
-  print '<p><code>' . sizeof($result) . '</code> translations</p><hr />';
+  list( $limit, $offset ) = $ote->db->get_set_limit_and_offset(
+    $default_limit = 100,
+    $default_offset = 0,
+    $max_limit = 1000,
+    $min_limit = 10
+  );
+
+  $result_count = $ote->get_count_search_dictionary(
+    $search_word,
+    $source_language_id,
+    $target_language_id,
+    $fuzzy_search,
+    $case_sensitive_search
+  );
+
+  $result = $ote->search_dictionary(
+    $search_word,
+    $source_language_id,
+    $target_language_id,
+    $fuzzy_search,
+    $case_sensitive_search,
+    $limit,
+    $offset
+   );
+
+  print $ote->db->pager( $result_count, $limit, $offset );
+
   foreach( $result as $r ) {
-    print $ote->display_pair( $r['s_word'], $r['sc'], $r['t_word'], $r['tc'], $this->path, ' = ', true, true );
+    print $ote->display_pair(
+      $r['s_word'],
+      $r['sc'],
+      $r['t_word'],
+      $r['tc'],
+      $this->path,
+      ' = ',
+      true,
+      true
+    );
   }
   print '</div>';
 }

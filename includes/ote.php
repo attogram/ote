@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - Attogram Framework Module
+<?php // The Open Translation Engine (OTE) - Attogram Framework Module - ote class 0.0.17
 
 namespace Attogram;
 
@@ -460,36 +460,17 @@ class ote
   } // end get_dictionary_translations_count()
 
   /**
-   * Search dictionaries
-   * @param  string  $sw   The Word to search thereupon
-   * @param  int     $sl   (optional) Source Language ID, defaults to 0
-   * @param  int     $tl   (optional) Target Language ID, defaults to 0
-   * @param  bool    $f    (optional) 💭 Fuzzy Search, defaults to false
-   * @param  bool    $c    (optional) 🔠🔡 Case Sensitive Search, defaults to false
-   * @return array         list of word pairs
+   * Get count of results for a Search of the dictionaries
+   * @param  string $word   The Word to search thereupon
+   * @param  int    $sl     (optional) Source Language ID, defaults to 0
+   * @param  int    $tl     (optional) Target Language ID, defaults to 0
+   * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
+   * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
+   * @return int            number of results
    */
-  public function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false )
+  public function get_count_search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false )
   {
-
-      $this->log->debug("search_dictionary: sl=$sl tl=$tl word=" . htmlentities($word));
-
-      $hin = $this->insert_history( $word, $sl, $tl );
-
-      $select = '
-      sw.word AS s_word, tw.word AS t_word,
-      sl.code AS sc,     tl.code AS tc,
-      sl.name AS sn,     tl.name AS tn';
-
-      if( $c ) { // 🔠🔡 Case Sensitive Search
-        $order_c = 'COLLATE NOCASE';
-      } else {
-        $order_c = '';
-      }
-      $order = "ORDER BY
-        sw.word $order_c,
-        sl.name $order_c,
-        tl.name $order_c,
-        tw.word $order_c";
+      $select = 'SELECT count(sw.word) AS count';
 
       if( $sl && $tl ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
@@ -505,23 +486,102 @@ class ote
         $lang = '';
       }
 
-      $sql = "SELECT $select
-      FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
-      WHERE sw.id = ww.sw AND tw.id = ww.tw
-      AND   sl.id = ww.sl AND tl.id = ww.tl
-      $lang";
+      if( $c ) { // 🔠🔡 Case Sensitive Search
+        $order_c = 'COLLATE NOCASE';
+      } else {
+        $order_c = '';
+      }
+
       if( $f ) { // 💭 Fuzzy Search
         $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
       } else {
         $qword = 'AND sw.word = :sw ' . $order_c;
       }
-
-      $sql .= " $qword $order";
-
       $bind['sw'] = $word;
-      $r = $this->db->query($sql,$bind);
+
+      $sql = "$select
+      FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+      WHERE sw.id = ww.sw AND tw.id = ww.tw
+      AND   sl.id = ww.sl AND tl.id = ww.tl
+      $lang $qword";
+
+      $r = $this->db->query( $sql, $bind );
+      if( !$r || !isset($r[0]['count']) ) {
+        return 0;
+      }
+
+      return $r[0]['count'];
+
+  } // end function get_count_search_dictionary()
+
+  /**
+   * Search dictionaries
+   * @param  string $word   The Word to search thereupon
+   * @param  int    $sl     (optional) Source Language ID, defaults to 0
+   * @param  int    $tl     (optional) Target Language ID, defaults to 0
+   * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
+   * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
+   * @param  int    $limit  (optional) Limit # of results per page, defaults to 100
+   * @param  int    $offset (optional) result # to start listing at, defaults to 0
+   * @return array          list of word pairs
+   */
+  public function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
+  {
+
+      $this->log->debug('search_dictionary: word=' . htmlentities($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
+
+      $hin = $this->insert_history( $word, $sl, $tl );
+
+      $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
+
+      $count_select = 'SELECT count(sw.word) AS count';
+
+      if( $c ) { // 🔠🔡 Case Sensitive Search
+        $order_c = 'COLLATE NOCASE';
+      } else {
+        $order_c = '';
+      }
+      $order = "ORDER BY sw.word $order_c, sl.name $order_c, tl.name $order_c, tw.word $order_c";
+
+      if( $sl && $tl ) {
+        $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
+        $bind['sl'] = $sl;
+        $bind['tl'] = $tl;
+      } elseif( $sl && !$tl ) {
+        $lang = 'AND ww.sl = :sl';
+        $bind['sl'] = $sl;
+      } elseif( !$sl && $tl ) {
+        $lang = 'AND ww.tl = :tl';
+        $bind['tl'] = $tl;
+      } else {
+        $lang = '';
+      }
+
+      if( $f ) { // 💭 Fuzzy Search
+        $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
+      } else {
+        $qword = 'AND sw.word = :sw ' . $order_c;
+      }
+      $bind['sw'] = $word;
+
+      if( $limit ) {
+        $sql_limit = " LIMIT $limit";
+        if( $offset ) {
+          $sql_limit .= ", OFFSET $offset";
+        }
+      }
+
+      $sql = "$select
+      FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+      WHERE sw.id = ww.sw AND tw.id = ww.tw
+      AND   sl.id = ww.sl AND tl.id = ww.tl
+      $lang $qword $order $sql_limit";
+
+      $r = $this->db->query( $sql, $bind );
+
       return $r;
-  }
+
+  } // end function search_dictionary()
 
   /**
    * insert an search history entry into the database
