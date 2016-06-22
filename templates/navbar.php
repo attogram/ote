@@ -23,6 +23,7 @@ namespace Attogram;
     <ul class="dropdown-menu">
      <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
      <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
+     <li><a href="<?php print $this->path; ?>/slush_pile/"><small> Slush Pile</small></a></li>
      <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
      <li><a target="_patreon" href="https://www.patreon.com/attogram"><span class="icon-s">ⓟ</span><small> OTE @ Patreon</small></a></li>
      <li><a target="_ote" href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>

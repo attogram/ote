@@ -91,24 +91,47 @@ if( !$r ) {
 $this->page_header('Word: ' . htmlentities($word) );
 print '<div class="container">';
 
-print '<div style="font-size:45pt;">' . htmlentities($word) . '</div>';
+if( $_POST ) {
+  $source_word = isset($this->uri[3]) ? urldecode($this->uri[3]) : null;
+  $target_word = isset($_POST['tw']) ? urldecode($_POST['tw']) : null;
+  $source_language_code = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
+  $target_language_code = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
+  if( !$source_word || !$target_word || !$source_language_code || !$target_language_code ) {
+    print '<p>Error adding translation: missing required words and/or languages</p>';
+  } else {
+    $items = array(
+      'source_word' => $source_word,
+      'target_word' => $target_word,
+      'source_language_code' => $source_language_code,
+      'target_language_code' => $target_language_code
+    );
+    $ote->add_to_slush_pile( $items );
+  }
+} // end if _POST
+
+print '<div style="font-size:48pt;">' . htmlentities($word) . '</div>';
 
 if( $s_code && $t_code ) {
-  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>) to '
-  . '<strong>' . $langs[$t_code]['name'] . '</strong> (<code>' . $t_code . '</code>)';
+  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)'
+  . ' to <strong>' . $langs[$t_code]['name'] . '</strong> (<code>' . $t_code . '</code>)';
   $put_s = false;
   $put_t = false;
 } elseif( $s_code && !$t_code) {
-  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)';
+  $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)'
+  . ' to <strong>All languages</strong> (<code>*</code>)';
   $put_s = true;
   $put_t = true;
 } else {
-  $header = '<code>ALL</code>';
+  $header = '<strong>All languages</strong> (<code>*</code>)';
   $put_s = true;
   $put_t = false;
 }
-print '<br /><p class="text-muted">language: ' . $header . '</p>';
-print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
+if( sizeof($r) == 1 ) {
+  $post_s = '';
+} else {
+  $post_s = 's';
+}
+print '<p class="text-muted"><strong><code>' . sizeof($r) . '</code></strong> translation' . $post_s . ': ' . $header . '</p>';
 
 foreach( $r as $w ) {
   print $ote->display_pair(
@@ -123,7 +146,23 @@ foreach( $r as $w ) {
   );
 }
 
-print '</div>';
+print '
+<form method="POST">
+  <div class="row" style="padding:2px;">
+    <div class="col-xs-4 text-right text-muted">&nbsp;</div>
+    <div class="col-xs-1 text-center"><br /> = </div>
+    <div class="col-xs-3 text-left"><br /><input type="text" name="tw" /></div>
+    <div class="col-xs-4 text-left" style="font-size:9pt;"><br />'
+    . $ote->get_languages_pulldown( $name = 'sl',  $selected = $s_code, $class='' )
+    . ' = '
+    . $ote->get_languages_pulldown( $name = 'tl',  $selected = $t_code, $class='' )
+    . '</div>
+  </div>
+</form>
+
+';
+
+print '</div>'; // end main container div
 $this->page_footer();
 
 

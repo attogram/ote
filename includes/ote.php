@@ -164,12 +164,13 @@ class ote
     * Get an HTML pulldown selector filled with all Languages
     * @param  string $name      (optional) Name of the select element
     * @param  string $selected  (optional) Name of option to mark as selected
+    * @param  string $class     (optional) class for the <select> element, defaults to 'form-control'
     * @return string            HTML pulldown selector with all  listed
     */
-  public function get_languages_pulldown( $name = 'language',  $selected = '' )
+  public function get_languages_pulldown( $name = 'language',  $selected = '', $class = 'form-control' )
   {
-    //$this->log->debug("get_languages_pulldown: name=$name selected=$selected");
-    $r = '<select class="form-control" name="' . $name . '">';
+    //$this->log->debug("get_languages_pulldown: name=$name selected=$selected class=$class");
+    $r = '<select class="' . $class . '" name="' . $name . '">';
     $r .= '<option value="">All Languages</option>';
     $langs = $this->get_languages( $orderby='name' );
     foreach( $langs as $lang_code => $lang ) {
@@ -786,6 +787,26 @@ class ote
     print '</div>';
 
   } // end do_import
+
+  /**
+   * add new entry to the slush pile
+   * @params array $items  List of name=value pairs
+   */
+  public function add_to_slush_pile( array $items = array() )
+  {
+    $names = array_keys($items);
+    $values = array_values($items);
+    $sql = 'INSERT INTO slush_pile (' . implode(', ', $names) . ') VALUES (:' . implode(', :', $names) . ')';
+    print '<p> sql: ' . $sql . '</p>';
+
+    $r = $this->db->queryb($sql, $items);
+    if( !$r ) {
+      print '<p>ERROR inserting new translation</p>';
+      return false;
+    }
+    print '<p>New translation added to <a href="../../../slush_pile/">slush pile</a></p>';
+    return true;
+  }
 
   /**
    * HTML display for a single translation word pair
