@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.7
+<?php // Open Translation Engine - navbar template v0.0.8
 
 namespace Attogram;
 
@@ -22,12 +22,11 @@ namespace Attogram;
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
     <ul class="dropdown-menu">
      <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
-<?php /*     <li><a href="<?php print $this->path; ?>/import/"><span  class="icon-s">📥</span><small> Import</small></a></li>  */  ?>
      <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
      <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
-     <li><a href="https://www.patreon.com/attogram"><span     class="icon-s">ⓟ</span><small> OTE @ Patreon</small></a></li>
-     <li><a href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
-     <li><a href="https://github.com/attogram/DAMS"><span     class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
+     <li><a target="_patreon" href="https://www.patreon.com/attogram"><span class="icon-s">ⓟ</span><small> OTE @ Patreon</small></a></li>
+     <li><a target="_ote" href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
+     <li><a target="_dams" href="https://github.com/attogram/DAMS"><span    class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
     </ul>
    </li>
   </ul>
