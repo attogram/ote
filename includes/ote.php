@@ -794,11 +794,13 @@ class ote
    */
   public function add_to_slush_pile( array $items = array() )
   {
+    if( !$items ) {
+      return false;
+    }
     $names = array_keys($items);
     $values = array_values($items);
-    $sql = 'INSERT INTO slush_pile (' . implode(', ', $names) . ') VALUES (:' . implode(', :', $names) . ')';
+    $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ') VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     print '<p> sql: ' . $sql . '</p>';
-
     $r = $this->db->queryb($sql, $items);
     if( !$r ) {
       print '<p>ERROR inserting new translation</p>';
