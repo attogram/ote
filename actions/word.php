@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.7
+<?php // Open Translation Engine - Word Page v0.1.8
 /*
  OTE Word Page
 
@@ -96,25 +96,31 @@ print '<div style="font-size:45pt;">' . htmlentities($word) . '</div>';
 if( $s_code && $t_code ) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>) to '
   . '<strong>' . $langs[$t_code]['name'] . '</strong> (<code>' . $t_code . '</code>)';
+  $put_s = false;
+  $put_t = false;
 } elseif( $s_code && !$t_code) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)';
+  $put_s = true;
+  $put_t = true;
 } else {
   $header = '<code>ALL</code>';
+  $put_s = true;
+  $put_t = false;
 }
 print '<br /><p class="text-muted">language: ' . $header . '</p>';
 print '<p class="text-muted"><code>' . sizeof($r) . '</code> translations:</p>';
 
 foreach( $r as $w ) {
   print $ote->display_pair(
-    $w['s_word'], // * @param  string  $sw   The Source Word
-    $w['sc'],     // * @param  string  $sc   The Source Language Code
-    $w['t_word'], // * @param  string  $tw   The Target Word
-    $w['tc'],     // * @param  string  $tc   The Target Language Code
-    $this->path,  // * @param  string  $path (optional) URL path, defaults to ''
-    ' = ',        // * @param  string  $d    (optional) The Deliminator, defaults to ' = '
-    false,        // * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
-    false         // * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
-  ); // dev todo -- loop urls in /// /sl// /sl/tl/ //tl/ ///
+    $w['s_word'], // The Source Word
+    $w['sc'],     // The Source Language Code
+    $w['t_word'], // The Target Word
+    $w['tc'],     // The Target Language Code
+    $this->path,  // URL path, defaults to ''
+    ' = ',        //  The Deliminator, defaults to ' = '
+    $put_s,       // Put Language Source Code in word URLS, defaults to true
+    $put_t        // Put Language Target Code in word URLs, defaults to false
+  );
 }
 
 print '</div>';
