@@ -147,12 +147,19 @@ foreach( $r as $w ) {
 }
 
 print '
-<form method="POST">
-  <div class="row" style="padding:2px;">
-    <div class="col-xs-4 text-right text-muted">&nbsp;</div>
-    <div class="col-xs-1 text-center"><br /> = </div>
-    <div class="col-xs-3 text-left"><br /><input type="text" name="tw" /></div>
-    <div class="col-xs-4 text-left" style="font-size:9pt;"><br />'
+<div class="row" style="padding:2px;" name="addi" id="addi">
+  <div class="col-xs-5">&nbsp;</div>
+  <div class="col-xs-7 text-muted"><br /><a
+    onclick="$(\'#add\').show();$(\'#addi\').hide();"
+    href="javascript:void(0);"> + add translation</a></div>
+</div>
+
+<form name="add" id="add" method="POST" style="display:none;">
+  <div class="row" style="border:1px solid #eeeeee; padding:2px;">
+    <div class="col-xs-4 text-left" style="font-size:18pt;">' . htmlentities($word) . '</div>
+    <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
+    <div class="col-xs-3 text-left"><input type="text" name="tw" /></div>
+    <div class="col-xs-4 text-left" style="font-size:9pt;">'
     . $ote->get_languages_pulldown( $name = 'sl',  $selected = $s_code, $class='' )
     . ' = '
     . $ote->get_languages_pulldown( $name = 'tl',  $selected = $t_code, $class='' )
