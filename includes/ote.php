@@ -2,13 +2,14 @@
 
 namespace Attogram;
 
-define('OTE_VERSION', '1.0.19-dev');
 
 /**
  * Open Translation Engine (OTE) class
  */
 class ote
 {
+
+  const OTE_VERSION = '1.0.19-dev';
 
   public $db;              // (object) The Attogram Database Object
   public $log;             // (object) PSR3 Logger object
@@ -25,7 +26,7 @@ class ote
   {
     $this->db = $db;
     $this->log = $log;
-    $this->log->debug('START OTE v' . OTE_VERSION);
+    $this->log->debug('START OTE v' . self::OTE_VERSION);
   }
 
   /**
