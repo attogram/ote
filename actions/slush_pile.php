@@ -1,17 +1,39 @@
-<?php // Open Translation Engine - Slush Pile Page v0.0.2
+<?php // Open Translation Engine - Slush Pile Page v0.0.3
 
 namespace Attogram;
-$title = '🛃 Slush Pile';
-$this->page_header($title);
 
+$title = '🛃 Slush Pile';
+
+$this->page_header($title);
 print '<div class="container"><h1 class="squished">' . $title . '</h1>';
 
-$slush = $this->db->query('SELECT * FROM slush_pile ORDER BY id DESC');
+list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
+  $default_limit  = 20,
+  $default_offset = 0,
+  $max_limit      = 1000,
+  $min_limit      = 5
+);
 
-// DEV todo - add pagination
-// DEV todo - merge in display_pair
+$sql = 'SELECT * FROM slush_pile ORDER BY id DESC LIMIT ' . $limit;
+if( $offset ) {
+  $sql .= ", $offset";
+}
+$slush = $this->db->query($sql);
 
-print '<p><code>' . sizeof($slush) . '</code> requests found:</p>';
+$countq = $this->db->query('SELECT count(id) AS count FROM slush_pile');
+if( !$countq ) {
+  $result_count = 0;
+} else {
+  $result_count = $countq[0]['count'];
+}
+
+print $this->db->pager(
+  $result_count,
+  $limit,
+  $offset,
+  $prepend_query_string = ''
+);
+
 foreach( $slush as $s ) {
   //print '<pre>' . print_r($s,1) . '</pre>';
   $date = isset($s['date']) ? htmlentities($s['date']) : '';
