@@ -109,7 +109,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $case_sensitive_search = true;
   }
 
-  print '<div class="container"><h1>Search: <kbd>' . htmlentities($search_word) . '</kbd></h1>';
+  print '<div class="container"><h1 class="squished">Search: <kbd>' . htmlentities($search_word) . '</kbd></h1>';
 
   $source_language_id = $target_language_id = 0;
   if( $s && $s !=  '' ) {

@@ -4,7 +4,7 @@ namespace Attogram;
 
 $this->page_header('Tags');
 
-print '<div class="container"><h1>⛓ Tags</h1></div>';
+print '<div class="container"><h1 class="squished">⛓ Tags</h1></div>';
 
 $this->db->tabler(
   $table = 'tag',

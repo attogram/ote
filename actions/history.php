@@ -6,7 +6,7 @@ $ote = new ote( $this->db, $this->log );
 
 $title = '🔭 History';
 $this->page_header($title);
-print '<div class="container"><h1>' . $title . '</h1>';
+print '<div class="container"><h1 class="squished">' . $title . '</h1>';
 
 $sql = 'SELECT * FROM history ORDER BY date DESC, count DESC';
 $hr = $this->db->query($sql);

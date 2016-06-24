@@ -207,7 +207,7 @@ function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 
   }
 
   $attogram->page_header('🔤 ' . $title);
-  print '<div class="container"><h1>🔤 ' . $title . '</h1>';
+  print '<div class="container"><h1 class="squished">🔤 ' . $title . '</h1>';
   print $attogram->db->pager( $all_count, $limit, $offset );
   print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {

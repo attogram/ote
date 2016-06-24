@@ -32,7 +32,7 @@ if( $_POST ) {
 }
 ?>
 <div class="container">
-  <h1>📥 Import Translations</h1>
+  <h1 class="squished">📥 Import Translations</h1>
   <form action="." method="POST">
 <div class="row">
   <div class="col-xs-4">

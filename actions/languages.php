@@ -10,7 +10,7 @@ $this->page_header('🌐 ' . sizeof($langs) . ' Languages');
 
 ?>
 <div class="container">
- <h1>🌐 <code><?php print sizeof($langs); ?></code> Languages</h1>
+ <h1 class="squished">🌐 <code><?php print sizeof($langs); ?></code> Languages</h1>
 
  <div class="row" style="padding:8px; font-weight:bold; color:#999;">
    <div class="col-sm-3">Language:</div>
