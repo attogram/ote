@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.9
+<?php // Open Translation Engine - Word Page v0.1.10
 /*
  OTE Word Page
 
@@ -97,7 +97,9 @@ if( $_POST ) {
   $source_language_code = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
   $target_language_code = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
   if( !$source_word || !$target_word || !$source_language_code || !$target_language_code ) {
-    print '<p>Error adding translation: missing required words and/or languages</p>';
+    print '<div class="alert alert-danger">'
+    . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+    . '<strong>Error adding translation</strong>: missing required word and/or languages</div>';
   } else {
     $items = array(
       'type' => 'add',
@@ -106,7 +108,17 @@ if( $_POST ) {
       'source_language_code' => $source_language_code,
       'target_language_code' => $target_language_code
     );
-    $ote->add_to_slush_pile( $items );
+    if( $ote->add_to_slush_pile( $items ) ) {
+      print '<div class="alert alert-success">'
+      . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+      . '<strong>Thanks for your submission</strong>'
+      . ' New translation added to the <a href="../../../slush_pile/">Slush Pile</a></div>';
+
+    } else {
+      print '<div class="alert alert-danger">'
+      . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+      . '<strong>Error adding translation</strong></div>';
+    }
   }
 } // end if _POST
 

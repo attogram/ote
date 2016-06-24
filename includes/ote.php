@@ -803,7 +803,8 @@ class ote
 
   /**
    * add new entry to the slush pile
-   * @params array $items  List of name=value pairs
+   * @param array $items  List of name=value pairs
+   * @return bool
    */
   public function add_to_slush_pile( array $items = array() )
   {
@@ -816,10 +817,8 @@ class ote
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     $r = $this->db->queryb($sql, $items);
     if( !$r ) {
-      print '<p>ERROR inserting new translation</p>';
       return false;
     }
-    print '<p>New translation added to <a href="../../../slush_pile/">slush pile</a></p>';
     return true;
   }
 
