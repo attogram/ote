@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.0.3
+<?php // Open Translation Engine - Slush Pile Page v0.0.4
 
 namespace Attogram;
 
@@ -7,8 +7,10 @@ $title = '🛃 Slush Pile';
 $this->page_header($title);
 print '<div class="container"><h1 class="squished">' . $title . '</h1>';
 
-list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
-  $default_limit  = 20,
+$ote = new ote( $this->db, $this->log );
+
+list( $limit, $offset ) = $ote->db->get_set_limit_and_offset(
+  $default_limit  = 15,
   $default_offset = 0,
   $max_limit      = 1000,
   $min_limit      = 5
@@ -20,15 +22,8 @@ if( $offset ) {
 }
 $slush = $this->db->query($sql);
 
-$countq = $this->db->query('SELECT count(id) AS count FROM slush_pile');
-if( !$countq ) {
-  $result_count = 0;
-} else {
-  $result_count = $countq[0]['count'];
-}
-
 print $this->db->pager(
-  $result_count,
+  $ote->get_count_slush_pile(),
   $limit,
   $offset,
   $prepend_query_string = ''

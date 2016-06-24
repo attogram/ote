@@ -789,6 +789,19 @@ class ote
   } // end do_import
 
   /**
+   * get count of entries in slush pile
+   * @return int
+   */
+  public function get_count_slush_pile()
+  {
+    $r = $this->db->query('SELECT count(id) AS count FROM slush_pile');
+    if( !$r ) {
+      return 0;
+    }
+    return $r[0]['count'];
+  }
+
+  /**
    * add new entry to the slush pile
    * @params array $items  List of name=value pairs
    */
@@ -830,25 +843,21 @@ class ote
     $tw = htmlentities($tw);
     $sn = $this->get_language_name_from_code($sc);
     $tn = $this->get_language_name_from_code($tc);
-    $r = '
-<style>
-a { color: inherit; }
-</style>
-<div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
-  <div class="col-xs-4 text-left">
-    <a href="' . $s_url . '">' . $sw . '</a>
-  </div>
-  <div class="col-xs-1 text-center">
-    ' . $d . '
-  </div>
-  <div class="col-xs-4 text-left">
-    <a href="' . $t_url . '">' . $tw . '</a>
-  </div>
-  <div class="col-xs-3 text-left text-nowrap" style="font-size:9pt;">
-    <small>' . "$sn $d $tn" . '</small>
-  </div>
-</div>
-    ';
+    $r = '<style>a { color: inherit; }</style>
+    <div class="row" style="font-size:18pt; border:1px solid #eeeeee; padding:2px;">
+      <div class="col-xs-4 text-left">
+        <a href="' . $s_url . '">' . $sw . '</a>
+      </div>
+      <div class="col-xs-1 text-center">
+        ' . $d . '
+      </div>
+      <div class="col-xs-4 text-left">
+        <a href="' . $t_url . '">' . $tw . '</a>
+      </div>
+      <div class="col-xs-3 text-left text-nowrap" style="font-size:9pt;">
+        <small>' . "$sn $d $tn" . '</small>
+      </div>
+    </div>';
     return $r;
   } // end function display_pair
 
