@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.0.4
+<?php // Open Translation Engine - Slush Pile Page v0.0.5
 
 namespace Attogram;
 
@@ -32,6 +32,7 @@ print $this->db->pager(
 foreach( $slush as $s ) {
   //print '<pre>' . print_r($s,1) . '</pre>';
   $date = isset($s['date']) ? htmlentities($s['date']) : '';
+  $type = isset($s['type']) ? htmlentities($s['type']) : '';
   $source_word = isset($s['source_word']) ? htmlentities($s['source_word']) : '';
   $source_word_url = '../word///' . urlencode($s['source_word']);
   $source_language_code = isset($s['source_language_code']) ? htmlentities($s['source_language_code']) : '';
@@ -39,7 +40,7 @@ foreach( $slush as $s ) {
   $target_word_url = '../word///' . urlencode($s['target_word']);
   $target_language_code = isset($s['target_language_code']) ? htmlentities($s['target_language_code']) : '';
   print '<div class="row" style="border:solid 1px #ccc;padding:4px;">'
-  . '<div class="col-sm-3">'  . $date . '</div>'
+  . '<div class="col-sm-3">'  . $date . ': <strong>' . $type . '</strong>:</div>'
   . '<div class="col-sm-3"><a href="' . $source_word_url . '">' . $source_word . '</a></div>'
   . '<div class="col-sm-3"> = <a href="' . $target_word_url . '">' . $target_word . '</a></div>'
   . '<div class="col-sm-3">' . "<code>$source_language_code</code> = <code>$target_language_code</code></div>"

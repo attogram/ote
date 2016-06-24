@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.8
+<?php // Open Translation Engine - Word Page v0.1.9
 /*
  OTE Word Page
 
@@ -100,6 +100,7 @@ if( $_POST ) {
     print '<p>Error adding translation: missing required words and/or languages</p>';
   } else {
     $items = array(
+      'type' => 'add',
       'source_word' => $source_word,
       'target_word' => $target_word,
       'source_language_code' => $source_language_code,

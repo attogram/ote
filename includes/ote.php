@@ -812,8 +812,8 @@ class ote
     }
     $names = array_keys($items);
     $values = array_values($items);
-    $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ') VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
-    print '<p> sql: ' . $sql . '</p>';
+    $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
+    . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     $r = $this->db->queryb($sql, $items);
     if( !$r ) {
       print '<p>ERROR inserting new translation</p>';

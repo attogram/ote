@@ -1,9 +1,10 @@
--- Open Translation Engine - slush_pile table v0.0.1
+-- Open Translation Engine - slush_pile table v0.0.2
 
 CREATE TABLE IF NOT EXISTS 'slush_pile' (
   'id'                   INTEGER PRIMARY KEY,
   'user_id'              INTEGER NOT NULL DEFAULT '0',
   'date'                 NUMERIC NOT NULL DEFAULT '0000-00-00', -- The Date in format: YYYY-MM-DD
+  'type'                 TEXT, -- Type: add, delete
   'source_word'          TEXT,
   'source_word_id'       INTEGER NOT NULL DEFAULT '0',
   'source_language_id'   INTEGER NOT NULL DEFAULT '0',
