@@ -371,7 +371,7 @@ class ote
    * @param  int $sl   Source Language ID
    * @param  int $tw   Target Word ID
    * @param  int $tl   Target Language ID
-   * @return boolean       true if word2word entry exists, else false
+   * @return boolean   true if word2word entry exists, else false
    */
   public function get_word2word( $sw, $sl, $tw, $tl )
   {
@@ -863,6 +863,30 @@ class ote
     $type = $spe[0]['type'];
     switch( $type ) {
       case 'add': // add word2word translation
+        $sw = $this->get_id_from_word(          $spe[0]['source_word'] );          // Source Word ID
+        $sl = $this->get_language_id_from_code( $spe[0]['source_language_code'] ); // Source Language ID
+        $tw = $this->get_id_from_word(          $spe[0]['target_word'] );          // Target Word ID
+        $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
+        if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
+          $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
+          $this->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . htmlentities($id));
+          $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . htmlentities($id) . ')';
+          return false;
+        }
+        if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
+          if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
+            $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
+            return true;
+          }
+          $this->log->error('accept_slush_pile_entry: Can not insert reverse word2word entry');
+          $_SESSION['error'] = 'Failed to insert new reverse translation';
+          return false;
+        }
+        $this->log->error('accept_slush_pile_entry: Can not insert word2word entry');
+        $_SESSION['error'] = 'Failed to insert new translation';
+        return false;
+        break;
+
       case 'delete': // delete word2word translation
       default: // unknown type
         $this->log->error('accept_slush_pile_entry: id=' . htmlentities($id) . ' INVALID type=' . htmlentities($type));
@@ -871,7 +895,9 @@ class ote
         break;
     } // end switch on type
 
-    // is ADD wor2word (translation) ?
+
+
+
     // get ID's of words and languages
     // check if word2word entry already exists
     // Add forward word2word entry
@@ -882,20 +908,12 @@ class ote
 
     /*
 
-    if( !$spi ) {
-      print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-      . '<strong>Error</strong> - can not get Slush Pile ID #' . htmlentities($slush_id) . '</div>';
-      break;
-    }
 
     // dev = use ote->insert_word2word
     $sql_f = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
     $sql_r = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :tw, :tl, :sw, :sl )';
     $bind = array();
-    $bind['sw'] = $ote->get_id_from_word(          $spi[0]['source_word'] );          // Source Word ID
-    $bind['sl'] = $ote->get_language_id_from_code( $spi[0]['source_language_code'] ); // Source Language ID
-    $bind['tw'] = $ote->get_id_from_word(          $spi[0]['target_word'] );          // Target Word ID
-    $bind['tl'] = $ote->get_language_id_from_code( $spi[0]['target_language_code'] ); // Target Language ID
+
     if( $this->db->queryb( $sql_f, $bind ) ) {
       if( $this->db->queryb( $sql_r, $bind ) ) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
