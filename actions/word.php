@@ -111,7 +111,7 @@ if( $_POST ) {
     if( $ote->add_to_slush_pile( $items ) ) {
       print '<div class="alert alert-success">'
       . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-      . '<strong>Thanks for your submission</strong>'
+      . '<strong>Thanks for your submission.</strong>'
       . ' New translation added to the <a href="../../../slush_pile/">Slush Pile</a></div>';
 
     } else {
