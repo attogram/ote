@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.0.11
+<?php // Open Translation Engine - Home Page v0.0.12
 
 namespace Attogram;
 
@@ -11,7 +11,7 @@ $this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
  <div class="row">
   <div class="col-xs-12 text-center">
    <h1 class="squished">Open Translation Engine</h1>
-   <p>an open source, open content <strong>translation dictionary manager</strong> for the web.</p>
+   <p>an open source <strong>translation dictionary manager</strong> for the open content web.</p>
   </div>
  </div>
  <div class="row">
