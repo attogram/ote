@@ -816,12 +816,103 @@ class ote
     $values = array_values($items);
     $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
-    $r = $this->db->queryb($sql, $items);
-    if( !$r ) {
+    if( $this->db->queryb( $sql, $items ) ) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * delete an entry from the slush pile
+   * @param  int  $id  The slush_pile.id to delete
+   * @return bool
+   */
+  public function delete_from_slush_pile( $id )
+  {
+    // does slush pile entry exist?
+    if( !$this->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $id ) ) ) {
+      $this->log->error('delete_from_slush_pile: Not Found id=' . htmlentities($id));
+      $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . htmlentities($id) . ')';
       return false;
     }
-    return true;
+    $sql = 'DELETE FROM slush_pile WHERE id = :id';
+    if( $this->db->queryb( $sql, array( 'id' => $id )) ) {
+      return true;
+    }
+    $this->log->error('delete_from_slush_pile: Delete failed for id=' . htmlentities($id));
+    $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . htmlentities($id) . ')';
+    return false;
   }
+
+  /**
+   * accept an entry from the slush pile for entry into the dictionary
+   * @param  int  $id  The slush_pile.id to accept
+   * @return bool
+   */
+  public function accept_slush_pile_entry( $id )
+  {
+    // get slush_pile entry
+    $sql = 'SELECT * FROM slush_pile WHERE id = :id LIMIT 1';
+    $spe = $this->db->query( $sql, array( 'id' => $id ) );
+    if( !$spe ) {
+      $this->log->error('accept_slush_pile_entry: can not find id=' . htmlentities($id) );
+      $_SESSION['error'] = 'Can not find requested slush pile entry';
+      return false;
+    }
+
+    $type = $spe[0]['type'];
+    switch( $type ) {
+      case 'add': // add word2word translation
+      case 'delete': // delete word2word translation
+      default: // unknown type
+        $this->log->error('accept_slush_pile_entry: id=' . htmlentities($id) . ' INVALID type=' . htmlentities($type));
+        $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . htmlentities($id) . ')';
+        return false;
+        break;
+    } // end switch on type
+
+    // is ADD wor2word (translation) ?
+    // get ID's of words and languages
+    // check if word2word entry already exists
+    // Add forward word2word entry
+    // Add reverse word2word entry
+    // delete slush_pile entry
+
+    return false;
+
+    /*
+
+    if( !$spi ) {
+      print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+      . '<strong>Error</strong> - can not get Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+      break;
+    }
+
+    // dev = use ote->insert_word2word
+    $sql_f = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
+    $sql_r = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :tw, :tl, :sw, :sl )';
+    $bind = array();
+    $bind['sw'] = $ote->get_id_from_word(          $spi[0]['source_word'] );          // Source Word ID
+    $bind['sl'] = $ote->get_language_id_from_code( $spi[0]['source_language_code'] ); // Source Language ID
+    $bind['tw'] = $ote->get_id_from_word(          $spi[0]['target_word'] );          // Target Word ID
+    $bind['tl'] = $ote->get_language_id_from_code( $spi[0]['target_language_code'] ); // Target Language ID
+    if( $this->db->queryb( $sql_f, $bind ) ) {
+      if( $this->db->queryb( $sql_r, $bind ) ) {
+        print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+        . '<strong>Accepted</strong> - New translation added.</div>';
+      } else {
+        $this->log->error('slush_pile.php: reverse word2word insert FAILED');
+        print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+        . '<strong>Error</strong> - can not add new reverse translation from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+      }
+    } else {
+      $this->log->error('slush_pile.php: forward word2word insert FAILED');
+      print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+      . '<strong>Error</strong> - can not add new forward translation from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+    }
+
+    */
+  } // end function accept_slush_pile_entry()
 
   /**
    * HTML display for a single translation word pair

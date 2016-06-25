@@ -1,39 +1,45 @@
-<?php // Open Translation Engine - Slush Pile Page v0.0.8
+<?php // Open Translation Engine - Slush Pile Page v0.0.9
 
 namespace Attogram;
 
+$ote = new ote( $this->db, $this->log );
+
+$this->page_header('🛃 Slush Pile');
+print '<div class="container">';
+
 if( $_GET ) {
-  if(
-    !isset($_GET['a']) || !( $_GET['a'] == 'a' || $_GET['a'] == 'd' )
-    || !isset($_GET['i']) || !$_GET['i'] || !is_numeric($_GET['i'])
+  if( !isset($_GET['a']) || !( $_GET['a'] == 'a' || $_GET['a'] == 'd' )
+   || !isset($_GET['i']) || !$_GET['i'] || !is_numeric($_GET['i'])
   ) {
     $this->error404('Slush pile options not slushable.');
   }
   $action = urldecode($_GET['a']);
   $slush_id = urldecode($_GET['i']);
   switch( $action ) {
-    case 'a':
-      print "<p>ACTION:$action slush_id:$slush_id sql:$sql bind:" . print_r($bind,1) . "<p>";
-      break;
-    case 'd':
-      $sql = 'DELETE FROM slush_pile WHERE id = :id';
-      $bind['id'] = $slush_id;
-      if( $this->db->queryb( $sql, $bind ) ) {
+    case 'a': // Accept slush pile entry
+      if( $ote->accept_slush_pile_entry( $slush_id ) ) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Deleted</strong> Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+        . '<strong>Accepted</strong>: New translation added from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
       } else {
         print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Error</strong> - can not delete Slush Pile ID #' . htmlentities($slush_id) . '</div>';      }
+        . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';
+        unset($_SESSION['error']);
+      }
+      break;
+    case 'd':  // Delete slush pile entry
+      if( $ote->delete_from_slush_pile( $slush_id ) ) {
+        print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+        . '<strong>Deleted</strong>: Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+      } else {
+        print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+        . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';
+        unset($_SESSION['error']);
+      }
       break;
   }
 } // end if _GET
 
-
-$this->page_header('🛃 Slush Pile');
-print '<div class="container">';
 print '<h1 class="squished"><a href="./" style="color:inherit;text-decoration:none;">🛃</a> Slush Pile</h1>';
-
-$ote = new ote( $this->db, $this->log );
 
 list( $limit, $offset ) = $ote->db->get_set_limit_and_offset(
   $default_limit  = 15,
