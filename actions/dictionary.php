@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.5
+<?php // Open Translation Engine - Dictionary Page v0.1.6
 /*
  OTE Dictionary Page
 
@@ -28,7 +28,7 @@ namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
 
-$rel_url = $this->path . '/' . $this->uri[0] . '/';
+$rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
 
@@ -43,8 +43,8 @@ if( sizeof($this->uri) == 1 ) { // list all dictionaries
     exit;
 }
 
-$s_code = isset($this->uri[1]) ? $this->uri[1] : '';
-$t_code = isset($this->uri[2]) ? $this->uri[2] : '';
+$s_code = isset($this->uri[1]) ? urldecode($this->uri[1]) : '';
+$t_code = isset($this->uri[2]) ? urldecode($this->uri[2]) : '';
 
 if( $s_code && $t_code && ($s_code == $t_code) ) { // Error - Source and Target language code the same
   $this->error404('Source and Target language the same');

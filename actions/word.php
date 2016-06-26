@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.11
+<?php // Open Translation Engine - Word Page v0.1.12
 /*
  OTE Word Page
 
@@ -37,11 +37,11 @@ $ote = new ote( $this->db, $this->log );
 $langs = $ote->get_languages();
 
 // Check Languages exist
-$s_code = $this->uri[1];
+$s_code = urldecode($this->uri[1]);
 if( $s_code && !isset($langs[$s_code]) ) {
   $this->error404('Source Language not found yet');
 }
-$t_code = $this->uri[2];
+$t_code = urldecode($this->uri[2]);
 if( $t_code && !isset($langs[$t_code]) ) {
   $this->error404('Target Language not found yet');
 }
