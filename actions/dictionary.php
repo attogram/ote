@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.4
+<?php // Open Translation Engine - Dictionary Page v0.1.5
 /*
  OTE Dictionary Page
 
@@ -83,7 +83,16 @@ print $this->db->pager( $d_all, $limit, $offset );
 
 
 foreach( $d as $i ) {
-  print $ote->display_pair( $i['s_word'], $s_code, $i['t_word'], $t_code,  $this->path, ' = ', true, false );
+  print $ote->display_pair(
+    $i['s_word'], //* @param  string  $sw   The Source Word
+    $i['sc'], //* @param  string  $sc   The Source Language Code
+    $i['t_word'], //* @param  string  $tw   The Target Word
+    $i['tc'], //* @param  string  $tc   The Target Language Code
+    $this->path, //* @param  string  $path (optional) URL path, defaults to ''
+    ' = ', //* @param  string  $d    (optional) The Deliminator, defaults to ' = '
+    true, //* @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
+    false //* @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
+  );
 }
 
 print '</p></div>';
