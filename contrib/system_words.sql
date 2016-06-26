@@ -1,0 +1,33 @@
+-- Open Translation Engine - User Interface - English v0.0.1
+--
+INSERT INTO 'word' (word) VALUES ('Open Translation Engine');
+INSERT INTO 'word' (word) VALUES ('a collaborative translation dictionary manager for the open content web');
+INSERT INTO 'word' (word) VALUES ('translation');
+INSERT INTO 'word' (word) VALUES ('translations');
+INSERT INTO 'word' (word) VALUES ('language');
+INSERT INTO 'word' (word) VALUES ('languages');
+INSERT INTO 'word' (word) VALUES ('dictionary');
+INSERT INTO 'word' (word) VALUES ('dictionaries');
+INSERT INTO 'word' (word) VALUES ('word');
+INSERT INTO 'word' (word) VALUES ('words');
+INSERT INTO 'word' (word) VALUES ('export');
+INSERT INTO 'word' (word) VALUES ('history');
+INSERT INTO 'word' (word) VALUES ('about');
+INSERT INTO 'word' (word) VALUES ('submissions');
+INSERT INTO 'word' (word) VALUES ('admin');
+INSERT INTO 'word' (word) VALUES ('user');
+INSERT INTO 'word' (word) VALUES ('users');
+INSERT INTO 'word' (word) VALUES ('import');
+INSERT INTO 'word' (word) VALUES ('tag');
+INSERT INTO 'word' (word) VALUES ('tags');
+INSERT INTO 'word' (word) VALUES ('debug');
+INSERT INTO 'word' (word) VALUES ('search');
+INSERT INTO 'word' (word) VALUES ('login');
+INSERT INTO 'word' (word) VALUES ('username');
+INSERT INTO 'word' (word) VALUES ('password');
+INSERT INTO 'word' (word) VALUES ('logoff');
+INSERT INTO 'word' (word) VALUES ('code');
+INSERT INTO 'word' (word) VALUES ('to');
+INSERT INTO 'word' (word) VALUES ('source');
+INSERT INTO 'word' (word) VALUES ('target');
+INSERT INTO 'word' (word) VALUES ('slush pile');
