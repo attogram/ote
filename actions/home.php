@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.0.12
+<?php // Open Translation Engine - Home Page v0.1.0
 
 namespace Attogram;
 
@@ -33,4 +33,35 @@ $this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
 </div>
 <?php
 
+if( !$this->is_admin() ) {
+  $this->page_footer();
+  exit;
+}
+
+// admin only menu
+?>
+<br /><hr />
+<div class="container">
+ <div class="row">
+  <div class="col-xs-2"></div>
+  <div class="col-xs-10 col-sm-5">
+   <p><strong>Admin:</strong></p>
+   <h3><a href="user-admin/"     >👥 <code><?php print $this->db->get_table_count('user'); ?></code> Users</a></h3>
+   <h3><a href="import/"         >📥 Import Translations</a></h3>
+   <h3><a href="languages-admin/">🌐 Languages Admin</a></h3>
+   <h3><a href="tags-admin/"     >⛓ Tags Admin</a></h3>
+  </div>
+  <div class="col-xs-2"></div>
+  <div class="col-xs-10 col-sm-5">
+   <p><strong>Debug:</strong></p>
+   <h4><a href="info/"          >🚀 Site Information</a></h4>
+   <h4><a href="check.php"      >🔬 Install check</a></h4>
+   <h4><a href="db-admin/"      >🔧 DB admin</a></h4>
+   <h4><a href="db-tables/"     >📜 DB tables</a></h4>
+   <h4><a href="find_3rd_level/">🔦 Find 3rd levels</a></h4>
+
+  </div>
+ </div>
+</div>
+<?php
 $this->page_footer();
