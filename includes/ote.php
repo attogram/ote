@@ -595,6 +595,12 @@ class ote
   public function insert_history( $word, $sl = 0, $tl = 0 )
   {
     $now = gmdate('Y-m-d');
+    if( !$sl || !is_int($sl) ) {
+      $sl = 0;
+    }
+    if( !$tl || !is_int($tl) ) {
+      $tl = 0;
+    }
     $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . htmlentities($word) );
 
 
