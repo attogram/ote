@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.1.0
+<?php // Open Translation Engine - Search Page v0.1.1
 
 // dev todo - pagination of search results
 
@@ -65,7 +65,7 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
     &nbsp; &nbsp; &nbsp;
     <label class="checkbox-inline">
       <input name="c" type="checkbox" value="c"<?php print $c_default; ?>>🔠 Case Sensitive
-    </lable>
+    </label>
   </div>
 </div>
  <div class="row">
