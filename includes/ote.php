@@ -967,19 +967,19 @@ class ote
     $edit_uid = md5($sw . $sc . $tw . $tc);
     $r = '<style>a { color: inherit; }</style>
     <div class="row" style="border:1px solid #ccc;margin:2px;">
-      <div class="col-xs-12 col-sm-2">
+      <div class="col-xs-12 col-sm-2 text-right">
        <code><small>' . $sn . '</small></code>
       </div>
-      <div class="col-xs-6 col-sm-3" style="font-size:18px;">
+      <div class="col-xs-6 col-sm-3 text-right" style="font-size:18px;">
          <a href="' . $s_url . '">' . $sw . '</a>
       </div>
-      <div class="col-xs-6 col-sm-3" style="font-size:18px;">
+      <div class="col-xs-6 col-sm-3 text-left" style="font-size:18px;">
         ' . $d . ' <a href="' . $t_url . '">' . $tw . '</a>
       </div>
-      <div class="col-xs-8 col-sm-2">
+      <div class="col-xs-8 col-sm-2 text-left">
        <code><small>' . $tn . '</small></code>
       </div>
-      <div class="col-xs-4 col-sm-2 text-right">
+      <div class="col-xs-4 col-sm-2 text-center">
         <a name="editi' . $edit_uid . '" id="editi' . $edit_uid . '" href="javascript:void(0);"
           onclick="$(\'#edit' . $edit_uid . '\').show();$(\'#editi' . $edit_uid . '\').hide();">🔧</a>
         <form name="edit' . $edit_uid . '" id="edit' . $edit_uid . '" method="POST" style="display:none;">
