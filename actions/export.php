@@ -21,7 +21,7 @@ namespace Attogram;
 
 $ote = new ote($this->db, $this->log);
 
-$rel_url = $this->path . '/' . $this->uri[0] . '/';
+$rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
     $this->page_header('Export Translations');
@@ -45,8 +45,8 @@ if( !isset($this->uri[2]) || !$this->uri[2] ) {
   header("Location: $rel_url");
 }
 
-$s_code = $this->uri[1];
-$t_code = $this->uri[2];
+$s_code = urldecode($this->uri[1]);
+$t_code = urldecode($this->uri[2]);
 
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
   header("Location: $rel_url");
