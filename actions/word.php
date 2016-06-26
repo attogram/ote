@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.1.10
+<?php // Open Translation Engine - Word Page v0.1.11
 /*
  OTE Word Page
 
@@ -112,7 +112,7 @@ if( $_POST ) {
       print '<div class="alert alert-success">'
       . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
       . '<strong>Thanks for your submission.</strong>'
-      . ' New translation added to the <a href="../../../slush_pile/">Slush Pile</a></div>';
+      . ' New translation added to the <a target="_slush" href="../../../slush_pile/">Slush Pile</a></div>';
 
     } else {
       print '<div class="alert alert-danger">'

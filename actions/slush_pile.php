@@ -19,7 +19,8 @@ if( $_GET ) {
     case 'a': // Accept slush pile entry
       if( $ote->accept_slush_pile_entry( $slush_id ) ) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Accepted</strong>: New translation added from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
+        . '<strong>Accepted</strong>: ' . $_SESSION['result'] . '</div>';
+        unset($_SESSION['result']);
       } else {
         print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
         . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';

@@ -876,6 +876,12 @@ class ote
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
           if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
             $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
+            $_SESSION['result'] = 'Added new translation: '
+            . ' <code>' . htmlentities($spe[0]['source_language_code']) . '</code> '
+            . '<a href="../word/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_word']) . '">' . htmlentities($spe[0]['source_word']) . '</a>'
+            . ' = '
+            . '<a href="../word/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_word']) . '">' . htmlentities($spe[0]['target_word']) . '</a>'
+            . ' <code>' . htmlentities($spe[0]['target_language_code']) . '</code>';
             return true;
           }
           $this->log->error('accept_slush_pile_entry: Can not insert reverse word2word entry');
