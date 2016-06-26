@@ -1,6 +1,6 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.4 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.5 )
 
 [![OTE Introduction](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.png)
 
@@ -20,6 +20,7 @@ Install OTE via composer
 * TEST basic setup by loading `check.php` in a web browser.   
 * If check.php reports errors with .htaccess, EDIT `public/.htaccess`, set FallbackResource and ErrorDocument's to the full web path to your `public/index.php`
 * COPY `public/config.sample.php` to `public/config.php` and edit your site options.
+* make sure the database directory `your-install-dir/db` is WRITEABLE by the web server.
 
 Install OTE manually
 ===
@@ -33,6 +34,7 @@ Install OTE manually
 * TEST basic setup by loading `check.php` in a web browser.   
 * If check.php reports errors with .htaccess, EDIT `public/.htaccess`, set FallbackResource and ErrorDocument's to the full web path to your `public/index.php`
 * COPY `public/config.sample.php` to `public/config.php` and edit your site options.
+* make sure the database directory `your-install-dir/db` is WRITEABLE by the web server.
 
 Misc
 ===
