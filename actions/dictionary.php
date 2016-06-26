@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.6
+<?php // Open Translation Engine - Dictionary Page v0.1.7
 /*
  OTE Dictionary Page
 
@@ -78,9 +78,7 @@ print '<div class="container"><h1 class="squished">📚 ' . $title . '</h1>';
 $d_all = $ote->get_dictionary_translations_count( $s_id, $t_id );
 $d = $ote->get_dictionary( $s_id, $t_id, $limit, $offset );
 
-print '<p><code>' . $d_all . '</code> translations:</p>';
 print $this->db->pager( $d_all, $limit, $offset );
-
 
 foreach( $d as $i ) {
   print $ote->display_pair(
