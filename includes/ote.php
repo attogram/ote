@@ -2,7 +2,6 @@
 
 namespace Attogram;
 
-
 /**
  * Open Translation Engine (OTE) class
  */
@@ -899,7 +898,7 @@ class ote
         return false;
         break;
 
-      case 'delete': // delete word2word translation
+      case 'delete': // DEV TODO -- delete word2word translation
       default: // unknown type
         $this->log->error('accept_slush_pile_entry: id=' . htmlentities($id) . ' INVALID type=' . htmlentities($type));
         $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . htmlentities($id) . ')';
@@ -907,41 +906,8 @@ class ote
         break;
     } // end switch on type
 
-
-
-
-    // get ID's of words and languages
-    // check if word2word entry already exists
-    // Add forward word2word entry
-    // Add reverse word2word entry
-    // delete slush_pile entry
-
     return false;
 
-    /*
-
-
-    // dev = use ote->insert_word2word
-    $sql_f = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
-    $sql_r = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :tw, :tl, :sw, :sl )';
-    $bind = array();
-
-    if( $this->db->queryb( $sql_f, $bind ) ) {
-      if( $this->db->queryb( $sql_r, $bind ) ) {
-        print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Accepted</strong> - New translation added.</div>';
-      } else {
-        $this->log->error('slush_pile.php: reverse word2word insert FAILED');
-        print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Error</strong> - can not add new reverse translation from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
-      }
-    } else {
-      $this->log->error('slush_pile.php: forward word2word insert FAILED');
-      print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-      . '<strong>Error</strong> - can not add new forward translation from Slush Pile ID #' . htmlentities($slush_id) . '</div>';
-    }
-
-    */
   } // end function accept_slush_pile_entry()
 
   /**
