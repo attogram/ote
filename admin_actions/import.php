@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Import Page v0.1.0
+<?php // Open Translation Engine - Import Page v0.1.1
 
 namespace Attogram;
 
-ob_end_clean(); // turn off attogram ob_gzhandler
+//ob_end_clean(); // turn off attogram ob_gzhandler // errors on php 5.3.3
 
 $this->page_header('📥 Import Translations');
 
