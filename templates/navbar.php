@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.8
+<?php // Open Translation Engine - navbar template v0.0.9
 
 namespace Attogram;
 
@@ -25,9 +25,9 @@ namespace Attogram;
      <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
      <li><a href="<?php print $this->path; ?>/slush_pile/"><span class="icon-s">🛃</span><small> Slush Pile</small></a></li>
      <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
-     <li><a target="_patreon" href="https://www.patreon.com/attogram"><span class="icon-s">ⓟ</span><small> OTE @ Patreon</small></a></li>
-     <li><a target="_ote" href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
-     <li><a target="_dams" href="https://github.com/attogram/DAMS"><span    class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
+     <li><a target="patreon" href="https://www.patreon.com/attogram"><span class="icon-s">ⓟ</span><small> OTE @ Patreon</small></a></li>
+     <li><a target="ote" href="https://github.com/attogram/ote"><span      class="icon-s">🐙</span><small> OTE @ GitHub</small></a></li>
+     <li><a target="dams" href="https://github.com/attogram/DAMS"><span    class="icon-s">🆓</span><small> Open Content Dictionaries (DAMS)</small></a></li>
     </ul>
    </li>
   </ul>
