@@ -79,26 +79,24 @@ else
   $UNZIP -d $INSTALL_CACHE $INSTALL_CACHE/$OTE_FILE
 fi
 
-
 echo ----------------------
+echo "Creating Final Install to $INSTALL_DIR:"
+$CP $INSTALL_CACHE/$ATTOGRAM_DIR/* $INSTALL_DIR
 echo "Install Attogram Framework Vendor package"
-$CP $INSTALL_CACHE/$ATTOGRAM_VENDOR_DIR/vendor $INSTALL_CACHE/$ATTOGRAM_DIR/vendor
+$CP $INSTALL_CACHE/$ATTOGRAM_VENDOR_DIR/vendor $INSTALL_CACHE/vendor
 echo "Installing Open Translation Engine module"
-$CP $INSTALL_CACHE/$OTE_DIR $INSTALL_CACHE/$ATTOGRAM_DIR/modules/ote
+$CP $INSTALL_CACHE/$OTE_DIR $INSTALL_CACHE/modules/ote
 echo "Creating Attogram config"
-$CP $INSTALL_CACHE/$ATTOGRAM_DIR/public/config.sample.php $INSTALL_CACHE/$ATTOGRAM_DIR/public/config.php
+$CP $INSTALL_CACHE/public/config.sample.php $INSTALL_CACHE/public/config.ph
 echo "Making database directory writeable"
-chmod 777 $INSTALL_CACHE/$ATTOGRAM_DIR/db
+chmod 777 $INSTALL_DIR/db
 
 echo ----------------------
-echo "Creating:"
-$CP $INSTALL_CACHE/$ATTOGRAM_DIR $INSTALL_DIR
-
-echo ----------------------
-echo "Initialization done."
+echo "DONE:"
 echo "Attogram Install Directory: $INSTALL_DIR"
 echo "Attogram Config: $INSTALL_DIR/public/config.php"
 echo "Open Translation Engine module: $INSTALL_DIR/modules/ote/"
+echo "Database directory: $INSTALL_DIR/db/"
 echo
 echo "TODO: set web server home as: $INSTALL_DIR/public"
 echo "TODO: edit $INSTALL_DIR/public/.htaccess"
