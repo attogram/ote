@@ -1,4 +1,4 @@
-echo "Open Translation Engine - Manual Install Script for unix platforms - v0.0.2"
+echo "Open Translation Engine - Manual Install Script for unix platforms - v0.0.3"
 
 INSTALL_DIR="./ote-test" # no trailing slash
 INSTALL_CACHE="./install-cache" # no trailing slash
@@ -15,9 +15,9 @@ OTE_ZIP="https://github.com/attogram/ote/archive/master.zip"
 OTE_FILE="ote.zip"
 OTE_DIR="ote-master" # no trailing slash
 
-UNZIP="unzip" # -q
-WGET="wget" # --no-verbose
-CP="cp --recursive --verbose" # --verbose
+UNZIP="unzip -q" # -q
+WGET="wget --no-verbose" # --no-verbose
+CP="cp --recursive" # --verbose
 
 echo ----------------------
 if [ ! -d "$INSTALL_CACHE" ];
@@ -80,15 +80,15 @@ else
 fi
 
 echo ----------------------
-echo "Creating Final Install to $INSTALL_DIR:"
+echo "Copying Core Attogram Framework to: $INSTALL_DIR:"
 $CP $INSTALL_CACHE/$ATTOGRAM_DIR/* $INSTALL_DIR
-echo "Install Attogram Framework Vendor package"
-$CP $INSTALL_CACHE/$ATTOGRAM_VENDOR_DIR/vendor $INSTALL_CACHE/vendor
-echo "Installing Open Translation Engine module"
-$CP $INSTALL_CACHE/$OTE_DIR $INSTALL_CACHE/modules/ote
-echo "Creating Attogram config"
-$CP $INSTALL_CACHE/public/config.sample.php $INSTALL_CACHE/public/config.ph
-echo "Making database directory writeable"
+echo "Creating Attogram config file: $INSTALL_DIR/public/config.php"
+$CP $INSTALL_DIR/public/config.sample.php $INSTALL_DIR/public/config.php
+echo "Install Attogram Framework Vendor package to: $INSTALL_DIR/vendor"
+$CP $INSTALL_CACHE/$ATTOGRAM_VENDOR_DIR/vendor $INSTALL_DIR/vendor
+echo "Installing Open Translation Engine to: $INSTALL_DIR/modules/ote"
+$CP $INSTALL_CACHE/$OTE_DIR $INSTALL_DIR/modules/ote
+echo "Making database directory writeable: $INSTALL_DIR/db"
 chmod 777 $INSTALL_DIR/db
 
 echo ----------------------
