@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.1.0
+<?php // Open Translation Engine - Export Page v0.1.1
 /*
  OTE Export Page
 
@@ -75,7 +75,11 @@ print "# deliminator: $sep\n";
 print "#\n";
 print "# export from: " . $this->get_site_url() . "/\n";
 print '# export time: ' . gmdate('r') . " UTC\n";
-print "#\n";
+print '#' . "\n";
+print '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . "\n";
+print '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . "\n";
+print '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . "\n";
+print "#\n";  
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
