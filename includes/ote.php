@@ -8,7 +8,7 @@ namespace Attogram;
 class ote
 {
 
-  const OTE_VERSION = '1.0.21';
+  const OTE_VERSION = '1.0.21-dev';
 
   public $db;              // (object) The Attogram Database Object
   public $log;             // (object) PSR3 Logger object
@@ -45,7 +45,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id
-      . ' code=' . htmlentities($code) . ' name=' . htmlentities($name));
+      . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
     return $id;
@@ -149,7 +149,7 @@ class ote
       return false;
     }
     if( $code ) {
-      $this->log->notice('get_language_name_from_code: insert new language: code=' . htmlentities($code) . ' name=' . $default_name);
+      $this->log->notice('get_language_name_from_code: insert new language: code=' . $this->web_display($code) . ' name=' . $default_name);
       if( !$default_name ) {
         $default_name = $code;
       }
@@ -244,11 +244,11 @@ class ote
     $bind = array('word'=>$word);
     $r = $this->db->queryb($sql, $bind);
     if( !$r ) {
-      $this->log->error('insert_word: can not insert. word=' . htmlentities($word));
+      $this->log->error('insert_word: can not insert. word=' . $this->web_display($word));
       return false;
     }
     $id = $this->db->db->lastInsertId();
-    $this->log->debug('inser_word: inserted id=' . $id . ' word=' . htmlentities($word));
+    $this->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
     return $id;
   }
 
@@ -263,10 +263,10 @@ class ote
     $bind=array('word'=>$word);
     $r = $this->db->query($sql, $bind);
     if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
-      $this->log->notice('get_id_from_word: word not found: Inserting: ' . htmlentities($word));
+      $this->log->notice('get_id_from_word: word not found: Inserting: ' . $this->web_display($word));
       return $this->insert_word($word);
     }
-    $this->log->debug('get_id_from_word: id=' . $r[0]['id'] . ' word=' . htmlentities($word));
+    $this->log->debug('get_id_from_word: id=' . $r[0]['id'] . ' word=' . $this->web_display($word));
     return $r[0]['id'];
   }
 
@@ -529,7 +529,7 @@ class ote
   public function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
   {
 
-      $this->log->debug('search_dictionary: word=' . htmlentities($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
+      $this->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
 
       $hin = $this->insert_history( $word, $sl, $tl );
 
@@ -600,7 +600,7 @@ class ote
     if( !$tl || !is_int($tl) ) {
       $tl = 0;
     }
-    $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . htmlentities($word) );
+    $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . $this->web_display($word) );
 
 
     $sql = 'SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl';
@@ -673,12 +673,12 @@ class ote
 
     print '<div class="container">'
     . 'Source Language: ID: <code>' . $si . '</code>'
-    . ' Code: <code>' . htmlentities($s) . '</code>'
-    . ' Name: <code>' . htmlentities($sn) . '</code>'
+    . ' Code: <code>' . $this->web_display($s) . '</code>'
+    . ' Name: <code>' . $this->web_display($sn) . '</code>'
     . '<br />Target Language:&nbsp; ID: <code>' . $ti  . '</code>'
-    . ' Code: <code>' . htmlentities($t) . '</code>'
-    . ' Name: <code>' . htmlentities($tn) . '</code>'
-    . '<br />Deliminator: <code>' . htmlentities($d) . '</code>'
+    . ' Code: <code>' . $this->web_display($t) . '</code>'
+    . ' Name: <code>' . $this->web_display($tn) . '</code>'
+    . '<br />Deliminator: <code>' . $this->web_display($d) . '</code>'
     . '<br />Lines: <code>' . sizeof($lines) . '</code><hr /><small>'
     ;
 
@@ -689,6 +689,8 @@ class ote
       set_time_limit(240);
 
       $line_count++;
+
+      $line = urldecode($line);
       $line = trim($line);
 
       if( $line == '' ) {
@@ -704,7 +706,7 @@ class ote
       }
 
       if( !preg_match('/' . $d . '/', $line) ) {
-        print '<p>Error: Line #' . $line_count . ': Deliminator (' .htmlentities($d) . ') Not Found. Skipping line.</p>';
+        print '<p>Error: Line #' . $line_count . ': Deliminator (' . $this->web_display($d) . ') Not Found. Skipping line.</p>';
         $error_count++; $skip_count++;
         continue;
       }
@@ -836,16 +838,16 @@ class ote
   {
     // does slush pile entry exist?
     if( !$this->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $id ) ) ) {
-      $this->log->error('delete_from_slush_pile: Not Found id=' . htmlentities($id));
-      $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . htmlentities($id) . ')';
+      $this->log->error('delete_from_slush_pile: Not Found id=' . $this->web_display($id));
+      $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->web_display($id) . ')';
       return false;
     }
     $sql = 'DELETE FROM slush_pile WHERE id = :id';
     if( $this->db->queryb( $sql, array( 'id' => $id )) ) {
       return true;
     }
-    $this->log->error('delete_from_slush_pile: Delete failed for id=' . htmlentities($id));
-    $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . htmlentities($id) . ')';
+    $this->log->error('delete_from_slush_pile: Delete failed for id=' . $this->web_display($id));
+    $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->web_display($id) . ')';
     return false;
   }
 
@@ -860,7 +862,7 @@ class ote
     $sql = 'SELECT * FROM slush_pile WHERE id = :id LIMIT 1';
     $spe = $this->db->query( $sql, array( 'id' => $id ) );
     if( !$spe ) {
-      $this->log->error('accept_slush_pile_entry: can not find id=' . htmlentities($id) );
+      $this->log->error('accept_slush_pile_entry: can not find id=' . $this->web_display($id) );
       $_SESSION['error'] = 'Can not find requested slush pile entry';
       return false;
     }
@@ -874,19 +876,19 @@ class ote
         $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
         if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
           $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
-          $this->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . htmlentities($id));
-          $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . htmlentities($id) . ')';
+          $this->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($id));
+          $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($id) . ')';
           return false;
         }
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
           if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
             $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
             $_SESSION['result'] = 'Added new translation: '
-            . ' <code>' . htmlentities($spe[0]['source_language_code']) . '</code> '
-            . '<a href="../word/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_word']) . '">' . htmlentities($spe[0]['source_word']) . '</a>'
+            . ' <code>' . $this->web_display($spe[0]['source_language_code']) . '</code> '
+            . '<a href="../word/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
             . ' = '
-            . '<a href="../word/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_word']) . '">' . htmlentities($spe[0]['target_word']) . '</a>'
-            . ' <code>' . htmlentities($spe[0]['target_language_code']) . '</code>';
+            . '<a href="../word/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
+            . ' <code>' . $this->web_display($spe[0]['target_language_code']) . '</code>';
             return true;
           }
           $this->log->error('accept_slush_pile_entry: Can not insert reverse word2word entry');
@@ -900,8 +902,8 @@ class ote
 
       case 'delete': // DEV TODO -- delete word2word translation
       default: // unknown type
-        $this->log->error('accept_slush_pile_entry: id=' . htmlentities($id) . ' INVALID type=' . htmlentities($type));
-        $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . htmlentities($id) . ')';
+        $this->log->error('accept_slush_pile_entry: id=' . $this->web_display($id) . ' INVALID type=' . $this->web_display($type));
+        $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . $this->web_display($id) . ')';
         return false;
         break;
     } // end switch on type
@@ -926,8 +928,8 @@ class ote
   {
     $s_url = $path . '/word/' . ($usc ? $sc : '') . '/' . ($utc ? $tc : '') . '/' . urlencode($sw);
     $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
-    $sw = htmlentities($sw);
-    $tw = htmlentities($tw);
+    $sw = $this->web_display($sw);
+    $tw = $this->web_display($tw);
     $sn = $this->get_language_name_from_code($sc);
     $tn = $this->get_language_name_from_code($tc);
     $edit_uid = md5($sw . $sc . $tw . $tc);
@@ -955,5 +957,18 @@ class ote
     </div>';
     return $r;
   } // end function display_pair
+
+  /**
+   * clean a string for web display
+   * @param string $string  The string to clean
+   * @return string  The cleaned string, or false
+   */
+  public function web_display( $string )
+  {
+    if( !is_string($string) ) {
+      return false;
+    }
+    return htmlentities( $string, ENT_COMPAT, 'UTF-8' );
+  }
 
 } // end class ote
