@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.9
+<?php // Open Translation Engine - navbar template v0.0.10
 
 namespace Attogram;
 
@@ -21,7 +21,7 @@ namespace Attogram;
    <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
     <ul class="dropdown-menu">
-     <li><a href="<?php print $this->path; ?>/about/"><span   class="icon-s">💁</span><small> About OTE</small></a></li>
+     <li><a href="<?php print $this->path; ?>/readme/"><span  class="icon-s">💁</span><small> About OTE</small></a></li>
      <li><a href="<?php print $this->path; ?>/history/"><span class="icon-s">🔭</span><small> History</small></a></li>
      <li><a href="<?php print $this->path; ?>/slush_pile/"><span class="icon-s">🛃</span><small> Slush Pile</small></a></li>
      <li><a href="<?php print $this->path; ?>/tags/"><span    class="icon-s">⛓</span><small> Tags</small></a></li>
