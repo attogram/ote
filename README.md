@@ -2,31 +2,23 @@ Open Translation Engine (OTE)
 ===
 [//]: # ( Open Translation Engine - README.md (markdown) - v0.2.0 )
 
-[![OTE Introduction](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.png)
+* The OTE is a collaborative translation dictionary manager for the open content web.
 
-* The OTE is a **translation dictionary manager** for the web. [Find out more about The OTE](ote/actions/about.md)
 * This is OTE v1.0, under active development, built as an [Attogram Framework](https://github.com/attogram/attogram) module.  It is Dual Licensed under the MIT license *or* the GPL-3 License, at your choosing.
+
 * The "old" stable OTE v0.9.9 is available at: https://github.com/attogram/ote/tree/v0.9.9
+
 * Are you a language lover?  Become a patron of the Attogram Project and help us create translation dictionaries and the software to manage them. https://www.patreon.com/attogram/
 
-------
+* The OTE is **open source**.  OTE source code is dual licensed under the **MIT License** or the **GNU General Public License**, at your choosing.
 
-The OTE is a **translation dictionary** manager for the web.
+* The OTE is **open content**. OTE translations are licened under the **Creative Commons Attribution-Share Alike license**, or similar.
 
-The OTE is **open source**.  OTE source code is dual licensed under the
-**MIT License** or the **GNU General Public License**,
-at your choosing.
-
-The OTE is **open content**. OTE translations are licened under the
-**Creative Commons Attribution-Share Alike license**, or similar.
-
-The OTE is under development.  This is version 1.0.*, built with the [Attogram Framework](https://github.com/attogram/attogram).
+* The OTE is under development.  This is version 1.0.*, built with the [Attogram Framework](https://github.com/attogram/attogram).
 
 * @GitHub: https://github.com/attogram/ote
 
 * Get open content dictionary files: https://github.com/attogram/DAMS
-
-
 
 Install OTE via composer
 ===
@@ -52,13 +44,3 @@ Install OTE manually
 * If check.php reports errors with .htaccess, EDIT `public/.htaccess`, set FallbackResource and ErrorDocument's to the full web path to your `public/index.php`
 * COPY `public/config.sample.php` to `public/config.php` and edit your site options.
 * make sure the database directory `your-install-dir/db` is WRITEABLE by the web server.
-
-Misc
-===
-* Search Page example
-
-[![OTE Search Page](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.search.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.search.png)
-
-* Words list example
-
-[![OTE Words list](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.words.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.words.png)
