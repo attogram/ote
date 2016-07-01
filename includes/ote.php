@@ -8,7 +8,7 @@ namespace Attogram;
 class ote
 {
 
-  const OTE_VERSION = '1.0.21-dev';
+  const OTE_VERSION = '1.0.22';
 
   public $db;              // (object) The Attogram Database Object
   public $log;             // (object) PSR3 Logger object
