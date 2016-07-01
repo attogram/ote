@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.1.0
+<?php // Open Translation Engine - Home Page v0.1.1
 
 namespace Attogram;
 
@@ -27,7 +27,7 @@ $this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
    <h2><a href="search/"    >🔎 Search</a></h2>
    <h2><a href="export/"    >📤 Export</a></h2>
    <h2><a href="history/"   >🔭 History</a></h2>
-   <h2><a href="about/"     >💁 About</a></h2>
+   <h2><a href="readme/"    >💁 About</a></h2>
   </div>
  </div>
 </div>
