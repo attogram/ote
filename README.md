@@ -1,6 +1,6 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.1.5 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.2.0 )
 
 [![OTE Introduction](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.small.png "OTE Homepage")](https://raw.githubusercontent.com/attogram/ote-docs/master/screenshots/OTE.intro.png)
 
@@ -8,6 +8,23 @@ Open Translation Engine (OTE)
 * This is OTE v1.0, under active development, built as an [Attogram Framework](https://github.com/attogram/attogram) module.  It is Dual Licensed under the MIT license *or* the GPL-3 License, at your choosing.
 * The "old" stable OTE v0.9.9 is available at: https://github.com/attogram/ote/tree/v0.9.9
 * Are you a language lover?  Become a patron of the Attogram Project and help us create translation dictionaries and the software to manage them. https://www.patreon.com/attogram/
+
+------
+
+The OTE is a **translation dictionary** manager for the web.
+
+The OTE is **open source**.  OTE source code is dual licensed under the
+**MIT License** or the **GNU General Public License**,
+at your choosing.
+
+The OTE is **open content**. OTE translations are licened under the
+**Creative Commons Attribution-Share Alike license**, or similar.
+
+The OTE is under development.  This is version 1.0.*, built with the [Attogram Framework](https://github.com/attogram/attogram).
+
+* @GitHub: https://github.com/attogram/ote
+
+* Get open content dictionary files: https://github.com/attogram/DAMS
 
 
 
