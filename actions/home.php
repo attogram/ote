@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.1.1
+<?php // Open Translation Engine - Home Page v0.1.2
 
 namespace Attogram;
 
@@ -54,6 +54,7 @@ if( !$this->is_admin() ) {
   <div class="col-xs-2"></div>
   <div class="col-xs-10 col-sm-5">
    <p><strong>Debug:</strong></p>
+   <h4><a href="events/"        >⌚ <code><?php print $this->db->get_table_count('event'); ?></code> events</a></h4>
    <h4><a href="info/"          >🚀 Site Information</a></h4>
    <h4><a href="check.php"      >🔬 Install check</a></h4>
    <h4><a href="db-admin/"      >🔧 DB admin</a></h4>
