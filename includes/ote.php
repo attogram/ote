@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - Attogram Framework Module
+<?php // The Open Translation Engine (OTE) - ote class v0.2.0
 
 namespace Attogram;
 
@@ -935,17 +935,14 @@ class ote
     $edit_uid = md5($sw . $sc . $tw . $tc);
     $r = '<style>a { color: inherit; }</style>
     <div class="row" style="border:1px solid #ccc;margin:2px;">
-      <div class="col-xs-12 col-sm-2 text-right">
-       <code><small>' . $sn . '</small></code>
-      </div>
-      <div class="col-xs-6 col-sm-3 text-right" style="font-size:18px;">
+      <div class="col-xs-6 col-sm-4 text-left" style="font-size:18px;">
          <a href="' . $s_url . '">' . $sw . '</a>
       </div>
-      <div class="col-xs-6 col-sm-3 text-left" style="font-size:18px;">
+      <div class="col-xs-6 col-sm-4 text-left" style="font-size:18px;">
         ' . $d . ' <a href="' . $t_url . '">' . $tw . '</a>
       </div>
       <div class="col-xs-8 col-sm-2 text-left">
-       <code><small>' . $tn . '</small></code>
+       <code><small>' . $sn . ' ' . $d . ' ' . $tn . '</small></code>
       </div>
       <div class="col-xs-4 col-sm-2 text-center">
         <a name="editi' . $edit_uid . '" id="editi' . $edit_uid . '" href="javascript:void(0);"
