@@ -76,7 +76,7 @@ if( sizeof($this->uri) > 4 ) { // Check URI is OK
 
 $word = urldecode($this->uri[3]);
 
-$this->log->debug("word.php: s_code=$s_code t_code=$t_code word=" . $ote->web_display($word));
+$this->log->debug("word.php: s_code=$s_code t_code=$t_code word=" . $this->web_display($word));
 
 $r = $ote->search_dictionary(
   $word,
@@ -88,7 +88,7 @@ if( !$r ) {
   $this->error404('Nothing found but wordly emptiness');
 }
 
-$this->page_header('Word: ' . $ote->web_display($word) );
+$this->page_header('Word: ' . $this->web_display($word) );
 print '<div class="container">';
 
 if( $_POST ) {
@@ -122,7 +122,7 @@ if( $_POST ) {
   }
 } // end if _POST
 
-print '<div style="font-size:48pt;">' . $ote->web_display($word) . '</div>';
+print '<div style="font-size:48pt;">' . $this->web_display($word) . '</div>';
 
 if( $s_code && $t_code ) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)'
@@ -169,7 +169,7 @@ print '
 
 <form name="add" id="add" method="POST" style="display:none;">
   <div class="row" style="border:1px solid #eeeeee; padding:2px;">
-    <div class="col-xs-4 text-left" style="font-size:18pt;">' . $ote->web_display($word) . '</div>
+    <div class="col-xs-4 text-left" style="font-size:18pt;">' . $this->web_display($word) . '</div>
     <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
     <div class="col-xs-3 text-left"><input type="text" name="tw" /></div>
     <div class="col-xs-4 text-left" style="font-size:9pt;">'
@@ -211,7 +211,7 @@ function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 
   print $attogram->db->pager( $all_count, $limit, $offset );
   print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {
-    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $ote->web_display($w['word']) . '</a>, ';
+    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $this->web_display($w['word']) . '</a>, ';
   }
   print '</h3></div>';
   print $attogram->db->pager( $all_count, $limit, $offset );

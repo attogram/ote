@@ -21,7 +21,7 @@ if( isset($_GET['t']) && $_GET['t'] ) { // Target Language
 }
 
 if( isset($_GET['q']) && $_GET['q'] ) { // The Query
-  $q_default = $ote->web_display(urldecode($_GET['q']));
+  $q_default = $this->web_display(urldecode($_GET['q']));
 } else {
   $q_default = '';
 }
@@ -109,7 +109,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $case_sensitive_search = true;
   }
 
-  print '<div class="container"><h1>Search: <kbd>' . $ote->web_display($search_word) . '</kbd></h1>';
+  print '<div class="container"><h1>Search: <kbd>' . $this->web_display($search_word) . '</kbd></h1>';
 
   $source_language_id = $target_language_id = 0;
   if( $s && $s !=  '' ) {

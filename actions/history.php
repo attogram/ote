@@ -30,7 +30,7 @@ foreach( $hr as $h ) {
   $url = $this->path . '/word/' . $sl_code . '/' . $tl_code . '/' . urlencode($h['word']);
 
   print '<div class="row" style="border:1px solid #eeeeee; padding:0px;">
-    <div class="col-xs-4 col-sm-5"><a href="' . $url . '"><h2 style="display:inline;">' . $ote->web_display($h['word']) . '</h2></a></div>
+    <div class="col-xs-4 col-sm-5"><a href="' . $url . '"><h2 style="display:inline;">' . $this->web_display($h['word']) . '</h2></a></div>
     <div class="col-xs-4 col-sm-1 small">' . $h['count'] . '</div>
     <div class="col-xs-4 col-sm-2 small">' . $h['date'] . '</div>
     <div class="clearfix visible-xs-block"></div>
