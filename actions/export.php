@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.1.1
+<?php // Open Translation Engine - Export Page v0.1.3
 /*
  OTE Export Page
 
@@ -36,29 +36,27 @@ if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
     exit;
 }
 
-if( !isset($this->uri[1]) || !$this->uri[1] ) {
-  // Please select Source Langauge Code
-  header("Location: $rel_url");
+if( !isset($this->uri[1]) || !$this->uri[1] ) {  // Please select Source Langauge Code
+  $this->error404('Sourceless exportless emptiness');
 }
-if( !isset($this->uri[2]) || !$this->uri[2] ) {
-  // Please select Target Language Code
-  header("Location: $rel_url");
+if( !isset($this->uri[2]) || !$this->uri[2] ) {   // Please select Target Language Code
+  $this->error404('Targetless exportless emptiness');
 }
 
 $s_code = urldecode($this->uri[1]);
 $t_code = urldecode($this->uri[2]);
 
 if( $s_code == $t_code ) { // Error - Source and Target language code the same
-  header("Location: $rel_url");
+  $this->error404('Self-Referential Export denied');
 }
 
 $langs = $ote->get_languages();
 
 if( !isset($langs[$s_code]) ) { // Source Language Code Not Found
-  header("Location: $rel_url");
+  $this->error404('Emptiness in source');
 }
 if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
-  header("Location: $rel_url");
+  $this->error404('Emptiness in target');
 }
 
 $result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
@@ -73,14 +71,17 @@ print "#\n";
 print '# translations: ' . sizeof($result) . "\n";
 print "# deliminator: $sep\n";
 print "#\n";
-print "# export from: " . $this->get_site_url() . "/\n";
 print '# export time: ' . gmdate('r') . " UTC\n";
+print '# export from: ' . $this->site_name . ': ' . $this->get_site_url() . "/\n";
+print '# export with: Open Translation Engine v' . ote::OTE_VERSION . ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . "\n";
 print '#' . "\n";
 print '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . "\n";
 print '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . "\n";
 print '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . "\n";
 print "#\n";
+
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
+
 exit;
