@@ -955,4 +955,17 @@ class ote
     return $r;
   } // end function display_pair
 
+  /**
+   * clean a string for web display
+   * @param string $string  The string to clean
+   * @return string  The cleaned string, or false
+   */
+  public function web_display( $string )
+  {
+    if( !is_string($string) ) {
+      return false;
+    }
+    return htmlentities( $string, ENT_COMPAT, 'UTF-8' );
+  }
+  
 } // end class ote
