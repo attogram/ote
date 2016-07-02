@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.3.0
+<?php // The Open Translation Engine (OTE) - ote class v0.3.1
 
 namespace Attogram;
 
@@ -48,7 +48,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
-    $this->event->info('NEW language: id: ' . $id . ' code: ' . $this->web_display($code) . ' name: ' . $this->web_display($name) );
+    $this->event->info('ADD language #' . $id . ' (' . $this->web_display($code) . ') ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
     return $id;
@@ -252,7 +252,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
-    $this->event->info('NEW word: id: ' . $id . ' word: ' . $this->web_display($word) );
+    $this->event->info('ADD word #' . $id . ': ' . $this->web_display($word) );
     return $id;
   }
 
@@ -357,7 +357,6 @@ class ote
     if( $r ) {
       $id = $this->db->db->lastInsertId();
       $this->log->debug("insert_word2word: inserted. id=$id");
-      $this->event->info( 'NEW translation: id: ' . $id, $bind );
       return $id;
     }
     if( $this->db->db->errorCode() == '0000' ) {
@@ -766,6 +765,7 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
+        $this->event->info("ADD translation: ($s) $sw = $tw ($t)");
       }
 
       // insert reverse pair
@@ -780,6 +780,7 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
+        $this->event->info("ADD translation: ($t) $tw = $sw ($s)");
       }
 
       if( $line_count % 100 == 0 ) {
@@ -829,7 +830,7 @@ class ote
     $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     if( $this->db->queryb( $sql, $items ) ) {
-      $this->event->info( 'NEW slush_pile', $items );
+      $this->event->info( 'ADD slush_pile', $items );
       return true;
     }
     return false;
