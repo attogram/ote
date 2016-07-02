@@ -65,7 +65,7 @@ $result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 
 $sep = ' = ';
 
-header('Content-Type: text/plain');
+header('Content-Type: text/plain; charset=utf-8');
 
 print '# ' . $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . " \n";
 print "# ($s_code to $t_code)\n";
@@ -79,7 +79,7 @@ print '#' . "\n";
 print '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . "\n";
 print '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . "\n";
 print '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . "\n";
-print "#\n";  
+print "#\n";
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
