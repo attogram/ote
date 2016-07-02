@@ -62,23 +62,26 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
 $result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 
 $sep = ' = ';
+$cr = "\n";
 
 header('Content-Type: text/plain; charset=utf-8');
 
-print '# ' . $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name']  . " \n";
-print "# ($s_code to $t_code)\n";
-print "#\n";
-print '# translations: ' . sizeof($result) . "\n";
-print "# deliminator: $sep\n";
-print "#\n";
-print '# export time: ' . gmdate('r') . " UTC\n";
-print '# export from: ' . $this->site_name . ': ' . $this->get_site_url() . "/\n";
-print '# export with: Open Translation Engine v' . ote::OTE_VERSION . ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . "\n";
-print '#' . "\n";
-print '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . "\n";
-print '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . "\n";
-print '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . "\n";
-print "#\n";
+print
+  '# ' . $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name'] . $cr
+. "# ($s_code to $t_code)" . $cr
+. '#' . $cr
+. '# translations: ' . sizeof($result) . $cr
+. "# deliminator: $sep" . $cr
+. '#' . $cr
+. '# export time: ' . gmdate('Y-m-d H:i:s') . ' UTC' . $cr
+. '# export from: ' . $this->site_name . ': ' . $this->get_site_url() . '/' . $cr
+. '# export with: Open Translation Engine v' . ote::OTE_VERSION
+. ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . ' / PHP v' . phpversion() . $cr
+. '#' . $cr
+. '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . $cr
+. '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . $cr
+. '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . $cr
+. '#' . $cr;
 
 foreach( $result as $r ) {
   print $r['s_word'] . $sep . $r['t_word'] . "\n";
