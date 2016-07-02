@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.2.1
+<?php // The Open Translation Engine (OTE) - ote class v0.3.0
 
 namespace Attogram;
 
@@ -8,23 +8,26 @@ namespace Attogram;
 class ote
 {
 
-  const OTE_VERSION = '1.0.22';
+  const OTE_VERSION = '1.1.0-dev';
 
   public $db;              // (object) The Attogram Database Object
-  public $log;             // (object) PSR3 Logger object
+  public $log;             // (object) Debug - PSR-3 Logger object
+  public $event;           // (object) Events - PSR-3 Logger object
   public $languages;       // (array) List of languages
   public $dictionary_list; // (array) List of dictionaries
 
   /**
    * initialize OTE
-   * @param  object $db   Attogram PDO database object
-   * @param  object $log  PSR-3 compliant logger
+   * @param  object $db    Attogram PDO database object
+   * @param  object $log   Debug - PSR-3 Logger object
+   * @param  object $event Events - PSR-3 Logger object
    * @return void
    */
-  public function __construct( $db, $log )
+  public function __construct( $db, $log, $event )
   {
     $this->db = $db;
     $this->log = $log;
+    $this->event = $event;
     $this->log->debug('START OTE v' . self::OTE_VERSION);
   }
 
@@ -967,5 +970,5 @@ class ote
     }
     return htmlentities( $string, ENT_COMPAT, 'UTF-8' );
   }
-  
+
 } // end class ote

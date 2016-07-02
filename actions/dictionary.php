@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.1.7
+<?php // Open Translation Engine - Dictionary Page v0.2.0
 /*
  OTE Dictionary Page
 
@@ -26,7 +26,7 @@
 */
 namespace Attogram;
 
-$ote = new ote($this->db, $this->log);
+$ote = new ote( $this->db, $this->log, $this->event );
 
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 

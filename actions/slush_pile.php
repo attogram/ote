@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Slush Pile Page v0.0.10
+<?php // Open Translation Engine - Slush Pile Page v0.1.0
 
 namespace Attogram;
 
-$ote = new ote( $this->db, $this->log );
+$ote = new ote( $this->db, $this->log, $this->event );
 
 $this->page_header('🛃 Slush Pile');
 print '<div class="container">';
