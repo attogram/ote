@@ -56,11 +56,10 @@ if( !$this->is_admin() ) {
    <p><strong>Debug:</strong></p>
    <h4><a href="events/"        >⌚ <code><?php print $this->db->get_table_count('event'); ?></code> events</a></h4>
    <h4><a href="info/"          >🚀 Site Information</a></h4>
-   <h4><a href="check.php"      >🔬 Install check</a></h4>
    <h4><a href="db-admin/"      >🔧 DB admin</a></h4>
    <h4><a href="db-tables/"     >📜 DB tables</a></h4>
    <h4><a href="find_3rd_level/">🔦 Find 3rd levels</a></h4>
-
+   <h4><a href="check.php"      >🔬 Install check</a></h4>
   </div>
  </div>
 </div>
