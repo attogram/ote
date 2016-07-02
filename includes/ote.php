@@ -933,13 +933,13 @@ class ote
     $sn = $this->get_language_name_from_code($sc);
     $tn = $this->get_language_name_from_code($tc);
     $edit_uid = md5($sw . $sc . $tw . $tc);
-    $r = '<style>a { color: inherit; }</style>
+    $r = '
     <div class="row" style="border:1px solid #ccc;margin:2px;">
-      <div class="col-xs-6 col-sm-4 text-left" style="font-size:18px;">
-         <a href="' . $s_url . '">' . $sw . '</a>
+      <div class="col-xs-6 col-sm-4 text-left">
+        <a href="' . $s_url . '" class="pair">' . $sw . '</a>
       </div>
-      <div class="col-xs-6 col-sm-4 text-left" style="font-size:18px;">
-        ' . $d . ' <a href="' . $t_url . '">' . $tw . '</a>
+      <div class="col-xs-6 col-sm-4 text-left">
+        ' . $d . ' <a href="' . $t_url . '" class="pair">' . $tw . '</a>
       </div>
       <div class="col-xs-8 col-sm-2 text-left">
        <code><small>' . $sn . ' ' . $d . ' ' . $tn . '</small></code>
