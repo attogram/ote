@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.0
+<?php // Open Translation Engine - Word Page v0.2.1
 /*
  OTE Word Page
 
@@ -213,8 +213,9 @@ function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 
   foreach( $all as $w ) {
     print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $attogram->web_display($w['word']) . '</a>, ';
   }
-  print '</h3></div>';
+  print '</h3>';
   print $attogram->db->pager( $all_count, $limit, $offset );
+  print '</div>';
   $attogram->page_footer();
   exit;
 } // end function show_all_words()
