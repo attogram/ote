@@ -48,7 +48,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
-    $this->event->info('ADD language <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
+    $this->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
     return $id;
