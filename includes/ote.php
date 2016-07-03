@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.3.1
+<?php // The Open Translation Engine (OTE) - ote class v0.3.2
 
 namespace Attogram;
 
@@ -48,7 +48,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
-    $this->event->info('ADD language #' . $id . ' (' . $this->web_display($code) . ') ' . $this->web_display($name) );
+    $this->event->info('ADD language <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
     return $id;
@@ -252,7 +252,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
-    $this->event->info('ADD word #' . $id . ': ' . $this->web_display($word) );
+    $this->event->info('ADD word: <a href="' . $this->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
     return $id;
   }
 
@@ -765,7 +765,12 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        $this->event->info("ADD translation: ($s) $sw = $tw ($t)");
+        $this->event->info( 'ADD translation: '
+          . '<code>' . $s . '</code> <a href="' . $this->path . '/word/' . urlencode($s)
+          . '//' . urlencode($sw) . '">' . $this->web_display($sw) . '</a>'
+          . ' = <a href="' . $this->path . '/word/' . urlencode($t) . '//' . urlencode($tw)
+          . '">' . $this->web_display($tw) . '</a> <code>' . $t . '</code>'
+        );
       }
 
       // insert reverse pair
@@ -780,7 +785,12 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        $this->event->info("ADD translation: ($t) $tw = $sw ($s)");
+        $this->event->info( 'ADD translation: '
+          . '<code>' . $t . '</code> <a href="' . $this->path . '/word/' . urlencode($t)
+          . '//' . urlencode($tw) . '">' . $this->web_display($tw) . '</a>'
+          . ' = <a href="' . $this->path . '/word/' . urlencode($s) . '//' . urlencode($sw)
+          . '">' . $this->web_display($sw) . '</a> <code>' . $s . '</code>'
+        );
       }
 
       if( $line_count % 100 == 0 ) {
@@ -830,7 +840,7 @@ class ote
     $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     if( $this->db->queryb( $sql, $items ) ) {
-      $this->event->info( 'ADD slush_pile', $items );
+      //$this->event->info( 'ADD slush_pile', $items );
       return true;
     }
     return false;
@@ -888,7 +898,19 @@ class ote
           return false;
         }
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
+          $this->event->info( 'ADD translation: '
+            . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->path . '/word/' . urlencode($spe[0]['source_language_code'])
+            . '//' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
+            . ' = <a href="' . $this->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
+            . '">' . $this->web_display($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
+          );
           if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
+            $this->event->info( 'ADD translation: '
+              . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->path . '/word/' . urlencode($spe[0]['target_language_code'])
+              . '//' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
+              . ' = <a href="' . $this->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
+              . '">' . $this->web_display($spe[0]['source_word']) . '</a> <code>' . $spe[0]['source_language_code'] . '</code>'
+            );
             $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
             $_SESSION['result'] = 'Added new translation: '
             . ' <code>' . $this->web_display($spe[0]['source_language_code']) . '</code> '
