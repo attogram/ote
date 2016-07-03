@@ -976,9 +976,26 @@ class ote
       <div class="col-xs-4 col-sm-2 text-center">
         <a name="editi' . $edit_uid . '" id="editi' . $edit_uid . '" href="javascript:void(0);"
           onclick="$(\'#edit' . $edit_uid . '\').show();$(\'#editi' . $edit_uid . '\').hide();">🔧</a>
-        <form name="edit' . $edit_uid . '" id="edit' . $edit_uid . '" method="POST" style="display:none;">
-         <a href="">⛓</a> &nbsp; <a href="">❌</a>
-        </form>
+        <div id="edit' . $edit_uid . '" name="edit" style="display:none;">
+
+         <form name="tag' . $edit_uid . '" id="tag' . $edit_uid . '" method="POST" style="display:inline;">
+           <input type="hidden" name="type" value="tag">
+           <input type="hidden" name="tw" value="' . $tw . '">
+           <input type="hidden" name="sl" value="' . $sc . '">
+           <input type="hidden" name="tl" value="' . $tc . '">
+           <button type="send">⛓</button>
+         </form>
+
+         <form name="del' . $edit_uid . '" id="del' . $edit_uid . '" method="POST" style="display:inline;">
+           <input type="hidden" name="type" value="del">
+           <input type="hidden" name="tw" value="' . $tw . '">
+           <input type="hidden" name="sl" value="' . $sc . '">
+           <input type="hidden" name="tl" value="' . $tc . '">
+           <button type="send">❌</button>
+         </form>
+
+         </form>
+        </div>
       </div>
     </div>';
     return $r;

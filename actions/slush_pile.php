@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.1.0
+<?php // Open Translation Engine - Slush Pile Page v0.1.1
 
 namespace Attogram;
 
@@ -75,11 +75,11 @@ foreach( $slush as $s ) {
   $target_language_code = isset($s['target_language_code']) ? $this->web_display($s['target_language_code']) : '';
   print '<div class="row" style="border:solid 1px #ccc;padding:4px;">'
   . '<div class="col-sm-4">🕑:' . $date . ' 👤:' . $user_id . ' 🔀:<strong>' . $type . '</strong></div>'
-  . '<div class="col-sm-4"><a href="' . $source_word_url . '">' . $source_word . '</a> <code>' . $source_language_code . '</code>'
+  . '<div class="col-sm-4"><code>' . $source_language_code . '</code> <a href="' . $source_word_url . '">' . $source_word . '</a>'
   . ' = <a href="' . $target_word_url . '">' . $target_word . '</a> <code>' . $target_language_code . '</code></div>'
   . '<div class="col-sm-4">'
   . '<a href="?a=a&i=' . urlencode($id) . '">✔ Accept</a>'
-  . ' &nbsp; <a href="?a=d&i=' . urlencode($id) . '">✖ Delete</a></div>'
+  . ' &nbsp; <a href="?a=d&i=' . urlencode($id) . '">✖ Reject</a></div>'
   . '</div>';
 }
 

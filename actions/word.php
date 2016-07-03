@@ -96,13 +96,14 @@ if( $_POST ) {
   $target_word = isset($_POST['tw']) ? urldecode($_POST['tw']) : null;
   $source_language_code = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
   $target_language_code = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
+  $type = isset($_POST['type']) ? urldecode($_POST['type']) : null;
   if( !$source_word || !$target_word || !$source_language_code || !$target_language_code ) {
     print '<div class="alert alert-danger">'
     . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
     . '<strong>Error adding translation</strong>: missing required word and/or languages</div>';
   } else {
     $items = array(
-      'type' => 'add',
+      'type' => $type,
       'source_word' => $source_word,
       'target_word' => $target_word,
       'source_language_code' => $source_language_code,
@@ -166,8 +167,8 @@ print '
     onclick="$(\'#add\').show();$(\'#addi\').hide();"
     href="javascript:void(0);"> + add translation</a></div>
 </div>
-
 <form name="add" id="add" method="POST" style="display:none;">
+<input type="hidden" name="type" value="add">
   <div class="row" style="border:1px solid #eeeeee; padding:2px;">
     <div class="col-xs-4 text-left" style="font-size:18pt;">' . $this->web_display($word) . '</div>
     <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
@@ -179,10 +180,10 @@ print '
     . '</div>
   </div>
 </form>
-
 ';
 
 print '</div>'; // end main container div
+
 $this->page_footer();
 
 
