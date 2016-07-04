@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.4.2
+<?php // The Open Translation Engine (OTE) - ote class v0.5.0
 
 namespace Attogram;
 
@@ -11,9 +11,6 @@ class ote
   const OTE_VERSION = '1.1.1-dev';
 
   public $attogram;        // (object) The Attogram Framework object
-  public $db;              // (object) The Attogram Database object
-  public $log;             // (object) Debug - PSR-3 Logger object
-  public $event;           // (object) Events - PSR-3 Logger object
   public $languages;       // (array) List of languages
   public $dictionary_list; // (array) List of dictionaries
 
@@ -25,10 +22,7 @@ class ote
   public function __construct( $attogram )
   {
     $this->attogram = $attogram;
-    $this->db = $attogram->db;
-    $this->log = $attogram->log;
-    $this->event = $attogram->event;
-    $this->log->debug('START OTE v' . self::OTE_VERSION);
+    $this->attogram->log->debug('START OTE v' . self::OTE_VERSION);
   }
 
   /**
@@ -41,14 +35,14 @@ class ote
   {
     $sql = 'INSERT INTO language (code, name) VALUES (:code, :name)';
     $bind=array( 'code' => $code, 'name' => $name );
-    $r = $this->db->queryb( $sql, $bind );
+    $r = $this->attogram->db->queryb( $sql, $bind );
     if( !$r ) {
-      $this->log->error('insert_language: can not insert language');
+      $this->attogram->log->error('insert_language: can not insert language');
       return false;
     }
-    $id = $this->db->db->lastInsertId();
-    $this->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
-    $this->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
+    $id = $this->attogram->db->db->lastInsertId();
+    $this->attogram->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
+    $this->attogram->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
     return $id;
@@ -66,15 +60,15 @@ class ote
     }
     $this->languages = array();
     $sql = 'SELECT id, code, name FROM language ORDER by ' . $orderby;
-    $r = $this->db->query($sql);
+    $r = $this->attogram->db->query($sql);
     if( !$r ) {
-      $this->log->error('get_languages: Languages Not Found, or Query Failed');
+      $this->attogram->log->error('get_languages: Languages Not Found, or Query Failed');
       return $this->languages;
     }
     foreach( $r as $g ) {
       $this->languages[ $g['code'] ] = array( 'id'=>$g['id'], 'name'=>$g['name'] );
     }
-    $this->log->debug('get_languages: got ' . sizeof($this->languages) . ' languages', $this->languages);
+    $this->attogram->log->debug('get_languages: got ' . sizeof($this->languages) . ' languages', $this->languages);
     return $this->languages;
   } // end function get_languages()
 
@@ -147,17 +141,17 @@ class ote
         return $lang['name'];
       }
     }
-    $this->log->notice('get_language_name_from_code: Not Found: ' . $code);
+    $this->attogram->log->notice('get_language_name_from_code: Not Found: ' . $code);
     if( !$insert ) {
       return false;
     }
     if( $code ) {
-      $this->log->notice('get_language_name_from_code: insert new language: code=' . $this->web_display($code) . ' name=' . $default_name);
+      $this->attogram->log->notice('get_language_name_from_code: insert new language: code=' . $this->web_display($code) . ' name=' . $default_name);
       if( !$default_name ) {
         $default_name = $code;
       }
       if( !$this->insert_language( $code, $default_name ) ) {
-        $this->log->error('get_language_name_from_code: Can not insert language.');
+        $this->attogram->log->error('get_language_name_from_code: Can not insert language.');
       }
     }
     return $default_name;
@@ -172,7 +166,7 @@ class ote
     */
   public function get_languages_pulldown( $name = 'language',  $selected = '', $class = 'form-control' )
   {
-    //$this->log->debug("get_languages_pulldown: name=$name selected=$selected class=$class");
+    //$this->attogram->log->debug("get_languages_pulldown: name=$name selected=$selected class=$class");
     $r = '<select class="' . $class . '" name="' . $name . '">';
     $r .= '<option value="">All Languages</option>';
     $langs = $this->get_languages( $orderby='name' );
@@ -195,7 +189,7 @@ class ote
    */
   public function get_dictionary_list( $lcode = '' )
   {
-    $this->log->debug("get_dictionary_list: lcode=$lcode");
+    $this->attogram->log->debug("get_dictionary_list: lcode=$lcode");
     if( isset($this->dictionary_list)
      && is_array($this->dictionary_list)
      && isset($this->dictionary_list[$lcode])
@@ -208,7 +202,7 @@ class ote
       $sql .= ' WHERE ( sl = :sl ) OR ( tl = :sl )';
       $bind['sl'] = $this->get_language_id_from_code($lcode);
     }
-    $r = $this->db->query($sql,$bind);
+    $r = $this->attogram->db->query($sql,$bind);
     $langs = $this->get_languages();
     $dlist = array();
     foreach( $r as $d ) {
@@ -222,7 +216,7 @@ class ote
       }
     }
     asort($dlist);
-    $this->log->debug('get_dictionary_list: got ' . sizeof($dlist) . ' dictionaries', $dlist);
+    $this->attogram->log->debug('get_dictionary_list: got ' . sizeof($dlist) . ' dictionaries', $dlist);
     return $this->dictionary_list[$lcode] = $dlist;
   } // end function get_dictionary_list()
 
@@ -245,14 +239,14 @@ class ote
   {
     $sql = 'INSERT INTO word (word) VALUES (:word)';
     $bind = array('word'=>$word);
-    $r = $this->db->queryb($sql, $bind);
+    $r = $this->attogram->db->queryb($sql, $bind);
     if( !$r ) {
-      $this->log->error('insert_word: can not insert. word=' . $this->web_display($word));
+      $this->attogram->log->error('insert_word: can not insert. word=' . $this->web_display($word));
       return false;
     }
-    $id = $this->db->db->lastInsertId();
-    $this->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
-    $this->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
+    $id = $this->attogram->db->db->lastInsertId();
+    $this->attogram->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
+    $this->attogram->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
     return $id;
   }
 
@@ -265,12 +259,12 @@ class ote
   {
     $sql = 'SELECT id FROM word WHERE word = :word LIMIT 1';
     $bind=array('word'=>$word);
-    $r = $this->db->query($sql, $bind);
+    $r = $this->attogram->db->query($sql, $bind);
     if( !$r || !isset($r[0]) || !isset($r[0]['id']) ) {
-      $this->log->notice('get_id_from_word: word not found: Inserting: ' . $this->web_display($word));
+      $this->attogram->log->notice('get_id_from_word: word not found: Inserting: ' . $this->web_display($word));
       return $this->insert_word($word);
     }
-    $this->log->debug('get_id_from_word: id=' . $r[0]['id'] . ' word=' . $this->web_display($word));
+    $this->attogram->log->debug('get_id_from_word: id=' . $r[0]['id'] . ' word=' . $this->web_display($word));
     return $r[0]['id'];
   }
 
@@ -306,12 +300,12 @@ class ote
     } elseif( $limit && !$offset ) {
       $limit = "LIMIT $limit";
     } elseif( !$limit && $offset ) {
-      $this->log->error('get_all_words: missing limit.  offset=' . $offset);
+      $this->attogram->log->error('get_all_words: missing limit.  offset=' . $offset);
       return array();
     }
 
     $sql = "$select $order $limit";
-    return $this->db->query( $sql, $bind );
+    return $this->attogram->db->query( $sql, $bind );
   }
 
   /**
@@ -336,7 +330,7 @@ class ote
       $bind['sl'] = $sl;
       $bind['tl'] = $tl;
     }
-    $c = $this->db->query( $sql, $bind );
+    $c = $this->attogram->db->query( $sql, $bind );
     return isset($c[0]['count']) ? $c[0]['count'] : '0';
   }
 
@@ -351,19 +345,19 @@ class ote
   public function insert_word2word( $sw, $sl, $tw, $tl )
   {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
-    $this->log->debug('insert_word2word', $bind);
+    $this->attogram->log->debug('insert_word2word', $bind);
     $sql = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
-    $r = $this->db->queryb($sql, $bind);
+    $r = $this->attogram->db->queryb($sql, $bind);
     if( $r ) {
-      $id = $this->db->db->lastInsertId();
-      $this->log->debug("insert_word2word: inserted. id=$id");
+      $id = $this->attogram->db->db->lastInsertId();
+      $this->attogram->log->debug("insert_word2word: inserted. id=$id");
       return $id;
     }
-    if( $this->db->db->errorCode() == '0000' ) {
-      $this->log->notice('insert_word2word: Insert failed: duplicate entry.');
+    if( $this->attogram->db->db->errorCode() == '0000' ) {
+      $this->attogram->log->notice('insert_word2word: Insert failed: duplicate entry.');
     } else {
-      $this->log->error('insert_word2word: can not insert. errorInfo: '
-        . print_r($this->db->db->errorInfo(),1) );
+      $this->attogram->log->error('insert_word2word: can not insert. errorInfo: '
+        . print_r($this->attogram->db->db->errorInfo(),1) );
     }
     return false;
   }
@@ -379,14 +373,14 @@ class ote
   public function get_word2word( $sw, $sl, $tw, $tl )
   {
     $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
-    $this->log->debug('get_word2word', $bind);
+    $this->attogram->log->debug('get_word2word', $bind);
     $sql = 'SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl';
-    $r = $this->db->query($sql,$bind);
+    $r = $this->attogram->db->query($sql,$bind);
     if( $r ) {
-      $this->log->debug('get_word2word: exists');
+      $this->attogram->log->debug('get_word2word: exists');
       return true;
     }
-    $this->log->debug('get_word2word: does not exist');
+    $this->attogram->log->debug('get_word2word: does not exist');
     return false;
   }
 
@@ -400,7 +394,7 @@ class ote
    */
   public function get_dictionary( $sl = 0, $tl = 0, $limit = false, $offset = false )
   {
-    $this->log->debug("get_dictionary: sl=$sl tl=$tl limit=$limit offset=$offset");
+    $this->attogram->log->debug("get_dictionary: sl=$sl tl=$tl limit=$limit offset=$offset");
     $select = '
     sw.word AS s_word, tw.word AS t_word,
     sl.code AS sc,     tl.code AS tc,
@@ -429,7 +423,7 @@ class ote
     } elseif( $limit && !$offset ) {
       $limit_clause = "LIMIT $limit";
     } elseif( !$limit && $offset ) {
-      $this->log->error('get_dictionary: missing limit.  offset=' . $offset);
+      $this->attogram->log->error('get_dictionary: missing limit.  offset=' . $offset);
       return array();
     }
 
@@ -437,13 +431,13 @@ class ote
     FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
     WHERE sw.id = ww.sw AND tw.id = ww.tw
     AND   sl.id = ww.sl AND tl.id = ww.tl $lang $order $limit_clause";
-    $r = $this->db->query($sql,$bind);
+    $r = $this->attogram->db->query($sql,$bind);
     return $r;
   } // end function get_dictionary()
 
   public function get_dictionary_translations_count( $sl = 0, $tl = 0 )
   {
-    $this->log->debug("get_dictionary_translations_count: sl=$sl tl=$tl ");
+    $this->attogram->log->debug("get_dictionary_translations_count: sl=$sl tl=$tl ");
     $select = '';
     $lang = '';
     $bind = array();
@@ -459,7 +453,7 @@ class ote
       $bind['tl'] = $tl;
     }
     $sql = "SELECT count( word2word.id ) AS count FROM word2word $lang";
-    $r = $this->db->query( $sql, $bind );
+    $r = $this->attogram->db->query( $sql, $bind );
     return isset($r[0]['count']) ? $r[0]['count'] : '0';
   } // end get_dictionary_translations_count()
 
@@ -509,7 +503,7 @@ class ote
       AND   sl.id = ww.sl AND tl.id = ww.tl
       $lang $qword";
 
-      $r = $this->db->query( $sql, $bind );
+      $r = $this->attogram->db->query( $sql, $bind );
       if( !$r || !isset($r[0]['count']) ) {
         return 0;
       }
@@ -532,7 +526,7 @@ class ote
   public function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
   {
 
-      $this->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
+      $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
 
       $hin = $this->insert_history( $word, $sl, $tl );
 
@@ -581,7 +575,7 @@ class ote
       AND   sl.id = ww.sl AND tl.id = ww.tl
       $lang $qword $order $sql_limit";
 
-      $r = $this->db->query( $sql, $bind );
+      $r = $this->attogram->db->query( $sql, $bind );
 
       return $r;
 
@@ -603,19 +597,19 @@ class ote
     if( !$tl || !is_int($tl) ) {
       $tl = 0;
     }
-    $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . $this->web_display($word) );
+    $this->attogram->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . $this->web_display($word) );
     $sql = 'SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl';
     $bind = array( 'word' => $word, 'sl' => $sl, 'tl' => $tl, 'date' => $now );
-    $rid = $this->db->query( $sql, $bind );
+    $rid = $this->attogram->db->query( $sql, $bind );
     if( !$rid ) {
       // insert new history entry for this date
       $sql = 'INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1 )';
-      return $this->db->queryb( $sql, $bind );
+      return $this->attogram->db->queryb( $sql, $bind );
     }
     // update count
     $sql = 'UPDATE history SET count = count + 1 WHERE id = :id';
     $bind = array( 'id' => $rid[0]['id'] );
-    return $this->db->queryb( $sql, $bind );
+    return $this->attogram->db->queryb( $sql, $bind );
   } // end function insert_history()
 
   /**
@@ -630,7 +624,7 @@ class ote
   public function do_import( $w, $d, $s, $t, $sn = '', $tn = '' )
   {
 
-    $this->log->debug("do_import: s=$s t=$t d=$d sn=$sn tn=$tn w strlen=" . strlen($w));
+    $this->attogram->log->debug("do_import: s=$s t=$t d=$d sn=$sn tn=$tn w strlen=" . strlen($w));
 
     $d = str_replace('\t', "\t", $d); // allow real tabs
 
@@ -638,7 +632,7 @@ class ote
     if( !$sn ) {
       $error = 'Error: can not get source language name';
       print $error;
-      $this->log->error("do_import: $error");
+      $this->attogram->log->error("do_import: $error");
       return;
     }
 
@@ -646,7 +640,7 @@ class ote
     if( !$si ) {
       $error = 'Error: can not get source language ID';
       print $error;
-      $this->log->error("do_import: $error");
+      $this->attogram->log->error("do_import: $error");
       return;
     }
 
@@ -654,7 +648,7 @@ class ote
     if( !$tn ) {
       $error = 'Error: can not get source language name';
       print $error;
-      $this->log->error("do_import: $error");
+      $this->attogram->log->error("do_import: $error");
       return;
     }
 
@@ -662,11 +656,11 @@ class ote
     if( !$si ) {
       $error = 'Error: can not get target language ID';
       print $error;
-      $this->log->error("do_import: $error");
+      $this->attogram->log->error("do_import: $error");
       return;
     }
 
-    $this->log->debug("do import: sn=$sn si=$si tn=$tn ti=$ti");
+    $this->attogram->log->debug("do import: sn=$sn si=$si tn=$tn ti=$ti");
 
     $lines = explode("\n", $w);
 
@@ -745,13 +739,13 @@ class ote
         continue;
       }
 
-      $this->log->debug("do_import: sw=$sw swi=$swi si=$si tw=$tw twi=$twi ti=$ti");
+      $this->attogram->log->debug("do_import: sw=$sw swi=$swi si=$si tw=$tw twi=$twi ti=$ti");
 
       $bind = array( 'sw'=>$si, 'sl'=>$si, 'tw'=>$ti, 'tl'=>$ti );
 
       $r = $this->insert_word2word( $swi, $si, $twi, $ti );
       if( !$r ) {
-        if( $this->db->db->errorCode() == '0000' ) {
+        if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
           $error_count++; $dupe_count++; $skip_count++;
           continue;
@@ -760,7 +754,7 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        $this->event->info( 'ADD translation: '
+        $this->attogram->event->info( 'ADD translation: '
           . '<code>' . $s . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($s)
           . '//' . urlencode($sw) . '">' . $this->web_display($sw) . '</a>'
           . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($t) . '//' . urlencode($tw)
@@ -771,7 +765,7 @@ class ote
       // insert reverse pair
       $r = $this->insert_word2word( $twi, $ti, $swi, $si );
       if( !$r ) {
-        if( $this->db->db->errorCode() == '0000' ) {
+        if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
           $error_count++; $dupe_count++; $skip_count++;
           continue;
@@ -780,7 +774,7 @@ class ote
         $error_count++; $skip_count++;
       } else {
         $import_count++;
-        $this->event->info( 'ADD translation: '
+        $this->attogram->event->info( 'ADD translation: '
           . '<code>' . $t . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
           . '//' . urlencode($tw) . '">' . $this->web_display($tw) . '</a>'
           . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($s) . '//' . urlencode($sw)
@@ -812,7 +806,7 @@ class ote
    */
   public function get_count_slush_pile()
   {
-    $r = $this->db->query('SELECT count(id) AS count FROM slush_pile');
+    $r = $this->attogram->db->query('SELECT count(id) AS count FROM slush_pile');
     if( !$r ) {
       return 0;
     }
@@ -833,8 +827,8 @@ class ote
     $values = array_values($items);
     $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
-    if( $this->db->queryb( $sql, $items ) ) {
-      //$this->event->info( 'ADD slush_pile', $items );
+    if( $this->attogram->db->queryb( $sql, $items ) ) {
+      //$this->attogram->event->info( 'ADD slush_pile', $items );
       return true;
     }
     return false;
@@ -848,16 +842,16 @@ class ote
   public function delete_from_slush_pile( $id )
   {
     // does slush pile entry exist?
-    if( !$this->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $id ) ) ) {
-      $this->log->error('delete_from_slush_pile: Not Found id=' . $this->web_display($id));
+    if( !$this->attogram->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $id ) ) ) {
+      $this->attogram->log->error('delete_from_slush_pile: Not Found id=' . $this->web_display($id));
       $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->web_display($id) . ')';
       return false;
     }
     $sql = 'DELETE FROM slush_pile WHERE id = :id';
-    if( $this->db->queryb( $sql, array( 'id' => $id )) ) {
+    if( $this->attogram->db->queryb( $sql, array( 'id' => $id )) ) {
       return true;
     }
-    $this->log->error('delete_from_slush_pile: Delete failed for id=' . $this->web_display($id));
+    $this->attogram->log->error('delete_from_slush_pile: Delete failed for id=' . $this->web_display($id));
     $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->web_display($id) . ')';
     return false;
   }
@@ -871,9 +865,9 @@ class ote
   {
     // get slush_pile entry
     $sql = 'SELECT * FROM slush_pile WHERE id = :id LIMIT 1';
-    $spe = $this->db->query( $sql, array( 'id' => $id ) );
+    $spe = $this->attogram->db->query( $sql, array( 'id' => $id ) );
     if( !$spe ) {
-      $this->log->error('accept_slush_pile_entry: can not find id=' . $this->web_display($id) );
+      $this->attogram->log->error('accept_slush_pile_entry: can not find id=' . $this->web_display($id) );
       $_SESSION['error'] = 'Can not find requested slush pile entry';
       return false;
     }
@@ -887,19 +881,19 @@ class ote
         $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
         if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
           $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
-          $this->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($id));
+          $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($id));
           $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($id) . ')';
           return false;
         }
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
-          $this->event->info( 'ADD translation: '
+          $this->attogram->event->info( 'ADD translation: '
             . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code'])
             . '//' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
             . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
             . '">' . $this->web_display($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
           );
           if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
-            $this->event->info( 'ADD translation: '
+            $this->attogram->event->info( 'ADD translation: '
               . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code'])
               . '//' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
               . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
@@ -914,18 +908,18 @@ class ote
             . ' <code>' . $this->web_display($spe[0]['target_language_code']) . '</code>';
             return true;
           }
-          $this->log->error('accept_slush_pile_entry: Can not insert reverse word2word entry');
+          $this->attogram->log->error('accept_slush_pile_entry: Can not insert reverse word2word entry');
           $_SESSION['error'] = 'Failed to insert new reverse translation';
           return false;
         }
-        $this->log->error('accept_slush_pile_entry: Can not insert word2word entry');
+        $this->attogram->log->error('accept_slush_pile_entry: Can not insert word2word entry');
         $_SESSION['error'] = 'Failed to insert new translation';
         return false;
         break;
 
       case 'delete': // DEV TODO -- delete word2word translation
       default: // unknown type
-        $this->log->error('accept_slush_pile_entry: id=' . $this->web_display($id) . ' INVALID type=' . $this->web_display($type));
+        $this->attogram->log->error('accept_slush_pile_entry: id=' . $this->web_display($id) . ' INVALID type=' . $this->web_display($type));
         $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . $this->web_display($id) . ')';
         return false;
         break;

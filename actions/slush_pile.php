@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.1.2
+<?php // Open Translation Engine - Slush Pile Page v0.1.3
 
 namespace Attogram;
 
@@ -42,7 +42,7 @@ if( $_GET ) {
 
 print '<h1 class="squished"><a href="./" style="color:inherit;text-decoration:none;">🛃</a> Slush Pile</h1>';
 
-list( $limit, $offset ) = $ote->db->get_set_limit_and_offset(
+list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
   $default_limit  = 15,
   $default_offset = 0,
   $max_limit      = 1000,

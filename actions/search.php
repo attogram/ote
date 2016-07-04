@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.2.1
+<?php // Open Translation Engine - Search Page v0.2.3
 
 namespace Attogram;
 
@@ -117,7 +117,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $target_language_id = $ote->get_language_id_from_code($t);
   }
 
-  list( $limit, $offset ) = $ote->db->get_set_limit_and_offset(
+  list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
     $default_limit = 100,
     $default_offset = 0,
     $max_limit = 1000,
@@ -150,7 +150,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
       $prepend_query_string .= '&amp;c=c';
   }
 
-  print $ote->db->pager(
+  print $this->db->pager(
     $result_count,
     $limit,
     $offset,

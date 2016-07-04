@@ -48,8 +48,8 @@ AND   first_w2w.sl != second_w2w.tl -- no self ref
 AND   first_w2w.tl = :j              -- JOIN_1_LANG
 ';
 
-$bind = array('j', $join_language_id );
-$r = @$ote->db->query($sql,$bind);
+$bind = array( 'j', $join_language_id );
+$r = @$this->db->query( $sql, $bind );
 // Warning: PDOStatement::bindParam(): SQLSTATE[HY093]: Invalid parameter number: Columns/Parameters are 1-based in .\attogram\public\index.php on line 86
 
 
