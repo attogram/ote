@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.2.0
+<?php // Open Translation Engine - Export Page v0.2.1
 /*
  OTE Export Page
 
@@ -19,7 +19,7 @@
 */
 namespace Attogram;
 
-$ote = new ote( $this->db, $this->log, $this->event );
+$ote = new ote( $this );
 
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 

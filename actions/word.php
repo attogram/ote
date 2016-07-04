@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.1
+<?php // Open Translation Engine - Word Page v0.2.2
 /*
  OTE Word Page
 
@@ -32,7 +32,7 @@
 
 namespace Attogram;
 
-$ote = new ote( $this->db, $this->log, $this->event );
+$ote = new ote( $this );
 
 $langs = $ote->get_languages();
 

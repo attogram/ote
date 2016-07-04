@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Search Page v0.2.0
+<?php // Open Translation Engine - Search Page v0.2.1
 
 namespace Attogram;
 
-$ote = new ote( $this->db, $this->log, $this->event );
+$ote = new ote( $this );
 
 $this->page_header('Search');
 

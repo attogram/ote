@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.3.2
+<?php // The Open Translation Engine (OTE) - ote class v0.4.0
 
 namespace Attogram;
 
@@ -18,16 +18,14 @@ class ote
 
   /**
    * initialize OTE
-   * @param  object $db    Attogram PDO database object
-   * @param  object $log   Debug - PSR-3 Logger object
-   * @param  object $event Events - PSR-3 Logger object
+   * @param  object $attogram   The attogram framework object
    * @return void
    */
-  public function __construct( $db, $log, $event )
+  public function __construct( $attogram )
   {
-    $this->db = $db;
-    $this->log = $log;
-    $this->event = $event;
+    $this->db = $attogram->db;
+    $this->log = $attogram->log;
+    $this->event = $attogram->event;
     $this->log->debug('START OTE v' . self::OTE_VERSION);
   }
 

@@ -1,9 +1,9 @@
-<?php // Open Translation Engine - History Page v0.1.1
+<?php // Open Translation Engine - History Page v0.1.2
 // dev TODO - pagination
 
 namespace Attogram;
 
-$ote = new ote( $this->db, $this->log, $this->event );
+$ote = new ote( $this );
 
 $title = '🔭 History';
 $this->page_header($title);
