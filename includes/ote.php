@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.4.0
+<?php // The Open Translation Engine (OTE) - ote class v0.4.1
 
 namespace Attogram;
 
@@ -10,7 +10,8 @@ class ote
 
   const OTE_VERSION = '1.1.1-dev';
 
-  public $db;              // (object) The Attogram Database Object
+  public $attogram;        // (object) The Attogram Framework object
+  public $db;              // (object) The Attogram Database object
   public $log;             // (object) Debug - PSR-3 Logger object
   public $event;           // (object) Events - PSR-3 Logger object
   public $languages;       // (array) List of languages
@@ -23,6 +24,7 @@ class ote
    */
   public function __construct( $attogram )
   {
+    $this->attogram = $attogram;
     $this->db = $attogram->db;
     $this->log = $attogram->log;
     $this->event = $attogram->event;
@@ -250,7 +252,7 @@ class ote
     }
     $id = $this->db->db->lastInsertId();
     $this->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
-    $this->event->info('ADD word: <a href="' . $this->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
+    $this->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
     return $id;
   }
 
@@ -764,9 +766,9 @@ class ote
       } else {
         $import_count++;
         $this->event->info( 'ADD translation: '
-          . '<code>' . $s . '</code> <a href="' . $this->path . '/word/' . urlencode($s)
+          . '<code>' . $s . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($s)
           . '//' . urlencode($sw) . '">' . $this->web_display($sw) . '</a>'
-          . ' = <a href="' . $this->path . '/word/' . urlencode($t) . '//' . urlencode($tw)
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($t) . '//' . urlencode($tw)
           . '">' . $this->web_display($tw) . '</a> <code>' . $t . '</code>'
         );
       }
@@ -784,9 +786,9 @@ class ote
       } else {
         $import_count++;
         $this->event->info( 'ADD translation: '
-          . '<code>' . $t . '</code> <a href="' . $this->path . '/word/' . urlencode($t)
+          . '<code>' . $t . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
           . '//' . urlencode($tw) . '">' . $this->web_display($tw) . '</a>'
-          . ' = <a href="' . $this->path . '/word/' . urlencode($s) . '//' . urlencode($sw)
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($s) . '//' . urlencode($sw)
           . '">' . $this->web_display($sw) . '</a> <code>' . $s . '</code>'
         );
       }
@@ -897,16 +899,16 @@ class ote
         }
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
           $this->event->info( 'ADD translation: '
-            . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->path . '/word/' . urlencode($spe[0]['source_language_code'])
+            . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code'])
             . '//' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
-            . ' = <a href="' . $this->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
+            . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
             . '">' . $this->web_display($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
           );
           if( $r_id = $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
             $this->event->info( 'ADD translation: '
-              . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->path . '/word/' . urlencode($spe[0]['target_language_code'])
+              . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code'])
               . '//' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
-              . ' = <a href="' . $this->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
+              . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
               . '">' . $this->web_display($spe[0]['source_word']) . '</a> <code>' . $spe[0]['source_language_code'] . '</code>'
             );
             $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
