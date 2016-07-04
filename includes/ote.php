@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.4.1
+<?php // The Open Translation Engine (OTE) - ote class v0.4.2
 
 namespace Attogram;
 
@@ -385,10 +385,9 @@ class ote
     if( $r ) {
       $this->log->debug('get_word2word: exists');
       return true;
-    } else {
-      $this->log->debug('get_word2word: does not exist');
-      return false;
     }
+    $this->log->debug('get_word2word: does not exist');
+    return false;
   }
 
   /**
@@ -605,22 +604,18 @@ class ote
       $tl = 0;
     }
     $this->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . $this->web_display($word) );
-
-
     $sql = 'SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl';
     $bind = array( 'word' => $word, 'sl' => $sl, 'tl' => $tl, 'date' => $now );
     $rid = $this->db->query( $sql, $bind );
     if( !$rid ) {
       // insert new history entry for this date
       $sql = 'INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1 )';
-      $ir = $this->db->queryb( $sql, $bind );
-    } else {
-      // update count
-      $sql = 'UPDATE history SET count = count + 1 WHERE id = :id';
-      $bind = array( 'id' => $rid[0]['id'] );
       return $this->db->queryb( $sql, $bind );
     }
-
+    // update count
+    $sql = 'UPDATE history SET count = count + 1 WHERE id = :id';
+    $bind = array( 'id' => $rid[0]['id'] );
+    return $this->db->queryb( $sql, $bind );
   } // end function insert_history()
 
   /**
@@ -795,11 +790,10 @@ class ote
 
       if( $line_count % 100 == 0 ) {
         print ' ' . $line_count . ' ';
-        @ob_flush(); flush();
       } elseif( $line_count % 10 == 0 ) {
         print '.';
-        @ob_flush(); flush();
       }
+      @ob_flush(); flush();
 
     } // end foreach line
 
