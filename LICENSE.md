@@ -1,6 +1,6 @@
 Open Translation Engine License
 ==================
-[//]: # ( Open Translation Engine - License - v0.0.1 )
+[//]: # ( Open Translation Engine - License - v0.0.2 )
 
 The Open Translation Engine (OTE) is an open source project.
 
@@ -14,7 +14,7 @@ The OTE distribution includes <a href="#other">other open source projects</a>.
 
 <strong>Open Translation Engine - MIT License</strong>
 
-Copyright (c) 2016 Open Translation Engine Developers <a href="https://github.com/attogram/ote/">https://github.com/attogram/ote/</a>
+Copyright (c) 2016 Open Translation Engine Developers https://github.com/attogram/ote/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 <strong>Open Translation Engine - GNU General Public License</strong>
 
-Copyright (C) 2016 Open Translation Engine Developers <a href="https://github.com/attogram/ote/">https://github.com/attogram/ote/</a>
+Copyright (C) 2016 Open Translation Engine Developers https://github.com/attogram/ote/
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -742,10 +742,8 @@ Public License instead of this License.  But first, please read
 
 Other Open Source Software included with the Open Translation Engine distribution:
 
-<ul>
-<li>Attogram Framework - MIT License _or_ GPL License - <a hre="https://github.com/attogram/attogram/">https://github.com/attogram/attogram/</a>
-<li>phpLiteAdmin - GPL License - <a href="https://www.phpliteadmin.org/">https://www.phpliteadmin.org/</a></li>
-<li>jQuery - MIT License - <a href="http://jquery.org/license/">http://jquery.org/license/</a></li>
-<li>Bootstrap - MIT License - <a href="http://getbootstrap.com/">http://getbootstrap.com/</a></li>
-<li>Parsedown - MIT License - <a href="http://parsedown.org/">http://parsedown.org/</a></li>
-</ul>
+* Attogram Framework - MIT License _or_ GPL License - https://github.com/attogram/ote/
+* phpLiteAdmin - GPL License - https://www.phpliteadmin.org/
+* jQuery - MIT License - http://jquery.org/license/
+* Bootstrap - MIT License - http://getbootstrap.com/
+* Parsedown - MIT License - http://parsedown.org/
