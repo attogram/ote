@@ -4,7 +4,7 @@ Open Translation Engine License
 
 The Open Translation Engine (OTE) is an open source project.
 
-OTE is dual licensed under
+The OTE is dual licensed under
 <a href="http://opensource.org/licenses/MIT">The MIT License</a> or the
 <a href="http://opensource.org/licenses/GPL-3.0">GNU General Public License</a>, at your choosing.
 
