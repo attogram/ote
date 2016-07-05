@@ -2,7 +2,6 @@
 * Repository: https://github.com/attogram/ote
 * Click version number for DIFF since last release
 
-
 ## [Unreleased](https://github.com/attogram/ote/compare/v1.1.0...HEAD)
 - in dev...
 
@@ -33,9 +32,12 @@
 ## [v1.0.0-dev03](https://github.com/attogram/ote/compare/a82a368...152c87c) - 2016-06-02
 ## [v1.0.0-dev02](https://github.com/attogram/ote/compare/3bbd68e...a82a368) - 2016-06-01
 ## [v1.0.0-dev01](https://github.com/attogram/ote/compare/d34592a...3bbd68e) - 2016-05-29
+
 ## [v1.0.0-dev](https://github.com/attogram/ote/compare/cf11f27...d34592a) - 2016-05-24
-- v1.* development started: OTE as an Attogram Framework module
-- v0.9.* split of into own branch: https://github.com/attogram/ote/tree/v0.9.9
+- `v1.*` development started: OTE as an Attogram Framework module
+- `v0.9.*` split of into own branch: https://github.com/attogram/ote/tree/v0.9.9
+
 ## [v0.9.9.1.dev](https://github.com/attogram/ote/compare/f23a6d5...cf11f27) - 2016-04-26
+
 ## [v0.9.8.9](https://github.com/attogram/ote/tree/f23a6d5) - 2014-09-09
 -  Import from http://sourceforge.net/projects/ote/
