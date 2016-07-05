@@ -1,6 +1,6 @@
-# CHANGELOG - Open Translation Engine (OTE)
+# Open Translation Engine CHANGELOG
 * Repository: https://github.com/attogram/ote
-* Click version number for DIFF since last release
+* Click version number to view a diff comparison of changes since the previous release
 
 ## [Unreleased](https://github.com/attogram/ote/compare/v1.1.1...HEAD)
 - in dev...
@@ -9,9 +9,10 @@
 - Allow HTML in event log messages
 - start development of Delete and Tag links on translation pairs
 - ote object now only needs to take in the attogram object on startup, for database access, logging, etc.
-- new actions: readme, license.  Shows OTE specific README.md and LICENSE.md files
+- new actions: `readme`, `license`.  Shows OTE specific `README.md` and `LICENSE.md` files
 - misc refactoring
-- started this CHANGELOG.md!
+- started this `CHANGELOG.md`!
+- started [`TODO.md`](./TODO.md)
 
 ## [v1.1.0](https://github.com/attogram/ote/compare/707300f...v1.1.0) - 2016-07-03
 - Event log support: logging of newly added languages, words, or translations
