@@ -8,7 +8,7 @@ namespace Attogram;
 class ote
 {
 
-  const OTE_VERSION = '1.1.2-dev';
+  const OTE_VERSION = '1.1.2';
 
   public $attogram;        // (object) The Attogram Framework object
   public $languages;       // (array) List of languages
