@@ -35,7 +35,7 @@
 
 ## [v1.0.0-dev](https://github.com/attogram/ote/compare/cf11f27...d34592a) - 2016-05-24
 - `v1.*` development started: OTE as an Attogram Framework module
-- `v0.9.*` split of into own branch: https://github.com/attogram/ote/tree/v0.9.9
+- `v0.9.*` split off into own branch, for maintenance releases only: https://github.com/attogram/ote/tree/v0.9.9
 
 ## [v0.9.9.1.dev](https://github.com/attogram/ote/compare/f23a6d5...cf11f27) - 2016-04-26
 
