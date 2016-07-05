@@ -3,7 +3,8 @@
 * Click version number to view a diff comparison of changes since the previous release
 
 ## [Unreleased](https://github.com/attogram/ote/compare/v1.1.1...HEAD)
-- in dev...
+- formatting and links in this CHANGELOG.md file
+
 
 ## [v1.1.1](https://github.com/attogram/ote/compare/v1.1.0...v1.1.1) - 2016-07-05
 - Allow HTML in event log messages
