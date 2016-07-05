@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.5.1
+<?php // The Open Translation Engine (OTE) - ote class v0.5.2
 
 namespace Attogram;
 
@@ -8,7 +8,7 @@ namespace Attogram;
 class ote
 {
 
-  const OTE_VERSION = '1.1.1';
+  const OTE_VERSION = '1.1.2-dev';
 
   public $attogram;        // (object) The Attogram Framework object
   public $languages;       // (array) List of languages
