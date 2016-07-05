@@ -9,7 +9,7 @@
 - Allow HTML in event log messages
 - start development of Delete and Tag links on translation pairs
 - ote object now only needs to take in the attogram object on startup, for database access, logging, etc.
-- new actions: `readme`, `license`.  Shows OTE specific `README.md` and `LICENSE.md` files
+- new actions: `readme`, `license`.  Shows OTE specific [`README.md`](./README.md) and [`LICENSE.md`](./LICENSE.md) files
 - misc refactoring
 - started this `CHANGELOG.md`!
 - started [`TODO.md`](./TODO.md)
