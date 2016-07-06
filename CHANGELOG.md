@@ -4,8 +4,8 @@
 
 ## [Unreleased](https://github.com/attogram/ote/compare/v1.1.2...HEAD)
 - New [TODOs](./TODO.md):
- - [Issue #11: Export ALL function](https://github.com/attogram/ote/issues/11)
- - [Issue #10: File uploader for import page](https://github.com/attogram/ote/issues/10)
+ - [Issue #11](https://github.com/attogram/ote/issues/11) - Export ALL function - export in [DAMS](https://github.com/attogram/DAMS/) directory format
+ - [Issue #10](https://github.com/attogram/ote/issues/10) - File uploader for import page
 - New [INSTALLATIONS.md](./INSTALLATIONS.md) file listing known OTE sites
 
 ## [v1.1.2](https://github.com/attogram/ote/compare/v1.1.1...v1.1.2) - 2016-07-05
