@@ -45,7 +45,7 @@ class ote
     $this->attogram->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
-    return $id;
+    return $insert_id;
   }
 
   /**
