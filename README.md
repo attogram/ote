@@ -1,12 +1,14 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.2.2 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.2.3 )
 
 [![Build Status](https://travis-ci.org/attogram/ote.svg?branch=master)](https://travis-ci.org/attogram/ote)
 [![Latest Stable Version](https://poser.pugx.org/attogram/open-translation-engine/v/stable)](https://packagist.org/packages/attogram/open-translation-engine)
 [![Latest Unstable Version](https://poser.pugx.org/attogram/open-translation-engine/v/unstable)](https://packagist.org/packages/attogram/open-translation-engine)
 [![Total Downloads](https://poser.pugx.org/attogram/open-translation-engine/downloads)](https://packagist.org/packages/attogram/open-translation-engine)
 [![License](https://poser.pugx.org/attogram/open-translation-engine/license)](https://github.com/attogram/ote/blob/master/LICENSE.md)
+[![Code Climate](https://codeclimate.com/github/attogram/ote/badges/gpa.svg)](https://codeclimate.com/github/attogram/ote)
+[![Issue Count](https://codeclimate.com/github/attogram/ote/badges/issue_count.svg)](https://codeclimate.com/github/attogram/ote)
 [`[CHANGELOG]`](https://github.com/attogram/ote/blob/master/CHANGELOG.md)
 [`[TODO]`](https://github.com/attogram/ote/blob/master/TODO.md)
 
