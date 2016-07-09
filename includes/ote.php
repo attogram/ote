@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.1
+<?php // The Open Translation Engine (OTE) - ote class v0.6.2
 
 namespace Attogram;
 
@@ -616,10 +616,10 @@ class ote
    * @param string $source_language_name  (optional) Source Language Name
    * @param string $target_language_name  (optional) Target Language Name
    */
-  public function do_import( $translations, $deliminator, $source_language_code, $t, $source_language_name = '', $target_language_name = '' )
+  public function do_import( $translations, $deliminator, $source_language_code, $target_language_code, $source_language_name = '', $target_language_name = '' )
   {
 
-    $this->attogram->log->debug("do_import: s=$source_language_code t=$target_language_coded=$deliminator sn=$source_language_name tn=$target_language_name w strlen=" . strlen($translations));
+    $this->attogram->log->debug("do_import: s=$source_language_code t=$target_language_code d=$deliminator sn=$source_language_name tn=$target_language_name w strlen=" . strlen($translations));
 
     $deliminator = str_replace('\t', "\t", $deliminator); // allow real tabs
 
