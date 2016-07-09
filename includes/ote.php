@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.5.5
+<?php // The Open Translation Engine (OTE) - ote class v0.5.6
 
 namespace Attogram;
 
@@ -83,13 +83,13 @@ class ote
 
   /**
    * Get a Language Code from Language ID
-   * @param  int     $id  The Language ID
-   * @return string       The Language Code, or false
+   * @param  int     $language_id  The Language ID
+   * @return string                The Language Code, or false
    */
-  public function get_language_code_from_id( $id )
+  public function get_language_code_from_id( $language_id )
   {
     foreach( $this->get_languages() as $code => $lang ) {
-      if( $lang['id'] == $id ) {
+      if( $lang['id'] == $language_id ) {
         return $code;
       }
     }
@@ -98,13 +98,13 @@ class ote
 
   /**
    * Get a Language Name from Language ID
-   * @param  int     $id  The Language ID
-   * @return string       The Language Name, or false
+   * @param  int     $language_id  The Language ID
+   * @return string                The Language Name, or false
    */
-  public function get_language_name_from_id( $id )
+  public function get_language_name_from_id( $language_id )
   {
     foreach( $this->get_languages() as $lang ) {
-      if( $lang['id'] == $id ) {
+      if( $lang['id'] == $language_id ) {
         return $lang['name'];
       }
     }
@@ -131,7 +131,7 @@ class ote
    * Optionally, if the language is not found, inserts the language into the database.
    * @param  string $code           The Language Code
    * @param  string $default_name   (optional) The default language name to use & insert, if none found
-   * @param  bool $insert           (optional) Insert language into database, if not found. Defaults to false
+   * @param  bool   $insert         (optional) Insert language into database, if not found. Defaults to false
    * @return string                 The Language Name, or false on error
    */
   public function get_language_name_from_code( $code, $default_name = '', $insert = false )
@@ -184,7 +184,7 @@ class ote
 
   /**
    * Get a list of all Dictionaries
-   * @param  string  $lcode   (optional) Limit search to specific Language Code
+   * @param  string  $lcode  (optional) Limit search to specific Language Code
    * @return array           List of dictionaries
    */
   public function get_dictionary_list( $lcode = '' )
@@ -206,13 +206,13 @@ class ote
     $langs = $this->get_languages();
     $dlist = array();
     foreach( $result as $d ) {
-      $sl = $this->get_language_code_from_id($d['sl']); // Source Language Name
-      $tl = $this->get_language_code_from_id($d['tl']); // Target Language Name
-      $url = $sl . '/' . $tl . '/';
-      $dlist[$url] = $langs[$sl]['name'] . ' to ' . $langs[$tl]['name'];
-      $result_url = $tl . '/' . $sl . '/';
-      if( !array_key_exists($result_url,$dlist) ) {
-        $dlist[$result_url] = $langs[$tl]['name'] . ' to ' . $langs[$sl]['name'];
+      $source_language_code = $this->get_language_code_from_id($d['sl']); // Source Language Code
+      $target_language_code = $this->get_language_code_from_id($d['tl']); // Target Language Code
+      $url = $source_language_code . '/' . $target_language_code . '/';
+      $dlist[$url] = $langs[$source_language_code]['name'] . ' to ' . $langs[$target_language_code]['name'];
+      $result_url = $target_language_code . '/' . $source_language_code . '/';
+      if( !array_key_exists( $result_url, $dlist ) ) {
+        $dlist[$result_url] = $langs[$target_language_code]['name'] . ' to ' . $langs[$source_language_code]['name'];
       }
     }
     asort($dlist);
@@ -272,26 +272,26 @@ class ote
    * Get All Words
    * @param int $limit (optional)
    * @param int $offset (optional)
-   * @param int $sl (optional) The Source Language ID
-   * @param int $tl (optional) The Target Language ID
+   * @param int $source_language_id (optional) The Source Language ID
+   * @param int $target_language_id (optional) The Target Language ID
    * @return array List of words
    */
-  public function get_all_words( $limit = 0, $offset = 0, $sl = 0, $tl = 0 )
+  public function get_all_words( $limit = 0, $offset = 0, $source_language_id = 0, $target_language_id = 0 )
   {
 
     $bind = array();
-    if( !$sl && !$tl ) {      // No Source Language, No Target Language
+    if( !$source_language_id && !$target_language_id ) {      // No Source Language, No Target Language
       $select = 'SELECT distinct word FROM word';
-    } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
+    } elseif( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
       $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
-      $bind['sl'] = $sl;
-    } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
+      $bind['sl'] = $source_language_id;
+    } elseif( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
       $select = 'SELECT distinct word FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
-      $bind['tl'] = $tl;
+      $bind['tl'] = $target_language_id;
     } else {                  // Yes Source Language, Yes Target Language
       $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
-      $bind['sl'] = $sl;
-      $bind['tl'] = $tl;
+      $bind['sl'] = $source_language_id;
+      $bind['tl'] = $target_language_id;
     }
 
     $order = 'ORDER BY word COLLATE NOCASE';
@@ -310,25 +310,25 @@ class ote
 
   /**
    * Get the number of words
-   * @param int $sl (optional) The Source Language ID
-   * @param int $tl (optional) The Target Language ID
+   * @param int $source_language_id (optional) The Source Language ID
+   * @param int $target_language_id (optional) The Target Language ID
    * @return int
    */
-  public function get_word_count( $sl = 0, $tl = 0 )
+  public function get_word_count( $source_language_id = 0, $target_language_id = 0 )
   {
     $bind = array();
-    if( !$sl && !$tl ) {      // No Source Language, No Target Language
+    if( !$source_language_id && !$target_language_id ) {      // No Source Language, No Target Language
       $sql = 'SELECT count(DISTINCT word.word) AS count FROM word';
-    } elseif( $sl && !$tl ) { // Yes Source Language, No Target Language
+    } elseif( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
       $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
-      $bind['sl'] = $sl;
-    } elseif( !$sl && $tl ) { // No source Language, Yes Target Language
+      $bind['sl'] = $source_language_id;
+    } elseif( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
       $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
-      $bind['tl'] = $tl;
+      $bind['tl'] = $target_language_id;
     } else {                  // Yes Source Language, Yes Target Language
       $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
-      $bind['sl'] = $sl;
-      $bind['tl'] = $tl;
+      $bind['sl'] = $source_language_id;
+      $bind['tl'] = $target_language_id;
     }
     $result = $this->attogram->db->query( $sql, $bind );
     return isset($result[0]['count']) ? $result[0]['count'] : '0';
@@ -336,15 +336,15 @@ class ote
 
   /**
    * Insert a translation into the database
-   * @param  int $sw   Source Word ID
-   * @param  int $sl   Source Language ID
-   * @param  int $tw   Target Word ID
-   * @param  int $tl   Target Language ID
+   * @param  int $source_word_id   Source Word ID
+   * @param  int $source_language_id   Source Language ID
+   * @param  int $target_word_id   Target Word ID
+   * @param  int $target_language_id   Target Language ID
    * @param  int       Inserted record ID, or false
    */
-  public function insert_word2word( $sw, $sl, $tw, $tl )
+  public function insert_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id )
   {
-    $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
+    $bind = array('sw'=>$source_word_id, 'sl'=>$source_language_id, 'tw'=>$target_word_id, 'tl'=>$target_language_id);
     $this->attogram->log->debug('insert_word2word', $bind);
     $sql = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
     $result = $this->attogram->db->queryb($sql, $bind);
@@ -364,15 +364,15 @@ class ote
 
   /**
    * Get a translation from the database
-   * @param  int $sw   Source Word ID
-   * @param  int $sl   Source Language ID
-   * @param  int $tw   Target Word ID
-   * @param  int $tl   Target Language ID
+   * @param  int $source_word_id   Source Word ID
+   * @param  int $source_language_id   Source Language ID
+   * @param  int $target_word_id   Target Word ID
+   * @param  int $target_language_id   Target Language ID
    * @return boolean   true if word2word entry exists, else false
    */
-  public function get_word2word( $sw, $sl, $tw, $tl )
+  public function get_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id )
   {
-    $bind = array('sw'=>$sw, 'sl'=>$sl, 'tw'=>$tw, 'tl'=>$tl);
+    $bind = array('sw'=>$source_word_id, 'sl'=>$source_language_id, 'tw'=>$target_word_id, 'tl'=>$target_language_id);
     $this->attogram->log->debug('get_word2word', $bind);
     $sql = 'SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl';
     $result = $this->attogram->db->query($sql,$bind);
@@ -386,15 +386,15 @@ class ote
 
   /**
    * Get all of a dictionary
-   * @param  int    $sl     (optional) Source Language ID
-   * @param  int    $tl     (optional) Target Language ID
+   * @param  int    $source_language_id     (optional) Source Language ID
+   * @param  int    $target_language_id     (optional) Target Language ID
    * @param  int    $limit  (optional)
    * @param  int    $offset (optional)
    * @return array          list of word pairs
    */
-  public function get_dictionary( $sl = 0, $tl = 0, $limit = false, $offset = false )
+  public function get_dictionary( $source_language_id = 0, $target_language_id = 0, $limit = false, $offset = false )
   {
-    $this->attogram->log->debug("get_dictionary: sl=$sl tl=$tl limit=$limit offset=$offset");
+    $this->attogram->log->debug("get_dictionary: sl=$source_language_id tl=$target_language_id limit=$limit offset=$offset");
     $select = '
     sw.word AS s_word, tw.word AS t_word,
     sl.code AS sc,     tl.code AS tc,
@@ -406,16 +406,16 @@ class ote
       tw.word COLLATE NOCASE';
     $lang = '';
     $bind = array();
-    if( $sl && $tl ) {
+    if( $source_language_id && $target_language_id ) {
       $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-      $bind['sl'] = $sl;
-      $bind['tl'] = $tl;
-    } elseif( $sl && !$tl ) {
+      $bind['sl'] = $source_language_id;
+      $bind['tl'] = $target_language_id;
+    } elseif( $source_language_id && !$target_language_id ) {
       $lang = 'AND ww.sl=:sl';
-      $bind['sl'] = $sl;
-    } elseif( !$sl && $tl ) {
+      $bind['sl'] = $source_language_id;
+    } elseif( !$source_language_id && $target_language_id ) {
       $lang = 'AND ww.tl=:tl';
-      $bind['tl'] = $tl;
+      $bind['tl'] = $target_language_id;
     }
     $limit_clause = '';
     if( $limit && $offset ) {
@@ -435,21 +435,21 @@ class ote
     return $result;
   } // end function get_dictionary()
 
-  public function get_dictionary_translations_count( $sl = 0, $tl = 0 )
+  public function get_dictionary_translations_count( $source_language_id = 0, $target_language_id = 0 )
   {
-    $this->attogram->log->debug("get_dictionary_translations_count: sl=$sl tl=$tl ");
+    $this->attogram->log->debug("get_dictionary_translations_count: sl=$source_language_id tl=$target_language_id ");
     $lang = '';
     $bind = array();
-    if( $sl && $tl ) {
+    if( $source_language_id && $target_language_id ) {
       $lang = 'WHERE sl = :sl AND tl = :tl';
-      $bind['sl'] = $sl;
-      $bind['tl'] = $tl;
-    } elseif( $sl && !$tl ) {
+      $bind['sl'] = $source_language_id;
+      $bind['tl'] = $target_language_id;
+    } elseif( $source_language_id && !$target_language_id ) {
       $lang = 'WHERE sl = :sl';
-      $bind['sl'] = $sl;
-    } elseif( !$sl && $tl ) {
+      $bind['sl'] = $source_language_id;
+    } elseif( !$source_language_id && $target_language_id ) {
       $lang = 'WHERE tl = :tl';
-      $bind['tl'] = $tl;
+      $bind['tl'] = $target_language_id;
     }
     $sql = "SELECT count( word2word.id ) AS count FROM word2word $lang";
     $result = $this->attogram->db->query( $sql, $bind );
@@ -459,26 +459,26 @@ class ote
   /**
    * Get count of results for a Search of the dictionaries
    * @param  string $word   The Word to search thereupon
-   * @param  int    $sl     (optional) Source Language ID, defaults to 0
-   * @param  int    $tl     (optional) Target Language ID, defaults to 0
+   * @param  int    $source_language_id     (optional) Source Language ID, defaults to 0
+   * @param  int    $target_language_id     (optional) Target Language ID, defaults to 0
    * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
    * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
    * @return int            number of results
    */
-  public function get_count_search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false )
+  public function get_count_search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $f = false, $c = false )
   {
       $select = 'SELECT count(sw.word) AS count';
 
-      if( $sl && $tl ) {
+      if( $source_language_id && $target_language_id ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-        $bind['sl'] = $sl;
-        $bind['tl'] = $tl;
-      } elseif( $sl && !$tl ) {
+        $bind['sl'] = $source_language_id;
+        $bind['tl'] = $target_language_id;
+      } elseif( $source_language_id && !$target_language_id ) {
         $lang = 'AND ww.sl = :sl';
-        $bind['sl'] = $sl;
-      } elseif( !$sl && $tl ) {
+        $bind['sl'] = $source_language_id;
+      } elseif( !$source_language_id && $target_language_id ) {
         $lang = 'AND ww.tl = :tl';
-        $bind['tl'] = $tl;
+        $bind['tl'] = $target_language_id;
       } else {
         $lang = '';
       }
@@ -514,20 +514,20 @@ class ote
   /**
    * Search dictionaries
    * @param  string $word   The Word to search thereupon
-   * @param  int    $sl     (optional) Source Language ID, defaults to 0
-   * @param  int    $tl     (optional) Target Language ID, defaults to 0
+   * @param  int    $source_language_id     (optional) Source Language ID, defaults to 0
+   * @param  int    $target_language_id     (optional) Target Language ID, defaults to 0
    * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
    * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
    * @param  int    $limit  (optional) Limit # of results per page, defaults to 100
    * @param  int    $offset (optional) result # to start listing at, defaults to 0
    * @return array          list of word pairs
    */
-  public function search_dictionary( $word, $sl = 0, $tl = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
+  public function search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
   {
 
-      $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
+      $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$source_language_id tl=$target_language_id f=$f c=$c limit=$limit offset=$offset");
 
-      $this->insert_history( $word, $sl, $tl );
+      $this->insert_history( $word, $source_language_id, $target_language_id );
 
       $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
 
@@ -538,16 +538,16 @@ class ote
       }
       $order = "ORDER BY sw.word $order_c, sl.name $order_c, tl.name $order_c, tw.word $order_c";
 
-      if( $sl && $tl ) {
+      if( $source_language_id && $target_language_id ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-        $bind['sl'] = $sl;
-        $bind['tl'] = $tl;
-      } elseif( $sl && !$tl ) {
+        $bind['sl'] = $source_language_id;
+        $bind['tl'] = $target_language_id;
+      } elseif( $source_language_id && !$target_language_id ) {
         $lang = 'AND ww.sl = :sl';
-        $bind['sl'] = $sl;
-      } elseif( !$sl && $tl ) {
+        $bind['sl'] = $source_language_id;
+      } elseif( !$source_language_id && $target_language_id ) {
         $lang = 'AND ww.tl = :tl';
-        $bind['tl'] = $tl;
+        $bind['tl'] = $target_language_id;
       } else {
         $lang = '';
       }
@@ -581,22 +581,22 @@ class ote
   /**
    * insert an search history entry into the database
    * @param  string  $word   The Word
-   * @param  int     $sl   (optional) Source Language ID, defaults to 0
-   * @param  int     $tl   (optional) Target Language ID, defaults to 0
+   * @param  int     $source_language_id   (optional) Source Language ID, defaults to 0
+   * @param  int     $target_language_id   (optional) Target Language ID, defaults to 0
    * @return bool
    */
-  public function insert_history( $word, $sl = 0, $tl = 0 )
+  public function insert_history( $word, $source_language_id = 0, $target_language_id = 0 )
   {
     $now = gmdate('Y-m-d');
-    if( !$sl || !is_int($sl) ) {
-      $sl = 0;
+    if( !$source_language_id || !is_int($source_language_id) ) {
+      $source_language_id = 0;
     }
-    if( !$tl || !is_int($tl) ) {
-      $tl = 0;
+    if( !$target_language_id || !is_int($target_language_id) ) {
+      $target_language_id = 0;
     }
-    $this->attogram->log->debug('insert_history: date: ' . $now . ' sl: ' . $sl . ' tl: ' . $tl . ' word: ' . $this->web_display($word) );
+    $this->attogram->log->debug('insert_history: date: ' . $now . ' sl: ' . $source_language_id . ' tl: ' . $target_language_id . ' word: ' . $this->web_display($word) );
     $sql = 'SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl';
-    $bind = array( 'word' => $word, 'sl' => $sl, 'tl' => $tl, 'date' => $now );
+    $bind = array( 'word' => $word, 'sl' => $source_language_id, 'tl' => $target_language_id, 'date' => $now );
     $resultid = $this->attogram->db->query( $sql, $bind );
     if( !$resultid ) {
       // insert new history entry for this date
@@ -715,8 +715,8 @@ class ote
         continue;
       }
 
-      $swi = $this->get_id_from_word($sw); // The Source Word ID
-      if( !$swi ) {
+      $source_word_id = $this->get_id_from_word($sw); // The Source Word ID
+      if( !$source_word_id ) {
         print '<p>Error: Line #' . $line_count . ': Can Not Get/Insert Source Word</p>';
         $error_count++; $skip_count++;
         continue;
@@ -729,16 +729,16 @@ class ote
         continue;
       }
 
-      $twi = $this->get_id_from_word($tw); // The Target Word ID
-      if( !$twi ) {
+      $target_language_id = $this->get_id_from_word($tw); // The Target Word ID
+      if( !$target_language_id ) {
         print '<p>Error: Line #' . $line_count . ': Can Not Get/Insert Target Word</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $this->attogram->log->debug("do_import: sw=$sw swi=$swi si=$si tw=$tw twi=$twi ti=$ti");
+      $this->attogram->log->debug("do_import: sw=$sw swi=$source_word_id si=$si tw=$tw twi=$target_language_id ti=$ti");
 
-      $result = $this->insert_word2word( $swi, $si, $twi, $ti );
+      $result = $this->insert_word2word( $source_word_id, $si, $target_language_id, $ti );
       if( !$result ) {
         if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
@@ -758,7 +758,7 @@ class ote
       }
 
       // insert reverse pair
-      $result = $this->insert_word2word( $twi, $ti, $swi, $si );
+      $result = $this->insert_word2word( $target_language_id, $ti, $source_word_id, $si );
       if( !$result ) {
         if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
@@ -869,24 +869,24 @@ class ote
     $type = $spe[0]['type'];
     switch( $type ) {
       case 'add': // add word2word translation
-        $sw = $this->get_id_from_word(          $spe[0]['source_word'] );          // Source Word ID
-        $sl = $this->get_language_id_from_code( $spe[0]['source_language_code'] ); // Source Language ID
+        $source_word_id = $this->get_id_from_word(          $spe[0]['source_word'] );          // Source Word ID
+        $source_language_id = $this->get_language_id_from_code( $spe[0]['source_language_code'] ); // Source Language ID
         $tw = $this->get_id_from_word(          $spe[0]['target_word'] );          // Target Word ID
-        $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
-        if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
+        $target_language_id = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
+        if( $this->get_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
           $this->delete_from_slush_pile( $slush_id ); // dev todo - check results
           $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($slush_id));
           $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($slush_id) . ')';
           return false;
         }
-        if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
+        if( $this->insert_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
           $this->attogram->event->info( 'ADD translation: '
             . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code'])
             . '//' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
             . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
             . '">' . $this->web_display($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
           );
-          if( $this->insert_word2word( $tw, $tl, $sw, $sl ) ) {
+          if( $this->insert_word2word( $tw, $target_language_id, $source_word_id, $source_language_id ) ) {
             $this->attogram->event->info( 'ADD translation: '
               . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code'])
               . '//' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
