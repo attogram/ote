@@ -1,11 +1,11 @@
 Open Translation Engine (OTE)
 ===
-[//]: # ( Open Translation Engine - README.md (markdown) - v0.2.1 )
+[//]: # ( Open Translation Engine - README.md (markdown) - v0.2.2 )
 
 [![Build Status](https://travis-ci.org/attogram/ote.svg?branch=master)](https://travis-ci.org/attogram/ote)
-[![Latest Stable Version](https://poser.pugx.org/attogram/ote/v/stable)](https://packagist.org/packages/attogram/ote)
-[![Latest Unstable Version](https://poser.pugx.org/attogram/ote/v/unstable)](https://packagist.org/packages/attogram/ote)
-[![Total Downloads](https://poser.pugx.org/attogram/ote/downloads)](https://packagist.org/packages/attogram/ote)
+[![Latest Stable Version](https://poser.pugx.org/attogram/open-translation-engine/v/stable)](https://packagist.org/packages/attogram/open-translation-engine)
+[![Latest Unstable Version](https://poser.pugx.org/attogram/open-translation-engine/v/unstable)](https://packagist.org/packages/attogram/open-translation-engine)
+[![Total Downloads](https://poser.pugx.org/attogram/open-translation-engine/downloads)](https://packagist.org/packages/attogram/open-translation-engine)
 [![License](https://poser.pugx.org/attogram/ote/license)](https://github.com/attogram/ote/blob/master/LICENSE.md)
 [`[CHANGELOG]`](https://github.com/attogram/ote/blob/master/CHANGELOG.md)
 [`[TODO]`](https://github.com/attogram/ote/blob/master/TODO.md)
