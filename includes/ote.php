@@ -874,7 +874,7 @@ class ote
         $tw = $this->get_id_from_word(          $spe[0]['target_word'] );          // Target Word ID
         $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
         if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
-          $this->delete_from_slush_pile( $id ); // dev todo - check results
+          $this->delete_from_slush_pile( $slush_id ); // dev todo - check results
           $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($slush_id));
           $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($slush_id) . ')';
           return false;
