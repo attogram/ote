@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.2
+<?php // The Open Translation Engine (OTE) - ote class v0.6.3
 
 namespace Attogram;
 
@@ -204,9 +204,9 @@ class ote
     $result = $this->attogram->db->query($sql,$bind);
     $langs = $this->get_languages();
     $dlist = array();
-    foreach( $result as $d ) {
-      $source_language_code = $this->get_language_code_from_id($d['sl']); // Source Language Code
-      $target_language_code = $this->get_language_code_from_id($d['tl']); // Target Language Code
+    foreach( $result as $dictionary ) {
+      $source_language_code = $this->get_language_code_from_id($dictionary['sl']); // Source Language Code
+      $target_language_code = $this->get_language_code_from_id($dictionary['tl']); // Target Language Code
       $url = $source_language_code . '/' . $target_language_code . '/';
       $dlist[$url] = $langs[$source_language_code]['name'] . ' to ' . $langs[$target_language_code]['name'];
       $result_url = $target_language_code . '/' . $source_language_code . '/';
@@ -706,35 +706,35 @@ class ote
         continue;
       }
 
-      $sw = trim($translationsp[0]); // The Source Word
-      if( !$sw ) {
+      $source_word = trim($translationsp[0]); // The Source Word
+      if( !$source_word ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing source word</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $source_word_id = $this->get_id_from_word($sw); // The Source Word ID
+      $source_word_id = $this->get_id_from_word($source_word); // The Source Word ID
       if( !$source_word_id ) {
         print '<p>Error: Line #' . $line_count . ': Can Not Get/Insert Source Word</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $tw = trim($translationsp[1]); // The Target Word
-      if( !$tw ) {
+      $target_word = trim($translationsp[1]); // The Target Word
+      if( !$target_word ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing target word</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $target_language_id = $this->get_id_from_word($tw); // The Target Word ID
+      $target_language_id = $this->get_id_from_word($target_word); // The Target Word ID
       if( !$target_language_id ) {
         print '<p>Error: Line #' . $line_count . ': Can Not Get/Insert Target Word</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $this->attogram->log->debug("do_import: sw=$sw swi=$source_word_id si=$source_language_id tw=$tw twi=$target_language_id ti=$target_language_id");
+      $this->attogram->log->debug("do_import: sw=$source_word swi=$source_word_id si=$source_language_id tw=$target_word twi=$target_language_id ti=$target_language_id");
 
       $result = $this->insert_word2word( $source_word_id, $source_language_id, $target_language_id, $target_language_id );
       if( !$result ) {
@@ -749,9 +749,9 @@ class ote
         $import_count++;
         $this->attogram->event->info( 'ADD translation: '
           . '<code>' . $source_language_code . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code)
-          . '//' . urlencode($sw) . '">' . $this->web_display($sw) . '</a>'
-          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($target_language_code) . '//' . urlencode($tw)
-          . '">' . $this->web_display($tw) . '</a> <code>' . $target_language_code. '</code>'
+          . '//' . urlencode($source_word) . '">' . $this->web_display($source_word) . '</a>'
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($target_language_code) . '//' . urlencode($target_word)
+          . '">' . $this->web_display($target_word) . '</a> <code>' . $target_language_code. '</code>'
         );
       }
 
@@ -769,9 +769,9 @@ class ote
         $import_count++;
         $this->attogram->event->info( 'ADD translation: '
           . '<code>' . $target_language_code. '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
-          . '//' . urlencode($tw) . '">' . $this->web_display($tw) . '</a>'
-          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code) . '//' . urlencode($sw)
-          . '">' . $this->web_display($sw) . '</a> <code>' . $source_language_code . '</code>'
+          . '//' . urlencode($target_word) . '">' . $this->web_display($target_word) . '</a>'
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code) . '//' . urlencode($source_word)
+          . '">' . $this->web_display($source_word) . '</a> <code>' . $source_language_code . '</code>'
         );
       }
 
@@ -867,24 +867,24 @@ class ote
     $type = $spe[0]['type'];
     switch( $type ) {
       case 'add': // add word2word translation
-        $source_word_id = $this->get_id_from_word(          $spe[0]['source_word'] );          // Source Word ID
+        $source_word_id = $this->get_id_from_word( $spe[0]['source_word'] ); // Source Word ID
         $source_language_id = $this->get_language_id_from_code( $spe[0]['source_language_code'] ); // Source Language ID
-        $tw = $this->get_id_from_word(          $spe[0]['target_word'] );          // Target Word ID
+        $target_word_id = $this->get_id_from_word( $spe[0]['target_word'] ); // Target Word ID
         $target_language_id = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
-        if( $this->has_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
+        if( $this->has_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id ) ) {
           $this->delete_from_slush_pile( $slush_id ); // dev todo - check results
           $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($slush_id));
           $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($slush_id) . ')';
           return false;
         }
-        if( $this->insert_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
+        if( $this->insert_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id ) ) {
           $this->attogram->event->info( 'ADD translation: '
             . '<code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code'])
             . '//' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
             . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
             . '">' . $this->web_display($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
           );
-          if( $this->insert_word2word( $tw, $target_language_id, $source_word_id, $source_language_id ) ) {
+          if( $this->insert_word2word( $target_word_id, $target_language_id, $source_word_id, $source_language_id ) ) {
             $this->attogram->event->info( 'ADD translation: '
               . '<code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code'])
               . '//' . urlencode($spe[0]['target_word']) . '">' . $this->web_display($spe[0]['target_word']) . '</a>'
@@ -923,35 +923,35 @@ class ote
 
   /**
    * HTML display for a single translation word pair
-   * @param  string  $sw   The Source Word
-   * @param  string  $sc   The Source Language Code
-   * @param  string  $tw   The Target Word
-   * @param  string  $tc   The Target Language Code
+   * @param  string  $source_word   The Source Word
+   * @param  string  $source_language_code   The Source Language Code
+   * @param  string  $target_word   The Target Word
+   * @param  string  $target_language_code   The Target Language Code
    * @param  string  $path (optional) URL path, defaults to ''
-   * @param  string  $d    (optional) The Deliminator, defaults to ' = '
+   * @param  string  $deliminator    (optional) The Deliminator, defaults to ' = '
    * @param  bool    $usc  (optional) Put Language Source Code in word URLS, defaults to true
    * @param  bool    $utc  (optional) Put Language Target Code in word URLs, defaults to false
    * @return string         HTML fragment
    */
-  public function display_pair( $sw, $sc, $tw, $tc, $path = '', $d = ' = ', $usc = true, $utc = false )
+  public function display_pair( $source_word, $source_language_code, $target_word, $target_language_code, $path = '', $deliminator = ' = ', $usc = true, $utc = false )
   {
-    $s_url = $path . '/word/' . ($usc ? $sc : '') . '/' . ($utc ? $tc : '') . '/' . urlencode($sw);
-    $t_url = $path . '/word/' . ($usc ? $tc : '') . '/' . ($utc ? $sc : '') . '/' . urlencode($tw);
-    $sw = $this->web_display($sw);
-    $tw = $this->web_display($tw);
-    $sn = $this->get_language_name_from_code($sc);
-    $tn = $this->get_language_name_from_code($tc);
-    $edit_uid = md5($sw . $sc . $tw . $tc);
+    $s_url = $path . '/word/' . ($usc ? $source_language_code : '') . '/' . ($utc ? $target_language_code : '') . '/' . urlencode($source_word);
+    $t_url = $path . '/word/' . ($usc ? $target_language_code : '') . '/' . ($utc ? $source_language_code : '') . '/' . urlencode($target_word);
+    $source_word = $this->web_display($source_word);
+    $target_word = $this->web_display($target_word);
+    $source_language_name = $this->get_language_name_from_code($source_language_code);
+    $target_language_name = $this->get_language_name_from_code($target_language_code);
+    $edit_uid = md5($source_word . $source_language_code . $target_word . $target_language_code);
     $result = '
     <div class="row" style="border:1px solid #ccc;margin:2px;">
       <div class="col-xs-6 col-sm-4 text-left">
-        <a href="' . $s_url . '" class="pair">' . $sw . '</a>
+        <a href="' . $s_url . '" class="pair">' . $source_word . '</a>
       </div>
       <div class="col-xs-6 col-sm-4 text-left">
-        ' . $d . ' <a href="' . $t_url . '" class="pair">' . $tw . '</a>
+        ' . $deliminator . ' <a href="' . $t_url . '" class="pair">' . $target_word . '</a>
       </div>
       <div class="col-xs-8 col-sm-2 text-left">
-       <code><small>' . $sn . ' ' . $d . ' ' . $tn . '</small></code>
+       <code><small>' . $source_language_name . ' ' . $deliminator . ' ' . $target_language_name . '</small></code>
       </div>
       <div class="col-xs-4 col-sm-2 text-center">
         <a name="editi' . $edit_uid . '" id="editi' . $edit_uid . '" href="javascript:void(0);"
@@ -960,17 +960,17 @@ class ote
 
          <form name="tag' . $edit_uid . '" id="tag' . $edit_uid . '" method="POST" style="display:inline;">
            <input type="hidden" name="type" value="tag">
-           <input type="hidden" name="tw" value="' . $tw . '">
-           <input type="hidden" name="sl" value="' . $sc . '">
-           <input type="hidden" name="tl" value="' . $tc . '">
+           <input type="hidden" name="tw" value="' . $target_word . '">
+           <input type="hidden" name="sl" value="' . $source_language_code . '">
+           <input type="hidden" name="tl" value="' . $target_language_code . '">
            <button type="send">⛓</button>
          </form>
 
          <form name="del' . $edit_uid . '" id="del' . $edit_uid . '" method="POST" style="display:inline;">
            <input type="hidden" name="type" value="del">
-           <input type="hidden" name="tw" value="' . $tw . '">
-           <input type="hidden" name="sl" value="' . $sc . '">
-           <input type="hidden" name="tl" value="' . $tc . '">
+           <input type="hidden" name="tw" value="' . $target_word . '">
+           <input type="hidden" name="sl" value="' . $source_language_code . '">
+           <input type="hidden" name="tl" value="' . $target_language_code . '">
            <button type="send">❌</button>
          </form>
 
