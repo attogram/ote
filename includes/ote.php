@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.5.6
+<?php // The Open Translation Engine (OTE) - ote class v0.6.0
 
 namespace Attogram;
 
@@ -171,10 +171,9 @@ class ote
     $result .= '<option value="">All Languages</option>';
     $langs = $this->get_languages( 'name' );
     foreach( $langs as $lang_code => $lang ) {
+      $select = '';
       if( $lang_code == $selected ) {
         $select = ' selected';
-      } else {
-        $select = '';
       }
       $result .= '<option value="' . $lang_code . '"' . $select . '>' . $lang['name']  . '</option>';
     }
@@ -244,10 +243,10 @@ class ote
       $this->attogram->log->error('insert_word: can not insert. word=' . $this->web_display($word));
       return false;
     }
-    $id = $this->attogram->db->db->lastInsertId();
-    $this->attogram->log->debug('inser_word: inserted id=' . $id . ' word=' . $this->web_display($word));
+    $insert_id = $this->attogram->db->db->lastInsertId();
+    $this->attogram->log->debug('inser_word: inserted id=' . $insert_id . ' word=' . $this->web_display($word));
     $this->attogram->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
-    return $id;
+    return $insert_id;
   }
 
   /**
@@ -363,24 +362,24 @@ class ote
   }
 
   /**
-   * Get a translation from the database
-   * @param  int $source_word_id   Source Word ID
-   * @param  int $source_language_id   Source Language ID
-   * @param  int $target_word_id   Target Word ID
-   * @param  int $target_language_id   Target Language ID
-   * @return boolean   true if word2word entry exists, else false
+   * Does a translation exist?
+   * @param  int $source_word_id      Source Word ID
+   * @param  int $source_language_id  Source Language ID
+   * @param  int $target_word_id      Target Word ID
+   * @param  int $target_language_id  Target Language ID
+   * @return boolean                  true if word2word entry exists, else false
    */
-  public function get_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id )
+  public function has_word2word( $source_word_id, $source_language_id, $target_word_id, $target_language_id )
   {
     $bind = array('sw'=>$source_word_id, 'sl'=>$source_language_id, 'tw'=>$target_word_id, 'tl'=>$target_language_id);
-    $this->attogram->log->debug('get_word2word', $bind);
+    $this->attogram->log->debug('has_word2word', $bind);
     $sql = 'SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl';
     $result = $this->attogram->db->query($sql,$bind);
     if( $result ) {
-      $this->attogram->log->debug('get_word2word: exists');
+      $this->attogram->log->debug('has_word2word: exists');
       return true;
     }
-    $this->attogram->log->debug('get_word2word: does not exist');
+    $this->attogram->log->debug('has_word2word: does not exist');
     return false;
   }
 
@@ -459,13 +458,13 @@ class ote
   /**
    * Get count of results for a Search of the dictionaries
    * @param  string $word   The Word to search thereupon
-   * @param  int    $source_language_id     (optional) Source Language ID, defaults to 0
-   * @param  int    $target_language_id     (optional) Target Language ID, defaults to 0
-   * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
-   * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
-   * @return int            number of results
+   * @param  int    $source_language_id  (optional) Source Language ID, defaults to 0
+   * @param  int    $target_language_id  (optional) Target Language ID, defaults to 0
+   * @param  bool   $fuzzy               (optional) 💭 Fuzzy Search, defaults to false
+   * @param  bool   $case_sensitive      (optional) 🔠🔡 Case Sensitive Search, defaults to false
+   * @return int                         number of results
    */
-  public function get_count_search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $f = false, $c = false )
+  public function get_count_search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $fuzzy = false, $case_sensitive = false )
   {
       $select = 'SELECT count(sw.word) AS count';
 
@@ -483,13 +482,13 @@ class ote
         $lang = '';
       }
 
-      if( $c ) { // 🔠🔡 Case Sensitive Search
+      if( $case_sensitive ) { // 🔠🔡 Case Sensitive Search
         $order_c = 'COLLATE NOCASE';
       } else {
         $order_c = '';
       }
 
-      if( $f ) { // 💭 Fuzzy Search
+      if( $fuzzy ) { // 💭 Fuzzy Search
         $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
       } else {
         $qword = 'AND sw.word = :sw ' . $order_c;
@@ -514,24 +513,24 @@ class ote
   /**
    * Search dictionaries
    * @param  string $word   The Word to search thereupon
-   * @param  int    $source_language_id     (optional) Source Language ID, defaults to 0
-   * @param  int    $target_language_id     (optional) Target Language ID, defaults to 0
-   * @param  bool   $f      (optional) 💭 Fuzzy Search, defaults to false
-   * @param  bool   $c      (optional) 🔠🔡 Case Sensitive Search, defaults to false
-   * @param  int    $limit  (optional) Limit # of results per page, defaults to 100
-   * @param  int    $offset (optional) result # to start listing at, defaults to 0
-   * @return array          list of word pairs
+   * @param  int    $source_language_id  (optional) Source Language ID, defaults to 0
+   * @param  int    $target_language_id  (optional) Target Language ID, defaults to 0
+   * @param  bool   $fuzzy               (optional) 💭 Fuzzy Search, defaults to false
+   * @param  bool   $case_sensitive      (optional) 🔠🔡 Case Sensitive Search, defaults to false
+   * @param  int    $limit               (optional) Limit # of results per page, defaults to 100
+   * @param  int    $offset              (optional) result # to start listing at, defaults to 0
+   * @return array                       list of word pairs
    */
-  public function search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $f = false, $c = false, $limit = 100, $offset = 0 )
+  public function search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $fuzzy = false, $case_sensitive = false, $limit = 100, $offset = 0 )
   {
 
-      $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$source_language_id tl=$target_language_id f=$f c=$c limit=$limit offset=$offset");
+      $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$source_language_id tl=$target_language_id f=$fuzzy c=$case_sensitive limit=$limit offset=$offset");
 
       $this->insert_history( $word, $source_language_id, $target_language_id );
 
       $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
 
-      if( $c ) { // 🔠🔡 Case Sensitive Search
+      if( $case_sensitive ) { // 🔠🔡 Case Sensitive Search
         $order_c = 'COLLATE NOCASE';
       } else {
         $order_c = '';
@@ -552,7 +551,7 @@ class ote
         $lang = '';
       }
 
-      if( $f ) { // 💭 Fuzzy Search
+      if( $fuzzy ) { // 💭 Fuzzy Search
         $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
       } else {
         $qword = 'AND sw.word = :sw ' . $order_c;
@@ -873,7 +872,7 @@ class ote
         $source_language_id = $this->get_language_id_from_code( $spe[0]['source_language_code'] ); // Source Language ID
         $tw = $this->get_id_from_word(          $spe[0]['target_word'] );          // Target Word ID
         $target_language_id = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
-        if( $this->get_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
+        if( $this->has_word2word( $source_word_id, $source_language_id, $tw, $target_language_id ) ) {
           $this->delete_from_slush_pile( $slush_id ); // dev todo - check results
           $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($slush_id));
           $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($slush_id) . ')';
