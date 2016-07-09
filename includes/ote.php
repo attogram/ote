@@ -321,16 +321,17 @@ class ote
   public function get_word_count( $source_language_id = 0, $target_language_id = 0 )
   {
     $bind = array();
-    if( !$source_language_id && !$target_language_id ) {      // No Source Language, No Target Language
-      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word';
-    } elseif( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
-      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+    $sql = 'SELECT count(DISTINCT word.word) AS count FROM word'; // No Source Language, No Target Language
+    if( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
+      $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
       $bind['sl'] = $source_language_id;
-    } elseif( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
-      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+    }
+    if( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
+      $sql .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
       $bind['tl'] = $target_language_id;
-    } else {                  // Yes Source Language, Yes Target Language
-      $sql = 'SELECT count(DISTINCT word.word) AS count FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+    }
+    if( $source_language_id && $target_language_id ){ // Yes Source Language, Yes Target Language
+      $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
       $bind['sl'] = $source_language_id;
       $bind['tl'] = $target_language_id;
     }
@@ -447,10 +448,12 @@ class ote
       $lang = 'WHERE sl = :sl AND tl = :tl';
       $bind['sl'] = $source_language_id;
       $bind['tl'] = $target_language_id;
-    } elseif( $source_language_id && !$target_language_id ) {
+    }
+    if( $source_language_id && !$target_language_id ) {
       $lang = 'WHERE sl = :sl';
       $bind['sl'] = $source_language_id;
-    } elseif( !$source_language_id && $target_language_id ) {
+    }
+    if( !$source_language_id && $target_language_id ) {
       $lang = 'WHERE tl = :tl';
       $bind['tl'] = $target_language_id;
     }
@@ -471,32 +474,31 @@ class ote
   public function get_count_search_dictionary( $word, $source_language_id = 0, $target_language_id = 0, $fuzzy = false, $case_sensitive = false )
   {
       $select = 'SELECT count(sw.word) AS count';
-
+      $lang = '';
       if( $source_language_id && $target_language_id ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
         $bind['sl'] = $source_language_id;
         $bind['tl'] = $target_language_id;
-      } elseif( $source_language_id && !$target_language_id ) {
+      }
+      if( $source_language_id && !$target_language_id ) {
         $lang = 'AND ww.sl = :sl';
         $bind['sl'] = $source_language_id;
-      } elseif( !$source_language_id && $target_language_id ) {
+      }
+      if( !$source_language_id && $target_language_id ) {
         $lang = 'AND ww.tl = :tl';
         $bind['tl'] = $target_language_id;
-      } else {
-        $lang = '';
       }
 
+      $order_c = '';
       if( $case_sensitive ) { // 🔠🔡 Case Sensitive Search
         $order_c = 'COLLATE NOCASE';
-      } else {
-        $order_c = '';
       }
 
+      $qword = 'AND sw.word = :sw ' . $order_c;
       if( $fuzzy ) { // 💭 Fuzzy Search
         $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
-      } else {
-        $qword = 'AND sw.word = :sw ' . $order_c;
       }
+
       $bind['sw'] = $word;
 
       $sql = "$select
@@ -534,32 +536,33 @@ class ote
 
       $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
 
+      $order_c = '';
       if( $case_sensitive ) { // 🔠🔡 Case Sensitive Search
         $order_c = 'COLLATE NOCASE';
-      } else {
-        $order_c = '';
       }
+
       $order = "ORDER BY sw.word $order_c, sl.name $order_c, tl.name $order_c, tw.word $order_c";
 
+      $lang = '';
       if( $source_language_id && $target_language_id ) {
         $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
         $bind['sl'] = $source_language_id;
         $bind['tl'] = $target_language_id;
-      } elseif( $source_language_id && !$target_language_id ) {
+      }
+      if( $source_language_id && !$target_language_id ) {
         $lang = 'AND ww.sl = :sl';
         $bind['sl'] = $source_language_id;
-      } elseif( !$source_language_id && $target_language_id ) {
+      }
+      if( !$source_language_id && $target_language_id ) {
         $lang = 'AND ww.tl = :tl';
         $bind['tl'] = $target_language_id;
-      } else {
-        $lang = '';
       }
 
+      $qword = 'AND sw.word = :sw ' . $order_c;
       if( $fuzzy ) { // 💭 Fuzzy Search
         $qword = "AND sw.word LIKE '%' || :sw || '%' $order_c";
-      } else {
-        $qword = 'AND sw.word = :sw ' . $order_c;
       }
+
       $bind['sw'] = $word;
 
       if( $limit ) {
