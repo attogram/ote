@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.5.3
+<?php // The Open Translation Engine (OTE) - ote class v0.5.4
 
 namespace Attogram;
 
@@ -40,8 +40,8 @@ class ote
       $this->attogram->log->error('insert_language: can not insert language');
       return false;
     }
-    $id = $this->attogram->db->db->lastInsertId();
-    $this->attogram->log->debug('insert_language: inserted id=' . $id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
+    $insert_id = $this->attogram->db->db->lastInsertId();
+    $this->attogram->log->debug('insert_language: inserted id=' . $insert_id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
     $this->attogram->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
     unset($this->dictionary_list); // reset the dictionary list
@@ -103,7 +103,7 @@ class ote
    */
   public function get_language_name_from_id( $id )
   {
-    foreach( $this->get_languages() as $code => $lang ) {
+    foreach( $this->get_languages() as $lang ) {
       if( $lang['id'] == $id ) {
         return $lang['name'];
       }
@@ -169,7 +169,7 @@ class ote
     //$this->attogram->log->debug("get_languages_pulldown: name=$name selected=$selected class=$class");
     $result = '<select class="' . $class . '" name="' . $name . '">';
     $result .= '<option value="">All Languages</option>';
-    $langs = $this->get_languages( $orderby='name' );
+    $langs = $this->get_languages( 'name' );
     foreach( $langs as $lang_code => $lang ) {
       if( $lang_code == $selected ) {
         $select = ' selected';
@@ -330,8 +330,8 @@ class ote
       $bind['sl'] = $sl;
       $bind['tl'] = $tl;
     }
-    $c = $this->attogram->db->query( $sql, $bind );
-    return isset($c[0]['count']) ? $c[0]['count'] : '0';
+    $result = $this->attogram->db->query( $sql, $bind );
+    return isset($result[0]['count']) ? $result[0]['count'] : '0';
   }
 
   /**
@@ -438,7 +438,6 @@ class ote
   public function get_dictionary_translations_count( $sl = 0, $tl = 0 )
   {
     $this->attogram->log->debug("get_dictionary_translations_count: sl=$sl tl=$tl ");
-    $select = '';
     $lang = '';
     $bind = array();
     if( $sl && $tl ) {
@@ -528,7 +527,7 @@ class ote
 
       $this->attogram->log->debug('search_dictionary: word=' . $this->web_display($word) . " sl=$sl tl=$tl f=$f c=$c limit=$limit offset=$offset");
 
-      $hin = $this->insert_history( $word, $sl, $tl );
+      $inserted = $this->insert_history( $word, $sl, $tl );
 
       $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
 
@@ -824,7 +823,6 @@ class ote
       return false;
     }
     $names = array_keys($items);
-    $values = array_values($items);
     $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
     . ' VALUES ( datetime("now"), :' . implode(', :', $names) . ')';
     if( $this->attogram->db->queryb( $sql, $items ) ) {
@@ -839,20 +837,20 @@ class ote
    * @param  int  $id  The slush_pile.id to delete
    * @return bool
    */
-  public function delete_from_slush_pile( $id )
+  public function delete_from_slush_pile( $slush_id )
   {
     // does slush pile entry exist?
-    if( !$this->attogram->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $id ) ) ) {
-      $this->attogram->log->error('delete_from_slush_pile: Not Found id=' . $this->web_display($id));
-      $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->web_display($id) . ')';
+    if( !$this->attogram->db->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array( 'id' => $slush_id ) ) ) {
+      $this->attogram->log->error('delete_from_slush_pile: Not Found id=' . $this->web_display($slush_id));
+      $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->web_display($slush_id) . ')';
       return false;
     }
     $sql = 'DELETE FROM slush_pile WHERE id = :id';
-    if( $this->attogram->db->queryb( $sql, array( 'id' => $id )) ) {
+    if( $this->attogram->db->queryb( $sql, array( 'id' => $slush_id  )) ) {
       return true;
     }
-    $this->attogram->log->error('delete_from_slush_pile: Delete failed for id=' . $this->web_display($id));
-    $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->web_display($id) . ')';
+    $this->attogram->log->error('delete_from_slush_pile: Delete failed for id=' . $this->web_display($slush_id));
+    $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->web_display($slush_id) . ')';
     return false;
   }
 
@@ -861,13 +859,13 @@ class ote
    * @param  int  $id  The slush_pile.id to accept
    * @return bool
    */
-  public function accept_slush_pile_entry( $id )
+  public function accept_slush_pile_entry( $slush_id )
   {
     // get slush_pile entry
     $sql = 'SELECT * FROM slush_pile WHERE id = :id LIMIT 1';
-    $spe = $this->attogram->db->query( $sql, array( 'id' => $id ) );
+    $spe = $this->attogram->db->query( $sql, array( 'id' => $slush_id ) );
     if( !$spe ) {
-      $this->attogram->log->error('accept_slush_pile_entry: can not find id=' . $this->web_display($id) );
+      $this->attogram->log->error('accept_slush_pile_entry: can not find id=' . $this->web_display($slush_id) );
       $_SESSION['error'] = 'Can not find requested slush pile entry';
       return false;
     }
@@ -881,8 +879,8 @@ class ote
         $tl = $this->get_language_id_from_code( $spe[0]['target_language_code'] ); // Target Language ID
         if( $this->get_word2word( $sw, $sl, $tw, $tl ) ) {
           $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
-          $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($id));
-          $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($id) . ')';
+          $this->attogram->log->error('accept_slush_pile_entry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->web_display($slush_id));
+          $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->web_display($slush_id) . ')';
           return false;
         }
         if( $f_id = $this->insert_word2word( $sw, $sl, $tw, $tl ) ) {
@@ -899,7 +897,7 @@ class ote
               . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
               . '">' . $this->web_display($spe[0]['source_word']) . '</a> <code>' . $spe[0]['source_language_code'] . '</code>'
             );
-            $del = $this->delete_from_slush_pile( $id ); // dev todo - check results
+            $del = $this->delete_from_slush_pile( $slush_id ); // dev todo - check results
             $_SESSION['result'] = 'Added new translation: '
             . ' <code>' . $this->web_display($spe[0]['source_language_code']) . '</code> '
             . '<a href="../word/' . urlencode($spe[0]['source_language_code']) . '/' . urlencode($spe[0]['target_language_code']) . '/' . urlencode($spe[0]['source_word']) . '">' . $this->web_display($spe[0]['source_word']) . '</a>'
@@ -919,8 +917,8 @@ class ote
 
       case 'delete': // DEV TODO -- delete word2word translation
       default: // unknown type
-        $this->attogram->log->error('accept_slush_pile_entry: id=' . $this->web_display($id) . ' INVALID type=' . $this->web_display($type));
-        $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . $this->web_display($id) . ')';
+        $this->attogram->log->error('accept_slush_pile_entry: id=' . $this->web_display($slush_id) . ' INVALID type=' . $this->web_display($type));
+        $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . $this->web_display($slush_id) . ')';
         return false;
         break;
     } // end switch on type
