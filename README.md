@@ -6,7 +6,7 @@ Open Translation Engine (OTE)
 [![Latest Stable Version](https://poser.pugx.org/attogram/open-translation-engine/v/stable)](https://packagist.org/packages/attogram/open-translation-engine)
 [![Latest Unstable Version](https://poser.pugx.org/attogram/open-translation-engine/v/unstable)](https://packagist.org/packages/attogram/open-translation-engine)
 [![Total Downloads](https://poser.pugx.org/attogram/open-translation-engine/downloads)](https://packagist.org/packages/attogram/open-translation-engine)
-[![License](https://poser.pugx.org/attogram/ote/license)](https://github.com/attogram/ote/blob/master/LICENSE.md)
+[![License](https://poser.pugx.org/attogram/open-translation-engine/license)](https://github.com/attogram/ote/blob/master/LICENSE.md)
 [`[CHANGELOG]`](https://github.com/attogram/ote/blob/master/CHANGELOG.md)
 [`[TODO]`](https://github.com/attogram/ote/blob/master/TODO.md)
 
