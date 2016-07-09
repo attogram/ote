@@ -290,7 +290,7 @@ class ote
       $select .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
       $bind['tl'] = $target_language_id;
     }
-    if( $source_language && $target_language ) { // Yes Source Language, Yes Target Language
+    if( $source_language_id && $target_language_id ) { // Yes Source Language, Yes Target Language
       $select .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
       $bind['sl'] = $source_language_id;
       $bind['tl'] = $target_language_id;
