@@ -279,16 +279,19 @@ class ote
   {
 
     $bind = array();
-    if( !$source_language_id && !$target_language_id ) {      // No Source Language, No Target Language
-      $select = 'SELECT distinct word FROM word';
-    } elseif( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
-      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+
+    $select = 'SELECT distinct word FROM word'; // No Source Language, No Target Language
+
+    if( $source_language_id && !$target_language_id ) { // Yes Source Language, No Target Language
+      $select .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
       $bind['sl'] = $source_language_id;
-    } elseif( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
-      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+    }
+    if( !$source_language_id && $target_language_id ) { // No source Language, Yes Target Language
+      $select .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
       $bind['tl'] = $target_language_id;
-    } else {                  // Yes Source Language, Yes Target Language
-      $select = 'SELECT distinct word FROM word, word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+    }
+    if( $source_language && $target_language ) { // Yes Source Language, Yes Target Language
+      $select .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
       $bind['sl'] = $source_language_id;
       $bind['tl'] = $target_language_id;
     }
@@ -296,9 +299,11 @@ class ote
     $order = 'ORDER BY word COLLATE NOCASE';
     if( $limit && $offset ) {
       $limit = "LIMIT $limit OFFSET $offset";
-    } elseif( $limit && !$offset ) {
+    }
+    if( $limit && !$offset ) {
       $limit = "LIMIT $limit";
-    } elseif( !$limit && $offset ) {
+    }
+    if( !$limit && $offset ) {
       $this->attogram->log->error('get_all_words: missing limit.  offset=' . $offset);
       return array();
     }
