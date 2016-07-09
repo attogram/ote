@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.0
+<?php // The Open Translation Engine (OTE) - ote class v0.6.1
 
 namespace Attogram;
 
@@ -348,17 +348,16 @@ class ote
     $sql = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
     $result = $this->attogram->db->queryb($sql, $bind);
     if( $result ) {
-      $id = $this->attogram->db->db->lastInsertId();
-      $this->attogram->log->debug("insert_word2word: inserted. id=$id");
-      return $id;
+      $insert_id = $this->attogram->db->db->lastInsertId();
+      $this->attogram->log->debug('insert_word2word: inserted. id=' . $insert_id);
+      return $insert_id;
     }
     if( $this->attogram->db->db->errorCode() == '0000' ) {
       $this->attogram->log->notice('insert_word2word: Insert failed: duplicate entry.');
-    } else {
-      $this->attogram->log->error('insert_word2word: can not insert. errorInfo: '
-        . print_r($this->attogram->db->db->errorInfo(),1) );
+      return false;
     }
-    return false;
+    $this->attogram->log->error('insert_word2word: can not insert. errorInfo: '
+      . print_r($this->attogram->db->db->errorInfo(),1) );
   }
 
   /**
@@ -610,64 +609,64 @@ class ote
 
   /**
    * Import translations into the database
-   * @param string $w   List of word pairs, 1 pair to a line, with \n at end of line
-   * @param string $d   Deliminator
-   * @param string $s   Source Language Code
-   * @param string $t   Target Language Code
-   * @param string $sn  (optional) Source Language Name
-   * @param string $tn  (optional) Target Language Name
+   * @param string $translations   List of word pairs, 1 pair to a line, with \n at end of line
+   * @param string $deliminator   Deliminator
+   * @param string $source_language_code   Source Language Code
+   * @param string $target_language_code  Target Language Code
+   * @param string $source_language_name  (optional) Source Language Name
+   * @param string $target_language_name  (optional) Target Language Name
    */
-  public function do_import( $w, $d, $s, $t, $sn = '', $tn = '' )
+  public function do_import( $translations, $deliminator, $source_language_code, $t, $source_language_name = '', $target_language_name = '' )
   {
 
-    $this->attogram->log->debug("do_import: s=$s t=$t d=$d sn=$sn tn=$tn w strlen=" . strlen($w));
+    $this->attogram->log->debug("do_import: s=$source_language_code t=$target_language_coded=$deliminator sn=$source_language_name tn=$target_language_name w strlen=" . strlen($translations));
 
-    $d = str_replace('\t', "\t", $d); // allow real tabs
+    $deliminator = str_replace('\t', "\t", $deliminator); // allow real tabs
 
-    $sn = $this->get_language_name_from_code( $s, $default = $sn, $insert = true ); // The Source Language Name
-    if( !$sn ) {
+    $source_language_name = $this->get_language_name_from_code( $source_language_code, $default = $source_language_name, $insert = true ); // The Source Language Name
+    if( !$source_language_name ) {
       $error = 'Error: can not get source language name';
       print $error;
       $this->attogram->log->error("do_import: $error");
       return;
     }
 
-    $si = $this->get_language_id_from_code($s); // The Source Language ID
-    if( !$si ) {
+    $source_language_id = $this->get_language_id_from_code($source_language_code); // The Source Language ID
+    if( !$source_language_id ) {
       $error = 'Error: can not get source language ID';
       print $error;
       $this->attogram->log->error("do_import: $error");
       return;
     }
 
-    $tn = $this->get_language_name_from_code( $t, $default = $tn, $insert = true ); // The Target Language Name
-    if( !$tn ) {
+    $target_language_name = $this->get_language_name_from_code( $t, $default = $target_language_name, $insert = true ); // The Target Language Name
+    if( !$target_language_name ) {
       $error = 'Error: can not get source language name';
       print $error;
       $this->attogram->log->error("do_import: $error");
       return;
     }
 
-    $ti = $this->get_language_id_from_code($t); // The Target Language ID
-    if( !$si ) {
+    $target_language_id = $this->get_language_id_from_code($t); // The Target Language ID
+    if( !$target_language_id ) {
       $error = 'Error: can not get target language ID';
       print $error;
       $this->attogram->log->error("do_import: $error");
       return;
     }
 
-    $this->attogram->log->debug("do import: sn=$sn si=$si tn=$tn ti=$ti");
+    $this->attogram->log->debug("do import: sn=$source_language_name si=$source_language_id tn=$target_language_name ti=$target_language_id");
 
-    $lines = explode("\n", $w);
+    $lines = explode("\n", $translations);
 
     print '<div class="container">'
-    . 'Source Language: ID: <code>' . $si . '</code>'
-    . ' Code: <code>' . $this->web_display($s) . '</code>'
-    . ' Name: <code>' . $this->web_display($sn) . '</code>'
-    . '<br />Target Language:&nbsp; ID: <code>' . $ti  . '</code>'
+    . 'Source Language: ID: <code>' . $source_language_id . '</code>'
+    . ' Code: <code>' . $this->web_display($source_language_code) . '</code>'
+    . ' Name: <code>' . $this->web_display($source_language_name) . '</code>'
+    . '<br />Target Language:&nbsp; ID: <code>' . $target_language_id  . '</code>'
     . ' Code: <code>' . $this->web_display($t) . '</code>'
-    . ' Name: <code>' . $this->web_display($tn) . '</code>'
-    . '<br />Deliminator: <code>' . $this->web_display($d) . '</code>'
+    . ' Name: <code>' . $this->web_display($target_language_name) . '</code>'
+    . '<br />Deliminator: <code>' . $this->web_display($deliminator) . '</code>'
     . '<br />Lines: <code>' . sizeof($lines) . '</code><hr /><small>'
     ;
 
@@ -694,20 +693,20 @@ class ote
         continue;
       }
 
-      if( !preg_match('/' . $d . '/', $line) ) {
-        print '<p>Error: Line #' . $line_count . ': Deliminator (' . $this->web_display($d) . ') Not Found. Skipping line.</p>';
+      if( !preg_match('/' . $deliminator . '/', $line) ) {
+        print '<p>Error: Line #' . $line_count . ': Deliminator (' . $this->web_display($deliminator) . ') Not Found. Skipping line.</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $wp = explode($d, $line);
-      if( sizeof($wp) != 2 ) {
-        print '<p>Error: Line #' . $line_count . ': Malformed line.  Expecting 2 words, found ' . sizeof($wp) . ' words</p>';
+      $translationsp = explode($deliminator, $line);
+      if( sizeof($translationsp) != 2 ) {
+        print '<p>Error: Line #' . $line_count . ': Malformed line.  Expecting 2 words, found ' . sizeof($translationsp) . ' words</p>';
         $error_count++; $skip_count++;
         continue;
       }
 
-      $sw = trim($wp[0]); // The Source Word
+      $sw = trim($translationsp[0]); // The Source Word
       if( !$sw ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing source word</p>';
         $error_count++; $skip_count++;
@@ -721,7 +720,7 @@ class ote
         continue;
       }
 
-      $tw = trim($wp[1]); // The Target Word
+      $tw = trim($translationsp[1]); // The Target Word
       if( !$tw ) {
         print '<p>Error: Line #' . $line_count . ': Malformed line.  Missing target word</p>';
         $error_count++; $skip_count++;
@@ -735,9 +734,9 @@ class ote
         continue;
       }
 
-      $this->attogram->log->debug("do_import: sw=$sw swi=$source_word_id si=$si tw=$tw twi=$target_language_id ti=$ti");
+      $this->attogram->log->debug("do_import: sw=$sw swi=$source_word_id si=$source_language_id tw=$tw twi=$target_language_id ti=$target_language_id");
 
-      $result = $this->insert_word2word( $source_word_id, $si, $target_language_id, $ti );
+      $result = $this->insert_word2word( $source_word_id, $source_language_id, $target_language_id, $target_language_id );
       if( !$result ) {
         if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
@@ -749,15 +748,15 @@ class ote
       } else {
         $import_count++;
         $this->attogram->event->info( 'ADD translation: '
-          . '<code>' . $s . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($s)
+          . '<code>' . $source_language_code . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code)
           . '//' . urlencode($sw) . '">' . $this->web_display($sw) . '</a>'
-          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($t) . '//' . urlencode($tw)
-          . '">' . $this->web_display($tw) . '</a> <code>' . $t . '</code>'
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($target_language_code) . '//' . urlencode($tw)
+          . '">' . $this->web_display($tw) . '</a> <code>' . $target_language_code. '</code>'
         );
       }
 
       // insert reverse pair
-      $result = $this->insert_word2word( $target_language_id, $ti, $source_word_id, $si );
+      $result = $this->insert_word2word( $target_language_id, $target_language_id, $source_word_id, $source_language_id );
       if( !$result ) {
         if( $this->attogram->db->db->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
@@ -769,10 +768,10 @@ class ote
       } else {
         $import_count++;
         $this->attogram->event->info( 'ADD translation: '
-          . '<code>' . $t . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
+          . '<code>' . $target_language_code. '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
           . '//' . urlencode($tw) . '">' . $this->web_display($tw) . '</a>'
-          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($s) . '//' . urlencode($sw)
-          . '">' . $this->web_display($sw) . '</a> <code>' . $s . '</code>'
+          . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code) . '//' . urlencode($sw)
+          . '">' . $this->web_display($sw) . '</a> <code>' . $source_language_code . '</code>'
         );
       }
 
