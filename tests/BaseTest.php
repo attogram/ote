@@ -1,4 +1,4 @@
-<?php // Attogram Framework - Base Module - Base Test v0.0.1
+<?php // Attogram Framework - Open Translation Engine Module - Base Test v0.0.1
 
 use PHPUnit\Framework\TestCase;
 

@@ -2,11 +2,15 @@
 * Repository: https://github.com/attogram/ote
 * Click version number to view a diff comparison of changes since the previous release
 
-## [Unreleased](https://github.com/attogram/ote/compare/v1.1.2...HEAD)
+## [Unreleased](https://github.com/attogram/ote/compare/v1.1.3...HEAD)
+
+## [v1.1.3](https://github.com/attogram/ote/compare/v1.1.2...v1.1.3) - 2016-07-09
+- Travis CI and phpunit setup: https://travis-ci.org/attogram/ote
 - New [TODOs](./TODO.md):
  - [Issue #11](https://github.com/attogram/ote/issues/11) - Export ALL function - export in [DAMS](https://github.com/attogram/DAMS/) directory format
  - [Issue #10](https://github.com/attogram/ote/issues/10) - File uploader for import page
 - New [INSTALLATIONS.md](./INSTALLATIONS.md) file listing known OTE sites
+- Badges on [README.md](./README.md)
 
 ## [v1.1.2](https://github.com/attogram/ote/compare/v1.1.1...v1.1.2) - 2016-07-05
 - updated formatting and links in this `./CHANGELOG.md` file
