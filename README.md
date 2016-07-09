@@ -9,6 +9,7 @@ Open Translation Engine (OTE)
 [![License](https://poser.pugx.org/attogram/open-translation-engine/license)](https://github.com/attogram/ote/blob/master/LICENSE.md)
 [![Code Climate](https://codeclimate.com/github/attogram/ote/badges/gpa.svg)](https://codeclimate.com/github/attogram/ote)
 [![Issue Count](https://codeclimate.com/github/attogram/ote/badges/issue_count.svg)](https://codeclimate.com/github/attogram/ote)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a078450b69e84d9e8a85232f22b5c5ef)](https://www.codacy.com/app/attogram-project/ote?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=attogram/ote&amp;utm_campaign=Badge_Grade)
 [`[CHANGELOG]`](https://github.com/attogram/ote/blob/master/CHANGELOG.md)
 [`[TODO]`](https://github.com/attogram/ote/blob/master/TODO.md)
 
