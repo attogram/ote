@@ -2,7 +2,13 @@
 * Repository: https://github.com/attogram/ote
 * Click version number to view a diff comparison of changes since the previous release
 
-## [Unreleased](https://github.com/attogram/ote/compare/v1.1.3...HEAD)
+## [Unreleased](https://github.com/attogram/ote/compare/v1.1.4...HEAD)
+
+## [v1.1.4](https://github.com/attogram/ote/compare/v1.1.3...v1.1.4) - 2016-07-11
+- lots of refactoring and code cleanup for PSR-1 + PSR-2 code conventions
+- Codacy integration for v1.*: https://www.codacy.com/app/attogram-project/ote/dashboard
+- Codacy integration for v0.9.*: https://www.codacy.com/app/attogram-project/ote/dashboard?bid=3419619
+- Codeclimate integration: https://codeclimate.com/github/attogram/ote
 
 ## [v1.1.3](https://github.com/attogram/ote/compare/v1.1.2...v1.1.3) - 2016-07-09
 - Travis CI and phpunit setup: https://travis-ci.org/attogram/ote
