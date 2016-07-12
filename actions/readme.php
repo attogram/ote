@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - README page v0.0.3
 
-namespace attogram;
+namespace Attogram;
 
 $this->pageHeader('README');
 print '<div class="container">';

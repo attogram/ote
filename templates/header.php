@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Page Header v0.1.2
 
-namespace attogram;
+namespace Attogram;
 
 if( !isset($title) || !$title || !is_string($title) ) {
   $title = $this->siteName;

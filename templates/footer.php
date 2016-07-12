@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - footer template v0.0.5
 
-namespace attogram;
+namespace Attogram;
 
 $divider = '&nbsp;&nbsp; | &nbsp;&nbsp;';
 print '

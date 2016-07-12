@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Slush Pile Page v0.1.6
 
-namespace attogram;
+namespace Attogram;
 
 $ote = new ote( $this );
 

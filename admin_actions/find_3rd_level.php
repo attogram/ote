@@ -2,7 +2,7 @@
 
 // IN DEV
 
-namespace attogram;
+namespace Attogram;
 
 $ote = new ote( $this );
 

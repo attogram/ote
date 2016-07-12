@@ -1,6 +1,6 @@
 <?php // The Open Translation Engine (OTE) - ote class v0.6.6
 
-namespace attogram;
+namespace Attogram;
 
 /**
  * Open Translation Engine (OTE) class

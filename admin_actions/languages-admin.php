@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Languages Admin v0.2.3
 
-namespace attogram;
+namespace Attogram;
 
 $this->pageHeader('Languages Admin');
 

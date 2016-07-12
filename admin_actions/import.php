@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Import Page v0.2.3
 
-namespace attogram;
+namespace Attogram;
 
 //ob_end_clean(); // turn off attogram ob_gzhandler // errors on php 5.3.3
 

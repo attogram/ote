@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - navbar template v0.0.14
 
-namespace attogram;
+namespace Attogram;
 
 ?>
 <nav class="navbar navbar-default">

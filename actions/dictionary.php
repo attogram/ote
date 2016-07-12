@@ -24,7 +24,7 @@
     list all dictionaries
 
 */
-namespace attogram;
+namespace Attogram;
 
 $ote = new ote( $this );
 

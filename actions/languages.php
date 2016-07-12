@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Languages Page v0.2.4
 
-namespace attogram;
+namespace Attogram;
 
 $ote = new ote( $this );
 

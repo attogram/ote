@@ -1,6 +1,6 @@
 <?php // Open Translation Engine - Attogram config v0.0.9
 
-namespace attogram;
+namespace Attogram;
 
 global $config;
 
