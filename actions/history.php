@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - History Page v0.1.2
+<?php // Open Translation Engine - History Page v0.1.3
 // dev TODO - pagination
 
 namespace Attogram;
@@ -10,7 +10,7 @@ $this->page_header($title);
 print '<div class="container"><h1 class="squished">' . $title . '</h1>';
 
 $sql = 'SELECT * FROM history ORDER BY date DESC, count DESC LIMIT 500';
-$hr = $this->db->query($sql);
+$hr = $this->database->query($sql);
 
 print '<div class="row" style="padding:1px; font-weight:bold;">
   <div class="col-xs-4 col-sm-5">Word</div>

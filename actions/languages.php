@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Languages Page v0.2.1
+<?php // Open Translation Engine - Languages Page v0.2.2
 
 namespace Attogram;
 
@@ -22,10 +22,10 @@ $this->page_header('🌐 ' . sizeof($langs) . ' Languages');
 <?php
     foreach( $langs as $code => $lang ) {
 
-      $qr = $this->db->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
+      $qr = $this->database->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_words = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
 
-      $qr = $this->db->query('SELECT count(sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
+      $qr = $this->database->query('SELECT count(sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
       $translations_url = $this->path . '/dictionary/' . $code . '//';
       $word_list_url = $this->path .'/word/' . $code . '/';

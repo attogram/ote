@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.2
+<?php // Open Translation Engine - Word Page v0.2.3
 /*
  OTE Word Page
 
@@ -46,7 +46,7 @@ if( $t_code && !isset($langs[$t_code]) ) {
   $this->error404('Target Language not found yet');
 }
 
-list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
+list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
   $default_limit  = 1000,
   $default_offset = 0,
   $max_limit      = 5000,

@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - word2word Admin v0.2.0
+<?php // Open Translation Engine - word2word Admin v0.2.1
 
 namespace Attogram;
 
@@ -6,7 +6,7 @@ $this->page_header('Word2Word Admin');
 
 print '<div class="container"><h1 class="squished">Word2Word Admin</h1></div>';
 
-$this->db->tabler(
+$this->database->tabler(
   $table = 'word2word',
   $table_id = 'id',
   $name_singular = 'word2word',

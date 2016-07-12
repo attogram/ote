@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.2.1
+<?php // Open Translation Engine - Dictionary Page v0.2.2
 /*
  OTE Dictionary Page
 
@@ -59,7 +59,7 @@ if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
   $this->error404('Target language not found yet');
 }
 
-list( $limit, $offset ) = $this->db->get_set_limit_and_offset(
+list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
   $default_limit  = 250,
   $default_offset = 0,
   $max_limit      = 1000,
@@ -78,7 +78,7 @@ print '<div class="container"><h1 class="squished">📚 ' . $title . '</h1>';
 $d_all = $ote->get_dictionary_translations_count( $s_id, $t_id );
 $d = $ote->get_dictionary( $s_id, $t_id, $limit, $offset );
 
-print $this->db->pager( $d_all, $limit, $offset );
+print $this->database->pager( $d_all, $limit, $offset );
 
 foreach( $d as $i ) {
   print $ote->display_pair(

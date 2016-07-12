@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Words Admin v0.2.0
+<?php // Open Translation Engine - Words Admin v0.2.1
 
 namespace Attogram;
 
 $this->page_header('Words Admin');
 
-$this->db->tabler(
+$this->database->tabler(
   $table = 'word',
   $table_id = 'id',
   $name_singular = 'word',

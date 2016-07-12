@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Tags Page v0.2.0
+<?php // Open Translation Engine - Tags Page v0.2.1
 
 namespace Attogram;
 
@@ -6,7 +6,7 @@ $this->page_header('Tags');
 
 print '<div class="container"><h1 class="squished">⛓ Tags</h1></div>';
 
-$this->db->tabler(
+$this->database->tabler(
   $table = 'tag',
   $table_id = 'id',
   $name_singular = 'tag',
