@@ -10,13 +10,13 @@ print '
     <small>
     <span style="white-space: nowrap"><a href="' . $this->get_site_url() . '/">' .  $this->site_name . ' <small>v' . ote::OTE_VERSION . '</small></a></span>
     ' . $divider . '
-    <span style="white-space: nowrap">🚀 Powered by <a target="github" href="' . $this->project_repository . '">Attogram <small>v' . attogram::ATTOGRAM_VERSION . '</small></a></span>
+    <span style="white-space: nowrap">🚀 Powered by <a target="github" href="' . $this->projectRepository . '">Attogram <small>v' . attogram::ATTOGRAM_VERSION . '</small></a></span>
     ' . $divider . '
     <span style="white-space: nowrap">🕑 ' . gmdate('Y-m-d H:i:s') . ' UTC</span>
     ' . $divider . '
     <span style="white-space: nowrap">👤 ' . $this->clientIp . '</span>
     ' . $divider . '
-    <span style="white-space: nowrap">🏁 ' . round( (microtime(1) - $this->start_time), 3, PHP_ROUND_HALF_UP) . ' seconds</span>
+    <span style="white-space: nowrap">🏁 ' . round( (microtime(1) - $this->startTime), 3, PHP_ROUND_HALF_UP) . ' seconds</span>
     </small>
   </p>
  </div>

@@ -14,7 +14,7 @@ if( !is_readable($f) ) {
   $content .= $this->get_markdown( $f );
 }
 
-$f = $this->attogram_dir . 'README.md';
+$f = $this->attogramDirectory . 'README.md';
 if( !is_readable($f) ) {
   $this->log->error('readme.php: file not found: ' . $f );
 } else {
