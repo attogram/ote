@@ -117,11 +117,11 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     $target_language_id = $ote->get_language_id_from_code($t);
   }
 
-  list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
-    $default_limit = 100,
-    $default_offset = 0,
-    $max_limit = 1000,
-    $min_limit = 10
+  list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
+    $defaultLimit = 100,
+    $defaultOffset = 0,
+    $maxLimit = 1000,
+    $minLimit = 10
   );
 
   $result_count = $ote->get_count_search_dictionary(

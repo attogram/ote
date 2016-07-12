@@ -42,11 +42,11 @@ if( $_GET ) {
 
 print '<h1 class="squished"><a href="./" style="color:inherit;text-decoration:none;">🛃</a> Slush Pile</h1>';
 
-list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
-  $default_limit  = 15,
-  $default_offset = 0,
-  $max_limit      = 1000,
-  $min_limit      = 5
+list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
+  $defaultLimit  = 15,
+  $defaultOffset = 0,
+  $maxLimit      = 1000,
+  $minLimit      = 5
 );
 
 $sql = 'SELECT * FROM slush_pile ORDER BY id DESC LIMIT ' . $limit;

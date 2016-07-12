@@ -6,19 +6,19 @@ $this->pageHeader('Tags Admin');
 
 $this->database->tabler(
   $table = 'tag',
-  $table_id = 'id',
-  $name_singular = 'tag',
-  $name_plural = 'tags',
-  $public_link = '../tags/',
+  $tableId = 'id',
+  $nameSingular = 'tag',
+  $namePlural = 'tags',
+  $publicLink = '../tags/',
   $col = array(
     array('class'=>'col-md-7', 'title'=>'name', 'key'=>'name'),
     array('class'=>'col-md-2', 'title'=>'code', 'key'=>'code'),
     array('class'=>'col-md-2', 'title'=>'<code>ID</code>', 'key'=>'id'),
   ),
   $sql = 'SELECT id, code, name FROM tag ORDER BY name',
-  $admin_link = '../tags-admin/',
-  $show_edit = true,
-  $per_page = 100
+  $adminLink = '../tags-admin/',
+  $showEdit = true,
+  $perPage = 100
 );
 
 $this->pageFooter();

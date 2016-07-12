@@ -35,7 +35,7 @@ namespace Attogram;
   <ul class="nav navbar-nav navbar-right"><?php
 
   if( class_exists('\attogram\AttogramUser') ) {
-    if( \attogram\AttogramUser::is_logged_in() ) {
+    if( \attogram\AttogramUser::isLoggedIn() ) {
       print '<li><a href="' . $this->path . '/user/"><span class="icon-s">👤</span> <b>'
       . ( (isset($_SESSION['AttogramUsername']) && $_SESSION['AttogramUsername'])  ? $_SESSION['AttogramUsername'] : 'user')
       . '</b></a></li>';

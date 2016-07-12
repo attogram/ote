@@ -59,11 +59,11 @@ if( $t_code && !isset($langs[$t_code]) ) { // Target Language Code Not Found
   $this->error404('Target language not found yet');
 }
 
-list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
-  $default_limit  = 250,
-  $default_offset = 0,
-  $max_limit      = 1000,
-  $min_limit      = 10
+list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
+  $defaultLimit  = 250,
+  $defaultOffset = 0,
+  $maxLimit      = 1000,
+  $minLimit      = 10
 );
 
 $s_name = isset($langs[$s_code]['name']) ? $langs[$s_code]['name'] : '*';

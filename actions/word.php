@@ -46,11 +46,11 @@ if( $t_code && !isset($langs[$t_code]) ) {
   $this->error404('Target Language not found yet');
 }
 
-list( $limit, $offset ) = $this->database->get_set_limit_and_offset(
-  $default_limit  = 1000,
-  $default_offset = 0,
-  $max_limit      = 5000,
-  $min_limit      = 100
+list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
+  $defaultLimit  = 1000,
+  $defaultOffset = 0,
+  $maxLimit      = 5000,
+  $minLimit      = 100
 );
 
 switch( sizeof($this->uri) ) { // Show Word lists

@@ -8,10 +8,10 @@ print '<div class="container"><h1 class="squished">Word2Word Admin</h1></div>';
 
 $this->database->tabler(
   $table = 'word2word',
-  $table_id = 'id',
-  $name_singular = 'word2word',
-  $name_plural = 'word2words',
-  $public_link = false,
+  $tableId = 'id',
+  $nameSingular = 'word2word',
+  $namePlural = 'word2words',
+  $publicLink = false,
   $col = array(
     array('class'=>'col-md-3', 'title'=>'Source Word', 'key'=>'s_word'),
     array('class'=>'col-md-1', 'title'=>'sw', 'key'=>'sw'),
@@ -26,9 +26,9 @@ $this->database->tabler(
           WHERE sw.id = ww.sw
           AND tw.id = ww.tw
           ORDER BY sw.word, tw.word',
-  $admin_link = '../word2word-admin/',
-  $show_edit = true,
-  $per_page = 1000
+  $adminLink = '../word2word-admin/',
+  $showEdit = true,
+  $perPage = 1000
 );
 
 $this->pageFooter();
