@@ -2,7 +2,10 @@
 * Repository: https://github.com/attogram/ote
 * Click version number to view a diff comparison of changes since the previous release
 
-## [Unreleased](https://github.com/attogram/ote/compare/v1.1.4...HEAD)
+## [Unreleased](https://github.com/attogram/ote/compare/v1.1.5...HEAD)
+
+## [v1.1.5](https://github.com/attogram/ote/compare/v1.1.4...v1.1.5) - 2016-07-12
+- continued refactoring/renaming/cleanup for PSR-1 + PSR-2 Code style conventions
 
 ## [v1.1.4](https://github.com/attogram/ote/compare/v1.1.3...v1.1.4) - 2016-07-11
 - lots of refactoring and code cleanup for PSR-1 + PSR-2 code conventions
