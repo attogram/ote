@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.6
+<?php // The Open Translation Engine (OTE) - ote class v0.6.7
 
 namespace Attogram;
 
@@ -647,7 +647,7 @@ class ote
       return;
     }
 
-    $target_language_name = $this->get_language_name_from_code( $t, $default = $target_language_name, $insert = true ); // The Target Language Name
+    $target_language_name = $this->get_language_name_from_code($target_language_code, /* $default =*/ $target_language_name, /* $insert =*/ true ); // The Target Language Name
     if( !$target_language_name ) {
       $error = 'Error: can not get source language name';
       print $error;
@@ -655,7 +655,7 @@ class ote
       return;
     }
 
-    $target_language_id = $this->get_language_id_from_code($t); // The Target Language ID
+    $target_language_id = $this->get_language_id_from_code($target_language_code); // The Target Language ID
     if( !$target_language_id ) {
       $error = 'Error: can not get target language ID';
       print $error;
@@ -672,7 +672,7 @@ class ote
     . ' Code: <code>' . $this->webDisplay($source_language_code) . '</code>'
     . ' Name: <code>' . $this->webDisplay($source_language_name) . '</code>'
     . '<br />Target Language:&nbsp; ID: <code>' . $target_language_id  . '</code>'
-    . ' Code: <code>' . $this->webDisplay($t) . '</code>'
+    . ' Code: <code>' . $this->webDisplay($target_language_code) . '</code>'
     . ' Name: <code>' . $this->webDisplay($target_language_name) . '</code>'
     . '<br />Deliminator: <code>' . $this->webDisplay($deliminator) . '</code>'
     . '<br />Lines: <code>' . sizeof($lines) . '</code><hr /><small>'
@@ -776,7 +776,7 @@ class ote
       } else {
         $import_count++;
         $this->attogram->event->info( 'ADD translation: '
-          . '<code>' . $target_language_code. '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($t)
+          . '<code>' . $target_language_code. '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($target_language_code)
           . '//' . urlencode($target_word) . '">' . $this->webDisplay($target_word) . '</a>'
           . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($source_language_code) . '//' . urlencode($source_word)
           . '">' . $this->webDisplay($source_word) . '</a> <code>' . $source_language_code . '</code>'
