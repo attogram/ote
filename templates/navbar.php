@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.12
+<?php // Open Translation Engine - navbar template v0.0.13
 
 namespace attogram;
 
@@ -34,8 +34,8 @@ namespace attogram;
   </ul>
   <ul class="nav navbar-nav navbar-right"><?php
 
-  if( class_exists('\attogram_user') ) {
-    if( \attogram_user::is_logged_in() ) {
+  if( class_exists('\attogram\attogram_user') ) {
+    if( \attogram\attogram_user::is_logged_in() ) {
       print '<li><a href="' . $this->path . '/user/"><span class="icon-s">👤</span> <b>'
       . ( (isset($_SESSION['attogram_username']) && $_SESSION['attogram_username'])  ? $_SESSION['attogram_username'] : 'user')
       . '</b></a></li>';
