@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.2.6
+<?php // Open Translation Engine - Search Page v0.2.7
 
 namespace Attogram;
 
@@ -118,10 +118,10 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   }
 
   list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
-    $defaultLimit = 100,
-    $defaultOffset = 0,
-    $maxLimit = 1000,
-    $minLimit = 10
+    100, // $defaultLimit
+    0, // $defaultOffset
+    1000, // $maxLimit
+    10 // $minLimit
   );
 
   $result_count = $ote->get_count_search_dictionary(

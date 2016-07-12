@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.6
+<?php // Open Translation Engine - Word Page v0.2.7
 /*
  OTE Word Page
 
@@ -47,10 +47,10 @@ if( $t_code && !isset($langs[$t_code]) ) {
 }
 
 list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
-  $defaultLimit  = 1000,
-  $defaultOffset = 0,
-  $maxLimit      = 5000,
-  $minLimit      = 100
+  1000, // $defaultLimit
+  0, // $defaultOffset
+  5000, // $maxLimit
+  100 // $minLimit
 );
 
 switch( sizeof($this->uri) ) { // Show Word lists
