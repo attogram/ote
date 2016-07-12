@@ -1,6 +1,6 @@
-<?php // Open Translation Engine - Tags Admin v0.2.1
+<?php // Open Translation Engine - Tags Admin v0.2.2
 
-namespace Attogram;
+namespace attogram;
 
 $this->page_header('Tags Admin');
 

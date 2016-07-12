@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.2.1
+<?php // Open Translation Engine - Export Page v0.2.2
 /*
  OTE Export Page
 
@@ -17,7 +17,7 @@
     list all dictionaries
 
 */
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 
@@ -74,7 +74,7 @@ print
 . "# deliminator: $sep" . $cr
 . '#' . $cr
 . '# export time: ' . gmdate('Y-m-d H:i:s') . ' UTC' . $cr
-. '# export from: ' . $this->site_name . ': ' . $this->get_site_url() . '/' . $cr
+. '# export from: ' . $this->siteName . ': ' . $this->get_site_url() . '/' . $cr
 . '# export with: Open Translation Engine v' . ote::OTE_VERSION
 . ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . ' / PHP v' . phpversion() . $cr
 . '#' . $cr

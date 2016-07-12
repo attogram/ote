@@ -1,6 +1,6 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.4
+<?php // The Open Translation Engine (OTE) - ote class v0.6.5
 
-namespace Attogram;
+namespace attogram;
 
 /**
  * Open Translation Engine (OTE) class
@@ -40,7 +40,7 @@ class ote
       $this->attogram->log->error('insert_language: can not insert language');
       return false;
     }
-    $insert_id = $this->attogram->database->db->lastInsertId();
+    $insert_id = $this->attogram->database->database->lastInsertId();
     $this->attogram->log->debug('insert_language: inserted id=' . $insert_id . ' code=' . $this->web_display($code) . ' name=' . $this->web_display($name));
     $this->attogram->event->info('ADD language: <code>' . $this->web_display($code) . '</code> ' . $this->web_display($name) );
     unset($this->languages); // reset the language list
@@ -243,7 +243,7 @@ class ote
       $this->attogram->log->error('insert_word: can not insert. word=' . $this->web_display($word));
       return false;
     }
-    $insert_id = $this->attogram->database->db->lastInsertId();
+    $insert_id = $this->attogram->database->database->lastInsertId();
     $this->attogram->log->debug('inser_word: inserted id=' . $insert_id . ' word=' . $this->web_display($word));
     $this->attogram->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->web_display($word) . '</a>');
     return $insert_id;
@@ -354,16 +354,16 @@ class ote
     $sql = 'INSERT INTO word2word ( sw, sl, tw, tl ) VALUES ( :sw, :sl, :tw, :tl )';
     $result = $this->attogram->database->queryb($sql, $bind);
     if( $result ) {
-      $insert_id = $this->attogram->database->db->lastInsertId();
+      $insert_id = $this->attogram->database->database->lastInsertId();
       $this->attogram->log->debug('insert_word2word: inserted. id=' . $insert_id);
       return $insert_id;
     }
-    if( $this->attogram->database->db->errorCode() == '0000' ) {
+    if( $this->attogram->database->database->errorCode() == '0000' ) {
       $this->attogram->log->notice('insert_word2word: Insert failed: duplicate entry.');
       return false;
     }
     $this->attogram->log->error('insert_word2word: can not insert. errorInfo: '
-      . print_r($this->attogram->database->db->errorInfo(),1) );
+      . print_r($this->attogram->database->database->errorInfo(),1) );
   }
 
   /**
@@ -746,7 +746,7 @@ class ote
 
       $result = $this->insert_word2word( $source_word_id, $source_language_id, $target_language_id, $target_language_id );
       if( !$result ) {
-        if( $this->attogram->database->db->errorCode() == '0000' ) {
+        if( $this->attogram->database->database->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
           $error_count++; $dupe_count++; $skip_count++;
           continue;
@@ -766,7 +766,7 @@ class ote
       // insert reverse pair
       $result = $this->insert_word2word( $target_language_id, $target_language_id, $source_word_id, $source_language_id );
       if( !$result ) {
-        if( $this->attogram->database->db->errorCode() == '0000' ) {
+        if( $this->attogram->database->database->errorCode() == '0000' ) {
           //print '<p>Info: Line #' . $line_count . ': Duplicate.  Skipping line';
           $error_count++; $dupe_count++; $skip_count++;
           continue;

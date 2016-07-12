@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.4
+<?php // Open Translation Engine - Word Page v0.2.5
 /*
  OTE Word Page
 
@@ -30,7 +30,7 @@
 
 */
 
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 

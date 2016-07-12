@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Find 3rd Level v0.1.2
+<?php // Open Translation Engine - Find 3rd Level v0.1.3
 
 // IN DEV
 
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 
@@ -50,7 +50,7 @@ AND   first_w2w.tl = :j              -- JOIN_1_LANG
 
 $bind = array( 'j', $join_language_id );
 $r = @$this->database->query( $sql, $bind );
-// Warning: PDOStatement::bindParam(): SQLSTATE[HY093]: Invalid parameter number: Columns/Parameters are 1-based in .\attogram\public\index.php on line 86
+// Warning: PDOStatement::bindParam(): SQLSTATE[HY093]: Invalid parameter number: Columns/Parameters are 1-based in .\public\index.php on line 86
 
 
 //print '<pre>' . print_r($r,1) . '</pre>';

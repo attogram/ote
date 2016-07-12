@@ -1,6 +1,6 @@
-<?php // Open Translation Engine - Home Page v0.2.2
+<?php // Open Translation Engine - Home Page v0.2.3
 
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 
@@ -33,7 +33,7 @@ $this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
 </div>
 <?php
 
-if( !$this->is_admin() ) {
+if( !$this->isAdmin() ) {
   $this->page_footer();
   exit;
 }

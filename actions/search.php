@@ -1,6 +1,6 @@
-<?php // Open Translation Engine - Search Page v0.2.4
+<?php // Open Translation Engine - Search Page v0.2.5
 
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 

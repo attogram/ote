@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.2.2
+<?php // Open Translation Engine - Dictionary Page v0.2.3
 /*
  OTE Dictionary Page
 
@@ -24,7 +24,7 @@
     list all dictionaries
 
 */
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 

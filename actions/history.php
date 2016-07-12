@@ -1,7 +1,7 @@
-<?php // Open Translation Engine - History Page v0.1.3
+<?php // Open Translation Engine - History Page v0.1.4
 // dev TODO - pagination
 
-namespace Attogram;
+namespace attogram;
 
 $ote = new ote( $this );
 
