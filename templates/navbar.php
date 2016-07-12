@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.13
+<?php // Open Translation Engine - navbar template v0.0.14
 
 namespace attogram;
 
@@ -41,7 +41,7 @@ namespace attogram;
       . '</b></a></li>';
       print '<li><a href="?logoff"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> logoff</a></li>';
     } else {
-      if( array_key_exists('login', $this->get_actions()) ) { // if User Module is loaded
+      if( array_key_exists('login', $this->getActions()) ) { // if User Module is loaded
         print '<li><a href="' . $this->path
         . '/login/">login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>';
       }

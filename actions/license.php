@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - LICENSE page v0.0.2
+<?php // Open Translation Engine - LICENSE page v0.0.3
 
 namespace attogram;
 
@@ -9,4 +9,4 @@ if( !is_readable($f) ) {
   $this->error404('LICENSE file lost in the wind');
 }
 
-$this->do_markdown( $f, 'LICENSE' );
+$this->doMarkdown( $f, 'LICENSE' );

@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Import Page v0.2.2
+<?php // Open Translation Engine - Import Page v0.2.3
 
 namespace attogram;
 
 //ob_end_clean(); // turn off attogram ob_gzhandler // errors on php 5.3.3
 
-$this->page_header('📥 Import Translations');
+$this->pageHeader('📥 Import Translations');
 
 $default['s'] = '';
 $default['t'] = '';
@@ -89,4 +89,4 @@ if( $_POST ) {
   </form>
 </div>
 <?php
-$this->page_footer();
+$this->pageFooter();

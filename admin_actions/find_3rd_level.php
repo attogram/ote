@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Find 3rd Level v0.1.3
+<?php // Open Translation Engine - Find 3rd Level v0.1.4
 
 // IN DEV
 
@@ -61,7 +61,7 @@ $langs = $ote->get_languages();
 
 $join_lang_code = $ote->get_language_code_from_id($join_language_id);
 
-$this->page_header('3rd level translations');
+$this->pageHeader('3rd level translations');
 
 print '<div class="container">'
 . '<p>Join Language: '
@@ -128,4 +128,4 @@ foreach( $cleaned_r as $p ) {
 }
 
 print '</div>';
-$this->page_footer();
+$this->pageFooter();

@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Tags Page v0.2.2
+<?php // Open Translation Engine - Tags Page v0.2.3
 
 namespace attogram;
 
-$this->page_header('Tags');
+$this->pageHeader('Tags');
 
 print '<div class="container"><h1 class="squished">⛓ Tags</h1></div>';
 
@@ -22,4 +22,4 @@ $this->database->tabler(
   $per_page = 100
 );
 
-$this->page_footer();
+$this->pageFooter();

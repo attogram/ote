@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Languages Page v0.2.3
+<?php // Open Translation Engine - Languages Page v0.2.4
 
 namespace attogram;
 
@@ -6,7 +6,7 @@ $ote = new ote( $this );
 
 $langs = $ote->get_languages( $sortby = 'name' );
 
-$this->page_header('🌐 ' . sizeof($langs) . ' Languages');
+$this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
 
 ?>
 <div class="container">
@@ -50,4 +50,4 @@ $this->page_header('🌐 ' . sizeof($langs) . ' Languages');
   ?>
  </div>
 <?php
-$this->page_footer();
+$this->pageFooter();

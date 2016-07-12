@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Tags Admin v0.2.2
+<?php // Open Translation Engine - Tags Admin v0.2.3
 
 namespace attogram;
 
-$this->page_header('Tags Admin');
+$this->pageHeader('Tags Admin');
 
 $this->database->tabler(
   $table = 'tag',
@@ -21,4 +21,4 @@ $this->database->tabler(
   $per_page = 100
 );
 
-$this->page_footer();
+$this->pageFooter();

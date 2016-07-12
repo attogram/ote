@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - History Page v0.1.4
+<?php // Open Translation Engine - History Page v0.1.5
 // dev TODO - pagination
 
 namespace attogram;
@@ -6,7 +6,7 @@ namespace attogram;
 $ote = new ote( $this );
 
 $title = '🔭 History';
-$this->page_header($title);
+$this->pageHeader($title);
 print '<div class="container"><h1 class="squished">' . $title . '</h1>';
 
 $sql = 'SELECT * FROM history ORDER BY date DESC, count DESC LIMIT 500';
@@ -31,7 +31,7 @@ foreach( $hr as $h ) {
   $url = $this->path . '/word/' . $sl_code . '/' . $tl_code . '/' . urlencode($h['word']);
 
   print '<div class="row" style="border:1px solid #eeeeee; padding:0px;">
-    <div class="col-xs-4 col-sm-5"><a href="' . $url . '"><h2 style="display:inline;">' . $this->web_display($h['word']) . '</h2></a></div>
+    <div class="col-xs-4 col-sm-5"><a href="' . $url . '"><h2 style="display:inline;">' . $this->webDisplay($h['word']) . '</h2></a></div>
     <div class="col-xs-4 col-sm-1 small">' . $h['count'] . '</div>
     <div class="col-xs-4 col-sm-2 small">' . $h['date'] . '</div>
     <div class="clearfix visible-xs-block"></div>
@@ -41,4 +41,4 @@ foreach( $hr as $h ) {
 }
 
 print '</div>';
-$this->page_footer();
+$this->pageFooter();

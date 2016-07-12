@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.2.2
+<?php // Open Translation Engine - Export Page v0.2.3
 /*
  OTE Export Page
 
@@ -24,7 +24,7 @@ $ote = new ote( $this );
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
-    $this->page_header('Export Translations');
+    $this->pageHeader('Export Translations');
     print '<div class="container"><h1 class="squished">📤 Export Translations</h1>';
     $dlist = $ote->get_dictionary_list();
     print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
@@ -32,7 +32,7 @@ if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
     }
     print '</ul></div>';
-    $this->page_footer();
+    $this->pageFooter();
     exit;
 }
 
@@ -74,7 +74,7 @@ print
 . "# deliminator: $sep" . $cr
 . '#' . $cr
 . '# export time: ' . gmdate('Y-m-d H:i:s') . ' UTC' . $cr
-. '# export from: ' . $this->siteName . ': ' . $this->get_site_url() . '/' . $cr
+. '# export from: ' . $this->siteName . ': ' . $this->getSiteUrl() . '/' . $cr
 . '# export with: Open Translation Engine v' . ote::OTE_VERSION
 . ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . ' / PHP v' . phpversion() . $cr
 . '#' . $cr

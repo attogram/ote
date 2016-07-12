@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Words Admin v0.2.2
+<?php // Open Translation Engine - Words Admin v0.2.3
 
 namespace attogram;
 
-$this->page_header('Words Admin');
+$this->pageHeader('Words Admin');
 
 $this->database->tabler(
   $table = 'word',
@@ -20,4 +20,4 @@ $this->database->tabler(
   $per_page = 1000
 );
 
-$this->page_footer();
+$this->pageFooter();

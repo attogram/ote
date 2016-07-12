@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.2.3
+<?php // Open Translation Engine - Dictionary Page v0.2.4
 /*
  OTE Dictionary Page
 
@@ -33,13 +33,13 @@ $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
 
     $dlist = $ote->get_dictionary_list();
-    $this->page_header('📚 ' . sizeof($dlist) . ' Dictionaries');
+    $this->pageHeader('📚 ' . sizeof($dlist) . ' Dictionaries');
     print '<div class="container"><h1 class="squished">📚 <code>' . sizeof($dlist) . '</code> Dictionaries</h1><hr />';
     foreach( $dlist as $url => $name ) {
       print '<p><a href="' . $url . '"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> ' . $name . '</a></p>';
     }
     print '</div>';
-    $this->page_footer();
+    $this->pageFooter();
     exit;
 }
 
@@ -72,7 +72,7 @@ $s_id   = isset($langs[$s_code]['id'])   ? $langs[$s_code]['id']   : 0;
 $t_id   = isset($langs[$t_code]['id'])   ? $langs[$t_code]['id']   : 0;
 
 $title = $s_name . ' to ' . $t_name . ' Dictionary';
-$this->page_header($title);
+$this->pageHeader($title);
 print '<div class="container"><h1 class="squished">📚 ' . $title . '</h1>';
 
 $d_all = $ote->get_dictionary_translations_count( $s_id, $t_id );
@@ -94,4 +94,4 @@ foreach( $d as $i ) {
 }
 
 print '</p></div>';
-$this->page_footer();
+$this->pageFooter();

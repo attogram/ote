@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - footer template v0.0.4
+<?php // Open Translation Engine - footer template v0.0.5
 
 namespace attogram;
 
@@ -8,7 +8,7 @@ print '
  <div class="container-fluid">
   <p>
     <small>
-    <span style="white-space: nowrap"><a href="' . $this->get_site_url() . '/">' .  $this->siteName . ' <small>v' . ote::OTE_VERSION . '</small></a></span>
+    <span style="white-space: nowrap"><a href="' . $this->getSiteUrl() . '/">' .  $this->siteName . ' <small>v' . ote::OTE_VERSION . '</small></a></span>
     ' . $divider . '
     <span style="white-space: nowrap">🚀 Powered by <a target="github" href="' . $this->projectRepository . '">Attogram <small>v' . attogram::ATTOGRAM_VERSION . '</small></a></span>
     ' . $divider . '

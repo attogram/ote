@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Home Page v0.2.3
+<?php // Open Translation Engine - Home Page v0.2.4
 
 namespace attogram;
 
 $ote = new ote( $this );
 
-$this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
+$this->pageHeader('Open Translation Engine v' . ote::OTE_VERSION);
 
 ?>
 <div class="container">
@@ -34,7 +34,7 @@ $this->page_header('Open Translation Engine v' . ote::OTE_VERSION);
 <?php
 
 if( !$this->isAdmin() ) {
-  $this->page_footer();
+  $this->pageFooter();
   exit;
 }
 
@@ -64,4 +64,4 @@ if( !$this->isAdmin() ) {
  </div>
 </div>
 <?php
-$this->page_footer();
+$this->pageFooter();

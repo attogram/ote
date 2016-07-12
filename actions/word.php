@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.5
+<?php // Open Translation Engine - Word Page v0.2.6
 /*
  OTE Word Page
 
@@ -76,7 +76,7 @@ if( sizeof($this->uri) > 4 ) { // Check URI is OK
 
 $word = urldecode($this->uri[3]);
 
-$this->log->debug("word.php: s_code=$s_code t_code=$t_code word=" . $this->web_display($word));
+$this->log->debug("word.php: s_code=$s_code t_code=$t_code word=" . $this->webDisplay($word));
 
 $r = $ote->search_dictionary(
   $word,
@@ -88,7 +88,7 @@ if( !$r ) {
   $this->error404('Nothing found but wordly emptiness');
 }
 
-$this->page_header('Word: ' . $this->web_display($word) );
+$this->pageHeader('Word: ' . $this->webDisplay($word) );
 print '<div class="container">';
 
 if( $_POST ) {
@@ -123,7 +123,7 @@ if( $_POST ) {
   }
 } // end if _POST
 
-print '<div style="font-size:48pt;">' . $this->web_display($word) . '</div>';
+print '<div style="font-size:48pt;">' . $this->webDisplay($word) . '</div>';
 
 if( $s_code && $t_code ) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)'
@@ -170,7 +170,7 @@ print '
 <form name="add" id="add" method="POST" style="display:none;">
 <input type="hidden" name="type" value="add">
   <div class="row" style="border:1px solid #eeeeee; padding:2px;">
-    <div class="col-xs-4 text-left" style="font-size:18pt;">' . $this->web_display($word) . '</div>
+    <div class="col-xs-4 text-left" style="font-size:18pt;">' . $this->webDisplay($word) . '</div>
     <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
     <div class="col-xs-3 text-left"><input type="text" name="tw" /></div>
     <div class="col-xs-4 text-left" style="font-size:9pt;">'
@@ -184,7 +184,7 @@ print '
 
 print '</div>'; // end main container div
 
-$this->page_footer();
+$this->pageFooter();
 
 
 function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
@@ -207,16 +207,16 @@ function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 
     $title = $ote->get_language_name_from_code($scode) . ' Words with translations into ' . $ote->get_language_name_from_code($tcode);
   }
 
-  $attogram->page_header('🔤 ' . $title);
+  $attogram->pageHeader('🔤 ' . $title);
   print '<div class="container"><h1 class="squished">🔤 ' . $title . '</h1>';
   print $attogram->database->pager( $all_count, $limit, $offset );
   print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {
-    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $attogram->web_display($w['word']) . '</a>, ';
+    print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $attogram->webDisplay($w['word']) . '</a>, ';
   }
   print '</h3>';
   print $attogram->database->pager( $all_count, $limit, $offset );
   print '</div>';
-  $attogram->page_footer();
+  $attogram->pageFooter();
   exit;
 } // end function show_all_words()
