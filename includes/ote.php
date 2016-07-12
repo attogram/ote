@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.6.7
+<?php // The Open Translation Engine (OTE) - ote class v0.6.8
 
 namespace Attogram;
 
@@ -631,7 +631,7 @@ class ote
 
     $deliminator = str_replace('\t', "\t", $deliminator); // allow real tabs
 
-    $source_language_name = $this->get_language_name_from_code( $source_language_code, $default = $source_language_name, $insert = true ); // The Source Language Name
+    $source_language_name = $this->get_language_name_from_code( $source_language_code, /*$default =*/ $source_language_name, /*$insert =*/ true ); // The Source Language Name
     if( !$source_language_name ) {
       $error = 'Error: can not get source language name';
       print $error;
