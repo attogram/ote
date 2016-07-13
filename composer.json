@@ -1,6 +1,6 @@
 {
   "name": "attogram/open-translation-engine",
-  "description": "The Open Translation Engine (OTE) is a translation dictionary manager for the web.  Built as a Attogram Framework module",
+  "description": "The Open Translation Engine (OTE) is a collaborative translation dictionary manager for the open content web. PHP / SQLite / Attogram Framework module",
   "type": "project",
   "homepage": "https://github.com/attogram/ote",
   "license": "(MIT or GPL-3.0+)",
@@ -18,7 +18,9 @@
   ],
   "suggest": {
     "attogram/attogram-framework": "OTE runs as a module within the Attogram Framework",
-    "attogram/dams": "Open Content translation dictionaries from DAMS (Dictionary Additions Management System)"
+    "attogram/attogram-database": "OTE requires the Attogram Database module",
+    "attogram/attogram-user": "OTE requires the Attogram User module",
+    "attogram/dams": "Open Content translation dictionaries from the Dictionary Additions Management System"
   },
   "keywords": [
     "translation dictionary",
