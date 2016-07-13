@@ -1,7 +1,6 @@
 # Open Translation Engine INSTALLATIONS
 
-Known installations of the Open Translation Engine:
-
+Known installations of the Open Translation Engine, as of 2016-07-12:
 
 * http://ote.2meta.com/
  * English <> Dutch
