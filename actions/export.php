@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.2.3
+<?php // Open Translation Engine - Export Page v0.2.4
 /*
  OTE Export Page
 
@@ -26,7 +26,7 @@ $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 if( sizeof($this->uri) == 1 ) { // list all exportable dictionaries
     $this->pageHeader('Export Translations');
     print '<div class="container"><h1 class="squished">📤 Export Translations</h1>';
-    $dlist = $ote->get_dictionary_list();
+    $dlist = $ote->getDictionaryList();
     print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
     foreach( $dlist as $url=>$name ) {
       print '<li><a href="' . $url . '">' . $name . '</a></li>';
@@ -50,7 +50,7 @@ if( $s_code == $t_code ) { // Error - Source and Target language code the same
   $this->error404('Self-Referential Export denied');
 }
 
-$langs = $ote->get_languages();
+$langs = $ote->getLanguages();
 
 if( !isset($langs[$s_code]) ) { // Source Language Code Not Found
   $this->error404('Emptiness in source');
@@ -59,7 +59,7 @@ if( !isset($langs[$t_code]) ) { // Target Language Code Not Found
   $this->error404('Emptiness in target');
 }
 
-$result = $ote->get_dictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
+$result = $ote->getDictionary( $langs[$s_code]['id'], $langs[$t_code]['id'] );
 
 $sep = ' = ';
 $cr = "\n";

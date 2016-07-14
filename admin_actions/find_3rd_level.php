@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Find 3rd Level v0.1.4
+<?php // Open Translation Engine - Find 3rd Level v0.1.5
 
 // IN DEV
 
@@ -57,9 +57,9 @@ $r = @$this->database->query( $sql, $bind );
 
 // todo: de dupe reverse entries
 
-$langs = $ote->get_languages();
+$langs = $ote->getLanguages();
 
-$join_lang_code = $ote->get_language_code_from_id($join_language_id);
+$join_lang_code = $ote->getLanguageCodeFromId($join_language_id);
 
 $this->pageHeader('3rd level translations');
 
@@ -88,8 +88,8 @@ if( $do_run ) {
 print '<p><code>' . sizeof($cleaned_r) . '</code> new 3rd level translations:</p><hr />';
 
 foreach( $cleaned_r as $p ) {
-  $first_lang_code = $ote->get_language_code_from_id( $p['FIRST_LANG_ID'] );
-  $second_lang_code = $ote->get_language_code_from_id( $p['SECOND_LANG_ID'] );
+  $first_lang_code = $ote->getLanguageCodeFromId( $p['FIRST_LANG_ID'] );
+  $second_lang_code = $ote->getLanguageCodeFromId( $p['SECOND_LANG_ID'] );
   print '<p>'
   . '<code>' . $first_lang_code . '</code> '
   . '<a href="' . $this->path . '/word/' . $first_lang_code . '//' . urlencode($p['FIRST_WORD']) . '">'
@@ -105,7 +105,7 @@ foreach( $cleaned_r as $p ) {
   ;
 
   if( $do_run ) {
-    $in = $ote->insert_word2word(
+    $in = $ote->insertWord2word(
       $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
       $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'] );
     if( $in ) {
@@ -113,7 +113,7 @@ foreach( $cleaned_r as $p ) {
     } else {
       print ' -- ERROR.';
     }
-    $in = $ote->insert_word2word(
+    $in = $ote->insertWord2word(
       $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'],
       $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'] );
     if( $in ) {

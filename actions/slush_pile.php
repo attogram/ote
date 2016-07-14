@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.1.8
+<?php // Open Translation Engine - Slush Pile Page v0.1.9
 
 namespace Attogram;
 
@@ -14,10 +14,10 @@ if( $_GET ) {
     $this->error404('Slush pile options not slushable.');
   }
   $action = urldecode($_GET['a']);
-  $slush_id = urldecode($_GET['i']);
+  $slushId = urldecode($_GET['i']);
   switch( $action ) {
     case 'a': // Accept slush pile entry
-      if( $ote->accept_slush_pile_entry( $slush_id ) ) {
+      if( $ote->acceptSlushPileEntry( $slushId ) ) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
         . '<strong>Accepted</strong>: ' . $_SESSION['result'] . '</div>';
         unset($_SESSION['result']);
@@ -28,9 +28,9 @@ if( $_GET ) {
       }
       break;
     case 'd':  // Delete slush pile entry
-      if( $ote->delete_from_slush_pile( $slush_id ) ) {
+      if( $ote->deleteFromSlushPile( $slushId ) ) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
-        . '<strong>Deleted</strong>: Slush Pile ID #' . $this->webDisplay($slush_id) . '</div>';
+        . '<strong>Deleted</strong>: Slush Pile ID #' . $this->webDisplay($slushId) . '</div>';
       } else {
         print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
         . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';
@@ -56,7 +56,7 @@ if( $offset ) {
 $slush = $this->database->query($sql);
 
 print $this->database->pager(
-  $ote->get_count_slush_pile(),
+  $ote->getCountSlushPile(),
   $limit,
   $offset,
   $prepend_query_string = ''
@@ -67,16 +67,16 @@ foreach( $slush as $s ) {
   $date = isset($s['date']) ? $this->webDisplay($s['date']) : '';
   $type = isset($s['type']) ? $this->webDisplay($s['type']) : '';
   $user_id = isset($s['user_id']) ? $this->webDisplay($s['user_id']) : '';
-  $source_word = isset($s['source_word']) ? $this->webDisplay($s['source_word']) : '';
-  $source_word_url = '../word///' . urlencode($s['source_word']);
-  $source_language_code = isset($s['source_language_code']) ? $this->webDisplay($s['source_language_code']) : '';
-  $target_word = isset($s['target_word']) ? $this->webDisplay($s['target_word']) : '';
-  $target_word_url = '../word///' . urlencode($s['target_word']);
-  $target_language_code = isset($s['target_language_code']) ? $this->webDisplay($s['target_language_code']) : '';
+  $sourceWord = isset($s['source_word']) ? $this->webDisplay($s['source_word']) : '';
+  $sourceWord_url = '../word///' . urlencode($s['source_word']);
+  $sourceLanguageCode = isset($s['source_language_code']) ? $this->webDisplay($s['source_language_code']) : '';
+  $targetWord = isset($s['target_word']) ? $this->webDisplay($s['target_word']) : '';
+  $targetWord_url = '../word///' . urlencode($s['target_word']);
+  $targetLanguageCode = isset($s['target_language_code']) ? $this->webDisplay($s['target_language_code']) : '';
   print '<div class="row" style="border:solid 1px #ccc;padding:4px;">'
   . '<div class="col-sm-4">🕑:' . $date . ' 👤:' . $user_id . ' 🔀:<strong>' . $type . '</strong></div>'
-  . '<div class="col-sm-4"><code>' . $source_language_code . '</code> <a href="' . $source_word_url . '">' . $source_word . '</a>'
-  . ' = <a href="' . $target_word_url . '">' . $target_word . '</a> <code>' . $target_language_code . '</code></div>'
+  . '<div class="col-sm-4"><code>' . $sourceLanguageCode . '</code> <a href="' . $sourceWord_url . '">' . $sourceWord . '</a>'
+  . ' = <a href="' . $targetWord_url . '">' . $targetWord . '</a> <code>' . $targetLanguageCode . '</code></div>'
   . '<div class="col-sm-4">'
   . '<a href="?a=a&i=' . urlencode($id) . '">✔ Accept</a>'
   . ' &nbsp; <a href="?a=d&i=' . urlencode($id) . '">✖ Reject</a></div>'

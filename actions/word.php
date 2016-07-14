@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.7
+<?php // Open Translation Engine - Word Page v0.2.8
 /*
  OTE Word Page
 
@@ -34,7 +34,7 @@ namespace Attogram;
 
 $ote = new ote( $this );
 
-$langs = $ote->get_languages();
+$langs = $ote->getLanguages();
 
 // Check Languages exist
 $s_code = urldecode($this->uri[1]);
@@ -78,10 +78,10 @@ $word = urldecode($this->uri[3]);
 
 $this->log->debug("word.php: s_code=$s_code t_code=$t_code word=" . $this->webDisplay($word));
 
-$r = $ote->search_dictionary(
+$r = $ote->searchDictionary(
   $word,
-  $ote->get_language_id_from_code($s_code),
-  $ote->get_language_id_from_code($t_code) );
+  $ote->getLanguageIdFromCode($s_code),
+  $ote->getLanguageIdFromCode($t_code) );
 
 if( !$r ) {
   $this->log->error("word.php: No Translations Found");
@@ -92,24 +92,24 @@ $this->pageHeader('Word: ' . $this->webDisplay($word) );
 print '<div class="container">';
 
 if( $_POST ) {
-  $source_word = isset($this->uri[3]) ? urldecode($this->uri[3]) : null;
-  $target_word = isset($_POST['tw']) ? urldecode($_POST['tw']) : null;
-  $source_language_code = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
-  $target_language_code = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
+  $sourceWord = isset($this->uri[3]) ? urldecode($this->uri[3]) : null;
+  $targetWord = isset($_POST['tw']) ? urldecode($_POST['tw']) : null;
+  $sourceLanguageCode = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
+  $targetLanguageCode = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
   $type = isset($_POST['type']) ? urldecode($_POST['type']) : null;
-  if( !$source_word || !$target_word || !$source_language_code || !$target_language_code ) {
+  if( !$sourceWord || !$targetWord || !$sourceLanguageCode || !$targetLanguageCode ) {
     print '<div class="alert alert-danger">'
     . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
     . '<strong>Error adding translation</strong>: missing required word and/or languages</div>';
   } else {
     $items = array(
       'type' => $type,
-      'source_word' => $source_word,
-      'target_word' => $target_word,
-      'source_language_code' => $source_language_code,
-      'target_language_code' => $target_language_code
+      'source_word' => $sourceWord,
+      'target_word' => $targetWord,
+      'source_language_code' => $sourceLanguageCode,
+      'target_language_code' => $targetLanguageCode
     );
-    if( $ote->add_to_slush_pile( $items ) ) {
+    if( $ote->addToSlushPile( $items ) ) {
       print '<div class="alert alert-success">'
       . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
       . '<strong>Thanks for your submission.</strong>'
@@ -148,7 +148,7 @@ if( sizeof($r) == 1 ) {
 print '<p class="text-muted"><strong><code>' . sizeof($r) . '</code></strong> translation' . $post_s . ': ' . $header . '</p>';
 
 foreach( $r as $w ) {
-  print $ote->display_pair(
+  print $ote->displayPair(
     $w['s_word'], // The Source Word
     $w['sc'],     // The Source Language Code
     $w['t_word'], // The Target Word
@@ -174,9 +174,9 @@ print '
     <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
     <div class="col-xs-3 text-left"><input type="text" name="tw" /></div>
     <div class="col-xs-4 text-left" style="font-size:9pt;">'
-    . $ote->get_languages_pulldown( $name = 'sl',  $selected = $s_code, $class='' )
+    . $ote->getLanguagesPulldown( $name = 'sl',  $selected = $s_code, $class='' )
     . ' = '
-    . $ote->get_languages_pulldown( $name = 'tl',  $selected = $t_code, $class='' )
+    . $ote->getLanguagesPulldown( $name = 'tl',  $selected = $t_code, $class='' )
     . '</div>
   </div>
 </form>
@@ -190,21 +190,21 @@ $this->pageFooter();
 function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
 {
   if( !$scode && !$tcode ) {
-    $all_count = $ote->get_word_count();
-    $all = $ote->get_all_words( $limit, $offset );
+    $all_count = $ote->getWordCount();
+    $all = $ote->getAllWords( $limit, $offset );
     $title = 'All Words';
   } elseif( $scode && !$tcode ) {
-    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode) );
-    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode) );
-    $title = $ote->get_language_name_from_code($scode) . ' Words';
+    $all_count = $ote->getWordCount( $ote->getLanguageIdFromCode($scode) );
+    $all = $ote->getAllWords( $limit, $offset, $ote->getLanguageIdFromCode($scode) );
+    $title = $ote->getLanguageNameFromCode($scode) . ' Words';
   } elseif( !$scode && $tcode ) {
-    $all_count = $ote->get_word_count('', $ote->get_language_id_from_code($tcode) );
-    $all = $ote->get_all_words( $limit, $offset, '', $ote->get_language_id_from_code($tcode) );
-    $title =  'Words with translations into ' . $ote->get_language_name_from_code($tcode);
+    $all_count = $ote->getWordCount('', $ote->getLanguageIdFromCode($tcode) );
+    $all = $ote->getAllWords( $limit, $offset, '', $ote->getLanguageIdFromCode($tcode) );
+    $title =  'Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
   } elseif( $scode && $tcode ) {
-    $all_count = $ote->get_word_count( $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
-    $all = $ote->get_all_words( $limit, $offset, $ote->get_language_id_from_code($scode), $ote->get_language_id_from_code($tcode) );
-    $title = $ote->get_language_name_from_code($scode) . ' Words with translations into ' . $ote->get_language_name_from_code($tcode);
+    $all_count = $ote->getWordCount( $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode) );
+    $all = $ote->getAllWords( $limit, $offset, $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode) );
+    $title = $ote->getLanguageNameFromCode($scode) . ' Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
   }
 
   $attogram->pageHeader('🔤 ' . $title);

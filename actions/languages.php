@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Languages Page v0.2.4
+<?php // Open Translation Engine - Languages Page v0.2.5
 
 namespace Attogram;
 
 $ote = new ote( $this );
 
-$langs = $ote->get_languages( $sortby = 'name' );
+$langs = $ote->getLanguages( $sortby = 'name' );
 
 $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
 
@@ -29,9 +29,9 @@ $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
       $translations_url = $this->path . '/dictionary/' . $code . '//';
       $word_list_url = $this->path .'/word/' . $code . '/';
-      $num_dictionaries = $ote->get_dictionary_count( $code );
+      $num_dictionaries = $ote->getDictionaryCount( $code );
 
-      $dr = $ote->get_dictionary_list( $code );
+      $dr = $ote->getDictionaryList( $code );
       $dictionaries = '';
       foreach( $dr as $url => $name) {
         $dictionaries .= '<a href="' . $this->path . '/dictionary/' . $url . '">📖 ' . $name . '</a><br />';

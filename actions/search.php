@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.2.7
+<?php // Open Translation Engine - Search Page v0.2.8
 
 namespace Attogram;
 
@@ -42,11 +42,11 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
  <div class="row">
   <div class="form-group col-md-6">
    <label for="s">Source Language:</label>
-   <?php print $ote->get_languages_pulldown($name='s', $s_selected); ?>
+   <?php print $ote->getLanguagesPulldown($name='s', $s_selected); ?>
   </div>
   <div class="form-group col-md-6">
    <label for="t">Target Language:</label>
-   <?php print $ote->get_languages_pulldown($name='t', $t_selected); ?>
+   <?php print $ote->getLanguagesPulldown($name='t', $t_selected); ?>
   </div>
  </div>
  <div class="row">
@@ -102,19 +102,19 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   }
 
   if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensitive Search?
-    $case_sensitive_search = false;
+    $caseSensitive_search = false;
   } else {
-    $case_sensitive_search = true;
+    $caseSensitive_search = true;
   }
 
   print '<div class="container"><h1>Search: <kbd>' . $this->webDisplay($search_word) . '</kbd></h1>';
 
-  $source_language_id = $target_language_id = 0;
+  $sourceLanguageId = $targetLanguageId = 0;
   if( $s && $s !=  '' ) {
-    $source_language_id = $ote->get_language_id_from_code($s);
+    $sourceLanguageId = $ote->getLanguageIdFromCode($s);
   }
   if( $t && $t != '' ) {
-    $target_language_id = $ote->get_language_id_from_code($t);
+    $targetLanguageId = $ote->getLanguageIdFromCode($t);
   }
 
   list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
@@ -124,20 +124,20 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
     10 // $minLimit
   );
 
-  $result_count = $ote->get_count_search_dictionary(
+  $result_count = $ote->getCountSearchDictionary(
     $search_word,
-    $source_language_id,
-    $target_language_id,
+    $sourceLanguageId,
+    $targetLanguageId,
     $fuzzy_search,
-    $case_sensitive_search
+    $caseSensitive_search
   );
 
-  $result = $ote->search_dictionary(
+  $result = $ote->searchDictionary(
     $search_word,
-    $source_language_id,
-    $target_language_id,
+    $sourceLanguageId,
+    $targetLanguageId,
     $fuzzy_search,
-    $case_sensitive_search,
+    $caseSensitive_search,
     $limit,
     $offset
    );
@@ -146,7 +146,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   if( $fuzzy_search ) {
       $prepend_query_string .= '&amp;f=f';
   }
-  if( !$case_sensitive_search ) {
+  if( !$caseSensitive_search ) {
       $prepend_query_string .= '&amp;c=c';
   }
 
@@ -158,7 +158,7 @@ if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
   );
 
   foreach( $result as $r ) {
-    print $ote->display_pair(
+    print $ote->displayPair(
       $r['s_word'],
       $r['sc'],
       $r['t_word'],

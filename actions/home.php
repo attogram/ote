@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.2.5
+<?php // Open Translation Engine - Home Page v0.2.6
 
 namespace Attogram;
 
@@ -17,10 +17,10 @@ $this->pageHeader('Open Translation Engine v' . ote::OTE_VERSION);
  <div class="row">
   <div class="col-xs-2"></div>
   <div class="col-xs-10 col-sm-5">
-   <h2><a href="languages/" >🌐 <code><?php print $ote->get_languages_count();  ?></code> Languages</a></h2>
-   <h2><a href="dictionary/">📚 <code><?php print $ote->get_dictionary_count(); ?></code> Dictionaries</a></h2>
-   <h2><a href="word/"      >🔤 <code><?php print $ote->get_word_count();       ?></code> Words</a></h2>
-   <h2><a href="slush_pile/">🛃 <code><?php print $ote->get_count_slush_pile(); ?></code> submissions</a></h2>
+   <h2><a href="languages/" >🌐 <code><?php print $ote->getLanguagesCount();  ?></code> Languages</a></h2>
+   <h2><a href="dictionary/">📚 <code><?php print $ote->getDictionaryCount(); ?></code> Dictionaries</a></h2>
+   <h2><a href="word/"      >🔤 <code><?php print $ote->getWordCount();       ?></code> Words</a></h2>
+   <h2><a href="slush_pile/">🛃 <code><?php print $ote->getCountSlushPile(); ?></code> submissions</a></h2>
   </div>
   <div class="col-xs-2"></div>
   <div class="col-xs-10 col-sm-5">

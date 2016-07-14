@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.2.5
+<?php // Open Translation Engine - Dictionary Page v0.2.6
 /*
  OTE Dictionary Page
 
@@ -32,7 +32,7 @@ $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
 if( sizeof($this->uri) == 1 ) { // list all dictionaries
 
-    $dlist = $ote->get_dictionary_list();
+    $dlist = $ote->getDictionaryList();
     $this->pageHeader('📚 ' . sizeof($dlist) . ' Dictionaries');
     print '<div class="container"><h1 class="squished">📚 <code>' . sizeof($dlist) . '</code> Dictionaries</h1><hr />';
     foreach( $dlist as $url => $name ) {
@@ -50,7 +50,7 @@ if( $s_code && $t_code && ($s_code == $t_code) ) { // Error - Source and Target 
   $this->error404('Source and Target language the same');
 }
 
-$langs = $ote->get_languages();
+$langs = $ote->getLanguages();
 
 if( $s_code && !isset($langs[$s_code]) ) { // Source Language Code Not Found
   $this->error404('Source language not found yet');
@@ -75,13 +75,13 @@ $title = $s_name . ' to ' . $t_name . ' Dictionary';
 $this->pageHeader($title);
 print '<div class="container"><h1 class="squished">📚 ' . $title . '</h1>';
 
-$d_all = $ote->get_dictionary_translations_count( $s_id, $t_id );
-$d = $ote->get_dictionary( $s_id, $t_id, $limit, $offset );
+$d_all = $ote->getDictionaryTranslationsCount( $s_id, $t_id );
+$d = $ote->getDictionary( $s_id, $t_id, $limit, $offset );
 
 print $this->database->pager( $d_all, $limit, $offset );
 
 foreach( $d as $i ) {
-  print $ote->display_pair(
+  print $ote->displayPair(
     $i['s_word'], //* @param  string  $sw   The Source Word
     $i['sc'], //* @param  string  $sc   The Source Language Code
     $i['t_word'], //* @param  string  $tw   The Target Word
