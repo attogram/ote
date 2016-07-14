@@ -2,7 +2,11 @@
 * Repository: https://github.com/attogram/ote
 * Click version number to view a diff comparison of changes since the previous release
 
-## [Unreleased](https://github.com/attogram/ote/compare/v1.1.5...HEAD)
+## [Unreleased](https://github.com/attogram/ote/compare/v1.2.0...HEAD)
+
+## [v1.2.0](https://github.com/attogram/ote/compare/v1.1.5...v1.2.0) - 2016-07-14
+- ote class now OpenTranslationEngine class
+- continued cleanup/renaming
 
 ## [v1.1.5](https://github.com/attogram/ote/compare/v1.1.4...v1.1.5) - 2016-07-12
 - continued refactoring/renaming/cleanup for PSR-1 + PSR-2 Code style conventions
