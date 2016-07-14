@@ -8,6 +8,7 @@ namespace Attogram;
 class OpenTranslationEngine
 {
 
+    const OTE_VERSION = '1.2.0-pre';
 
     public $attogram;       // (object) The Attogram Framework object
     public $languages;      // (array) List of languages
