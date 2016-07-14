@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Import Page v0.2.4
+<?php // Open Translation Engine - Import Page v0.3.0
 
 namespace Attogram;
 
@@ -26,7 +26,7 @@ if( $_POST ) {
     if( isset($error) ) {
       print '<div class="container"><p>' . implode( $error, '<br />' ) . '</p></div>';
     } else {
-      $ote = new ote( $this );
+      $ote = new OpenTranslationEngine( $this );
       $ote->doImport( $_POST['w'], $_POST['d'], $_POST['s'], $_POST['t'], @$_POST['sn'], @$_POST['tn'] );
     }
 }

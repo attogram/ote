@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Home Page v0.2.6
+<?php // Open Translation Engine - Home Page v0.3.0
 
 namespace Attogram;
 
-$ote = new ote( $this );
+$ote = new OpenTranslationEngine( $this );
 
-$this->pageHeader('Open Translation Engine v' . ote::OTE_VERSION);
+$this->pageHeader('Open Translation Engine v' . OpenTranslationEngine::OTE_VERSION);
 
 ?>
 <div class="container">

@@ -1,8 +1,8 @@
-<?php // Open Translation Engine - Languages Page v0.2.5
+<?php // Open Translation Engine - Languages Page v0.3.0
 
 namespace Attogram;
 
-$ote = new ote( $this );
+$ote = new OpenTranslationEngine( $this );
 
 $langs = $ote->getLanguages( $sortby = 'name' );
 

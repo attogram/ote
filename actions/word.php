@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.2.8
+<?php // Open Translation Engine - Word Page v0.3.0
 /*
  OTE Word Page
 
@@ -32,7 +32,7 @@
 
 namespace Attogram;
 
-$ote = new ote( $this );
+$ote = new OpenTranslationEngine( $this );
 
 $langs = $ote->getLanguages();
 
@@ -190,32 +190,32 @@ $this->pageFooter();
 function show_all_words( $ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
 {
   if( !$scode && !$tcode ) {
-    $all_count = $ote->getWordCount();
+    $allCount = $ote->getWordCount();
     $all = $ote->getAllWords( $limit, $offset );
     $title = 'All Words';
   } elseif( $scode && !$tcode ) {
-    $all_count = $ote->getWordCount( $ote->getLanguageIdFromCode($scode) );
+    $allCount = $ote->getWordCount( $ote->getLanguageIdFromCode($scode) );
     $all = $ote->getAllWords( $limit, $offset, $ote->getLanguageIdFromCode($scode) );
     $title = $ote->getLanguageNameFromCode($scode) . ' Words';
   } elseif( !$scode && $tcode ) {
-    $all_count = $ote->getWordCount('', $ote->getLanguageIdFromCode($tcode) );
+    $allCount = $ote->getWordCount('', $ote->getLanguageIdFromCode($tcode) );
     $all = $ote->getAllWords( $limit, $offset, '', $ote->getLanguageIdFromCode($tcode) );
     $title =  'Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
   } elseif( $scode && $tcode ) {
-    $all_count = $ote->getWordCount( $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode) );
+    $allCount = $ote->getWordCount( $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode) );
     $all = $ote->getAllWords( $limit, $offset, $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode) );
     $title = $ote->getLanguageNameFromCode($scode) . ' Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
   }
 
   $attogram->pageHeader('🔤 ' . $title);
   print '<div class="container"><h1 class="squished">🔤 ' . $title . '</h1>';
-  print $attogram->database->pager( $all_count, $limit, $offset );
+  print $attogram->database->pager( $allCount, $limit, $offset );
   print '<style>a { color:inherit; }</style><h3>';
   foreach( $all as $w ) {
     print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///' . urlencode($w['word']) . '">' . $attogram->webDisplay($w['word']) . '</a>, ';
   }
   print '</h3>';
-  print $attogram->database->pager( $all_count, $limit, $offset );
+  print $attogram->database->pager( $allCount, $limit, $offset );
   print '</div>';
   $attogram->pageFooter();
   exit;

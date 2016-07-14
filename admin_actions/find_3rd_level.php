@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Find 3rd Level v0.1.5
+<?php // Open Translation Engine - Find 3rd Level v0.2.0
 
 // IN DEV
 
 namespace Attogram;
 
-$ote = new ote( $this );
+$ote = new OpenTranslationEngine( $this );
 
 if( isset($_GET['j']) && $_GET['j'] ) {
   $join_language_id = (int)$_GET['j'];

@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.2.4
+<?php // Open Translation Engine - Export Page v0.3.0
 /*
  OTE Export Page
 
@@ -19,7 +19,7 @@
 */
 namespace Attogram;
 
-$ote = new ote( $this );
+$ote = new OpenTranslationEngine( $this );
 
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
@@ -75,7 +75,7 @@ print
 . '#' . $cr
 . '# export time: ' . gmdate('Y-m-d H:i:s') . ' UTC' . $cr
 . '# export from: ' . $this->siteName . ': ' . $this->getSiteUrl() . '/' . $cr
-. '# export with: Open Translation Engine v' . ote::OTE_VERSION
+. '# export with: Open Translation Engine v' . OpenTranslationEngine::OTE_VERSION
 . ' / Attogram Framework v' . attogram::ATTOGRAM_VERSION . ' / PHP v' . phpversion() . $cr
 . '#' . $cr
 . '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . $cr
