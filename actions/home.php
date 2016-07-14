@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Home Page v0.2.4
+<?php // Open Translation Engine - Home Page v0.2.5
 
 namespace Attogram;
 
@@ -46,7 +46,7 @@ if( !$this->isAdmin() ) {
   <div class="col-xs-2"></div>
   <div class="col-xs-10 col-sm-5">
    <p><strong>Admin:</strong></p>
-   <h3><a href="user-admin/"     >👥 <code><?php print $this->database->get_table_count('user'); ?></code> Users</a></h3>
+   <h3><a href="user-admin/"     >👥 <code><?php print $this->database->getTableCount('user'); ?></code> Users</a></h3>
    <h3><a href="import/"         >📥 Import Translations</a></h3>
    <h3><a href="languages-admin/">🌐 Languages Admin</a></h3>
    <h3><a href="tags-admin/"     >⛓ Tags Admin</a></h3>
@@ -54,7 +54,7 @@ if( !$this->isAdmin() ) {
   <div class="col-xs-2"></div>
   <div class="col-xs-10 col-sm-5">
    <p><strong>Debug:</strong></p>
-   <h4><a href="events/"        >⌚ <code><?php print $this->database->get_table_count('event'); ?></code> events</a></h4>
+   <h4><a href="events/"        >⌚ <code><?php print $this->database->getTableCount('event'); ?></code> events</a></h4>
    <h4><a href="info/"          >🚀 Site Information</a></h4>
    <h4><a href="db-admin/"      >🔧 DB admin</a></h4>
    <h4><a href="db-tables/"     >📜 DB tables</a></h4>
