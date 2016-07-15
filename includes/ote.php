@@ -607,14 +607,14 @@ class OpenTranslationEngine
         $this->attogram->log->debug("do import: sn=$sourceLanguageName si=$sourceLanguageId tn=$targetLanguageName ti=$targetLanguageId");
         $lines = explode("\n", $translations);
         print '<div class="container">'
-        . 'Source Language: ID: <code>' . $sourceLanguageId . '</code>'
-        . ' Code: <code>' . $this->webDisplay($sourceLanguageCode) . '</code>'
-        . ' Name: <code>' . $this->webDisplay($sourceLanguageName) . '</code>'
-        . '<br />Target Language:&nbsp; ID: <code>' . $targetLanguageId  . '</code>'
-        . ' Code: <code>' . $this->webDisplay($targetLanguageCode) . '</code>'
-        . ' Name: <code>' . $this->webDisplay($targetLanguageName) . '</code>'
-        . '<br />Deliminator: <code>' . $this->webDisplay($deliminator) . '</code>'
-        . '<br />Lines: <code>' . sizeof($lines) . '</code><hr /><small>';
+        .'Source Language: ID: <code>'.$sourceLanguageId.'</code>'
+        .' Code: <code>'.$this->webDisplay($sourceLanguageCode).'</code>'
+        .' Name: <code>'.$this->webDisplay($sourceLanguageName).'</code>'
+        .'<br />Target Language:&nbsp; ID: <code>'.$targetLanguageId.'</code>'
+        .' Code: <code>'.$this->webDisplay($targetLanguageCode).'</code>'
+        .' Name: <code>'.$this->webDisplay($targetLanguageName).'</code>'
+        .'<br />Deliminator: <code>'.$this->webDisplay($deliminator).'</code>'
+        .'<br />Lines: <code>'.sizeof($lines).'</code><hr /><small>';
         $lineCount = $importCount = $errorCount = $skipCount = $dupeCount = 0;
         foreach ($lines as $line) {
             set_time_limit(240);
@@ -723,10 +723,10 @@ class OpenTranslationEngine
             @ob_flush(); flush();
         } // end foreach line
         print '</small><hr />';
-        print '<code>' . $importCount . '</code> translations imported.<br />';
-        print '<code>' . $errorCount . '</code> errors.<br />';
-        print '<code>' . $dupeCount . '</code> duplicates/existing.<br />';
-        print '<code>' . $skipCount . '</code> lines skipped.<br />';
+        print '<code>'.$importCount.'</code> translations imported.<br />';
+        print '<code>'.$errorCount.'</code> errors.<br />';
+        print '<code>'.$dupeCount.'</code> duplicates/existing.<br />';
+        print '<code>'.$skipCount.'</code> lines skipped.<br />';
         print '</div>';
     } // end doImport
 
