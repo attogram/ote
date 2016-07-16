@@ -1,6 +1,6 @@
 Open Translation Engine License
 ==================
-[//]: # ( Open Translation Engine - License - v0.0.2 )
+[//]: # ( Open Translation Engine - License - v0.0.3 )
 
 The Open Translation Engine (OTE) is an open source project.
 
@@ -8,13 +8,11 @@ The OTE is dual licensed under
 <a href="http://opensource.org/licenses/MIT">The MIT License</a> or the
 <a href="http://opensource.org/licenses/GPL-3.0">GNU General Public License</a>, at your choosing.
 
-The OTE distribution includes <a href="#other">other open source projects</a>.
-
 <hr />
 
 <strong>Open Translation Engine - MIT License</strong>
 
-Copyright (c) 2016 Open Translation Engine Developers https://github.com/attogram/ote/
+Copyright (c) 2016 Open Translation Engine Developers <https://github.com/attogram/ote/>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +36,7 @@ THE SOFTWARE.
 
 <strong>Open Translation Engine - GNU General Public License</strong>
 
-Copyright (C) 2016 Open Translation Engine Developers https://github.com/attogram/ote/
+Copyright (C) 2016 Open Translation Engine Developers <https://github.com/attogram/ote/>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -735,15 +733,3 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;<a href="http://www.gnu.org/philosophy/why-not-lgpl.html">http://www.gnu.org/philosophy/why-not-lgpl.html</a>&gt;.</p>
-
-
-<a name="other"></a>
-<hr />
-
-Other Open Source Software included with the Open Translation Engine distribution:
-
-* Attogram Framework - MIT License _or_ GPL License - https://github.com/attogram/ote/
-* phpLiteAdmin - GPL License - https://www.phpliteadmin.org/
-* jQuery - MIT License - http://jquery.org/license/
-* Bootstrap - MIT License - http://getbootstrap.com/
-* Parsedown - MIT License - http://parsedown.org/
