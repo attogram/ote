@@ -1,13 +1,14 @@
-<?php // Attogram Framework - Open Translation Engine Module - Base Test v0.0.1
+<?php
+// Attogram Framework - Open Translation Engine Module - Base Test v0.0.2
 
 use PHPUnit\Framework\TestCase;
 
 class BaseTest extends PHPUnit\Framework\TestCase
 {
 
-    public function testTruthiness()
+    public function testToBeWrittenRealSoonNow()
     {
-        $this->assertTrue( true, 'true not true!' );
+        $this->assertTrue(true, 'true not true!');
     }
 
 }
