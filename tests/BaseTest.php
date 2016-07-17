@@ -1,5 +1,7 @@
 <?php
-// Attogram Framework - Open Translation Engine Module - Base Test v0.0.2
+// Attogram Framework - Open Translation Engine Module - Base Test v0.0.3
+
+namespace Attogram;
 
 use PHPUnit\Framework\TestCase;
 
@@ -10,5 +12,4 @@ class BaseTest extends PHPUnit\Framework\TestCase
     {
         $this->assertTrue(true, 'true not true!');
     }
-
 }
