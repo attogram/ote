@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.7.0
+<?php // The Open Translation Engine (OTE) - ote class v0.7.1
 
 namespace Attogram;
 
@@ -908,18 +908,4 @@ class OpenTranslationEngine
         </div>';
         return $result;
     } // end function displayPair
-
-    /**
-     * clean a string for web display
-     * @param string $string  The string to clean
-     * @return string  The cleaned string, or false
-     */
-    public function webDisplay($string)
-    {
-        if (!is_string($string)) {
-            return false;
-        }
-        return htmlentities($string, ENT_COMPAT, 'UTF-8');
-    }
-
 } // end class ote
