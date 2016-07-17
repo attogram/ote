@@ -20,6 +20,7 @@
     "attogram/attogram-framework": "OTE runs as a module within the Attogram Framework",
     "attogram/attogram-database": "OTE requires the Attogram Database module",
     "attogram/attogram-user": "OTE requires the Attogram User module",
+    "attogram/attogram-contactform": "Contact Form Module for the Attogram Framework",
     "attogram/dams": "Open Content translation dictionaries from the Dictionary Additions Management System"
   },
   "keywords": [
