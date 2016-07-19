@@ -1,5 +1,6 @@
 Open Translation Engine (OTE)
 ===
+[//]: # (Open Translation Engine - README.md - v0.3.0)
 
 [![Build Status](https://travis-ci.org/attogram/ote.svg?branch=master)](https://travis-ci.org/attogram/ote)
 [![Latest Stable Version](https://poser.pugx.org/attogram/open-translation-engine/v/stable)](https://packagist.org/packages/attogram/open-translation-engine)

@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Word Page v0.3.1
+<?php // Open Translation Engine - Word Page v0.3.2
 /*
  OTE Word Page
 
@@ -64,13 +64,13 @@ switch(sizeof($this->uri)) { // Show Word lists
     show_all_words($ote, $this, $limit, $offset, $this->uri[1], $this->uri[2] );
     break;
   case 4:
-    if (!$this->uri[3] ) {
+    if (!$this->uri[3]) {
       $this->error404('The Word is the Bird.  Missing Bird.');
     }
     break;
 }
 
-if (sizeof($this->uri) > 4 ) { // Check URI is OK
+if (sizeof($this->uri) > 4) { // Check URI is OK
   $this->error404('No Swimming in the Deep End of the word');
 }
 
@@ -83,7 +83,7 @@ $r = $ote->searchDictionary(
   $ote->getLanguageIdFromCode($s_code),
   $ote->getLanguageIdFromCode($t_code));
 
-if (!$r ) {
+if (!$r) {
   $this->log->error("word.php: No Translations Found");
   $this->error404('Nothing found but wordly emptiness');
 }
@@ -91,13 +91,13 @@ if (!$r ) {
 $this->pageHeader('Word: ' . $this->webDisplay($word));
 print '<div class="container">';
 
-if ($_POST ) {
+if ($_POST) {
   $sourceWord = isset($this->uri[3]) ? urldecode($this->uri[3]) : null;
   $targetWord = isset($_POST['tw']) ? urldecode($_POST['tw']) : null;
   $sourceLanguageCode = isset($_POST['sl']) ? urldecode($_POST['sl']) : null;
   $targetLanguageCode = isset($_POST['tl']) ? urldecode($_POST['tl']) : null;
   $type = isset($_POST['type']) ? urldecode($_POST['type']) : null;
-  if (!$sourceWord || !$targetWord || !$sourceLanguageCode || !$targetLanguageCode ) {
+  if (!$sourceWord || !$targetWord || !$sourceLanguageCode || !$targetLanguageCode) {
     print '<div class="alert alert-danger">'
     . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
     . '<strong>Error adding translation</strong>: missing required word and/or languages</div>';
@@ -125,7 +125,7 @@ if ($_POST ) {
 
 print '<div style="font-size:48pt;">' . $this->webDisplay($word) . '</div>';
 
-if ($s_code && $t_code ) {
+if ($s_code && $t_code) {
   $header = '<strong>' . $langs[$s_code]['name'] . '</strong> (<code>' . $s_code . '</code>)'
   . ' to <strong>' . $langs[$t_code]['name'] . '</strong> (<code>' . $t_code . '</code>)';
   $put_s = false;
@@ -140,7 +140,7 @@ if ($s_code && $t_code ) {
   $put_s = true;
   $put_t = false;
 }
-if (sizeof($r) == 1 ) {
+if (sizeof($r) == 1) {
   $post_s = '';
 } else {
   $post_s = 's';
@@ -189,19 +189,19 @@ $this->pageFooter();
 
 function show_all_words($ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0 )
 {
-  if (!$scode && !$tcode ) {
+  if (!$scode && !$tcode) {
     $allCount = $ote->getWordCount();
     $all = $ote->getAllWords($limit, $offset );
     $title = 'All Words';
-  } elseif ($scode && !$tcode ) {
+  } elseif ($scode && !$tcode) {
     $allCount = $ote->getWordCount($ote->getLanguageIdFromCode($scode));
     $all = $ote->getAllWords($limit, $offset, $ote->getLanguageIdFromCode($scode));
     $title = $ote->getLanguageNameFromCode($scode) . ' Words';
-  } elseif (!$scode && $tcode ) {
+  } elseif (!$scode && $tcode) {
     $allCount = $ote->getWordCount('', $ote->getLanguageIdFromCode($tcode));
     $all = $ote->getAllWords($limit, $offset, '', $ote->getLanguageIdFromCode($tcode));
     $title =  'Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
-  } elseif ($scode && $tcode ) {
+  } elseif ($scode && $tcode) {
     $allCount = $ote->getWordCount($ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode));
     $all = $ote->getAllWords($limit, $offset, $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode));
     $title = $ote->getLanguageNameFromCode($scode) . ' Words with translations into ' . $ote->getLanguageNameFromCode($tcode);

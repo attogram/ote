@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Find 3rd Level v0.2.1
+<?php // Open Translation Engine - Find 3rd Level v0.2.2
 
 // IN DEV
 
@@ -6,13 +6,13 @@ namespace Attogram;
 
 $ote = new OpenTranslationEngine($this);
 
-if (isset($_GET['j']) && $_GET['j'] ) {
+if (isset($_GET['j']) && $_GET['j']) {
   $join_language_id = (int)$_GET['j'];
 } else {
   $join_language_id = 1;
 }
 
-if (isset($_GET['r']) && $_GET['r'] ) {
+if (isset($_GET['r']) && $_GET['r']) {
   $do_run = true;
 } else {
   $do_run = false;
@@ -73,13 +73,13 @@ foreach ($r as $p) {
   $test = $ote->get_word2word(
     $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
     $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'] );
-  if ($test ) {
+  if ($test) {
     continue; // word2word entry already exists
   }
   $cleaned_r[] = $p;
 }
 
-if ($do_run ) {
+if ($do_run) {
   print '<p>Doing Import Run</p>';
 } else {
   print '<p>Preview - <a href="?j=' . $join_language_id . '&r=run">Do Run</a></p>';
@@ -104,11 +104,11 @@ foreach ($cleaned_r as $p) {
   . $p['SECOND_WORD'] . '</a>'
   ;
 
-  if ($do_run ) {
+  if ($do_run) {
     $in = $ote->insertWord2word(
       $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
       $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'] );
-    if ($in ) {
+    if ($in) {
       print ' -- INSERTED.';
     } else {
       print ' -- ERROR.';
@@ -116,7 +116,7 @@ foreach ($cleaned_r as $p) {
     $in = $ote->insertWord2word(
       $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'],
       $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'] );
-    if ($in ) {
+    if ($in) {
       print ' INSERTED REVERSE.';
     } else {
       print ' ERROR REVERSE.';

@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.7.2
+<?php // The Open Translation Engine (OTE) - ote class v0.7.3
 
 namespace Attogram;
 
@@ -103,7 +103,7 @@ class OpenTranslationEngine
      */
     public function getLanguageNameFromId($languageId)
     {
-        foreach ($this->getLanguages() as $lang ) {
+        foreach ($this->getLanguages() as $lang) {
             if ($lang['id'] == $languageId) {
                 return $lang['name'];
             }
@@ -301,7 +301,7 @@ class OpenTranslationEngine
             $this->attogram->log->error('getAllWords: missing limit.  offset=' . $offset);
             return array();
         }
-        return $this->attogram->database->query("$select $order $limit", $bind );
+        return $this->attogram->database->query("$select $order $limit", $bind);
     }
 
     /**
@@ -343,7 +343,7 @@ class OpenTranslationEngine
     {
         $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
         $this->attogram->log->debug('insertWord2word', $bind);
-        $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl ) VALUES (:sw, :sl, :tw, :tl )', $bind);
+        $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl) VALUES (:sw, :sl, :tw, :tl)', $bind);
         if ($result) {
             $insertId = $this->attogram->database->database->lastInsertId();
             $this->attogram->log->debug('insertWord2word: inserted. id=' . $insertId);
@@ -436,7 +436,7 @@ class OpenTranslationEngine
             $lang = 'WHERE tl = :tl';
             $bind['tl'] = $targetLanguageId;
         }
-        $result = $this->attogram->database->query("SELECT count(word2word.id ) AS count FROM word2word $lang", $bind);
+        $result = $this->attogram->database->query("SELECT count(word2word.id) AS count FROM word2word $lang", $bind);
         return isset($result[0]['count']) ? $result[0]['count'] : '0';
     } // end getDictionaryTranslationsCount()
 
@@ -496,7 +496,7 @@ class OpenTranslationEngine
     public function searchDictionary($word, $sourceLanguageId = 0, $targetLanguageId = 0, $fuzzy = false, $caseSensitive = false, $limit = 100, $offset = 0)
     {
         $this->attogram->log->debug('searchDictionary: word=' . $this->attogram->webDisplay($word) . " sl=$sourceLanguageId tl=$targetLanguageId f=$fuzzy c=$caseSensitive limit=$limit offset=$offset");
-        $this->insertHistory($word, $sourceLanguageId, $targetLanguageId );
+        $this->insertHistory($word, $sourceLanguageId, $targetLanguageId);
         $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
         $orderC = '';
         if ($caseSensitive) { // 🔠🔡 Case Sensitive Search
@@ -552,10 +552,10 @@ class OpenTranslationEngine
           $targetLanguageId = 0;
         }
         $this->attogram->log->debug('insertHistory: date: ' . $now . ' sl: ' . $sourceLanguageId . ' tl: ' . $targetLanguageId . ' word: ' . $this->attogram->webDisplay($word));
-        $bind = array('word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now );
+        $bind = array('word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now);
         $resultid = $this->attogram->database->query('SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl', $bind);
-        if (!$resultid ) { // insert new history entry for this date
-            return $this->attogram->database->queryb('INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1 )', $bind);
+        if (!$resultid) { // insert new history entry for this date
+            return $this->attogram->database->queryb('INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1)', $bind);
         }
         return $this->attogram->database->queryb(// update count
             'UPDATE history SET count = count + 1 WHERE id = :id',
@@ -793,7 +793,7 @@ class OpenTranslationEngine
     {
         $spe = $this->attogram->database->query(// get slush_pile entry
             'SELECT * FROM slush_pile WHERE id = :id LIMIT 1',
-            array('id' => $slushId )
+            array('id' => $slushId)
         );
         if (!$spe) {
             $this->attogram->log->error('acceptSlushPileEntry: can not find id=' . $this->attogram->webDisplay($slushId));
@@ -801,7 +801,7 @@ class OpenTranslationEngine
             return false;
         }
         $type = $spe[0]['type'];
-        switch($type ) {
+        switch($type) {
             case 'add': // add word2word translation
                 $sourceWordId = $this->getIdFromWord($spe[0]['source_word']); // Source Word ID
                 $sourceLanguageId = $this->getLanguageIdFromCode($spe[0]['source_language_code']); // Source Language ID
