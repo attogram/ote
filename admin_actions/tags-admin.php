@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Tags Admin v0.2.4
+<?php // Open Translation Engine - Tags Admin v0.2.5
 
 namespace Attogram;
 
@@ -10,7 +10,7 @@ $this->database->tabler(
   'tag', // $nameSingular
   'tags', // $namePlural
   '../tags/', // $publicLink
-  array( // $col
+  array(// $col
     array('class'=>'col-md-7', 'title'=>'name', 'key'=>'name'),
     array('class'=>'col-md-2', 'title'=>'code', 'key'=>'code'),
     array('class'=>'col-md-2', 'title'=>'<code>ID</code>', 'key'=>'id'),

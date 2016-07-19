@@ -1,10 +1,10 @@
-<?php // Open Translation Engine - Languages Page v0.3.0
+<?php // Open Translation Engine - Languages Page v0.3.1
 
 namespace Attogram;
 
-$ote = new OpenTranslationEngine( $this );
+$ote = new OpenTranslationEngine($this);
 
-$langs = $ote->getLanguages( $sortby = 'name' );
+$langs = $ote->getLanguages($sortby = 'name');
 
 $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
 
@@ -20,7 +20,7 @@ $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
    <div class="col-sm-2">Translations:</div>
  </div>
 <?php
-    foreach( $langs as $code => $lang ) {
+    foreach ($langs as $code => $lang) {
 
       $qr = $this->database->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_words = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
@@ -29,11 +29,11 @@ $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
       $num_translations = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
       $translations_url = $this->path . '/dictionary/' . $code . '//';
       $word_list_url = $this->path .'/word/' . $code . '/';
-      $num_dictionaries = $ote->getDictionaryCount( $code );
+      $num_dictionaries = $ote->getDictionaryCount($code);
 
-      $dr = $ote->getDictionaryList( $code );
+      $dr = $ote->getDictionaryList($code);
       $dictionaries = '';
-      foreach( $dr as $url => $name) {
+      foreach ($dr as $url => $name) {
         $dictionaries .= '<a href="' . $this->path . '/dictionary/' . $url . '">📖 ' . $name . '</a><br />';
       }
 

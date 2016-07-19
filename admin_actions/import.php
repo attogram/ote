@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Import Page v0.3.0
+<?php // Open Translation Engine - Import Page v0.3.1
 
 namespace Attogram;
 
@@ -10,24 +10,24 @@ $default['s'] = '';
 $default['t'] = '';
 $default['d'] = '=';
 
-if( $_POST ) {
-    if( !isset($_POST['w']) || !$_POST['w'] ) {
+if ($_POST ) {
+    if (!isset($_POST['w']) || !$_POST['w'] ) {
       $error[] = 'error - no word pairs found';
     }
-    if( !isset($_POST['d']) || !$_POST['d'] ) {
+    if (!isset($_POST['d']) || !$_POST['d'] ) {
       $error[] = 'error - no deliminator set';
     }
-    if( !isset($_POST['t']) || !$_POST['t'] ) {
+    if (!isset($_POST['t']) || !$_POST['t'] ) {
       $error[] = 'error - no target language code set';
     }
-    if( !isset($_POST['s']) || !$_POST['s'] ) {
+    if (!isset($_POST['s']) || !$_POST['s'] ) {
       $error[] = 'error - no source language code set';
     }
-    if( isset($error) ) {
-      print '<div class="container"><p>' . implode( $error, '<br />' ) . '</p></div>';
+    if (isset($error)) {
+      print '<div class="container"><p>' . implode($error, '<br />' ) . '</p></div>';
     } else {
-      $ote = new OpenTranslationEngine( $this );
-      $ote->doImport( $_POST['w'], $_POST['d'], $_POST['s'], $_POST['t'], @$_POST['sn'], @$_POST['tn'] );
+      $ote = new OpenTranslationEngine($this);
+      $ote->doImport($_POST['w'], $_POST['d'], $_POST['s'], $_POST['t'], @$_POST['sn'], @$_POST['tn'] );
     }
 }
 ?>

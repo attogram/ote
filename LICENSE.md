@@ -1,6 +1,6 @@
 Open Translation Engine License
 ==================
-[//]: # ( Open Translation Engine - License - v0.0.3 )
+[//]: # (Open Translation Engine - License - v0.0.4)
 
 The Open Translation Engine (OTE) is an open source project.
 

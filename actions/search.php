@@ -1,39 +1,39 @@
-<?php // Open Translation Engine - Search Page v0.3.0
+<?php // Open Translation Engine - Search Page v0.3.1
 
 namespace Attogram;
 
-$ote = new OpenTranslationEngine( $this );
+$ote = new OpenTranslationEngine($this);
 
 $this->pageHeader('Search');
 
-if( isset($_GET['s']) && $_GET['s'] ) { // Source Language
-  $s_selected = urldecode( $_GET['s'] );
+if (isset($_GET['s']) && $_GET['s']) { // Source Language
+    $s_selected = urldecode($_GET['s']);
 } else {
-  $s_selected = '';
+    $s_selected = '';
 }
 
-if( isset($_GET['t']) && $_GET['t'] ) { // Target Language
-  $t_selected = urldecode( $_GET['t'] );
+if (isset($_GET['t']) && $_GET['t']) { // Target Language
+    $t_selected = urldecode($_GET['t']);
 } else {
-  $t_selected = '';
+    $t_selected = '';
 }
 
-if( isset($_GET['q']) && $_GET['q'] ) { // The Query
-  $q_default = $this->webDisplay(urldecode($_GET['q']));
+if (isset($_GET['q']) && $_GET['q']) { // The Query
+    $q_default = $this->webDisplay(urldecode($_GET['q']));
 } else {
-  $q_default = '';
+    $q_default = '';
 }
 
-if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search
-  $f_default = ' checked';
+if (isset($_GET['f']) && $_GET['f']=='f') { // Fuzzy Search
+    $f_default = ' checked';
 } else {
-  $f_default = '';
+    $f_default = '';
 }
 
-if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
-  $c_default = ' checked';
+if (isset($_GET['c']) && $_GET['c']=='c') { // Case Sensative
+    $c_default = ' checked';
 } else {
-  $c_default = '';
+    $c_default = '';
 }
 
 ?>
@@ -79,97 +79,97 @@ if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensative
 </div>
 <?php
 
-if( isset($_GET['q']) && $_GET['q'] ) { // If Querying
+if (isset($_GET['q']) && $_GET['q']) { // If Querying
 
-  $search_word = trim(urldecode($_GET['q']));
+    $search_word = trim(urldecode($_GET['q']));
 
-  if( isset($_GET['s']) && $_GET['s'] ) { // Source Language
-    $s = urldecode($_GET['s']);
-  } else {
-    $s = '';
-  }
+    if (isset($_GET['s']) && $_GET['s']) { // Source Language
+        $s = urldecode($_GET['s']);
+    } else {
+        $s = '';
+    }
 
-  if( isset($_GET['t']) && $_GET['t'] ) { // Target Language
-    $t = urldecode($_GET['t']);
-  } else {
-    $t = '';
-  }
+    if (isset($_GET['t']) && $_GET['t']) { // Target Language
+        $t = urldecode($_GET['t']);
+    } else {
+        $t = '';
+    }
 
-  if( isset($_GET['f']) && $_GET['f']=='f' ) { // Fuzzy Search?
-    $fuzzy_search = true;
-  } else {
-    $fuzzy_search = false;
-  }
+    if (isset($_GET['f']) && $_GET['f']=='f') { // Fuzzy Search?
+        $fuzzy_search = true;
+    } else {
+        $fuzzy_search = false;
+    }
 
-  if( isset($_GET['c']) && $_GET['c']=='c' ) { // Case Sensitive Search?
-    $caseSensitive_search = false;
-  } else {
-    $caseSensitive_search = true;
-  }
+    if (isset($_GET['c']) && $_GET['c']=='c') { // Case Sensitive Search?
+        $caseSensitive_search = false;
+    } else {
+        $caseSensitive_search = true;
+    }
 
-  print '<div class="container"><h1>Search: <kbd>' . $this->webDisplay($search_word) . '</kbd></h1>';
+    print '<div class="container"><h1>Search: <kbd>' . $this->webDisplay($search_word) . '</kbd></h1>';
 
-  $sourceLanguageId = $targetLanguageId = 0;
-  if( $s && $s !=  '' ) {
-    $sourceLanguageId = $ote->getLanguageIdFromCode($s);
-  }
-  if( $t && $t != '' ) {
-    $targetLanguageId = $ote->getLanguageIdFromCode($t);
-  }
+    $sourceLanguageId = $targetLanguageId = 0;
+    if ($s && $s !=  '') {
+        $sourceLanguageId = $ote->getLanguageIdFromCode($s);
+    }
+    if ($t && $t != '') {
+        $targetLanguageId = $ote->getLanguageIdFromCode($t);
+    }
 
-  list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
-    100, // $defaultLimit
-    0, // $defaultOffset
-    1000, // $maxLimit
-    10 // $minLimit
-  );
-
-  $result_count = $ote->getCountSearchDictionary(
-    $search_word,
-    $sourceLanguageId,
-    $targetLanguageId,
-    $fuzzy_search,
-    $caseSensitive_search
-  );
-
-  $result = $ote->searchDictionary(
-    $search_word,
-    $sourceLanguageId,
-    $targetLanguageId,
-    $fuzzy_search,
-    $caseSensitive_search,
-    $limit,
-    $offset
-   );
-
-  $prepend_query_string = 's=' . urlencode($s) . '&amp;t=' . urlencode($t) . '&amp;q=' . urlencode($search_word);
-  if( $fuzzy_search ) {
-      $prepend_query_string .= '&amp;f=f';
-  }
-  if( !$caseSensitive_search ) {
-      $prepend_query_string .= '&amp;c=c';
-  }
-
-  print $this->database->pager(
-    $result_count,
-    $limit,
-    $offset,
-    $prepend_query_string
-  );
-
-  foreach( $result as $r ) {
-    print $ote->displayPair(
-      $r['s_word'],
-      $r['sc'],
-      $r['t_word'],
-      $r['tc'],
-      $this->path,
-      ' = ',
-      true,
-      true
+    list($limit, $offset) = $this->database->getSetLimitAndOffset(
+        100,  // $defaultLimit
+        0,    // $defaultOffset
+        1000, // $maxLimit
+        10    // $minLimit
     );
-  }
-  print '</div>';
+
+    $result_count = $ote->getCountSearchDictionary(
+        $search_word,
+        $sourceLanguageId,
+        $targetLanguageId,
+        $fuzzy_search,
+        $caseSensitive_search
+    );
+
+    $result = $ote->searchDictionary(
+        $search_word,
+        $sourceLanguageId,
+        $targetLanguageId,
+        $fuzzy_search,
+        $caseSensitive_search,
+        $limit,
+        $offset
+    );
+
+    $prepend_query_string = 's=' . urlencode($s) . '&amp;t=' . urlencode($t) . '&amp;q=' . urlencode($search_word);
+    if ($fuzzy_search) {
+        $prepend_query_string .= '&amp;f=f';
+    }
+    if (!$caseSensitive_search) {
+        $prepend_query_string .= '&amp;c=c';
+    }
+
+    print $this->database->pager(
+        $result_count,
+        $limit,
+        $offset,
+        $prepend_query_string
+    );
+
+    foreach ($result as $r) {
+        print $ote->displayPair(
+            $r['s_word'],
+            $r['sc'],
+            $r['t_word'],
+            $r['tc'],
+            $this->path,
+            ' = ',
+            true,
+            true
+        );
+    }
+    print '</div>';
 }
 
 print '<br /><br />';

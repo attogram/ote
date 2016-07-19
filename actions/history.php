@@ -1,9 +1,9 @@
-<?php // Open Translation Engine - History Page v0.2.0
+<?php // Open Translation Engine - History Page v0.2.1
 // dev TODO - pagination
 
 namespace Attogram;
 
-$ote = new OpenTranslationEngine( $this );
+$ote = new OpenTranslationEngine($this);
 
 $title = '🔭 History';
 $this->pageHeader($title);
@@ -21,7 +21,7 @@ print '<div class="row" style="padding:1px; font-weight:bold;">
   <div class="col-xs-4 col-sm-2 small">Target</div>
 </div>';
 
-foreach( $hr as $h ) {
+foreach ($hr as $h) {
 
   $sl_code = $ote->getLanguageCodeFromId($h['sl']);
   $sl_name = $ote->getLanguageNameFromId($h['sl']);

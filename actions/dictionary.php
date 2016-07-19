@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Dictionary Page v0.3.1
+<?php // Open Translation Engine - Dictionary Page v0.3.2
 /*
  OTE Dictionary Page
 
@@ -85,7 +85,7 @@ $d = $ote->getDictionary($s_id, $t_id, $limit, $offset);
 
 print $this->database->pager($d_all, $limit, $offset);
 
-foreach($d as $i) {
+foreach ($d as $i) {
     print $ote->displayPair(
         $i['s_word'], //* @param  string  $sw   The Source Word
         $i['sc'],     //* @param  string  $sc   The Source Language Code

@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - navbar template v0.0.15
+<?php // Open Translation Engine - navbar template v0.0.16
 
 namespace Attogram;
 
@@ -34,25 +34,25 @@ namespace Attogram;
   </ul>
   <ul class="nav navbar-nav navbar-right"><?php
 
-  if( class_exists('\attogram\AttogramUser') ) {
-    if( \attogram\AttogramUser::isLoggedIn() ) {
+  if (class_exists('\attogram\AttogramUser')) {
+    if (\attogram\AttogramUser::isLoggedIn()) {
       print '<li><a href="' . $this->path . '/user/"><span class="icon-s">👤</span> <b>'
-      . ( (isset($_SESSION['AttogramUsername']) && $_SESSION['AttogramUsername'])  ? $_SESSION['AttogramUsername'] : 'user')
+      . ((isset($_SESSION['AttogramUsername']) && $_SESSION['AttogramUsername'])  ? $_SESSION['AttogramUsername'] : 'user')
       . '</b></a></li>';
       print '<li><a href="?logoff"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> logoff</a></li>';
     } else {
-      if( array_key_exists('login', $this->getActions()) ) { // if User Module is loaded
+      if (array_key_exists('login', $this->getActions())) { // if User Module is loaded
         print '<li><a href="' . $this->path
         . '/login/">login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>';
       }
     }
   } // end if user module active
 
-  if( $this->isAdmin() ) {
+  if ($this->isAdmin()) {
     print '<li class="dropdown">'
     . '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'
     . 'Admin <span class="caret"></span></a><ul class="dropdown-menu">';
-    foreach( array_keys($this->getAdminActions()) as $a ) {
+    foreach (array_keys($this->getAdminActions()) as $a) {
       print '<li><a href="' . $this->path . '/' . $a . '/">' . $a . '</a></li>';
     }
     print '</ul></li>';

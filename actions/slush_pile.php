@@ -1,23 +1,23 @@
-<?php // Open Translation Engine - Slush Pile Page v0.2.0
+<?php // Open Translation Engine - Slush Pile Page v0.2.1
 
 namespace Attogram;
 
-$ote = new OpenTranslationEngine( $this );
+$ote = new OpenTranslationEngine($this);
 
 $this->pageHeader('🛃 Slush Pile');
 print '<div class="container">';
 
-if( $_GET ) {
-  if( !isset($_GET['a']) || !( $_GET['a'] == 'a' || $_GET['a'] == 'd' )
+if ($_GET ) {
+  if (!isset($_GET['a']) || !($_GET['a'] == 'a' || $_GET['a'] == 'd' )
    || !isset($_GET['i']) || !$_GET['i'] || !is_numeric($_GET['i'])
   ) {
     $this->error404('Slush pile options not slushable.');
   }
   $action = urldecode($_GET['a']);
   $slushId = urldecode($_GET['i']);
-  switch( $action ) {
+  switch($action ) {
     case 'a': // Accept slush pile entry
-      if( $ote->acceptSlushPileEntry( $slushId ) ) {
+      if ($ote->acceptSlushPileEntry($slushId )) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
         . '<strong>Accepted</strong>: ' . $_SESSION['result'] . '</div>';
         unset($_SESSION['result']);
@@ -28,7 +28,7 @@ if( $_GET ) {
       }
       break;
     case 'd':  // Delete slush pile entry
-      if( $ote->deleteFromSlushPile( $slushId ) ) {
+      if ($ote->deleteFromSlushPile($slushId )) {
         print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
         . '<strong>Deleted</strong>: Slush Pile ID #' . $this->webDisplay($slushId) . '</div>';
       } else {
@@ -42,7 +42,7 @@ if( $_GET ) {
 
 print '<h1 class="squished"><a href="./" style="color:inherit;text-decoration:none;">🛃</a> Slush Pile</h1>';
 
-list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
+list($limit, $offset ) = $this->database->getSetLimitAndOffset(
   15, // $defaultLimit
   0, // $defaultOffset
   1000, // $maxLimit
@@ -50,7 +50,7 @@ list( $limit, $offset ) = $this->database->getSetLimitAndOffset(
 );
 
 $sql = 'SELECT * FROM slush_pile ORDER BY id DESC LIMIT ' . $limit;
-if( $offset ) {
+if ($offset ) {
   $sql .= ", $offset";
 }
 $slush = $this->database->query($sql);
@@ -62,7 +62,7 @@ print $this->database->pager(
   $prepend_query_string = ''
 );
 
-foreach( $slush as $s ) {
+foreach ($slush as $s) {
   $id = isset($s['id']) ? $s['id'] : 0;
   $date = isset($s['date']) ? $this->webDisplay($s['date']) : '';
   $type = isset($s['type']) ? $this->webDisplay($s['type']) : '';
