@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Find 3rd Level v0.2.2
+<?php // Open Translation Engine - Find 3rd Level v0.2.3
 
 // IN DEV
 
@@ -48,8 +48,8 @@ AND   first_w2w.sl != second_w2w.tl -- no self ref
 AND   first_w2w.tl = :j              -- JOIN_1_LANG
 ';
 
-$bind = array('j', $join_language_id );
-$r = @$this->database->query($sql, $bind );
+$bind = array('j', $join_language_id);
+$r = @$this->database->query($sql, $bind);
 // Warning: PDOStatement::bindParam(): SQLSTATE[HY093]: Invalid parameter number: Columns/Parameters are 1-based in .\public\index.php on line 86
 
 
@@ -72,7 +72,7 @@ $cleaned_r = array();
 foreach ($r as $p) {
   $test = $ote->get_word2word(
     $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
-    $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'] );
+    $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID']);
   if ($test) {
     continue; // word2word entry already exists
   }
@@ -88,8 +88,8 @@ if ($do_run) {
 print '<p><code>' . sizeof($cleaned_r) . '</code> new 3rd level translations:</p><hr />';
 
 foreach ($cleaned_r as $p) {
-  $first_lang_code = $ote->getLanguageCodeFromId($p['FIRST_LANG_ID'] );
-  $second_lang_code = $ote->getLanguageCodeFromId($p['SECOND_LANG_ID'] );
+  $first_lang_code = $ote->getLanguageCodeFromId($p['FIRST_LANG_ID']);
+  $second_lang_code = $ote->getLanguageCodeFromId($p['SECOND_LANG_ID']);
   print '<p>'
   . '<code>' . $first_lang_code . '</code> '
   . '<a href="' . $this->path . '/word/' . $first_lang_code . '//' . urlencode($p['FIRST_WORD']) . '">'
@@ -107,7 +107,7 @@ foreach ($cleaned_r as $p) {
   if ($do_run) {
     $in = $ote->insertWord2word(
       $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
-      $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'] );
+      $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID']);
     if ($in) {
       print ' -- INSERTED.';
     } else {
@@ -115,7 +115,7 @@ foreach ($cleaned_r as $p) {
     }
     $in = $ote->insertWord2word(
       $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'],
-      $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'] );
+      $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID']);
     if ($in) {
       print ' INSERTED REVERSE.';
     } else {

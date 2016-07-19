@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.7.3
+<?php // The Open Translation Engine (OTE) - ote class v0.7.4
 
 namespace Attogram;
 
@@ -66,7 +66,7 @@ class OpenTranslationEngine
             return $this->languages;
         }
         foreach ($result as $lang) {
-            $this->languages[ $lang['code'] ] = array('id' => $lang['id'], 'name' => $lang['name'] );
+            $this->languages[$lang['code']] = array('id' => $lang['id'], 'name' => $lang['name']);
         }
         $this->attogram->log->debug('getLanguages: got ' . sizeof($this->languages) . ' languages', $this->languages);
         return $this->languages;
@@ -194,7 +194,7 @@ class OpenTranslationEngine
         $sql = 'SELECT DISTINCT sl, tl FROM word2word';
         $bind = array();
         if ($lcode) {
-            $sql .= ' WHERE (sl = :sl ) OR (tl = :sl )';
+            $sql .= ' WHERE (sl = :sl) OR (tl = :sl)';
             $bind['sl'] = $this->getLanguageIdFromCode($lcode);
         }
         $result = $this->attogram->database->query($sql,$bind);

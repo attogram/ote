@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Page Header v0.1.5
+<?php // Open Translation Engine - Page Header v0.1.6
 
 namespace Attogram;
 
@@ -25,7 +25,7 @@ if (!isset($title) || !$title || !is_string($title)) {
 
 $navbar = $this->templates['navbar'];
 
-if ($this->isReadableFile($navbar, 'php' )) {
+if ($this->isReadableFile($navbar, 'php')) {
   include($navbar);
 } else {
   $this->log->error('Missing navbar template: ' . $navbar);

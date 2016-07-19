@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Slush Pile Page v0.2.2
+<?php // Open Translation Engine - Slush Pile Page v0.2.3
 
 namespace Attogram;
 
@@ -8,7 +8,7 @@ $this->pageHeader('🛃 Slush Pile');
 print '<div class="container">';
 
 if ($_GET) {
-    if (!isset($_GET['a']) || !($_GET['a'] == 'a' || $_GET['a'] == 'd' )
+    if (!isset($_GET['a']) || !($_GET['a'] == 'a' || $_GET['a'] == 'd')
         || !isset($_GET['i']) || !$_GET['i'] || !is_numeric($_GET['i'])
     ) {
         $this->error404('Slush pile options not slushable.');
@@ -17,7 +17,7 @@ if ($_GET) {
     $slushId = urldecode($_GET['i']);
     switch($action) {
         case 'a': // Accept slush pile entry
-            if ($ote->acceptSlushPileEntry($slushId )) {
+            if ($ote->acceptSlushPileEntry($slushId)) {
                 print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Accepted</strong>: ' . $_SESSION['result'] . '</div>';
                 unset($_SESSION['result']);
@@ -28,7 +28,7 @@ if ($_GET) {
             }
             break;
         case 'd':  // Delete slush pile entry
-            if ($ote->deleteFromSlushPile($slushId )) {
+            if ($ote->deleteFromSlushPile($slushId)) {
                 print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Deleted</strong>: Slush Pile ID #' . $this->webDisplay($slushId) . '</div>';
             } else {
