@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Find 3rd Level v0.2.4
+<?php // Open Translation Engine - Find 3rd Level v0.2.5
 
 // IN DEV
 
@@ -108,8 +108,10 @@ foreach ($cleaned_r as $p) {
 
     if ($do_run) {
         $in = $ote->insertWord2word(
-            $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID'],
-            $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID']
+            $p['FIRST_WORD_ID'],
+            $p['FIRST_LANG_ID'],
+            $p['SECOND_WORD_ID'],
+            $p['SECOND_LANG_ID']
         );
         if ($in) {
             print ' -- INSERTED.';
@@ -117,8 +119,10 @@ foreach ($cleaned_r as $p) {
             print ' -- ERROR.';
         }
         $in = $ote->insertWord2word(
-            $p['SECOND_WORD_ID'], $p['SECOND_LANG_ID'],
-            $p['FIRST_WORD_ID'], $p['FIRST_LANG_ID']
+            $p['SECOND_WORD_ID'],
+            $p['SECOND_LANG_ID'],
+            $p['FIRST_WORD_ID'],
+            $p['FIRST_LANG_ID']
         );
         if ($in) {
             print ' INSERTED REVERSE.';
