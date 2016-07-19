@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Search Page v0.3.1
+<?php // Open Translation Engine - Search Page v0.3.2
 
 namespace Attogram;
 
@@ -42,11 +42,11 @@ if (isset($_GET['c']) && $_GET['c']=='c') { // Case Sensative
  <div class="row">
   <div class="form-group col-md-6">
    <label for="s">Source Language:</label>
-   <?php print $ote->getLanguagesPulldown($name='s', $s_selected); ?>
+   <?php print $ote->getLanguagesPulldown($name = 's', $s_selected); ?>
   </div>
   <div class="form-group col-md-6">
    <label for="t">Target Language:</label>
-   <?php print $ote->getLanguagesPulldown($name='t', $t_selected); ?>
+   <?php print $ote->getLanguagesPulldown($name = 't', $t_selected); ?>
   </div>
  </div>
  <div class="row">

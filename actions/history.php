@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - History Page v0.2.1
+<?php // Open Translation Engine - History Page v0.2.2
 // dev TODO - pagination
 
 namespace Attogram;
@@ -22,14 +22,11 @@ print '<div class="row" style="padding:1px; font-weight:bold;">
 </div>';
 
 foreach ($hr as $h) {
-
   $sl_code = $ote->getLanguageCodeFromId($h['sl']);
   $sl_name = $ote->getLanguageNameFromId($h['sl']);
   $tl_code = $ote->getLanguageCodeFromId($h['tl']);
   $tl_name = $ote->getLanguageNameFromId($h['tl']);
-
   $url = $this->path . '/word/' . $sl_code . '/' . $tl_code . '/' . urlencode($h['word']);
-
   print '<div class="row" style="border:1px solid #eeeeee; padding:0px;">
     <div class="col-xs-4 col-sm-5"><a href="' . $url . '"><h2 style="display:inline;">' . $this->webDisplay($h['word']) . '</h2></a></div>
     <div class="col-xs-4 col-sm-1 small">' . $h['count'] . '</div>

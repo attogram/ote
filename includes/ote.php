@@ -1,4 +1,4 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.7.4
+<?php // The Open Translation Engine (OTE) - ote class v0.7.5
 
 namespace Attogram;
 
@@ -164,7 +164,7 @@ class OpenTranslationEngine
       * @param  string $class     (optional) class for the <select> element, defaults to 'form-control'
       * @return string            HTML pulldown selector with all  listed
       */
-    public function getLanguagesPulldown($name = 'language',  $selected = '', $class = 'form-control')
+    public function getLanguagesPulldown($name = 'language', $selected = '', $class = 'form-control')
     {
         $result = '<select class="' . $class . '" name="' . $name . '">';
         $result .= '<option value="">All Languages</option>';
@@ -197,7 +197,7 @@ class OpenTranslationEngine
             $sql .= ' WHERE (sl = :sl) OR (tl = :sl)';
             $bind['sl'] = $this->getLanguageIdFromCode($lcode);
         }
-        $result = $this->attogram->database->query($sql,$bind);
+        $result = $this->attogram->database->query($sql, $bind);
         $langs = $this->getLanguages();
         $dlist = array();
         foreach ($result as $dictionary) {
@@ -353,7 +353,8 @@ class OpenTranslationEngine
             $this->attogram->log->notice('insertWord2word: Insert failed: duplicate entry.');
             return false;
         }
-        $this->attogram->log->error('insertWord2word: can not insert. errorInfo: ' . print_r($this->attogram->database->database->errorInfo(),1));
+        $this->attogram->log->error('insertWord2word: can not insert. errorInfo: '
+            . print_r($this->attogram->database->database->errorInfo(), true));
     }
 
     /**
@@ -416,7 +417,7 @@ class OpenTranslationEngine
         FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
         WHERE sw.id = ww.sw AND tw.id = ww.tw
         AND   sl.id = ww.sl AND tl.id = ww.tl $lang $order $limitClause";
-        $result = $this->attogram->database->query($sql,$bind);
+        $result = $this->attogram->database->query($sql, $bind);
         return $result;
     } // end function getDictionary()
 
@@ -546,10 +547,10 @@ class OpenTranslationEngine
     {
         $now = gmdate('Y-m-d');
         if (!$sourceLanguageId || !is_int($sourceLanguageId)) {
-          $sourceLanguageId = 0;
+            $sourceLanguageId = 0;
         }
         if (!$targetLanguageId || !is_int($targetLanguageId)) {
-          $targetLanguageId = 0;
+            $targetLanguageId = 0;
         }
         $this->attogram->log->debug('insertHistory: date: ' . $now . ' sl: ' . $sourceLanguageId . ' tl: ' . $targetLanguageId . ' word: ' . $this->attogram->webDisplay($word));
         $bind = array('word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now);
@@ -705,7 +706,8 @@ class OpenTranslationEngine
                     continue;
                 }
                 print '<p>Error: Line #' . $lineCount . ': Database Insert Error';
-                $errorCount++; $skipCount++;
+                $errorCount++;
+                $skipCount++;
             } else {
                 $importCount++;
                 $this->attogram->event->info(
@@ -720,7 +722,8 @@ class OpenTranslationEngine
             } elseif ($lineCount % 10 == 0) {
                 print '.';
             }
-            @ob_flush(); flush();
+            @ob_flush();
+            flush();
         } // end foreach line
         print '</small><hr />';
         print '<code>'.$importCount.'</code> translations imported.<br />';
@@ -801,7 +804,7 @@ class OpenTranslationEngine
             return false;
         }
         $type = $spe[0]['type'];
-        switch($type) {
+        switch ($type) {
             case 'add': // add word2word translation
                 $sourceWordId = $this->getIdFromWord($spe[0]['source_word']); // Source Word ID
                 $sourceLanguageId = $this->getLanguageIdFromCode($spe[0]['source_language_code']); // Source Language ID

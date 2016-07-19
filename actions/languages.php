@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Languages Page v0.3.1
+<?php // Open Translation Engine - Languages Page v0.3.2
 
 namespace Attogram;
 
@@ -21,7 +21,6 @@ $this->pageHeader('🌐 ' . sizeof($langs) . ' Languages');
  </div>
 <?php
     foreach ($langs as $code => $lang) {
-
       $qr = $this->database->query('SELECT count(distinct sw) AS count FROM word2word WHERE sl = :sl', array('sl'=>$lang['id']));
       $num_words = isset($qr[0]['count']) ? $qr[0]['count'] : '0';
 

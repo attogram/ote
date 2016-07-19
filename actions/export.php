@@ -1,4 +1,4 @@
-<?php // Open Translation Engine - Export Page v0.3.1
+<?php // Open Translation Engine - Export Page v0.3.2
 /*
  OTE Export Page
 
@@ -28,7 +28,7 @@ if (sizeof($this->uri) == 1) { // list all exportable dictionaries
       print '<div class="container"><h1 class="squished">📤 Export Translations</h1>';
       $dlist = $ote->getDictionaryList();
       print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
-      foreach ($dlist as $url=>$name) {
+      foreach ($dlist as $url => $name) {
           print '<li><a href="' . $url . '">' . $name . '</a></li>';
       }
       print '</ul></div>';
