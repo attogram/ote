@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Word Page v0.3.5
+// Open Translation Engine - Word Page v0.3.6
 /*
  OTE Word Page
 
@@ -52,9 +52,9 @@ list($limit, $offset) = $this->database->getSetLimitAndOffset(
     0,    // $defaultOffset
     5000, // $maxLimit
     100   // $minLimit
-  );
+);
 
-switch(sizeof($this->uri)) { // Show Word lists
+switch (sizeof($this->uri)) { // Show Word lists
     case 1:
         show_all_words($ote, $this, $limit, $offset);
         break;
@@ -146,7 +146,8 @@ if (sizeof($r) == 1) {
 } else {
     $post_s = 's';
 }
-print '<p class="text-muted"><strong><code>' . sizeof($r) . '</code></strong> translation' . $post_s . ': ' . $header . '</p>';
+print '<p class="text-muted"><strong><code>' . sizeof($r) . '</code></strong> translation'
+    . $post_s . ': ' . $header . '</p>';
 
 foreach ($r as $w) {
     print $ote->displayPair(
@@ -209,15 +210,13 @@ function show_all_words($ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0
             . ' Words with translations into '
             . $ote->getLanguageNameFromCode($tcode);
     }
-
     $attogram->pageHeader('🔤 ' . $title);
     print '<div class="container"><h1 class="squished">🔤 ' . $title . '</h1>';
     print $attogram->database->pager($allCount, $limit, $offset);
     print '<style>a { color:inherit; }</style><h3>';
     foreach ($all as $w) {
         print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///'
-            . urlencode($w['word']) . '">' . $attogram->webDisplay($w['word'])
-            . '</a>, ';
+            . urlencode($w['word']) . '">' . $attogram->webDisplay($w['word']) . '</a>, ';
     }
     print '</h3>';
     print $attogram->database->pager($allCount, $limit, $offset);

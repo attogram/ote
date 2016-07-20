@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Slush Pile Page v0.2.3
+// Open Translation Engine - Slush Pile Page v0.2.4
 
 namespace Attogram;
 
@@ -16,24 +16,28 @@ if ($_GET) {
     }
     $action = urldecode($_GET['a']);
     $slushId = urldecode($_GET['i']);
-    switch($action) {
+    switch ($action) {
         case 'a': // Accept slush pile entry
             if ($ote->acceptSlushPileEntry($slushId)) {
-                print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+                print '<div class="alert alert-success">'
+                    . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Accepted</strong>: ' . $_SESSION['result'] . '</div>';
                 unset($_SESSION['result']);
             } else {
-                print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+                print '<div class="alert alert-danger">'
+                    . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';
                 unset($_SESSION['error']);
             }
             break;
         case 'd':  // Delete slush pile entry
             if ($ote->deleteFromSlushPile($slushId)) {
-                print '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+                print '<div class="alert alert-success">'
+                    . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Deleted</strong>: Slush Pile ID #' . $this->webDisplay($slushId) . '</div>';
             } else {
-                print '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
+                print '<div class="alert alert-danger">'
+                    . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
                     . '<strong>Error</strong>: ' . $_SESSION['error'] . '</div>';
                 unset($_SESSION['error']);
             }
@@ -44,10 +48,10 @@ if ($_GET) {
 print '<h1 class="squished"><a href="./" style="color:inherit;text-decoration:none;">🛃</a> Slush Pile</h1>';
 
 list($limit, $offset) = $this->database->getSetLimitAndOffset(
-  15,    // $defaultLimit
-  0,    // $defaultOffset
-  1000, // $maxLimit
-  5     // $minLimit
+    15,    // $defaultLimit
+    0,    // $defaultOffset
+    1000, // $maxLimit
+    5     // $minLimit
 );
 
 $sql = 'SELECT * FROM slush_pile ORDER BY id DESC LIMIT ' . $limit;
@@ -76,7 +80,8 @@ foreach ($slush as $s) {
     $targetLanguageCode = isset($s['target_language_code']) ? $this->webDisplay($s['target_language_code']) : '';
     print '<div class="row" style="border:solid 1px #ccc;padding:4px;">'
     . '<div class="col-sm-4">🕑:' . $date . ' 👤:' . $user_id . ' 🔀:<strong>' . $type . '</strong></div>'
-    . '<div class="col-sm-4"><code>' . $sourceLanguageCode . '</code> <a href="' . $sourceWord_url . '">' . $sourceWord . '</a>'
+    . '<div class="col-sm-4"><code>' . $sourceLanguageCode
+    . '</code> <a href="' . $sourceWord_url . '">' . $sourceWord . '</a>'
     . ' = <a href="' . $targetWord_url . '">' . $targetWord . '</a> <code>' . $targetLanguageCode . '</code></div>'
     . '<div class="col-sm-4">'
     . '<a href="?a=a&i=' . urlencode($id) . '">✔ Accept</a>'

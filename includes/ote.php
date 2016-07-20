@@ -1,5 +1,5 @@
 <?php
-// The Open Translation Engine (OTE) - ote class v0.7.5
+// The Open Translation Engine (OTE) - ote class v0.7.6
 
 namespace Attogram;
 
@@ -89,8 +89,8 @@ class OpenTranslationEngine
 
     /**
      * Get a Language Code from Language ID
-     * @param  int     $languageId  The Language ID
-     * @return string               The Language Code, or false
+     * @param int $languageId  The Language ID
+     * @return string|false  The Language Code, or false
      */
     public function getLanguageCodeFromId($languageId)
     {
@@ -104,8 +104,8 @@ class OpenTranslationEngine
 
     /**
      * Get a Language Name from Language ID
-     * @param  int     $languageId  The Language ID
-     * @return string               The Language Name, or false
+     * @param int $languageId  The Language ID
+     * @return string|bool  The Language Name, or false
      */
     public function getLanguageNameFromId($languageId)
     {
@@ -119,8 +119,8 @@ class OpenTranslationEngine
 
     /**
      * Get a Language ID from Language Code
-     * @param string  $code  The Language Code
-     * @param int            The Language ID, or false
+     * @param string $code  The Language Code
+     * @return int|bool  The Language ID, or false
      */
     public function getLanguageIdFromCode($code)
     {
@@ -138,7 +138,7 @@ class OpenTranslationEngine
      * @param  string $code         The Language Code
      * @param  string $defaultName  (optional) The default language name to use & insert, if none found
      * @param  bool   $insert       (optional) Insert language into database, if not found. Defaults to false
-     * @return string                The Language Name, or false on error
+     * @return string|bool          The Language Name, or false on error
      */
     public function getLanguageNameFromCode($code, $defaultName = '', $insert = false)
     {
@@ -168,7 +168,7 @@ class OpenTranslationEngine
       * @param  string $name      (optional) Name of the select element
       * @param  string $selected  (optional) Name of option to mark as selected
       * @param  string $class     (optional) class for the <select> element, defaults to 'form-control'
-      * @return string            HTML pulldown selector with all  listed
+      * @return string            HTML pulldown selector with all listed languages
       */
     public function getLanguagesPulldown($name = 'language', $selected = '', $class = 'form-control')
     {
@@ -254,8 +254,8 @@ class OpenTranslationEngine
 
     /**
      * Get ID of a word - Looks up the ID of a word.  If not found, then inserts the word
-     * @param  string $word  The Word
-     * @return int           The Word ID, or false
+     * @param string $word  The Word
+     * @return int|bool  The Word ID, or false
      */
     public function getIdFromWord($word)
     {
@@ -343,7 +343,7 @@ class OpenTranslationEngine
      * @param  int $sourceLanguageId  Source Language ID
      * @param  int $targetWordId      Target Word ID
      * @param  int $targetLanguageId  Target Language ID
-     * @param  int                    Inserted record ID, or false
+     * @param int|bool  Inserted record ID, or false
      */
     public function insertWord2word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)
     {
@@ -427,6 +427,11 @@ class OpenTranslationEngine
         return $result;
     } // end function getDictionary()
 
+    /**
+     * @param int $sourceLanguageId
+     * @param int $targetLanguageId
+     * @return int
+     */
     public function getDictionaryTranslationsCount($sourceLanguageId = 0, $targetLanguageId = 0)
     {
         $this->attogram->log->debug("getDictionaryTranslationsCount: sl=$sourceLanguageId tl=$targetLanguageId ");

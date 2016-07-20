@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Export Page v0.3.2
+// Open Translation Engine - Export Page v0.3.3
 /*
  OTE Export Page
 
@@ -25,16 +25,16 @@ $ote = new OpenTranslationEngine($this);
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
 if (sizeof($this->uri) == 1) { // list all exportable dictionaries
-      $this->pageHeader('Export Translations');
-      print '<div class="container"><h1 class="squished">📤 Export Translations</h1>';
-      $dlist = $ote->getDictionaryList();
-      print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
-      foreach ($dlist as $url => $name) {
-          print '<li><a href="' . $url . '">' . $name . '</a></li>';
-      }
-      print '</ul></div>';
-      $this->pageFooter();
-      exit;
+    $this->pageHeader('Export Translations');
+    print '<div class="container"><h1 class="squished">📤 Export Translations</h1>';
+    $dlist = $ote->getDictionaryList();
+    print '<p><code>' . sizeof($dlist) . '</code> exportable Dictionaries:</p><ul>';
+    foreach ($dlist as $url => $name) {
+        print '<li><a href="' . $url . '">' . $name . '</a></li>';
+    }
+    print '</ul></div>';
+    $this->pageFooter();
+    exit;
 }
 // Please select Source Langauge Code
 if (!isset($this->uri[1]) || !$this->uri[1]) {
@@ -84,8 +84,8 @@ print '# ' . $langs[$s_code]['name']  . ' to ' . $langs[$t_code]['name'] . $cr
     . '#' . $cr
     . '# This work is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported License.' . $cr
     . '# To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/' . $cr
-    . '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.' . $cr
-    . '#' . $cr;
+    . '# or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.'
+    . $cr . '#' . $cr;
 
 foreach ($result as $r) {
     print $r['s_word'] . $sep . $r['t_word'] . "\n";
