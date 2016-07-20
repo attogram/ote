@@ -1,11 +1,13 @@
 # Open Translation Engine CHANGELOG
 
 - Repository: <https://github.com/attogram/ote>
-- Click version number to view a diff comparison of changes since the previous release
+- Click version number to view comparison of changes since the previous release
 
 ## [Unreleased]
 
 - Work in progress...
+- More code style cleanups
+- tmp broken import
 
 ## [v1.2.0] - 2016-07-14
 
@@ -28,8 +30,10 @@
 - Travis CI and phpunit setup: <https://travis-ci.org/attogram/ote>
 - New [TODOs](./TODO.md):
 
- - [Issue #11](https://github.com/attogram/ote/issues/11) - Export ALL function - export in [DAMS](https://github.com/attogram/DAMS/) directory format
- - [Issue #10](https://github.com/attogram/ote/issues/10) - File uploader for import page
+  - [Issue #11](https://github.com/attogram/ote/issues/11) \- Export ALL function
+    \- export in [DAMS](https://github.com/attogram/DAMS/) directory format
+  - [Issue #10](https://github.com/attogram/ote/issues/10) \- File uploader
+    for import page
 
 - New [INSTALLATIONS.md](./INSTALLATIONS.md) file listing known OTE sites
 - Badges on [README.md](./README.md)
