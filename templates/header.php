@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Page Header v0.1.6
+<?php
+// Open Translation Engine - Page Header v0.1.6
 
 namespace Attogram;
 

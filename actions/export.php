@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Export Page v0.3.2
+<?php
+// Open Translation Engine - Export Page v0.3.2
 /*
  OTE Export Page
 

@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - footer template v0.1.1
+<?php
+// Open Translation Engine - footer template v0.1.1
 
 namespace Attogram;
 

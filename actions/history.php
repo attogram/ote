@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - History Page v0.2.2
+<?php
+// Open Translation Engine - History Page v0.2.2
 // dev TODO - pagination
 
 namespace Attogram;

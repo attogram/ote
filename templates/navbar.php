@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - navbar template v0.0.16
+<?php
+// Open Translation Engine - navbar template v0.0.16
 
 namespace Attogram;
 

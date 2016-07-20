@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Dictionary Page v0.3.2
+<?php
+// Open Translation Engine - Dictionary Page v0.3.2
 /*
  OTE Dictionary Page
 

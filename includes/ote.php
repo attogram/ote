@@ -1,4 +1,5 @@
-<?php // The Open Translation Engine (OTE) - ote class v0.7.5
+<?php
+// The Open Translation Engine (OTE) - ote class v0.7.5
 
 namespace Attogram;
 
@@ -10,9 +11,14 @@ class OpenTranslationEngine
 
     const OTE_VERSION = '1.2.0';
 
-    public $attogram;       // (object) The Attogram Framework object
-    public $languages;      // (array) List of languages
-    public $dictionaryList; // (array) List of dictionaries
+    /** @var object $attogram  The Attogram Framework object */
+    public $attogram;
+
+    /** @var array $languages  List of languages */
+    public $languages;
+
+    /** @var array $dictionaryList  List of dictionaries */
+    public $dictionaryList;
 
     /**
      * initialize OTE
@@ -29,7 +35,7 @@ class OpenTranslationEngine
      * Insert a language into the database
      * @param  string $code   The Language Code
      * @param  string $name   The Language Name
-     * @return int            ID of the new language, or false
+     * @return int|bool       ID of the new language, or false
      */
     public function insertLanguage($code, $name)
     {

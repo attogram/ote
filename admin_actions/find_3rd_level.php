@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Find 3rd Level v0.2.5
+<?php
+// Open Translation Engine - Find 3rd Level v0.2.5
 
 // IN DEV
 

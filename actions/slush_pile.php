@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Slush Pile Page v0.2.3
+<?php
+// Open Translation Engine - Slush Pile Page v0.2.3
 
 namespace Attogram;
 

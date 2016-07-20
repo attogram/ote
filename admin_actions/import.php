@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Import Page v0.3.3
+<?php
+// Open Translation Engine - Import Page v0.3.3
 
 namespace Attogram;
 

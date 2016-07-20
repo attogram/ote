@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Word Page v0.3.4
+<?php
+// Open Translation Engine - Word Page v0.3.5
 /*
  OTE Word Page
 
@@ -174,9 +175,9 @@ print '
     <div class="col-xs-1 text-center" style="font-size:18pt;"> = </div>
     <div class="col-xs-3 text-left"><input type="text" name="tw" /></div>
     <div class="col-xs-4 text-left" style="font-size:9pt;">'
-    . $ote->getLanguagesPulldown($name = 'sl',  $selected = $s_code, $class = '')
+    . $ote->getLanguagesPulldown('sl', $s_code, '')
     . ' = '
-    . $ote->getLanguagesPulldown($name = 'tl',  $selected = $t_code, $class = '')
+    . $ote->getLanguagesPulldown('tl', $t_code, '')
     . '</div>
   </div>
 </form>

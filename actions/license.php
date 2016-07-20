@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - LICENSE page v0.0.5
+<?php
+// Open Translation Engine - LICENSE page v0.0.5
 
 namespace Attogram;
 

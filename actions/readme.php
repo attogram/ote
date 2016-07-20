@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - README page v0.0.4
+<?php
+// Open Translation Engine - README page v0.0.4
 
 namespace Attogram;
 

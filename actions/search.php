@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Search Page v0.3.2
+<?php
+// Open Translation Engine - Search Page v0.3.2
 
 namespace Attogram;
 

@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Tags Page v0.2.5
+<?php
+// Open Translation Engine - Tags Page v0.2.5
 
 namespace Attogram;
 

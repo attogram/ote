@@ -1,4 +1,5 @@
-<?php // Open Translation Engine - Languages Admin v0.2.6
+<?php
+// Open Translation Engine - Languages Admin v0.2.6
 
 namespace Attogram;
 
