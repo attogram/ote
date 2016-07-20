@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Word Page v0.4.0
+// Open Translation Engine - Word Page v0.4.1
 /*
  OTE Word Page
 
@@ -204,15 +204,32 @@ function showAllWords($ote, $limit, $offset, $scode = 0, $tcode = 0)
         $title = 'All Words';
     } elseif ($scode && !$tcode) {
         $allCount = $ote->getWordCount($ote->getLanguageIdFromCode($scode));
-        $all = $ote->getAllWords($limit, $offset, $ote->getLanguageIdFromCode($scode));
+        $all = $ote->getAllWords(
+            $limit,
+            $offset,
+            $ote->getLanguageIdFromCode($scode)
+        );
         $title = $ote->getLanguageNameFromCode($scode) . ' Words';
     } elseif (!$scode && $tcode) {
         $allCount = $ote->getWordCount('', $ote->getLanguageIdFromCode($tcode));
-        $all = $ote->getAllWords($limit, $offset, '', $ote->getLanguageIdFromCode($tcode));
+        $all = $ote->getAllWords(
+            $limit,
+            $offset,
+            '',
+            $ote->getLanguageIdFromCode($tcode)
+        );
         $title =  'Words with translations into ' . $ote->getLanguageNameFromCode($tcode);
     } elseif ($scode && $tcode) {
-        $allCount = $ote->getWordCount($ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode));
-        $all = $ote->getAllWords($limit, $offset, $ote->getLanguageIdFromCode($scode), $ote->getLanguageIdFromCode($tcode));
+        $allCount = $ote->getWordCount(
+            $ote->getLanguageIdFromCode($scode),
+            $ote->getLanguageIdFromCode($tcode)
+        );
+        $all = $ote->getAllWords(
+            $limit,
+            $offset,
+            $ote->getLanguageIdFromCode($scode),
+            $ote->getLanguageIdFromCode($tcode)
+        );
         $title = $ote->getLanguageNameFromCode($scode)
             . ' Words with translations into '
             . $ote->getLanguageNameFromCode($tcode);
