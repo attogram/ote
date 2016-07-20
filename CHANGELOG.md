@@ -37,14 +37,19 @@
 ## [v1.1.2] - 2016-07-05
 
 - updated formatting and links in this `./CHANGELOG.md` file
-- updated [`./TODO.md`](./TODO.md) with new + existing [open issues](https://github.com/attogram/ote/issues) from github
+- updated [`./TODO.md`](./TODO.md) with new + existing
+  [open issues](https://github.com/attogram/ote/issues) from github
 
 ## [v1.1.1] - 2016-07-05
 
 - Allow HTML in event log messages
 - start development of Delete and Tag links on translation pairs
-- ote object now only needs to take in the attogram object on startup, for database access, logging, etc.
-- new public actions: [`./actions/readme.php`](./actions/readme.php), [`./actions/license.php`](./actions/license.php). Shows OTE specific [`README.md`](./README.md) and [`LICENSE.md`](./LICENSE.md) files
+- ote object now only needs to take in the attogram object on startup,
+  for database access, logging, etc.
+- new public actions: [`./actions/readme.php`](./actions/readme.php),
+  [`./actions/license.php`](./actions/license.php).
+  Shows OTE specific [`README.md`](./README.md) and
+  [`LICENSE.md`](./LICENSE.md) files
 - misc refactoring
 - started this `CHANGELOG.md`!
 - started [`TODO.md`](./TODO.md)
@@ -108,7 +113,7 @@
 
 ## [v0.9.8.9] - 2014-09-09
 
--  Import from <http://sourceforge.net/projects/ote/>
+- Import from <http://sourceforge.net/projects/ote/>
 
 [Unreleased]: https://github.com/attogram/ote/compare/v1.2.0...HEAD
 [v1.2.0]: https://github.com/attogram/ote/compare/v1.1.5...v1.2.0
