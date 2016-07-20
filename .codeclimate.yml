@@ -7,6 +7,9 @@ engines:
     enabled: true
     config:
       file_extensions: "php"
+    checks:
+      PhanUndeclaredVariable:  # TMP turned off for $this
+        enabled: false
   shellcheck:
     enabled: true
   markdownlint:
