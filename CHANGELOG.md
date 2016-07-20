@@ -1,4 +1,5 @@
 # Open Translation Engine CHANGELOG
+
 - Repository: <https://github.com/attogram/ote>
 - Click version number to view a diff comparison of changes since the previous release
 
@@ -24,7 +25,7 @@
 
 ## [v1.1.3](https://github.com/attogram/ote/compare/v1.1.2...v1.1.3) - 2016-07-09
 
-- Travis CI and phpunit setup: https://travis-ci.org/attogram/ote
+- Travis CI and phpunit setup: <https://travis-ci.org/attogram/ote>
 - New [TODOs](./TODO.md):
 
  - [Issue #11](https://github.com/attogram/ote/issues/11) - Export ALL function - export in [DAMS](https://github.com/attogram/DAMS/) directory format
@@ -87,22 +88,32 @@
 
 ## [v1.0.0-dev06](https://github.com/attogram/ote/compare/52e90aa...077c1cb) - 2016-06-03
 
-## [v1.0.0-dev05](https://github.com/attogram/ote/compare/792d80d...52e90aa) - 2016-06-03
+## [v1.0.0-dev05] - 2016-06-03
 
-## [v1.0.0-dev04](https://github.com/attogram/ote/compare/152c87c...792d80d) - 2016-06-03
+## [v1.0.0-dev04] - 2016-06-03
 
-## [v1.0.0-dev03](https://github.com/attogram/ote/compare/a82a368...152c87c) - 2016-06-02
+## [v1.0.0-dev03] - 2016-06-02
 
-## [v1.0.0-dev02](https://github.com/attogram/ote/compare/3bbd68e...a82a368) - 2016-06-01
+## [v1.0.0-dev02] - 2016-06-01
 
-## [v1.0.0-dev01](https://github.com/attogram/ote/compare/d34592a...3bbd68e) - 2016-05-29
+## [v1.0.0-dev01] - 2016-05-29
 
-## [v1.0.0-dev](https://github.com/attogram/ote/compare/cf11f27...d34592a) - 2016-05-24
+## [v1.0.0-dev] - 2016-05-24
+
 - `v1.*` development started: OTE as an Attogram Framework module
 - `v0.9.*` split off into own branch, for maintenance releases only:
   <https://github.com/attogram/ote/tree/v0.9.9>
 
-## [v0.9.9.1.dev](https://github.com/attogram/ote/compare/f23a6d5...cf11f27) - 2016-04-26
+## [v0.9.9.1.dev] - 2016-04-26
 
-## [v0.9.8.9](https://github.com/attogram/ote/tree/f23a6d5) - 2014-09-09
+## [v0.9.8.9] - 2014-09-09
+
 -  Import from <http://sourceforge.net/projects/ote/>
+[v1.0.0-dev05]: https://github.com/attogram/ote/compare/792d80d...52e90aa
+[v1.0.0-dev04]: https://github.com/attogram/ote/compare/152c87c...792d80d
+[v1.0.0-dev03]: https://github.com/attogram/ote/compare/a82a368...152c87c
+[v1.0.0-dev02]: https://github.com/attogram/ote/compare/3bbd68e...a82a368
+[v1.0.0-dev01]: https://github.com/attogram/ote/compare/d34592a...3bbd68e
+[v1.0.0-dev]: https://github.com/attogram/ote/compare/cf11f27...d34592a
+[v0.9.9.1.dev]: https://github.com/attogram/ote/compare/f23a6d5...cf11f27
+[v0.9.8.9]: https://github.com/attogram/ote/tree/f23a6d5
