@@ -36,7 +36,7 @@ $this->pageHeader('Open Translation Engine v' . OpenTranslationEngine::OTE_VERSI
 
 if (!$this->isAdmin()) {
     $this->pageFooter();
-    exit;
+    $this->shutdown();
 }
 
 // admin only menu

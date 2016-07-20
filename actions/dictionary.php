@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Dictionary Page v0.3.2
+// Open Translation Engine - Dictionary Page v0.3.3
 /*
  OTE Dictionary Page
 
@@ -43,7 +43,7 @@ if (sizeof($this->uri) == 1) { // list all dictionaries
     }
     print '</div>';
     $this->pageFooter();
-    exit;
+    $this->shutdown();
 }
 
 $s_code = isset($this->uri[1]) ? urldecode($this->uri[1]) : '';

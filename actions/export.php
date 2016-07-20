@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Export Page v0.3.3
+// Open Translation Engine - Export Page v0.3.4
 /*
  OTE Export Page
 
@@ -34,7 +34,7 @@ if (sizeof($this->uri) == 1) { // list all exportable dictionaries
     }
     print '</ul></div>';
     $this->pageFooter();
-    exit;
+    $this->shutdown();
 }
 // Please select Source Langauge Code
 if (!isset($this->uri[1]) || !$this->uri[1]) {
@@ -91,4 +91,4 @@ foreach ($result as $r) {
     print $r['s_word'] . $sep . $r['t_word'] . "\n";
 }
 
-exit;
+$this->shutdown();
