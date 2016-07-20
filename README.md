@@ -1,6 +1,6 @@
 # Open Translation Engine (OTE)
 
-[//]: # (Open Translation Engine - README.md - v0.3.1)
+[//]: # (Open Translation Engine - README.md - v0.3.2)
 
 [![Build Status](https://travis-ci.org/attogram/ote.svg?branch=master)](https://travis-ci.org/attogram/ote)
 [![Latest Stable Version](https://poser.pugx.org/attogram/open-translation-engine/v/stable)](https://packagist.org/packages/attogram/open-translation-engine)
@@ -13,7 +13,8 @@
 [`[CHANGELOG]`](https://github.com/attogram/ote/blob/master/CHANGELOG.md)
 [`[TODO]`](https://github.com/attogram/ote/blob/master/TODO.md)
 
-* The OTE is a collaborative translation dictionary manager for the open content web.
+* The OTE is a collaborative translation dictionary manager
+  for the open content web.
 
 * This is OTE v1.\*, under active development,
   built as an [Attogram Framework](https://github.com/attogram/attogram) module.
@@ -60,7 +61,8 @@
 * Download Attogram Vendor package: <https://github.com/attogram/attogram-vendor/archive/master.zip>
 * UNZIP, then MOVE the `vendor/` directory to the top level of your Attogram directory.
 * Download Open Translation Engine module:  <https://github.com/attogram/ote/archive/master.zip>
-* GOTO the `modules/` directory, then UNZIP. This INSTALLS the `modules/ote-master/`
+* GOTO the `modules/` directory, then UNZIP.
+  This INSTALLS the `modules/ote-master/`
   directory.  Rename as desired.
 * DOWNLOAD and INSTALL the Attogram Database module:
   <https://github.com/attogram/attogram-database/archive/master.zip>
@@ -71,5 +73,7 @@
 * If check.php reports errors with .htaccess, EDIT `public/.htaccess`,
   set FallbackResource and ErrorDocument's to the full web path
   to your `public/index.php`
-* COPY `public/config.sample.php` to `public/config.php` and edit your site options.
-* make sure the database directory `your-install-dir/db` is WRITEABLE by the web server.
+* COPY `public/config.sample.php` to `public/config.php`
+  and edit your site options.
+* make sure the database directory `your-install-dir/db`
+  is WRITEABLE by the web server.
