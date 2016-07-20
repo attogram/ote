@@ -1,5 +1,5 @@
 <?php
-// The Open Translation Engine (OTE) - ote class v0.7.6
+// The Open Translation Engine (OTE) - ote class v0.8.0
 
 namespace Attogram;
 
@@ -35,7 +35,7 @@ class OpenTranslationEngine
      * Insert a language into the database
      * @param  string $code   The Language Code
      * @param  string $name   The Language Name
-     * @return int|bool       ID of the new language, or false
+     * @return int            ID of the new language, or 0
      */
     public function insertLanguage($code, $name)
     {
@@ -45,7 +45,7 @@ class OpenTranslationEngine
         );
         if (!$result) {
             $this->attogram->log->error('insertLanguage: can not insert language');
-            return false;
+            return 0;
         }
         $insertId = $this->attogram->database->database->lastInsertId();
         $this->attogram->log->debug('insertLanguage: inserted id=' . $insertId . ' code=' . $this->attogram->webDisplay($code) . ' name=' . $this->attogram->webDisplay($name));
@@ -90,7 +90,7 @@ class OpenTranslationEngine
     /**
      * Get a Language Code from Language ID
      * @param int $languageId  The Language ID
-     * @return string|false  The Language Code, or false
+     * @return string  The Language Code, or empty string
      */
     public function getLanguageCodeFromId($languageId)
     {
@@ -99,13 +99,13 @@ class OpenTranslationEngine
                 return $code;
             }
         }
-        return false;
+        return '';
     } // end function getLanguageCodeFromId()
 
     /**
      * Get a Language Name from Language ID
      * @param int $languageId  The Language ID
-     * @return string|bool  The Language Name, or false
+     * @return string  The Language Name, or empty string
      */
     public function getLanguageNameFromId($languageId)
     {
@@ -114,13 +114,13 @@ class OpenTranslationEngine
                 return $lang['name'];
             }
         }
-        return false;
+        return '';
     } // end function getLanguageNameFromId()
 
     /**
      * Get a Language ID from Language Code
      * @param string $code  The Language Code
-     * @return int|bool  The Language ID, or false
+     * @return int  The Language ID, or 0
      */
     public function getLanguageIdFromCode($code)
     {
@@ -129,7 +129,7 @@ class OpenTranslationEngine
                 return $lang['id'];
             }
         }
-        return false;
+        return 0;
     } // end function getLanguageCodeFromId()
 
     /**
@@ -138,7 +138,7 @@ class OpenTranslationEngine
      * @param  string $code         The Language Code
      * @param  string $defaultName  (optional) The default language name to use & insert, if none found
      * @param  bool   $insert       (optional) Insert language into database, if not found. Defaults to false
-     * @return string|bool          The Language Name, or false on error
+     * @return string               The Language Name, or empty string
      */
     public function getLanguageNameFromCode($code, $defaultName = '', $insert = false)
     {
@@ -149,7 +149,7 @@ class OpenTranslationEngine
         }
         $this->attogram->log->notice('getLanguageNameFromCode: Not Found: ' . $code);
         if (!$insert) {
-            return false;
+            return '';
         }
         if ($code) {
             $this->attogram->log->notice('getLanguageNameFromCode: insert new language: code=' . $this->attogram->webDisplay($code) . ' name=' . $defaultName);
@@ -234,7 +234,7 @@ class OpenTranslationEngine
     /**
      * Insert a word into the database
      * @param  string $word  The Word
-     * @param  int           The ID of the inserted word, or false
+     * @param  int           The ID of the inserted word, or 0
      */
     public function insertWord($word)
     {
@@ -244,7 +244,7 @@ class OpenTranslationEngine
         );
         if (!$result) {
             $this->attogram->log->error('insertWord: can not insert. word=' . $this->attogram->webDisplay($word));
-            return false;
+            return 0;
         }
         $insertId = $this->attogram->database->database->lastInsertId();
         $this->attogram->log->debug('inser_word: inserted id=' . $insertId . ' word=' . $this->attogram->webDisplay($word));
@@ -255,7 +255,7 @@ class OpenTranslationEngine
     /**
      * Get ID of a word - Looks up the ID of a word.  If not found, then inserts the word
      * @param string $word  The Word
-     * @return int|bool  The Word ID, or false
+     * @return int  The Word ID, or 0
      */
     public function getIdFromWord($word)
     {
@@ -343,7 +343,7 @@ class OpenTranslationEngine
      * @param  int $sourceLanguageId  Source Language ID
      * @param  int $targetWordId      Target Word ID
      * @param  int $targetLanguageId  Target Language ID
-     * @param int|bool  Inserted record ID, or false
+     * @param int  Inserted record ID, or 0
      */
     public function insertWord2word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)
     {
@@ -357,7 +357,7 @@ class OpenTranslationEngine
         }
         if ($this->attogram->database->database->errorCode() == '0000') {
             $this->attogram->log->notice('insertWord2word: Insert failed: duplicate entry.');
-            return false;
+            return 0;
         }
         $this->attogram->log->error('insertWord2word: can not insert. errorInfo: '
             . print_r($this->attogram->database->database->errorInfo(), true));

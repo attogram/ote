@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Word Page v0.3.6
+// Open Translation Engine - Word Page v0.4.0
 /*
  OTE Word Page
 
@@ -56,13 +56,13 @@ list($limit, $offset) = $this->database->getSetLimitAndOffset(
 
 switch (sizeof($this->uri)) { // Show Word lists
     case 1:
-        show_all_words($ote, $this, $limit, $offset);
+        showAllWords($ote, $limit, $offset);
         break;
     case 2:
-        show_all_words($ote, $this, $limit, $offset, $this->uri[1]);
+        showAllWords($ote, $limit, $offset, $this->uri[1]);
         break;
     case 3:
-        show_all_words($ote, $this, $limit, $offset, $this->uri[1], $this->uri[2]);
+        showAllWords($ote, $limit, $offset, $this->uri[1], $this->uri[2]);
         break;
     case 4:
         if (!$this->uri[3]) {
@@ -189,7 +189,14 @@ print '</div>'; // end main container div
 $this->pageFooter();
 
 
-function show_all_words($ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0)
+/**
+ * @param object $ote
+ * @param int $limit
+ * @param int $offset
+ * @param int $scode
+ * @param int $tcode
+ */
+function showAllWords($ote, $limit, $offset, $scode = 0, $tcode = 0)
 {
     if (!$scode && !$tcode) {
         $allCount = $ote->getWordCount();
@@ -210,17 +217,17 @@ function show_all_words($ote, $attogram, $limit, $offset, $scode = 0, $tcode = 0
             . ' Words with translations into '
             . $ote->getLanguageNameFromCode($tcode);
     }
-    $attogram->pageHeader('🔤 ' . $title);
+    $ote->attogram->pageHeader('🔤 ' . $title);
     print '<div class="container"><h1 class="squished">🔤 ' . $title . '</h1>';
-    print $attogram->database->pager($allCount, $limit, $offset);
+    print $ote->attogram->database->pager($allCount, $limit, $offset);
     print '<style>a { color:inherit; }</style><h3>';
     foreach ($all as $w) {
-        print '<a href="' . $attogram->path . '/' . $attogram->uri[0] . '///'
-            . urlencode($w['word']) . '">' . $attogram->webDisplay($w['word']) . '</a>, ';
+        print '<a href="' . $ote->attogram->path . '/' . $ote->attogram->uri[0] . '///'
+            . urlencode($w['word']) . '">' . $ote->attogram->webDisplay($w['word']) . '</a>, ';
     }
     print '</h3>';
-    print $attogram->database->pager($allCount, $limit, $offset);
+    print $ote->attogram->database->pager($allCount, $limit, $offset);
     print '</div>';
-    $attogram->pageFooter();
+    $ote->attogram->pageFooter();
     exit;
-} // end function show_all_words()
+} // end function showAllWords()
