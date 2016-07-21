@@ -1,5 +1,5 @@
 <?php
-// Open Translation Engine - Word Page v0.4.2
+// Open Translation Engine - Word Page v0.4.3
 /*
  OTE Word Page
 
@@ -246,5 +246,5 @@ function showAllWords($ote, $limit, $offset, $scode = 0, $tcode = 0)
     print $ote->attogram->database->pager($allCount, $limit, $offset);
     print '</div>';
     $ote->attogram->pageFooter();
-    $this->shutdown();
+    $ote->attogram->shutdown();
 } // end function showAllWords()
