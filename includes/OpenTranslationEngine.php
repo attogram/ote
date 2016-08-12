@@ -140,8 +140,11 @@ class OpenTranslationEngine
      * @param  bool   $insert       (optional) Insert language into database, if not found. Defaults to false
      * @return string               The Language Name, or empty string
      */
-    public function getLanguageNameFromCode($code, $defaultName = '', $insert = false)
-    {
+    public function getLanguageNameFromCode(
+        $code,
+        $defaultName = '',
+        $insert = false
+    ) {
         foreach ($this->getLanguages() as $langCode => $lang) {
             if ($langCode == $code) {
                 return $lang['name'];
@@ -170,8 +173,11 @@ class OpenTranslationEngine
       * @param  string $class     (optional) class for the <select> element, defaults to 'form-control'
       * @return string            HTML pulldown selector with all listed languages
       */
-    public function getLanguagesPulldown($name = 'language', $selected = '', $class = 'form-control')
-    {
+    public function getLanguagesPulldown(
+        $name = 'language',
+        $selected = '',
+        $class = 'form-control'
+    ) {
         $result = '<select class="' . $class . '" name="' . $name . '">';
         $result .= '<option value="">All Languages</option>';
         $langs = $this->getLanguages('name');
@@ -279,8 +285,12 @@ class OpenTranslationEngine
      * @param int $targetLanguageId  (optional) The Target Language ID
      * @return array                 List of words
      */
-    public function getAllWords($limit = 0, $offset = 0, $sourceLanguageId = 0, $targetLanguageId = 0)
-    {
+    public function getAllWords(
+        $limit = 0,
+        $offset = 0,
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0
+    ) {
         $bind = array();
         $select = 'SELECT distinct word FROM word'; // No Source Language, No Target Language
         if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
@@ -345,8 +355,12 @@ class OpenTranslationEngine
      * @param  int $targetLanguageId  Target Language ID
      * @param int  Inserted record ID, or 0
      */
-    public function insertWord2word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)
-    {
+    public function insertWord2word(
+        $sourceWordId,
+        $sourceLanguageId,
+        $targetWordId,
+        $targetLanguageId
+    ) {
         $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
         $this->attogram->log->debug('insertWord2word', $bind);
         $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl) VALUES (:sw, :sl, :tw, :tl)', $bind);
@@ -371,8 +385,12 @@ class OpenTranslationEngine
      * @param  int $targetLanguageId  Target Language ID
      * @return boolean                true if word2word entry exists, else false
      */
-    public function hasWord2Word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)
-    {
+    public function hasWord2Word(
+        $sourceWordId,
+        $sourceLanguageId,
+        $targetWordId,
+        $targetLanguageId
+    ) {
         $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
         $this->attogram->log->debug('hasWord2Word', $bind);
         $result = $this->attogram->database->query('SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl', $bind);
@@ -392,8 +410,12 @@ class OpenTranslationEngine
      * @param  int    $offset            (optional) SQL Offset
      * @return array                     list of word pairs
      */
-    public function getDictionary($sourceLanguageId = 0, $targetLanguageId = 0, $limit = false, $offset = false)
-    {
+    public function getDictionary(
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0,
+        $limit = false,
+        $offset = false
+    ) {
         $this->attogram->log->debug("getDictionary: sl=$sourceLanguageId tl=$targetLanguageId limit=$limit offset=$offset");
         $select = 'sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
         $order = 'ORDER BY sw.word COLLATE NOCASE, sl.name COLLATE NOCASE, tl.name COLLATE NOCASE, tw.word COLLATE NOCASE';
@@ -432,8 +454,10 @@ class OpenTranslationEngine
      * @param int $targetLanguageId
      * @return int
      */
-    public function getDictionaryTranslationsCount($sourceLanguageId = 0, $targetLanguageId = 0)
-    {
+    public function getDictionaryTranslationsCount(
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0
+    ) {
         $this->attogram->log->debug("getDictionaryTranslationsCount: sl=$sourceLanguageId tl=$targetLanguageId ");
         $lang = '';
         $bind = array();
@@ -461,8 +485,13 @@ class OpenTranslationEngine
      * @param  bool   $caseSensitive     (optional) 🔠🔡 Case Sensitive Search, defaults to false
      * @return int                       number of results
      */
-    public function getCountSearchDictionary($word, $sourceLanguageId = 0, $targetLanguageId = 0, $fuzzy = false, $caseSensitive = false)
-    {
+    public function getCountSearchDictionary(
+        $word,
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0,
+        $fuzzy = false,
+        $caseSensitive = false
+    ) {
         $select = 'SELECT count(sw.word) AS count';
         $lang = '';
         if ($sourceLanguageId && $targetLanguageId) {
@@ -505,8 +534,15 @@ class OpenTranslationEngine
      * @param  int    $offset             (optional) result # to start listing at, defaults to 0
      * @return array                      list of word pairs
      */
-    public function searchDictionary($word, $sourceLanguageId = 0, $targetLanguageId = 0, $fuzzy = false, $caseSensitive = false, $limit = 100, $offset = 0)
-    {
+    public function searchDictionary(
+        $word,
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0,
+        $fuzzy = false,
+        $caseSensitive = false,
+        $limit = 100,
+        $offset = 0
+    ) {
         $this->attogram->log->debug('searchDictionary: word=' . $this->attogram->webDisplay($word) . " sl=$sourceLanguageId tl=$targetLanguageId f=$fuzzy c=$caseSensitive limit=$limit offset=$offset");
         $this->insertHistory($word, $sourceLanguageId, $targetLanguageId);
         $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
@@ -554,8 +590,11 @@ class OpenTranslationEngine
      * @param  int $targetLanguageId   (optional) Target Language ID, defaults to 0
      * @return bool
      */
-    public function insertHistory($word, $sourceLanguageId = 0, $targetLanguageId = 0)
-    {
+    public function insertHistory(
+        $word,
+        $sourceLanguageId = 0,
+        $targetLanguageId = 0
+    ) {
         $now = gmdate('Y-m-d');
         if (!$sourceLanguageId || !is_int($sourceLanguageId)) {
             $sourceLanguageId = 0;
@@ -584,8 +623,14 @@ class OpenTranslationEngine
      * @param string $sourceLanguageName  (optional) Source Language Name
      * @param string $targetLanguageName  (optional) Target Language Name
      */
-    public function doImport($translations, $deliminator, $sourceLanguageCode, $targetLanguageCode, $sourceLanguageName = '', $targetLanguageName = '')
-    {
+    public function doImport(
+        $translations,
+        $deliminator,
+        $sourceLanguageCode,
+        $targetLanguageCode,
+        $sourceLanguageName = '',
+        $targetLanguageName = ''
+    ) {
         $this->attogram->log->debug("doImport: s=$sourceLanguageCode t=$targetLanguageCode d=$deliminator sn=$sourceLanguageName tn=$targetLanguageName w strlen=" . strlen($translations));
         $deliminator = str_replace('\t', "\t", $deliminator); // allow real tabs
         $sourceLanguageName = $this->getLanguageNameFromCode($sourceLanguageCode, /*$default =*/ $sourceLanguageName, /*$insert =*/ true); // The Source Language Name
@@ -878,8 +923,16 @@ class OpenTranslationEngine
      * @param  bool    $utc                 (optional) Put Language Target Code in word URLs, defaults to false
      * @return string                       HTML fragment
      */
-    public function displayPair($sourceWord, $sourceLanguageCode, $targetWord, $targetLanguageCode, $path = '', $deliminator = ' = ', $usc = true, $utc = false)
-    {
+    public function displayPair(
+        $sourceWord,
+        $sourceLanguageCode,
+        $targetWord,
+        $targetLanguageCode,
+        $path = '',
+        $deliminator = ' = ',
+        $usc = true,
+        $utc = false
+    ) {
         $sUrl = $path . '/word/' . ($usc ? $sourceLanguageCode : '') . '/' . ($utc ? $targetLanguageCode : '') . '/' . urlencode($sourceWord);
         $tUrl = $path . '/word/' . ($usc ? $targetLanguageCode : '') . '/' . ($utc ? $sourceLanguageCode : '') . '/' . urlencode($targetWord);
         $sourceWord = $this->attogram->webDisplay($sourceWord);
