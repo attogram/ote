@@ -10,7 +10,7 @@ The Open Translation Engine is dual licensed under
 
 ## Open Translation Engine - MIT License
 
-Copyright (c) 2016 Open Translation Engine Developers <https://github.com/attogram/ote>
+Copyright (c) 2017 Open Translation Engine Developers <https://github.com/attogram/ote>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 ## Open Translation Engine - GNU General Public License
 
-Copyright (C) 2016 Open Translation Engine Developers <https://github.com/attogram/ote>
+Copyright (C) 2017 Open Translation Engine Developers <https://github.com/attogram/ote>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
