@@ -6,4 +6,4 @@
 ## Older versions
 
 * OTE v0 stable branch is available at: <https://github.com/attogram/ote/tree/v0.9.9>
-* OTE v1 attogram framework branch is available at: <https://github.com/attogram/ote>
+* OTE v1 attogram framework branch is available at: <https://github.com/attogram/ote/tree/master>
