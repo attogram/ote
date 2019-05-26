@@ -1,35 +1,126 @@
 <?php
-// The Open Translation Engine (OTE) - ote class v0.8.1
+declare(strict_types = 1);
 
-namespace Attogram;
+namespace Attogram\OpenTranslationEngine;
 
-/**
- * Open Translation Engine (OTE) class
- */
-class OpenTranslationEngine
+use Attogram\Router\Router;
+
+class V1OpenTranslationEngine
 {
+    const OTE_NAME    = 'Open Translation Engine';
+    const OTE_VERSION = '2.0.0-alpha.1';
 
-    const OTE_VERSION = '1.2.0';
+    /** @var Router */
+    private $router;
 
-    /** @var object $attogram  The Attogram Framework object */
-    public $attogram;
+    public function route()
+    {
+        $this->router = new Router;
+        $this->router->setForceSlash(true);
+        $this->setRoutes();
+        $control = $this->router->match();
+        if (!$control) {
+            $this->pageNotFound();
 
-    /** @var array $languages  List of languages */
-    public $languages;
+            return;
+        }
+        /** @var string $control */
+        $this->pageHeader();
+        $this->includeTemplate($control);
+        $this->pageFooter();
+    }
 
-    /** @var array $dictionaryList  List of dictionaries */
-    public $dictionaryList;
+    private function setRoutes()
+    {
+        // Public Routes
+        $this->router->allow('/',            'home');
+        $this->router->allow('/languages/',  'languages');
+        $this->router->allow('/dictionary/', 'dictionary');
+        $this->router->allow('/word/',       'word');
+        $this->router->allow('/slush_pile/', 'slush_pile');
+        $this->router->allow('/search/',     'search');
+        $this->router->allow('/export/',     'export');
+        $this->router->allow('/history/',    'history');
+        $this->router->allow('/readme/',     'readme');
+
+        // Admin Routes
+        $this->router->allow('/import/',          'import');
+        $this->router->allow('/languages-admin/', 'languages-admin');
+        $this->router->allow('/tags-admin/',      'tags-admin');
+        $this->router->allow('/events/',          'events');
+        $this->router->allow('/info/',            'info');
+        $this->router->allow('/db-admin/',        'db-admin');
+        $this->router->allow('/db-tables/',       'db-tables');
+        $this->router->allow('/find_3rd_level/',  'find_3rd_level');
+        $this->router->allow('/check.php',        'check.php');
+    }
 
     /**
-     * initialize OTE
-     * @param  object $attogram  The attogram framework object
-     * @return void
+     * @param string $message
      */
-    public function __construct($attogram)
+    private function pageNotFound(string $message = '404 Page Not Found')
     {
-        $this->attogram = $attogram;
-        $this->attogram->log->debug('START OTE v' . self::OTE_VERSION);
+        header('HTTP/1.0 404 Not Found', true, 404);
+        $this->pageHeader();
+        print $message;
+        $this->pageFooter();
     }
+
+    /**
+     * @param string $message
+     */
+    private function controlNotFound(string $message = '500 Control Not Found')
+    {
+        header('HTTP/1.0 500 Internal Server Error', true, 500);
+        $this->pageHeader();
+        print $message;
+        $this->pageFooter();
+    }
+
+    /**
+     * @param string $title
+     */
+    public function pageHeader(string $title = '')
+    {
+        if (!$title) {
+            $title = OpenTranslationEngine::OTE_NAME . ' v' . OpenTranslationEngine::OTE_VERSION;
+        }
+        $this->includeTemplate('header');
+    }
+
+    public function pageFooter()
+    {
+        $this->includeTemplate('footer');
+    }
+
+    /**
+     * @param string $control
+     */
+    private function includeTemplate(string $control)
+    {
+        $template = __DIR__ . '/../template/' . $control . '.php';
+        if (!file_exists($template) || !is_readable($template)) {
+            print 'Template [' . $control . '] Not Found';
+            return;
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        include $template;
+    }
+
+    // v1 ----------------------------------------------
+
+    public $path = './';
+
+    public $templates = [];
+
+    public $siteName = 'SITENAME';
+
+    /** @var array $languages - List of languages */
+    private $languages = [];
+
+    /** @var array $dictionaryList - List of dictionaries */
+    private $dictionaryList = [];
 
     /**
      * Insert a language into the database
@@ -39,20 +130,17 @@ class OpenTranslationEngine
      */
     public function insertLanguage($code, $name)
     {
-        $result = $this->attogram->database->queryb(
-            'INSERT INTO language (code, name) VALUES (:code, :name)',
-            array('code' => $code, 'name' => $name)
-        );
-        if (!$result) {
-            $this->attogram->log->error('insertLanguage: can not insert language');
+//        $result = $this->attogram->database->queryb(
+//            'INSERT INTO language (code, name) VALUES (:code, :name)',
+//            array('code' => $code, 'name' => $name)
+//        );
+//        if (!$result) {
             return 0;
-        }
-        $insertId = $this->attogram->database->database->lastInsertId();
-        $this->attogram->log->debug('insertLanguage: inserted id=' . $insertId . ' code=' . $this->attogram->webDisplay($code) . ' name=' . $this->attogram->webDisplay($name));
-        $this->attogram->event->info('ADD language: <code>' . $this->attogram->webDisplay($code) . '</code> ' . $this->attogram->webDisplay($name));
-        unset($this->languages); // reset the language list
-        unset($this->dictionaryList); // reset the dictionary list
-        return $insertId;
+//        }
+//        $insertId = $this->attogram->database->database->lastInsertId();
+//        unset($this->languages); // reset the language list
+//        unset($this->dictionaryList); // reset the dictionary list
+//        return $insertId;
     }
 
     /**
@@ -66,17 +154,14 @@ class OpenTranslationEngine
             return $this->languages;
         }
         $this->languages = array();
-        $result = $this->attogram->database->query('SELECT id, code, name FROM language ORDER by ' . $orderby);
-        if (!$result) {
-            $this->attogram->log->error('getLanguages: Languages Not Found, or Query Failed');
+//        $result = $this->attogram->database->query('SELECT id, code, name FROM language ORDER by ' . $orderby);
+//        if (!$result) {
             return $this->languages;
-        }
-        foreach ($result as $lang) {
-            $this->languages[$lang['code']] = array('id' => $lang['id'], 'name' => $lang['name']);
-        }
-        $this->attogram->log->debug('getLanguages: got ' . sizeof($this->languages) . ' languages', $this->languages);
-        return $this->languages;
-    } // end function getLanguages()
+//        }
+//        foreach ($result as $lang) {
+//            $this->languages[$lang['code']] = array('id' => $lang['id'], 'name' => $lang['name']);
+//        }
+    }
 
     /**
      * Get the number of languages
@@ -100,7 +185,7 @@ class OpenTranslationEngine
             }
         }
         return '';
-    } // end function getLanguageCodeFromId()
+    }
 
     /**
      * Get a Language Name from Language ID
@@ -115,7 +200,7 @@ class OpenTranslationEngine
             }
         }
         return '';
-    } // end function getLanguageNameFromId()
+    }
 
     /**
      * Get a Language ID from Language Code
@@ -130,7 +215,7 @@ class OpenTranslationEngine
             }
         }
         return 0;
-    } // end function getLanguageCodeFromId()
+    }
 
     /**
      * Get a Language Name.
@@ -150,21 +235,18 @@ class OpenTranslationEngine
                 return $lang['name'];
             }
         }
-        $this->attogram->log->notice('getLanguageNameFromCode: Not Found: ' . $code);
-        if (!$insert) {
-            return '';
-        }
-        if ($code) {
-            $this->attogram->log->notice('getLanguageNameFromCode: insert new language: code=' . $this->attogram->webDisplay($code) . ' name=' . $defaultName);
-            if (!$defaultName) {
-                $defaultName = $code;
-            }
-            if (!$this->insertLanguage($code, $defaultName)) {
-                $this->attogram->log->error('getLanguageNameFromCode: Can not insert language.');
-            }
-        }
+//        if (!$insert) {
+//            return '';
+//        }
+//        if ($code) {
+//            if (!$defaultName) {
+//                $defaultName = $code;
+//            }
+//            if (!$this->insertLanguage($code, $defaultName)) {
+//            }
+//        }
         return $defaultName;
-    } // end function getLanguageNameFromCode()
+    }
 
     /**
       * Get an HTML pulldown selector filled with all Languages
@@ -190,7 +272,7 @@ class OpenTranslationEngine
         }
         $result .= '</select>';
         return $result;
-    } // end getLanguagesPulldown()
+    }
 
     /**
      * Get a list of all Dictionaries
@@ -199,33 +281,33 @@ class OpenTranslationEngine
      */
     public function getDictionaryList($lcode = '')
     {
-        $this->attogram->log->debug("getDictionaryList: lcode=$lcode");
-        if (isset($this->dictionaryList) && is_array($this->dictionaryList) && isset($this->dictionaryList[$lcode])) {
-            return $this->dictionaryList[$lcode];
-        }
-        $sql = 'SELECT DISTINCT sl, tl FROM word2word';
-        $bind = array();
-        if ($lcode) {
-            $sql .= ' WHERE (sl = :sl) OR (tl = :sl)';
-            $bind['sl'] = $this->getLanguageIdFromCode($lcode);
-        }
-        $result = $this->attogram->database->query($sql, $bind);
-        $langs = $this->getLanguages();
-        $dlist = array();
-        foreach ($result as $dictionary) {
-            $sourceLanguageCode = $this->getLanguageCodeFromId($dictionary['sl']); // Source Language Code
-            $targetLanguageCode = $this->getLanguageCodeFromId($dictionary['tl']); // Target Language Code
-            $url = $sourceLanguageCode . '/' . $targetLanguageCode . '/';
-            $dlist[$url] = $langs[$sourceLanguageCode]['name'] . ' to ' . $langs[$targetLanguageCode]['name'];
-            $resultUrl = $targetLanguageCode . '/' . $sourceLanguageCode . '/';
-            if (!array_key_exists($resultUrl, $dlist)) {
-                $dlist[$resultUrl] = $langs[$targetLanguageCode]['name'] . ' to ' . $langs[$sourceLanguageCode]['name'];
-            }
-        }
-        asort($dlist);
-        $this->attogram->log->debug('getDictionaryList: got ' . sizeof($dlist) . ' dictionaries', $dlist);
-        return $this->dictionaryList[$lcode] = $dlist;
-    } // end function getDictionaryList()
+//        if (isset($this->dictionaryList) && is_array($this->dictionaryList) && isset($this->dictionaryList[$lcode])) {
+//            return $this->dictionaryList[$lcode];
+//        }
+//        $sql = 'SELECT DISTINCT sl, tl FROM word2word';
+//        $bind = array();
+//        if ($lcode) {
+//            $sql .= ' WHERE (sl = :sl) OR (tl = :sl)';
+//            $bind['sl'] = $this->getLanguageIdFromCode($lcode);
+//        }
+//        $result = $this->attogram->database->query($sql, $bind);
+//        $langs = $this->getLanguages();
+//        $dlist = array();
+//        foreach ($result as $dictionary) {
+//            $sourceLanguageCode = $this->getLanguageCodeFromId($dictionary['sl']); // Source Language Code
+//            $targetLanguageCode = $this->getLanguageCodeFromId($dictionary['tl']); // Target Language Code
+//            $url = $sourceLanguageCode . '/' . $targetLanguageCode . '/';
+//            $dlist[$url] = $langs[$sourceLanguageCode]['name'] . ' to ' . $langs[$targetLanguageCode]['name'];
+//            $resultUrl = $targetLanguageCode . '/' . $sourceLanguageCode . '/';
+//            if (!array_key_exists($resultUrl, $dlist)) {
+//                $dlist[$resultUrl] = $langs[$targetLanguageCode]['name'] . ' to ' . $langs[$sourceLanguageCode]['name'];
+//            }
+//        }
+//        asort($dlist);
+//        return $this->dictionaryList[$lcode] = $dlist;
+
+        return [];
+    }
 
     /**
      * Get the number of dictionaries
@@ -239,23 +321,21 @@ class OpenTranslationEngine
 
     /**
      * Insert a word into the database
-     * @param  string $word  The Word
-     * @param  int           The ID of the inserted word, or 0
+     * @param string $word The Word
+     * @return int
      */
     public function insertWord($word)
     {
-        $result = $this->attogram->database->queryb(
-            'INSERT INTO word (word) VALUES (:word)',
-            array('word' => $word)
-        );
-        if (!$result) {
-            $this->attogram->log->error('insertWord: can not insert. word=' . $this->attogram->webDisplay($word));
-            return 0;
-        }
-        $insertId = $this->attogram->database->database->lastInsertId();
-        $this->attogram->log->debug('inser_word: inserted id=' . $insertId . ' word=' . $this->attogram->webDisplay($word));
-        $this->attogram->event->info('ADD word: <a href="' . $this->attogram->path . '/word///' . urlencode($word) . '">' . $this->attogram->webDisplay($word) . '</a>');
-        return $insertId;
+//        $result = $this->attogram->database->queryb(
+//            'INSERT INTO word (word) VALUES (:word)',
+//            array('word' => $word)
+//        );
+//        if (!$result) {
+//            return 0;
+//        }
+//        $insertId = $this->attogram->database->database->lastInsertId();
+//        return $insertId;
+        return 0;
     }
 
     /**
@@ -265,16 +345,15 @@ class OpenTranslationEngine
      */
     public function getIdFromWord($word)
     {
-        $result = $this->attogram->database->query(
-            'SELECT id FROM word WHERE word = :word LIMIT 1',
-            array('word '=> $word)
-        );
-        if (!$result || !isset($result[0]) || !isset($result[0]['id'])) {
-            $this->attogram->log->notice('getIdFromWord: word not found: Inserting: ' . $this->attogram->webDisplay($word));
-            return $this->insertWord($word);
-        }
-        $this->attogram->log->debug('getIdFromWord: id=' . $result[0]['id'] . ' word=' . $this->attogram->webDisplay($word));
-        return $result[0]['id'];
+//        $result = $this->attogram->database->query(
+//            'SELECT id FROM word WHERE word = :word LIMIT 1',
+//            array('word '=> $word)
+//        );
+//        if (!$result || !isset($result[0]) || !isset($result[0]['id'])) {
+//            return $this->insertWord($word);
+//        }
+//        return $result[0]['id'];
+        return 0;
     }
 
     /**
@@ -291,33 +370,34 @@ class OpenTranslationEngine
         $sourceLanguageId = 0,
         $targetLanguageId = 0
     ) {
-        $bind = array();
-        $select = 'SELECT distinct word FROM word'; // No Source Language, No Target Language
-        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
-            $select .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
-            $bind['sl'] = $sourceLanguageId;
-        }
-        if (!$sourceLanguageId && $targetLanguageId) { // No source Language, Yes Target Language
-            $select .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
-            $bind['tl'] = $targetLanguageId;
-        }
-        if ($sourceLanguageId && $targetLanguageId) { // Yes Source Language, Yes Target Language
-            $select .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
-            $bind['sl'] = $sourceLanguageId;
-            $bind['tl'] = $targetLanguageId;
-        }
-        $order = 'ORDER BY word COLLATE NOCASE';
-        if ($limit && $offset) {
-            $limit = "LIMIT $limit OFFSET $offset";
-        }
-        if ($limit && !$offset) {
-            $limit = "LIMIT $limit";
-        }
-        if (!$limit && $offset) {
-            $this->attogram->log->error('getAllWords: missing limit.  offset=' . $offset);
-            return array();
-        }
-        return $this->attogram->database->query("$select $order $limit", $bind);
+//        $bind = array();
+//        $select = 'SELECT distinct word FROM word'; // No Source Language, No Target Language
+//        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
+//            $select .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+//            $bind['sl'] = $sourceLanguageId;
+//        }
+//        if (!$sourceLanguageId && $targetLanguageId) { // No source Language, Yes Target Language
+//            $select .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        if ($sourceLanguageId && $targetLanguageId) { // Yes Source Language, Yes Target Language
+//            $select .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+//            $bind['sl'] = $sourceLanguageId;
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        $order = 'ORDER BY word COLLATE NOCASE';
+//        if ($limit && $offset) {
+//            $limit = "LIMIT $limit OFFSET $offset";
+//        }
+//        if ($limit && !$offset) {
+//            $limit = "LIMIT $limit";
+//        }
+//        if (!$limit && $offset) {
+//            return array();
+//        }
+//        return $this->attogram->database->query("$select $order $limit", $bind);
+
+        return [];
     }
 
     /**
@@ -328,23 +408,25 @@ class OpenTranslationEngine
      */
     public function getWordCount($sourceLanguageId = 0, $targetLanguageId = 0)
     {
-        $bind = array();
-        $sql = 'SELECT count(DISTINCT word.word) AS count FROM word'; // No Source Language, No Target Language
-        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
-            $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
-            $bind['sl'] = $sourceLanguageId;
-        }
-        if (!$sourceLanguageId && $targetLanguageId) { // No source Language, Yes Target Language
-            $sql .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
-            $bind['tl'] = $targetLanguageId;
-        }
-        if ($sourceLanguageId && $targetLanguageId) { // Yes Source Language, Yes Target Language
-            $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
-            $bind['sl'] = $sourceLanguageId;
-            $bind['tl'] = $targetLanguageId;
-        }
-        $result = $this->attogram->database->query($sql, $bind);
-        return isset($result[0]['count']) ? $result[0]['count'] : '0';
+//        $bind = array();
+//        $sql = 'SELECT count(DISTINCT word.word) AS count FROM word'; // No Source Language, No Target Language
+//        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
+//            $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
+//            $bind['sl'] = $sourceLanguageId;
+//        }
+//        if (!$sourceLanguageId && $targetLanguageId) { // No source Language, Yes Target Language
+//            $sql .= ', word2word WHERE word2word.tl = :tl AND word2word.sw = word.id';
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        if ($sourceLanguageId && $targetLanguageId) { // Yes Source Language, Yes Target Language
+//            $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.tl = :tl AND word2word.sw = word.id';
+//            $bind['sl'] = $sourceLanguageId;
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        $result = $this->attogram->database->query($sql, $bind);
+//        return isset($result[0]['count']) ? $result[0]['count'] : '0';
+
+        return 0;
     }
 
     /**
@@ -361,20 +443,16 @@ class OpenTranslationEngine
         $targetWordId,
         $targetLanguageId
     ) {
-        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
-        $this->attogram->log->debug('insertWord2word', $bind);
-        $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl) VALUES (:sw, :sl, :tw, :tl)', $bind);
-        if ($result) {
-            $insertId = $this->attogram->database->database->lastInsertId();
-            $this->attogram->log->debug('insertWord2word: inserted. id=' . $insertId);
-            return $insertId;
-        }
-        if ($this->attogram->database->database->errorCode() == '0000') {
-            $this->attogram->log->notice('insertWord2word: Insert failed: duplicate entry.');
-            return 0;
-        }
-        $this->attogram->log->error('insertWord2word: can not insert. errorInfo: '
-            . print_r($this->attogram->database->database->errorInfo(), true));
+//        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
+//        $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl) VALUES (:sw, :sl, :tw, :tl)', $bind);
+//        if ($result) {
+//            $insertId = $this->attogram->database->database->lastInsertId();
+//            return $insertId;
+//        }
+//        if ($this->attogram->database->database->errorCode() == '0000') {
+//            return 0;
+//        }
+//            . print_r($this->attogram->database->database->errorInfo(), true));
     }
 
     /**
@@ -391,14 +469,11 @@ class OpenTranslationEngine
         $targetWordId,
         $targetLanguageId
     ) {
-        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
-        $this->attogram->log->debug('hasWord2Word', $bind);
-        $result = $this->attogram->database->query('SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl', $bind);
-        if ($result) {
-            $this->attogram->log->debug('hasWord2Word: exists');
-            return true;
-        }
-        $this->attogram->log->debug('hasWord2Word: does not exist');
+//        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
+//        $result = $this->attogram->database->query('SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl', $bind);
+//        if ($result) {
+//            return true;
+//        }
         return false;
     }
 
@@ -416,38 +491,38 @@ class OpenTranslationEngine
         $limit = false,
         $offset = false
     ) {
-        $this->attogram->log->debug("getDictionary: sl=$sourceLanguageId tl=$targetLanguageId limit=$limit offset=$offset");
-        $select = 'sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
-        $order = 'ORDER BY sw.word COLLATE NOCASE, sl.name COLLATE NOCASE, tl.name COLLATE NOCASE, tw.word COLLATE NOCASE';
-        $lang = '';
-        $bind = array();
-        if ($sourceLanguageId && $targetLanguageId) {
-            $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-            $bind['sl'] = $sourceLanguageId;
-            $bind['tl'] = $targetLanguageId;
-        } elseif ($sourceLanguageId && !$targetLanguageId) {
-            $lang = 'AND ww.sl=:sl';
-            $bind['sl'] = $sourceLanguageId;
-        } elseif (!$sourceLanguageId && $targetLanguageId) {
-            $lang = 'AND ww.tl=:tl';
-            $bind['tl'] = $targetLanguageId;
-        }
-        $limitClause = '';
-        if ($limit && $offset) {
-            $limitClause = "LIMIT $limit OFFSET $offset";
-        } elseif ($limit && !$offset) {
-            $limitClause = "LIMIT $limit";
-        } elseif (!$limit && $offset) {
-            $this->attogram->log->error('getDictionary: missing limit.  offset=' . $offset);
-            return array();
-        }
-        $sql = "SELECT $select
-        FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
-        WHERE sw.id = ww.sw AND tw.id = ww.tw
-        AND   sl.id = ww.sl AND tl.id = ww.tl $lang $order $limitClause";
-        $result = $this->attogram->database->query($sql, $bind);
-        return $result;
-    } // end function getDictionary()
+//        $select = 'sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
+//        $order = 'ORDER BY sw.word COLLATE NOCASE, sl.name COLLATE NOCASE, tl.name COLLATE NOCASE, tw.word COLLATE NOCASE';
+//        $lang = '';
+//        $bind = array();
+//        if ($sourceLanguageId && $targetLanguageId) {
+//            $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
+//            $bind['sl'] = $sourceLanguageId;
+//            $bind['tl'] = $targetLanguageId;
+//        } elseif ($sourceLanguageId && !$targetLanguageId) {
+//            $lang = 'AND ww.sl=:sl';
+//            $bind['sl'] = $sourceLanguageId;
+//        } elseif (!$sourceLanguageId && $targetLanguageId) {
+//            $lang = 'AND ww.tl=:tl';
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        $limitClause = '';
+//        if ($limit && $offset) {
+//            $limitClause = "LIMIT $limit OFFSET $offset";
+//        } elseif ($limit && !$offset) {
+//            $limitClause = "LIMIT $limit";
+//        } elseif (!$limit && $offset) {
+//            return array();
+//        }
+//        $sql = "SELECT $select
+//        FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+//        WHERE sw.id = ww.sw AND tw.id = ww.tw
+//        AND   sl.id = ww.sl AND tl.id = ww.tl $lang $order $limitClause";
+//        $result = $this->attogram->database->query($sql, $bind);
+//        return $result;
+
+        return [];
+    }
 
     /**
      * @param int $sourceLanguageId
@@ -458,23 +533,24 @@ class OpenTranslationEngine
         $sourceLanguageId = 0,
         $targetLanguageId = 0
     ) {
-        $this->attogram->log->debug("getDictionaryTranslationsCount: sl=$sourceLanguageId tl=$targetLanguageId ");
-        $lang = '';
-        $bind = array();
-        if ($sourceLanguageId && $targetLanguageId) {
-            $lang = 'WHERE sl = :sl AND tl = :tl';
-            $bind['sl'] = $sourceLanguageId;
-            $bind['tl'] = $targetLanguageId;
-        } elseif ($sourceLanguageId && !$targetLanguageId) {
-            $lang = 'WHERE sl = :sl';
-            $bind['sl'] = $sourceLanguageId;
-        } elseif (!$sourceLanguageId && $targetLanguageId) {
-            $lang = 'WHERE tl = :tl';
-            $bind['tl'] = $targetLanguageId;
-        }
-        $result = $this->attogram->database->query("SELECT count(word2word.id) AS count FROM word2word $lang", $bind);
-        return isset($result[0]['count']) ? $result[0]['count'] : '0';
-    } // end getDictionaryTranslationsCount()
+//        $lang = '';
+//        $bind = array();
+//        if ($sourceLanguageId && $targetLanguageId) {
+//            $lang = 'WHERE sl = :sl AND tl = :tl';
+//            $bind['sl'] = $sourceLanguageId;
+//            $bind['tl'] = $targetLanguageId;
+//        } elseif ($sourceLanguageId && !$targetLanguageId) {
+//            $lang = 'WHERE sl = :sl';
+//            $bind['sl'] = $sourceLanguageId;
+//        } elseif (!$sourceLanguageId && $targetLanguageId) {
+//            $lang = 'WHERE tl = :tl';
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        $result = $this->attogram->database->query("SELECT count(word2word.id) AS count FROM word2word $lang", $bind);
+//        return isset($result[0]['count']) ? $result[0]['count'] : '0';
+
+        return 0;
+    }
 
     /**
      * Get count of results for a Search of the dictionaries
@@ -492,36 +568,38 @@ class OpenTranslationEngine
         $fuzzy = false,
         $caseSensitive = false
     ) {
-        $select = 'SELECT count(sw.word) AS count';
-        $lang = '';
-        if ($sourceLanguageId && $targetLanguageId) {
-            $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
-            $bind['sl'] = $sourceLanguageId;
-            $bind['tl'] = $targetLanguageId;
-        } elseif ($sourceLanguageId && !$targetLanguageId) {
-            $lang = 'AND ww.sl = :sl';
-            $bind['sl'] = $sourceLanguageId;
-        } elseif (!$sourceLanguageId && $targetLanguageId) {
-            $lang = 'AND ww.tl = :tl';
-            $bind['tl'] = $targetLanguageId;
-        }
-        $orderC = '';
-        if ($caseSensitive) { // 🔠🔡 Case Sensitive Search
-            $orderC = 'COLLATE NOCASE';
-        }
-        $qword = 'AND sw.word = :sw ' . $orderC;
-        if ($fuzzy) { // 💭 Fuzzy Search
-            $qword = "AND sw.word LIKE '%' || :sw || '%' $orderC";
-        }
-        $bind['sw'] = $word;
-        $sql = "$select
-        FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
-        WHERE sw.id = ww.sw AND tw.id = ww.tw
-        AND   sl.id = ww.sl AND tl.id = ww.tl
-        $lang $qword";
-        $result = $this->attogram->database->query($sql, $bind);
-        return $result[0]['count'];
-    } // end function getCountSearchDictionary()
+//        $select = 'SELECT count(sw.word) AS count';
+//        $lang = '';
+//        if ($sourceLanguageId && $targetLanguageId) {
+//            $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
+//            $bind['sl'] = $sourceLanguageId;
+//            $bind['tl'] = $targetLanguageId;
+//        } elseif ($sourceLanguageId && !$targetLanguageId) {
+//            $lang = 'AND ww.sl = :sl';
+//            $bind['sl'] = $sourceLanguageId;
+//        } elseif (!$sourceLanguageId && $targetLanguageId) {
+//            $lang = 'AND ww.tl = :tl';
+//            $bind['tl'] = $targetLanguageId;
+//        }
+//        $orderC = '';
+//        if ($caseSensitive) { // 🔠🔡 Case Sensitive Search
+//            $orderC = 'COLLATE NOCASE';
+//        }
+//        $qword = 'AND sw.word = :sw ' . $orderC;
+//        if ($fuzzy) { // 💭 Fuzzy Search
+//            $qword = "AND sw.word LIKE '%' || :sw || '%' $orderC";
+//        }
+//        $bind['sw'] = $word;
+//        $sql = "$select
+//        FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
+//        WHERE sw.id = ww.sw AND tw.id = ww.tw
+//        AND   sl.id = ww.sl AND tl.id = ww.tl
+//        $lang $qword";
+//        $result = $this->attogram->database->query($sql, $bind);
+//        return $result[0]['count'];
+
+        return 0;
+    }
 
     /**
      * Search dictionaries
@@ -543,7 +621,6 @@ class OpenTranslationEngine
         $limit = 100,
         $offset = 0
     ) {
-        $this->attogram->log->debug('searchDictionary: word=' . $this->attogram->webDisplay($word) . " sl=$sourceLanguageId tl=$targetLanguageId f=$fuzzy c=$caseSensitive limit=$limit offset=$offset");
         $this->insertHistory($word, $sourceLanguageId, $targetLanguageId);
         $select = 'SELECT sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
         $orderC = '';
@@ -579,9 +656,11 @@ class OpenTranslationEngine
         WHERE sw.id = ww.sw AND tw.id = ww.tw
         AND   sl.id = ww.sl AND tl.id = ww.tl
         $lang $qword $order $sqlLimit";
-        $result = $this->attogram->database->query($sql, $bind);
-        return $result;
-    } // end function searchDictionary()
+        //$result = $this->attogram->database->query($sql, $bind);
+        //return $result;
+
+        return [];
+    }
 
     /**
      * insert an search history entry into the database
@@ -602,7 +681,6 @@ class OpenTranslationEngine
         if (!$targetLanguageId || !is_int($targetLanguageId)) {
             $targetLanguageId = 0;
         }
-        $this->attogram->log->debug('insertHistory: date: ' . $now . ' sl: ' . $sourceLanguageId . ' tl: ' . $targetLanguageId . ' word: ' . $this->attogram->webDisplay($word));
         $bind = array('word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now);
         $resultid = $this->attogram->database->query('SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl', $bind);
         if (!$resultid) { // insert new history entry for this date
@@ -612,7 +690,7 @@ class OpenTranslationEngine
             'UPDATE history SET count = count + 1 WHERE id = :id',
             array('id' => $resultid[0]['id'])
         );
-    } // end function insertHistory()
+    }
 
     /**
      * Import translations into the database
@@ -631,37 +709,31 @@ class OpenTranslationEngine
         $sourceLanguageName = '',
         $targetLanguageName = ''
     ) {
-        $this->attogram->log->debug("doImport: s=$sourceLanguageCode t=$targetLanguageCode d=$deliminator sn=$sourceLanguageName tn=$targetLanguageName w strlen=" . strlen($translations));
         $deliminator = str_replace('\t', "\t", $deliminator); // allow real tabs
         $sourceLanguageName = $this->getLanguageNameFromCode($sourceLanguageCode, /*$default =*/ $sourceLanguageName, /*$insert =*/ true); // The Source Language Name
         if (!$sourceLanguageName) {
             $error = 'Error: can not get source language name';
             print $error;
-            $this->attogram->log->error("doImport: $error");
             return;
         }
         $sourceLanguageId = $this->getLanguageIdFromCode($sourceLanguageCode); // The Source Language ID
         if (!$sourceLanguageId) {
             $error = 'Error: can not get source language ID';
             print $error;
-            $this->attogram->log->error("doImport: $error");
             return;
         }
         $targetLanguageName = $this->getLanguageNameFromCode($targetLanguageCode, /* $default =*/ $targetLanguageName, /* $insert =*/ true); // The Target Language Name
         if (!$targetLanguageName) {
             $error = 'Error: can not get source language name';
             print $error;
-            $this->attogram->log->error("doImport: $error");
             return;
         }
         $targetLanguageId = $this->getLanguageIdFromCode($targetLanguageCode); // The Target Language ID
         if (!$targetLanguageId) {
             $error = 'Error: can not get target language ID';
             print $error;
-            $this->attogram->log->error("doImport: $error");
             return;
         }
-        $this->attogram->log->debug("do import: sn=$sourceLanguageName si=$sourceLanguageId tn=$targetLanguageName ti=$targetLanguageId");
         $lines = explode("\n", $translations);
         print '<div class="container">'
         .'Source Language: ID: <code>'.$sourceLanguageId.'</code>'
@@ -729,7 +801,6 @@ class OpenTranslationEngine
                 $skipCount++;
                 continue;
             }
-            $this->attogram->log->debug("doImport: sw=$sourceWord swi=$sourceWordId si=$sourceLanguageId tw=$targetWord twi=$targetLanguageId ti=$targetLanguageId");
             $result = $this->insertWord2word($sourceWordId, $sourceLanguageId, $targetLanguageId, $targetLanguageId);
             if (!$result) {
                 if ($this->attogram->database->database->errorCode() == '0000') {
@@ -744,12 +815,6 @@ class OpenTranslationEngine
                 $skipCount++;
             } else {
                 $importCount++;
-                $this->attogram->event->info(
-                    'ADD translation: <code>' . $sourceLanguageCode . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($sourceLanguageCode)
-                    . '//' . urlencode($sourceWord) . '">' . $this->attogram->webDisplay($sourceWord) . '</a>'
-                    . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($targetLanguageCode) . '//' . urlencode($targetWord)
-                    . '">' . $this->attogram->webDisplay($targetWord) . '</a> <code>' . $targetLanguageCode. '</code>'
-                );
             }
             // insert reverse pair
             $result = $this->insertWord2word($targetLanguageId, $targetLanguageId, $sourceWordId, $sourceLanguageId);
@@ -766,12 +831,6 @@ class OpenTranslationEngine
                 $skipCount++;
             } else {
                 $importCount++;
-                $this->attogram->event->info(
-                    'ADD translation: <code>' . $targetLanguageCode. '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($targetLanguageCode)
-                    . '//' . urlencode($targetWord) . '">' . $this->attogram->webDisplay($targetWord) . '</a>'
-                    . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($sourceLanguageCode) . '//' . urlencode($sourceWord)
-                    . '">' . $this->attogram->webDisplay($sourceWord) . '</a> <code>' . $sourceLanguageCode . '</code>'
-                );
             }
             if ($lineCount % 100 == 0) {
                 print ' ' . $lineCount . ' ';
@@ -780,14 +839,14 @@ class OpenTranslationEngine
             }
             @ob_flush();
             flush();
-        } // end foreach line
+        }
         print '</small><hr />';
         print '<code>'.$importCount.'</code> translations imported.<br />';
         print '<code>'.$errorCount.'</code> errors.<br />';
         print '<code>'.$dupeCount.'</code> duplicates/existing.<br />';
         print '<code>'.$skipCount.'</code> lines skipped.<br />';
         print '</div>';
-    } // end doImport
+    }
 
     /**
      * get count of entries in slush pile
@@ -795,11 +854,11 @@ class OpenTranslationEngine
      */
     public function getCountSlushPile()
     {
-        $result = $this->attogram->database->query('SELECT count(id) AS count FROM slush_pile');
-        if (!$result) {
+        //$result = $this->attogram->database->query('SELECT count(id) AS count FROM slush_pile');
+        //if (!$result) {
             return 0;
-        }
-        return $result[0]['count'];
+        //}
+        //return $result[0]['count'];
     }
 
     /**
@@ -816,7 +875,6 @@ class OpenTranslationEngine
         $sql = 'INSERT INTO slush_pile (date, ' . implode(', ', $names) . ')'
             . ' VALUES (datetime("now"), :' . implode(', :', $names) . ')';
         if ($this->attogram->database->queryb($sql, $items)) {
-            //$this->attogram->event->info('ADD slush_pile', $items);
             return true;
         }
         return false;
@@ -831,14 +889,12 @@ class OpenTranslationEngine
     {
         // does slush pile entry exist?
         if (!$this->attogram->database->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array('id' => $slushId))) {
-            $this->attogram->log->error('deleteFromSlushPile: Not Found id=' . $this->attogram->webDisplay($slushId));
             $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->attogram->webDisplay($slushId) . ')';
             return false;
         }
         if ($this->attogram->database->queryb('DELETE FROM slush_pile WHERE id = :id', array('id' => $slushId))) {
             return true;
         }
-        $this->attogram->log->error('deleteFromSlushPile: Delete failed for id=' . $this->attogram->webDisplay($slushId));
         $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->attogram->webDisplay($slushId) . ')';
         return false;
     }
@@ -855,7 +911,6 @@ class OpenTranslationEngine
             array('id' => $slushId)
         );
         if (!$spe) {
-            $this->attogram->log->error('acceptSlushPileEntry: can not find id=' . $this->attogram->webDisplay($slushId));
             $_SESSION['error'] = 'Can not find requested slush pile entry';
             return false;
         }
@@ -868,24 +923,11 @@ class OpenTranslationEngine
                 $targetLanguageId = $this->getLanguageIdFromCode($spe[0]['target_language_code']); // Target Language ID
                 if ($this->hasWord2Word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)) {
                     $this->deleteFromSlushPile($slushId); // dev todo - check results
-                    $this->attogram->log->error('acceptSlushPileEntry: Add translation: word2word entry already exists. Deleted slush_pile.id=' . $this->attogram->webDisplay($slushId));
                     $_SESSION['error'] = 'Translation already exists!  Slush pile entry deleted (ID: ' . $this->attogram->webDisplay($slushId) . ')';
                     return false;
                 }
                 if ($this->insertWord2word($sourceWordId, $sourceLanguageId, $targetWordId, $targetLanguageId)) {
-                    $this->attogram->event->info(
-                        'ADD translation: <code>' . $spe[0]['source_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code'])
-                        . '//' . urlencode($spe[0]['source_word']) . '">' . $this->attogram->webDisplay($spe[0]['source_word']) . '</a>'
-                        . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code']) . '//' . urlencode($spe[0]['target_word'])
-                        . '">' . $this->attogram->webDisplay($spe[0]['target_word']) . '</a> <code>' . $spe[0]['target_language_code'] . '</code>'
-                    );
                     if ($this->insertWord2word($targetWordId, $targetLanguageId, $sourceWordId, $sourceLanguageId)) {
-                          $this->attogram->event->info(
-                              'ADD translation:  <code>' . $spe[0]['target_language_code'] . '</code> <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['target_language_code'])
-                              . '//' . urlencode($spe[0]['target_word']) . '">' . $this->attogram->webDisplay($spe[0]['target_word']) . '</a>'
-                              . ' = <a href="' . $this->attogram->path . '/word/' . urlencode($spe[0]['source_language_code']) . '//' . urlencode($spe[0]['source_word'])
-                              . '">' . $this->attogram->webDisplay($spe[0]['source_word']) . '</a> <code>' . $spe[0]['source_language_code'] . '</code>'
-                          );
                           $this->deleteFromSlushPile($slushId); // dev todo - check results
                           $_SESSION['result'] =
                               'Added new translation:  <code>' . $this->attogram->webDisplay($spe[0]['source_language_code']) . '</code> '
@@ -895,21 +937,18 @@ class OpenTranslationEngine
                               . ' <code>' . $this->attogram->webDisplay($spe[0]['target_language_code']) . '</code>';
                           return true;
                     }
-                    $this->attogram->log->error('acceptSlushPileEntry: Can not insert reverse word2word entry');
                     $_SESSION['error'] = 'Failed to insert new reverse translation';
                     return false;
                 }
-                $this->attogram->log->error('acceptSlushPileEntry: Can not insert word2word entry');
                 $_SESSION['error'] = 'Failed to insert new translation';
                 return false;
-            case 'delete': // DEV TODO -- delete word2word translation
+            case 'delete': // @TODO -- delete word2word translation
             default: // unknown type
-                $this->attogram->log->error('acceptSlushPileEntry: id=' . $this->attogram->webDisplay($slushId) . ' INVALID type=' . $this->attogram->webDisplay($type));
                 $_SESSION['error'] = 'Invalid slush pile entry (ID: ' . $this->attogram->webDisplay($slushId) . ')';
                 return false;
-        } // end switch on type
+        }
         return false;
-    } // end function acceptSlushPileEntry()
+    }
 
     /**
      * HTML display for a single translation word pair
@@ -974,5 +1013,21 @@ class OpenTranslationEngine
           </div>
         </div>';
         return $result;
-    } // end function displayPair
-} // end class ote
+    }
+
+    public function isAdmin()
+    {
+        return true;
+    }
+
+    public function shutdown()
+    {
+        print "SHUTDOWN";
+        exit;
+    }
+
+    public function getSiteUrl()
+    {
+        return 'GETSITEURL';
+    }
+}
