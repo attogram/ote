@@ -5,10 +5,10 @@
 <h2>
     a collaborative translation dictionary
 </h2>
-<h3><a href="languages/">🌐 <code><?= $this->getLanguagesCount(); ?></code> Languages</a></h3>
-<h3><a href="dictionary/">📚 <code><?= $this->getDictionaryCount(); ?></code> Dictionaries</a></h3>
-<h3><a href="word/">🔤 <code><?= $this->getWordCount(); ?></code> Words</a></h3>
-<h3><a href="slush_pile/">🛃 <code><?= $this->getCountSlushPile(); ?></code> submissions</a></h3>
+<h3><a href="languages/">🌐 <code><?= $this->repository->getLanguagesCount(); ?></code> Languages</a></h3>
+<h3><a href="dictionary/">📚 <code><?= $this->repository->getDictionaryCount(); ?></code> Dictionaries</a></h3>
+<h3><a href="word/">🔤 <code><?= $this->repository->getWordCount(); ?></code> Words</a></h3>
+<h3><a href="slush_pile/">🛃 <code><?= $this->repository->getCountSlushPile(); ?></code> submissions</a></h3>
 <h3><a href="search/">🔎 Search</a></h3>
 <h3><a href="export/">📤 Export</a></h3>
 <h3><a href="history/">🔭 History</a></h3>

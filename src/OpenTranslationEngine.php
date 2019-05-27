@@ -1,62 +1,57 @@
 <?php
+/**
+ * Open Translation Engine
+ * @license MIT
+ * @see https://github.com/attogram/ote
+ */
 declare(strict_types = 1);
 
 namespace Attogram\OpenTranslationEngine;
 
-use Attogram\Database\Database;
 use Attogram\Router\Router;
 
 use function file_exists;
-use function file_get_contents;
 use function header;
 use function is_readable;
 
 class OpenTranslationEngine
 {
     const OTE_NAME    = 'Open Translation Engine';
-    const OTE_VERSION = '2.0.0-alpha.1';
+    const OTE_VERSION = '2.0.0-alpha.2';
 
     /** @var Router - Attogram Router */
     private $router;
 
-    /** @var Database - Attogram Database - SQLite */
-    private $database;
+    /** @var Repository - access to Translation Database */
+    private $repository;
 
     /** @var array - Template Data */
     private $data = [];
 
     public function __construct()
     {
-        $this->database = new Database();
-        $this->database->setDatabaseFile(__DIR__ . '/../db/ote.sqlite');
-        include(__DIR__ . '/../ote.tables.php');
-        /** @var array $tables */
-        foreach ($tables as $table) {
-            $this->database->setCreateTables($table);
-        }
-        print '<pre>';print_r($this->database);
-        print_r($this->database->query('SELECT * FROM word'));
+        $this->repository = new Repository();
+        $this->router = new Router;
     }
 
     public function route()
     {
-        $this->router = new Router;
         $this->router->setForceSlash(true);
         $this->setPublicRoutes();
         $this->setAdminRoutes();
+        /** @var string $control */
         $control = $this->router->match();
-        if ($control) {
-            /** @var string $control */
-            $this->pageHeader();
-            $this->includeTemplate($control);
-            $this->pageFooter();
+        if (!$control) {
+            $this->pageNotFound();
 
             return;
         }
-
-        $this->pageNotFound();
-
-        return;
+        if (method_exists($this, $control)) {
+            $this->{$control}();
+        }
+        $this->pageHeader();
+        $this->includeTemplate($control);
+        $this->pageFooter();
     }
 
     private function setPublicRoutes()
@@ -145,25 +140,7 @@ class OpenTranslationEngine
         return '';
     }
 
-    public function getLanguagesCount()
-    {
-        return 0;
-    }
-
-    public function getDictionaryCount()
-    {
-        return 0;
-    }
-
-    public function getWordCount()
-    {
-        return 0;
-    }
-
-    public function getCountSlushPile()
-    {
-        return 0;
-    }
+    // v1 ---
 
     public function getSiteUrl()
     {
