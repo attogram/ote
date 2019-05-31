@@ -8,3 +8,11 @@ CurrentF: <a href="<?= $this->router->getCurrentFull() ?>"><?= $this->router->ge
 </footer>
 </body>
 </html>
+
+<pre>DEBUG:
+
+this-data
+
+<?= print_r($this->data); ?>
+
+</pre>

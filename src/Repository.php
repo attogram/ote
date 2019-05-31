@@ -1,8 +1,8 @@
 <?php
 /**
+ * Open Translation Engine
  * Repository
  *
- * Open Translation Engine
  * @license MIT
  * @see https://github.com/attogram/ote
  */
@@ -33,7 +33,7 @@ class Repository
      * @return int
      * @throws Exception
      */
-    public function getLanguagesCount()
+    public function getLanguagesCount(): int
     {
         return $this->getCount('language');
     }
@@ -41,7 +41,7 @@ class Repository
     /**
      * @return int
      */
-    public function getDictionaryCount()
+    public function getDictionaryCount(): int
     {
         return 0;
     }
@@ -50,7 +50,7 @@ class Repository
      * @return int
      * @throws Exception
      */
-    public function getWordCount()
+    public function getWordCount(): int
     {
         return $this->getCount('word');
     }
@@ -59,7 +59,7 @@ class Repository
      * @return int
      * @throws Exception
      */
-    public function getCountSlushPile()
+    public function getCountSlushPile(): int
     {
         return $this->getCount('slush_pile');
     }

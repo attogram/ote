@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Attogram\OpenTranslationEngine;
 
 use Attogram\Router\Router;
+use Exception;
 
 use function file_exists;
 use function header;
@@ -17,7 +18,7 @@ use function is_readable;
 class OpenTranslationEngine
 {
     const OTE_NAME    = 'Open Translation Engine';
-    const OTE_VERSION = '2.0.0-alpha.2';
+    const OTE_VERSION = '2.0.0-alpha.3';
 
     /** @var Router - Attogram Router */
     private $router;
@@ -129,21 +130,37 @@ class OpenTranslationEngine
 
     /**
      * @param string $index
-     * @return string
+     * @return mixed
      */
-    public function getData(string $index): string
+    private function getData(string $index)
     {
-        if (!empty($this->data[$index])) {
+        if (isset($this->data[$index])) {
             return $this->data[$index];
         }
 
-        return '';
+        return "?$index?";
     }
 
-    // v1 ---
-
-    public function getSiteUrl()
+    /**
+     * @return string
+     */
+    private function getSiteUrl(): string
     {
-        return '';
+        return $this->router->getCurrentFull();
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function home()
+    {
+        $this->data['headline']        = self::OTE_NAME . ' v' . self::OTE_VERSION;
+        $this->data['subhead']         = 'a collaborative translation dictionary';
+        $this->data['languageCount']   = (string) $this->repository->getLanguagesCount()  ?? '?';
+        $this->data['dictionaryCount'] = (string) $this->repository->getDictionaryCount() ?? '?';
+        $this->data['wordCount']       = (string) $this->repository->getWordCount()       ?? '?';
+        $this->data['slushPileCount']  = (string) $this->repository->getCountSlushPile()  ?? '?';
+        $this->data['userCount']       = '?';
+        $this->data['eventCount']      = '?';
     }
 }

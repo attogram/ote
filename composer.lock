@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "attogram/database",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/attogram/database.git",
-                "reference": "04411d3178fba2c8a2ddc7df73226af11813a669"
+                "reference": "f96d9510658c6c1ceb1d6fe9fb403a7217aee7a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/attogram/database/zipball/04411d3178fba2c8a2ddc7df73226af11813a669",
-                "reference": "04411d3178fba2c8a2ddc7df73226af11813a669",
+                "url": "https://api.github.com/repos/attogram/database/zipball/f96d9510658c6c1ceb1d6fe9fb403a7217aee7a6",
+                "reference": "f96d9510658c6c1ceb1d6fe9fb403a7217aee7a6",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
             ],
             "description": "PHP access to SQLite databases.",
             "homepage": "https://github.com/attogram/database",
-            "time": "2019-05-26T20:53:55+00:00"
+            "time": "2019-05-27T09:30:42+00:00"
         },
         {
             "name": "attogram/router",
