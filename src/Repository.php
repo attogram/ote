@@ -1,6 +1,6 @@
 <?php
 /**
- * Open Translation Engine
+ * Open Translation Engine v2
  * Repository
  *
  * @license MIT
@@ -40,10 +40,15 @@ class Repository
 
     /**
      * @return int
+     * @throws Exception
      */
     public function getDictionaryCount(): int
     {
-        return 0;
+        return count(
+            $this->database->query(
+                'SELECT distinct sl, tl FROM word2word WHERE sl != tl'
+            )
+        );
     }
 
     /**
@@ -76,6 +81,61 @@ class Repository
         return !empty($count[0]['count'])
             ? (int) $count[0]['count']
             : 0;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function getLanguages(): array
+    {
+        return $this->database->query('SELECT * FROM language');
+    }
+
+    /**
+     * @param int $languageId
+     * @return int
+     * @throws Exception
+     */
+    public function getDictionaryCountForLanguage(int $languageId): int
+    {
+        $count = $this->database->query(
+            'SELECT count(distinct id) as count FROM word2word
+                WHERE sl = :languageId OR tl = :languageId',
+            ['languageId' => $languageId]
+        );
+
+        return (int) $count[0]['count'];
+    }
+
+    /**
+     * @param int $languageId
+     * @return int
+     * @throws Exception
+     */
+    public function getWordCountForLanguage(int $languageId): int
+    {
+        $count = $this->database->query(
+            'SELECT count(distinct sw) AS count FROM word2word WHERE sl = :languageId',
+            ['languageId' => $languageId]
+        );
+
+        return (int) $count[0]['count'];
+    }
+
+    /**
+     * @param int $languageId
+     * @return int
+     * @throws Exception
+     */
+    public function getTranslationCountForLanguage(int $languageId): int
+    {
+        $count = $this->database->query(
+            'SELECT count(sw) AS count FROM word2word WHERE sl = :languageId',
+            ['languageId' => $languageId]
+        );
+
+        return (int) $count[0]['count'];
     }
 
     /**

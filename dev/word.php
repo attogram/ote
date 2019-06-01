@@ -104,13 +104,13 @@ if ($_POST) {
             . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'
               . '<strong>Error adding translation</strong>: missing required word and/or languages</div>';
     } else {
-        $items = array(
+        $items = [
             'type' => $type,
             'source_word' => $sourceWord,
             'target_word' => $targetWord,
             'source_language_code' => $sourceLanguageCode,
             'target_language_code' => $targetLanguageCode
-        );
+        ];
         if ($ote->addToSlushPile($items)) {
             print '<div class="alert alert-success">'
                 . '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'

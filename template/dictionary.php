@@ -1,33 +1,19 @@
 <?php
-// Open Translation Engine - Dictionary Page v0.3.3
+/**
+ * Open Translation Engine v2
+ * List of Dictionaries Template
+ *
+ * @license MIT
+ * @see https://github.com/attogram/ote
+ *
+ * @var OpenTranslationEngine $this
+ */
+use Attogram\OpenTranslationEngine\OpenTranslationEngine;
+
+?>
+<h1>📚 <?= $this->getData('dictionaryCount'); ?> Dictionaries</h1>
+<?php
 /*
- OTE Dictionary Page
-
- Requires config setup:
-   $config['depth']['dictionary'] = 3;
-
- URL formats:
-
-  dictionary/source_language_code/target_language_code/
-    all translations, from source language, into target language
-
-  dictionary//target_language_code/
-    all translations, from any language, into target language
-
-  dictionary/source_language_code//
-    all translations, from source language, into any language
-
-  dictionary///
-  dictionary//
-    all translations, from any language, into any language
-
-  dictionary/
-    list all dictionaries
-
-*/
-namespace Attogram;
-
-$ote = new OpenTranslationEngine($this);
 
 $rel_url = $this->path . '/' . urlencode($this->uri[0]) . '/';
 
@@ -100,4 +86,4 @@ foreach ($d as $i) {
 }
 
 print '</p></div>';
-$this->pageFooter();
+*/

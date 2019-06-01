@@ -11,11 +11,11 @@ $this->database->tabler(
     'language', // $nameSingular
     'languages', // $namePlural
     '../languages/', // $publicLink
-    array(// $col
-        array('class'=>'col-md-7', 'title'=>'name', 'key'=>'name'),
-        array('class'=>'col-md-2', 'title'=>'<code>code</code>', 'key'=>'code'),
-        array('class'=>'col-md-2', 'title'=>'<code>ID</code>', 'key'=>'id'),
-    ),
+    [ // $col
+        ['class'=>'col-md-7', 'title'=>'name', 'key'=>'name'],
+        ['class'=>'col-md-2', 'title'=>'<code>code</code>', 'key'=>'code'],
+        ['class'=>'col-md-2', 'title'=>'<code>ID</code>', 'key'=>'id'],
+    ],
     'SELECT name, code, id FROM language ORDER BY id', // $sql
     '../languages-admin/', // $adminLink
     true, // $showEdit

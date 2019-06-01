@@ -49,7 +49,7 @@ AND   first_w2w.sl != second_w2w.tl -- no self ref
 AND   first_w2w.tl = :j              -- JOIN_1_LANG
 ';
 
-$bind = array('j', $join_language_id);
+$bind = ['j', $join_language_id];
 $r = @$this->database->query($sql, $bind);
 // Warning: PDOStatement::bindParam(): SQLSTATE[HY093]: Invalid parameter number: Columns/Parameters are 1-based in .\public\index.php on line 86
 
@@ -69,7 +69,7 @@ print '<div class="container">'
 . '<code><a href="?j=' . $join_language_id . '">' . $join_lang_code . '</a></code>'
 . '<p><code>' . sizeof($r) . '</code> possible 3rd level translations:</p>';
 
-$cleaned_r = array();
+$cleaned_r = [];
 foreach ($r as $p) {
     $test = $ote->get_word2word(
         $p['FIRST_WORD_ID'],

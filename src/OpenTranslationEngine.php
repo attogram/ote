@@ -1,6 +1,8 @@
 <?php
 /**
- * Open Translation Engine
+ * Open Translation Engine v2
+ * Controller
+ *
  * @license MIT
  * @see https://github.com/attogram/ote
  */
@@ -11,23 +13,21 @@ namespace Attogram\OpenTranslationEngine;
 use Attogram\Router\Router;
 use Exception;
 
-use function file_exists;
 use function header;
-use function is_readable;
 
 class OpenTranslationEngine
 {
+    use TemplateTrait;
+
     const OTE_NAME    = 'Open Translation Engine';
-    const OTE_VERSION = '2.0.0-alpha.3';
+    const OTE_VERSION = '2.0.0-alpha.4';
+    const OTE_REPO    = 'https://github.com/attogram/ote';
 
     /** @var Router - Attogram Router */
     private $router;
 
     /** @var Repository - access to Translation Database */
     private $repository;
-
-    /** @var array - Template Data */
-    private $data = [];
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ class OpenTranslationEngine
         $this->router->setForceSlash(true);
         $this->setPublicRoutes();
         $this->setAdminRoutes();
-        /** @var string $control */
+        /** @var string|null $control */
         $control = $this->router->match();
         if (!$control) {
             $this->pageNotFound();
@@ -48,10 +48,10 @@ class OpenTranslationEngine
             return;
         }
         if (method_exists($this, $control)) {
-            $this->{$control}();
+            $this->{$control}(); // call the function for this control
         }
         $this->pageHeader();
-        $this->includeTemplate($control);
+        $this->includeTemplate($control); // include the template for this control
         $this->pageFooter();
     }
 
@@ -60,12 +60,13 @@ class OpenTranslationEngine
         $this->router->allow('/', 'home');
         $this->router->allow('/languages/', 'languages');
         $this->router->allow('/dictionary/', 'dictionary');
+        $this->router->allow('/dictionary/?/', 'dictionary');
+        $this->router->allow('/dictionary/?/?/', 'dictionary');
         $this->router->allow('/word/', 'word');
         $this->router->allow('/slush_pile/', 'slush_pile');
         $this->router->allow('/search/', 'search');
         $this->router->allow('/export/', 'export');
         $this->router->allow('/history/', 'history');
-        $this->router->allow('/readme/', 'readme');
     }
 
     private function setAdminRoutes()
@@ -75,10 +76,6 @@ class OpenTranslationEngine
         $this->router->allow('/tags-admin/',      'tags-admin');
         $this->router->allow('/events/',          'events');
         $this->router->allow('/info/',            'info');
-        $this->router->allow('/db-admin/',        'db-admin');
-        $this->router->allow('/db-tables/',       'db-tables');
-        $this->router->allow('/find_3rd_level/',  'find_3rd_level');
-        $this->router->allow('/check.php',        'check.php');
     }
 
     /**
@@ -93,14 +90,15 @@ class OpenTranslationEngine
     }
 
     /**
-     * @param string $title (optional)
+     * @param string|null $title (optional)
      */
     private function pageHeader(string $title = '')
     {
         if (!$title) {
-            $title = OpenTranslationEngine::OTE_NAME . ' v' . OpenTranslationEngine::OTE_VERSION;
+            $title = self::OTE_NAME . ' v' . self::OTE_VERSION;
         }
         $this->data['title'] = $title;
+        $this->data['repo'] = self::OTE_REPO;
         $this->data['webHome'] = $this->router->getHome();
         $this->includeTemplate('header');
     }
@@ -108,37 +106,6 @@ class OpenTranslationEngine
     private function pageFooter()
     {
         $this->includeTemplate('footer');
-    }
-
-    /**
-     * @param string $control
-     */
-    private function includeTemplate(string $control)
-    {
-        $template = __DIR__ . '/../template/' . $control . '.php';
-        if (file_exists($template) && is_readable($template)) {
-            /** @noinspection PhpIncludeInspection */
-            include $template;
-
-            return;
-        }
-
-        print 'Template [' . $control . '] Not Found';
-
-        return;
-    }
-
-    /**
-     * @param string $index
-     * @return mixed
-     */
-    private function getData(string $index)
-    {
-        if (isset($this->data[$index])) {
-            return $this->data[$index];
-        }
-
-        return "?$index?";
     }
 
     /**
@@ -156,11 +123,56 @@ class OpenTranslationEngine
     {
         $this->data['headline']        = self::OTE_NAME . ' v' . self::OTE_VERSION;
         $this->data['subhead']         = 'a collaborative translation dictionary';
-        $this->data['languageCount']   = (string) $this->repository->getLanguagesCount()  ?? '?';
-        $this->data['dictionaryCount'] = (string) $this->repository->getDictionaryCount() ?? '?';
-        $this->data['wordCount']       = (string) $this->repository->getWordCount()       ?? '?';
-        $this->data['slushPileCount']  = (string) $this->repository->getCountSlushPile()  ?? '?';
-        $this->data['userCount']       = '?';
-        $this->data['eventCount']      = '?';
+        $this->data['languageCount']   = $this->repository->getLanguagesCount();
+        $this->data['dictionaryCount'] = $this->repository->getDictionaryCount();
+        $this->data['wordCount']       = $this->repository->getWordCount();
+        $this->data['slushPileCount']  = $this->repository->getCountSlushPile();
+        $this->data['userCount']       = 0;
+        $this->data['eventCount']      = 0;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function languages()
+    {
+        $this->data['languageCount'] = (string) $this->repository->getLanguagesCount();
+        $this->data['languages']= $this->repository->getLanguages();
+        foreach ($this->data['languages'] as $index => $language) {
+            $languageId = (int) $language['id'];
+            $this->data['languages'][$index]['dictionaryCount']
+                = $this->repository->getDictionaryCountForLanguage($languageId);
+            $this->data['languages'][$index]['wordCount']
+                = $this->repository->getWordCountForLanguage($languageId);
+            $this->data['languages'][$index]['translationCount']
+                = $this->repository->getTranslationCountForLanguage($languageId);
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function dictionary()
+    {
+        /*
+         URL formats:
+
+          dictionary/source_language_code/target_language_code/
+            all translations, from source language, into target language
+
+          dictionary//target_language_code/
+            all translations, from any language, into target language
+
+          dictionary/source_language_code//
+            all translations, from source language, into any language
+
+          dictionary///
+          dictionary//
+            all translations, from any language, into any language
+
+          dictionary/
+            list all dictionaries
+        */
+        $this->data['dictionaryCount'] = $this->repository->getDictionaryCount();
     }
 }

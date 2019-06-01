@@ -13,10 +13,10 @@ $this->database->tabler(
     'tag',      // $nameSingular
     'tags',     // $namePlural
     '../tags/', // $publicLink
-    array(     // $col
-        array('class'=>'col-md-6', 'title'=>'name', 'key'=>'name'),
-        array('class'=>'col-md-6', 'title'=>'code', 'key'=>'code'),
-    ),
+    [     // $col
+        ['class'=>'col-md-6', 'title'=>'name', 'key'=>'name'],
+        ['class'=>'col-md-6', 'title'=>'code', 'key'=>'code'],
+    ],
     'SELECT id, code, name FROM tag ORDER BY name', // $sql
     '../tags-admin/', // $adminLink
     false, // $showEdit

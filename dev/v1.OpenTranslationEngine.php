@@ -31,7 +31,7 @@ class V1OpenTranslationEngine
     {
 //        $result = $this->attogram->database->queryb(
 //            'INSERT INTO language (code, name) VALUES (:code, :name)',
-//            array('code' => $code, 'name' => $name)
+//            ['code' => $code, 'name' => $name]
 //        );
 //        if (!$result) {
             return 0;
@@ -52,13 +52,13 @@ class V1OpenTranslationEngine
         if (isset($this->languages) && is_array($this->languages)) {
             return $this->languages;
         }
-        $this->languages = array();
+        $this->languages = [];
 //        $result = $this->attogram->database->query('SELECT id, code, name FROM language ORDER by ' . $orderby);
 //        if (!$result) {
             return $this->languages;
 //        }
 //        foreach ($result as $lang) {
-//            $this->languages[$lang['code']] = array('id' => $lang['id'], 'name' => $lang['name']);
+//            $this->languages[$lang['code']] = ['id' => $lang['id'], 'name' => $lang['name']];
 //        }
     }
 
@@ -184,14 +184,14 @@ class V1OpenTranslationEngine
 //            return $this->dictionaryList[$lcode];
 //        }
 //        $sql = 'SELECT DISTINCT sl, tl FROM word2word';
-//        $bind = array();
+//        $bind = [];
 //        if ($lcode) {
 //            $sql .= ' WHERE (sl = :sl) OR (tl = :sl)';
 //            $bind['sl'] = $this->getLanguageIdFromCode($lcode);
 //        }
 //        $result = $this->attogram->database->query($sql, $bind);
 //        $langs = $this->getLanguages();
-//        $dlist = array();
+//        $dlist = [];
 //        foreach ($result as $dictionary) {
 //            $sourceLanguageCode = $this->getLanguageCodeFromId($dictionary['sl']); // Source Language Code
 //            $targetLanguageCode = $this->getLanguageCodeFromId($dictionary['tl']); // Target Language Code
@@ -227,7 +227,7 @@ class V1OpenTranslationEngine
     {
 //        $result = $this->attogram->database->queryb(
 //            'INSERT INTO word (word) VALUES (:word)',
-//            array('word' => $word)
+//            ['word' => $word]
 //        );
 //        if (!$result) {
 //            return 0;
@@ -246,7 +246,7 @@ class V1OpenTranslationEngine
     {
 //        $result = $this->attogram->database->query(
 //            'SELECT id FROM word WHERE word = :word LIMIT 1',
-//            array('word '=> $word)
+//            ['word '=> $word]
 //        );
 //        if (!$result || !isset($result[0]) || !isset($result[0]['id'])) {
 //            return $this->insertWord($word);
@@ -269,7 +269,7 @@ class V1OpenTranslationEngine
         $sourceLanguageId = 0,
         $targetLanguageId = 0
     ) {
-//        $bind = array();
+//        $bind = [];
 //        $select = 'SELECT distinct word FROM word'; // No Source Language, No Target Language
 //        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
 //            $select .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
@@ -292,7 +292,7 @@ class V1OpenTranslationEngine
 //            $limit = "LIMIT $limit";
 //        }
 //        if (!$limit && $offset) {
-//            return array();
+//            return [];
 //        }
 //        return $this->attogram->database->query("$select $order $limit", $bind);
 
@@ -307,7 +307,7 @@ class V1OpenTranslationEngine
      */
     public function getWordCount($sourceLanguageId = 0, $targetLanguageId = 0)
     {
-//        $bind = array();
+//        $bind = [];
 //        $sql = 'SELECT count(DISTINCT word.word) AS count FROM word'; // No Source Language, No Target Language
 //        if ($sourceLanguageId && !$targetLanguageId) { // Yes Source Language, No Target Language
 //            $sql .= ', word2word WHERE word2word.sl = :sl AND word2word.sw = word.id';
@@ -342,7 +342,7 @@ class V1OpenTranslationEngine
         $targetWordId,
         $targetLanguageId
     ) {
-//        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
+//        $bind = ['sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId];
 //        $result = $this->attogram->database->queryb('INSERT INTO word2word (sw, sl, tw, tl) VALUES (:sw, :sl, :tw, :tl)', $bind);
 //        if ($result) {
 //            $insertId = $this->attogram->database->database->lastInsertId();
@@ -368,7 +368,7 @@ class V1OpenTranslationEngine
         $targetWordId,
         $targetLanguageId
     ) {
-//        $bind = array('sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId);
+//        $bind = ['sw'=>$sourceWordId, 'sl'=>$sourceLanguageId, 'tw'=>$targetWordId, 'tl'=>$targetLanguageId];
 //        $result = $this->attogram->database->query('SELECT sw FROM word2word WHERE sw=:sw AND sl=:sl AND tw=:tw AND tl=:tl', $bind);
 //        if ($result) {
 //            return true;
@@ -393,7 +393,7 @@ class V1OpenTranslationEngine
 //        $select = 'sw.word AS s_word, tw.word AS t_word, sl.code AS sc, tl.code AS tc, sl.name AS sn, tl.name AS tn';
 //        $order = 'ORDER BY sw.word COLLATE NOCASE, sl.name COLLATE NOCASE, tl.name COLLATE NOCASE, tw.word COLLATE NOCASE';
 //        $lang = '';
-//        $bind = array();
+//        $bind = [];
 //        if ($sourceLanguageId && $targetLanguageId) {
 //            $lang = 'AND ww.sl = :sl AND ww.tl = :tl';
 //            $bind['sl'] = $sourceLanguageId;
@@ -411,7 +411,7 @@ class V1OpenTranslationEngine
 //        } elseif ($limit && !$offset) {
 //            $limitClause = "LIMIT $limit";
 //        } elseif (!$limit && $offset) {
-//            return array();
+//            return [];
 //        }
 //        $sql = "SELECT $select
 //        FROM word2word AS ww, word AS sw, word AS tw, language AS sl, language AS tl
@@ -433,7 +433,7 @@ class V1OpenTranslationEngine
         $targetLanguageId = 0
     ) {
 //        $lang = '';
-//        $bind = array();
+//        $bind = [];
 //        if ($sourceLanguageId && $targetLanguageId) {
 //            $lang = 'WHERE sl = :sl AND tl = :tl';
 //            $bind['sl'] = $sourceLanguageId;
@@ -580,14 +580,14 @@ class V1OpenTranslationEngine
         if (!$targetLanguageId || !is_int($targetLanguageId)) {
             $targetLanguageId = 0;
         }
-        $bind = array('word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now);
+        $bind = ['word' => $word, 'sl' => $sourceLanguageId, 'tl' => $targetLanguageId, 'date' => $now];
         $resultid = $this->attogram->database->query('SELECT id FROM history WHERE word = :word AND date = :date AND sl = :sl AND tl = :tl', $bind);
         if (!$resultid) { // insert new history entry for this date
             return $this->attogram->database->queryb('INSERT INTO history (word, sl, tl, date, count) VALUES (:word, :sl, :tl, :date, 1)', $bind);
         }
         return $this->attogram->database->queryb(// update count
             'UPDATE history SET count = count + 1 WHERE id = :id',
-            array('id' => $resultid[0]['id'])
+            ['id' => $resultid[0]['id']]
         );
     }
 
@@ -765,7 +765,7 @@ class V1OpenTranslationEngine
      * @param array $items  List of name=value pairs
      * @return bool
      */
-    public function addToSlushPile(array $items = array())
+    public function addToSlushPile(array $items = [])
     {
         if (!$items) {
             return false;
@@ -787,11 +787,11 @@ class V1OpenTranslationEngine
     public function deleteFromSlushPile($slushId)
     {
         // does slush pile entry exist?
-        if (!$this->attogram->database->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', array('id' => $slushId))) {
+        if (!$this->attogram->database->query('SELECT id FROM slush_pile WHERE id = :id LIMIT 1', ['id' => $slushId])) {
             $_SESSION['error'] = 'Slush Pile entry not found (ID: ' . $this->attogram->webDisplay($slushId) . ')';
             return false;
         }
-        if ($this->attogram->database->queryb('DELETE FROM slush_pile WHERE id = :id', array('id' => $slushId))) {
+        if ($this->attogram->database->queryb('DELETE FROM slush_pile WHERE id = :id', ['id' => $slushId])) {
             return true;
         }
         $_SESSION['error'] = 'Unable to delete Slush Pile entry (ID: ' . $this->attogram->webDisplay($slushId) . ')';
@@ -807,7 +807,7 @@ class V1OpenTranslationEngine
     {
         $spe = $this->attogram->database->query(// get slush_pile entry
             'SELECT * FROM slush_pile WHERE id = :id LIMIT 1',
-            array('id' => $slushId)
+            ['id' => $slushId]
         );
         if (!$spe) {
             $_SESSION['error'] = 'Can not find requested slush pile entry';
