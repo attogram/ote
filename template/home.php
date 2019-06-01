@@ -3,8 +3,8 @@
  * Open Translation Engine v2
  * Home Template
  *
- * @license MIT
  * @see https://github.com/attogram/ote
+ * @license MIT
  *
  * @var OpenTranslationEngine $this
  */

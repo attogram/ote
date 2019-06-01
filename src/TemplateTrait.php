@@ -3,8 +3,8 @@
  * Open Translation Engine v2
  * Template Trait
  *
- * @license MIT
  * @see https://github.com/attogram/ote
+ * @license MIT
  */
 declare(strict_types = 1);
 
@@ -42,11 +42,9 @@ trait TemplateTrait
      */
     public function getData(string $index)
     {
-        if (isset($this->data[$index])) {
-            return $this->data[$index];
-        }
-
-        return '?';
+        return isset($this->data[$index])
+            ? $this->data[$index]
+            : '?';
     }
 
     /**
@@ -55,11 +53,9 @@ trait TemplateTrait
      */
     public function getDataInt(string $index): int
     {
-        if (isset($this->data[$index])) {
-            return (int) $this->data[$index];
-        }
-
-        return 0;
+        return isset($this->data[$index])
+            ? (int) $this->data[$index]
+            : 0;
     }
 
     /**
@@ -68,10 +64,8 @@ trait TemplateTrait
      */
     public function getDataArray(string $index): array
     {
-        if (isset($this->data[$index]) && is_array($this->data[$index])) {
-            return $this->data[$index];
-        }
-
-        return [];
+        return (isset($this->data[$index]) && is_array($this->data[$index]))
+            ? $this->data[$index]
+            : [];
     }
 }

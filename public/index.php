@@ -1,4 +1,11 @@
 <?php
+/**
+ * Open Translation Engine v2
+ * Public Index File
+ *
+ * @see https://github.com/attogram/ote
+ * @license MIT
+ */
 declare(strict_types = 1);
 
 namespace Attogram\OpenTranslationEngine;
