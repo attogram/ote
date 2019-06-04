@@ -23,7 +23,7 @@ class OpenTranslationEngine
     use TemplateTrait;
 
     const OTE_NAME    = 'Open Translation Engine';
-    const OTE_VERSION = '2.0.0-alpha.5';
+    const OTE_VERSION = '2.0.0-alpha.6';
     const OTE_REPO    = 'https://github.com/attogram/ote';
 
     /** @var Router - Attogram Router */
@@ -166,5 +166,12 @@ class OpenTranslationEngine
         $this->data['targetLanguage']  = $this->router->getVar(1) ?? '';
         $this->data['dictionaries']    = $this->repository->getDictionaries();
         $this->data['dictionaryCount'] = count($this->data['dictionaries']);
+
+        foreach ($this->data['dictionaries'] as $index => $dictionary) {
+            $sourceLanguageId = $dictionary['sl'] ?? 0;
+            $targetLanugageId = $dictionary['tl'] ?? 0;
+
+            print "<br >-- index:$index sourceLanguageId:$sourceLanguageId targetLanguageId:$targetLanugageId";
+        }
     }
 }

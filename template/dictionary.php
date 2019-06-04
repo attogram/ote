@@ -19,5 +19,5 @@ use Attogram\OpenTranslationEngine\OpenTranslationEngine;
 <?php
 
 foreach ($this->getDataArray('dictionaries') as $index => $dictionary) {
-    print "<hr>index:$index dictionary:" . print_r($dictionary, true);
+    print "<br>* index:$index dictionary:" . print_r($dictionary, true);
 }

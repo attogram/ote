@@ -18,6 +18,12 @@ class Repository
     /** @var Database - Attogram Database */
     private $database;
 
+    /** @var array */
+    private $languages = [];
+
+    /** @var array */
+    private $dictionaries = [];
+
     /**
      * Repository constructor.
      * @throws Exception
@@ -44,23 +50,11 @@ class Repository
      */
     public function getDictionaries(): array
     {
-        return $this->database->query(
-            'SELECT distinct sl, tl FROM word2word WHERE sl != tl'
-        );
-    }
+        if (empty($this->dictionaries)) {
+            $this->dictionaries = $this->database->query('SELECT distinct sl, tl FROM word2word WHERE sl != tl');
+        }
 
-    /**
-     * @param string $table
-     * @param string $id
-     * @return int
-     * @throws Exception
-     */
-    public function getCount(string $table, string $id = 'id'): int
-    {
-        $count = $this->database->query("SELECT COUNT($id) AS count FROM $table");
-        return !empty($count[0]['count'])
-            ? (int) $count[0]['count']
-            : 0;
+        return $this->dictionaries;
     }
 
     /**
@@ -69,7 +63,20 @@ class Repository
      */
     public function getLanguages(): array
     {
-        return $this->database->query('SELECT * FROM language');
+        if (empty($this->languages)) {
+            $this->languages = $this->database->query('SELECT * FROM language');
+        }
+
+        return $this->languages;
+    }
+
+    /**
+     * @param int $languageId
+     * @return string
+     */
+    public function getLanguageNameFromId(int $languageId): string
+    {
+        return 'DEV';
     }
 
     /**
@@ -115,6 +122,20 @@ class Repository
         );
 
         return (int) $count[0]['count'];
+    }
+
+    /**
+     * @param string $table
+     * @param string $id
+     * @return int
+     * @throws Exception
+     */
+    public function getCount(string $table, string $id = 'id'): int
+    {
+        $count = $this->database->query("SELECT COUNT($id) AS count FROM $table");
+        return !empty($count[0]['count'])
+            ? (int) $count[0]['count']
+            : 0;
     }
 
     /**
