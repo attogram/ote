@@ -1,4 +1,35 @@
-/* Open Translation Engine - CSS v0.0.3 */
-a:hover { background-color:#ff9; color:#000; }
-a:active { background-color:#ff0; color:#000; }
-.pair { color:inherit; font-size:20px; }
+body {
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, h5 {
+    font-weight: normal;
+    margin: 5px;
+}
+h2 {
+    font-style: italic;
+    font-size: 90%;
+}
+a {
+    text-decoration: none;
+}
+a:active, a:hover {
+    background-color: yellow;
+    color: black
+}
+.pair {
+    color:inherit;
+    font-size:20px;
+}
+.header {
+    background-color: lightgreen;
+    border: 1px solid black;
+    font-family: sans-serif;
+    padding: 5px;
+}
+footer {
+    border: 1px solid grey;
+    font-family: monospace;
+    margin: 20px 0 20px 0;
+    white-space: pre;
+}

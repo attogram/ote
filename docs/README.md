@@ -1,6 +1,17 @@
+Open Translation Engine (OTE) - a collaborative translation dictionary manager. 
+
+## Active Development 2019
+* The new **OTE v2** branch is: <https://github.com/attogram/ote/tree/v2>
+* License: MIT
+
+## Older versions
+
+* **OTE v0 stable** branch is available at: <https://github.com/attogram/ote/tree/v0.9.9>
+* OTE v1 attogram framework branch is available at: <https://github.com/attogram/ote/tree/master>
+
 # Open Translation Engine INSTALLATIONS
 
-Known installations of the Open Translation Engine, as of 2016-07-12:
+Known installations of the Open Translation Engine:
 
 ## <http://ote.2meta.com/>
 
