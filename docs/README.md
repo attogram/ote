@@ -63,4 +63,7 @@ Known installations of the Open Translation Engine:
 
 Multilingual Online Resources for Minority Languages of a Campus Community
 * Nur Asmaa Adila Mohamad et al. / Procedia - Social and Behavioral Sciences 27 ( 2011 ) 291 – 298
-* <https://www.sciencedirect.com/science/article/pii/S1877042811024372/pdf?md5=939bb1c6922275f190176019dea17891&isDTMRedir=Y&pid=1-s2.0-S1877042811024372-main.pdf>
+* <https://www.sciencedirect.com/science/article/pii/S1877042811024372>
+* <https://doi.org/10.1016/j.sbspro.2011.10.610>
+* "In developing this prototype multilingual dictionary, the available features in OTE 0.9.8 are of great
+   help to get started. At the same time there are some weaknesses that can be improved ..."
