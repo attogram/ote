@@ -5,7 +5,7 @@ The Open Translation Engine (OTE) is a collaborative translation dictionary mana
 Live Demos:
 
 * Dutch / English - <https://ote.2meta.com/>
-* Indo-European / English - <http://indo-european.info/dictionary-translator/>
+* Indo-European / English - <https://indo-european.info/dictionary-translator/>
 
 Dictionaries:
 
