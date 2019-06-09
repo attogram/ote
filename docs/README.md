@@ -15,9 +15,17 @@ A new release is planned for the end of 2019.
 
 ## Older versions
 
-* **OTE v0 stable** branch is available at: <https://github.com/attogram/ote/tree/v0.9.9>
+The last stable release is **OTE v0.9.9**:
 
-* OTE v1 attogram framework branch is available at: <https://github.com/attogram/ote/tree/v1>
+* v0.9.9 branch: <https://github.com/attogram/ote/tree/v0.9.9>
+
+OTE Version 1 was a test of OTE with the Attogram Framework.  No further development is planned for v1.
+
+* v1 branch: <https://github.com/attogram/ote/tree/v1>
+
+## Screenshots
+
+* Version 1 tests: https://github.com/attogram/attogram-docs/tree/master/open-translation-engine
 
 ## Open Translation Engine INSTALLATIONS
 
