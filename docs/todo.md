@@ -4,16 +4,17 @@ OTE V2 Planning:
 
 - [ ] Architecture
 
-  - [ ] Laravel 5.8
-  - [ ] PHP >= 7.1.3
+  - [X] Laravel 5.8
+  - [X] PHP >= 7.1.3
   - [ ] Database support: MySQL, MariaDB, PostgresSQL, SQLite, or SQL Server
   
 - [ ] Feature List
 
   - [ ] General Features
 
+    - [ ] Anonymous use
     - [ ] User Authentication
-    - [ ] User Levels: anonymous, user, editor, admin
+    - [ ] User Levels: user, editor, admin
 
   - [ ] Public Features
 
