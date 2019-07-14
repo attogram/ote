@@ -10,45 +10,44 @@ class LanguageTableSeeder extends Seeder
     public function run()
     {
         $languages = [
-            [ 1, 'English',             'eng'], //
-            [ 2, 'Dutch',               'nld'], // Nederlands
-            [ 3, 'German',              'deu'], // Deutsch
-            [ 4, 'French',              'fre'], // Français
-            [ 5, 'Spanish',             'spa'], // Español
-            [ 6, 'Italian',             'ita'], // Italiano
-            [ 7, 'Portugese',           'por'], // Português
-            [ 8, 'Russian',             'rus'], // Pусский
-            [ 9, 'Ukranian',            'ukr'], // Yкраїнська
-            [10, 'Japanese',            'jpn'], // 日本語
-            [11, 'Indonesian',          'ind'], // Bahasa Indonesia
-            [12, 'Batak',               'btk'], // Toba–Batak
-            [13, 'Hindi',               'hin'], // हिन्दी
-            [14, 'Tagalog',             'tgl'], // 
-            [15, 'Filipino',            'fil'], // Filipino 
-            [16, 'Latin',               'lat'], // Latīna
-            [17, 'Proto-Indo-European', 'ine'], //
-            [18, 'Ancient-Greek',       'grc'], // Ἑλληνική
-            [19, 'Modern-Greek',        'ell'], // Νέα Ελληνικά
-            [20, 'Mandarin-Chinese',    'cmn'], // 官话
-            [21, 'Cantonese-Chinese',   'yue'], // 廣東話
-            [22, 'Minnan-Chinese',      'nan'], // 閩南語
-            [23, 'Esperanto',           'epo'], // Esperanto
-            [24, 'Interlingua',         'ina'], // Interlingua
-            [25, 'Interglossa',         'igs'], // Interglossa
-            [26, 'Volapük',             'vol'], // Volapük
-            [27, 'Lojban',              'jbo'], // .lojban.
-            [28, 'Klingon',             'tlh'], // tlhIngan Hol
-            [29, 'International-Sign',  'ils'], // 
-            [30, 'American-Sign',       'ase'], // 
-            [31, 'Emoji',               'emo'], //
+            [ 1, 'eng', 'English',       'English'], 
+            [ 2, 'nld', 'Dutch',         'Nederlands'], 
+            [ 3, 'deu', 'German',        'Deutsch'], 
+            [ 4, 'fre', 'French',        'Français'], 
+            [ 5, 'spa', 'Spanish',       'Español'], 
+            [ 6, 'ita', 'Italian',       'Italiano'],
+            [ 7, 'por', 'Portugese',     'Português'],
+            [ 8, 'rus', 'Russian',       'Pусский'],
+            [ 9, 'ukr', 'Ukranian',      'Yкраїнська'],
+            [10, 'jpn', 'Japanese',      '日本語'],
+            [11, 'ind', 'Indonesian',    'Bahasa Indonesia'],
+            [12, 'btk', 'Batak',         'Toba Batak'], 
+            [13, 'hin', 'Hindi',         'हिन्दी'], 
+            [14, 'tgl', 'Tagalog',       'Tagalog'], 
+            [15, 'fil', 'Filipino',      'Filipino'],  
+            [16, 'lat', 'Latin',         'Latīna'],  
+            [17, 'ine', 'Proto-Indo-European', 'Proto-Indo-European'], 
+            [18, 'grc', 'Ancient Greek', 'Ἑλληνική'],
+            [19, 'ell', 'Modern Greek',  'Νέα Ελληνικά'],
+            [20, 'cmn', 'Mandarin',      '官话'],
+            [21, 'yue', 'Cantonese',     '廣東話'],
+            [22, 'nan', 'Minnan',        '閩南語'],
+            [23, 'epo', 'Esperanto',     'Esperanto'],
+            [24, 'ina', 'Interlingua',   'Interlingua'],
+            [25, 'igs', 'Interglossa',   'Interglossa'],
+            [26, 'vol', 'Volapük',       'Volapük'],
+            [27, 'jbo', 'Lojban',        'lojban'],
+            [28, 'tlh', 'Klingon',       'tlhIngan Hol'],
+            [31, 'emo', 'Emoji',         '😃'],
         ];
         foreach ($languages as $language) {
             DB::table('language')->insert(
                 [
-                    'id'     => $language[0],
-                    'name'   => $language[1], 
-                    'code'   => $language[2], 
-                    'status' => 1
+                    'id'        => $language[0],
+                    'code'      => $language[1], 
+                    'name'      => $language[2], 
+                    'name_self' => $language[3], 
+                    'status'    => 1
                 ]
             );
         }

@@ -19,9 +19,11 @@ class Language extends Migration
                 $table->integer('status')
                     ->default(0)
                     ->signed();
+                $table->string('code')
+                    ->unique();
                 $table->string('name')
                     ->unique();
-                $table->string('code')
+                $table->string('name_self')
                     ->unique();
             }
         );
