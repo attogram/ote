@@ -52,5 +52,6 @@ class LanguageTableSeeder extends Seeder
                 ]
             );
         }
+        DatabaseSeeder::log('Language Table Seeder: +' . count($languages));
     }
 }

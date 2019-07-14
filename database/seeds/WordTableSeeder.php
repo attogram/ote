@@ -30,5 +30,6 @@ class WordTableSeeder extends Seeder
                 ]
             );
         }
+        DatabaseSeeder::log('Word Table Seeder: +' . count($words));
     }
 }

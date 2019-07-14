@@ -15,4 +15,17 @@ class DatabaseSeeder extends Seeder
         $this->call(WordTableSeeder::class);
         $this->call(TagTableSeeder::class);
     }
+
+    /**
+     * @param string $message
+     */
+    public static function log(string $message)
+    {
+        DB::table('log')->insert(
+            [
+                'event'   => $message,
+                'user_id' => 0,
+            ]
+        );
+    }
 }

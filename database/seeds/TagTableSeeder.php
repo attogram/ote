@@ -75,8 +75,8 @@ class TagTableSeeder extends Seeder
             [802, 'adposition-postposition',   800],
             [803, 'adposition-circumposition', 800],
             [804, 'adposition-inposition',     800],
-            [804, 'adposition-simple',         800],
-            [804, 'adposition-complex',        800],
+            [805, 'adposition-simple',         800],
+            [806, 'adposition-complex',        800],
 
             [900, 'expletive', 0],
             [901, 'particle', 0],
@@ -116,11 +116,11 @@ class TagTableSeeder extends Seeder
 
             [1300, 'gender',              0],
             [1301, 'gender-masculine', 1300],
-            [1301, 'gender-feminine',  1300],
-            [1301, 'gender-neutral',   1300],
-            [1301, 'gender-animate',   1300],
-            [1301, 'gender-inanimate', 1300],
-            [1301, 'gender-common',    1300],
+            [1302, 'gender-feminine',  1300],
+            [1303, 'gender-neutral',   1300],
+            [1304, 'gender-animate',   1300],
+            [1305, 'gender-inanimate', 1300],
+            [1306, 'gender-common',    1300],
 
             [1400, 'mood',                  0],
             [1401, 'mood-indicative',    1400],
@@ -146,5 +146,6 @@ class TagTableSeeder extends Seeder
                 ]
             );
         }
+        DatabaseSeeder::log('Tag Table Seeder: +' . count($tags));
     }
 }

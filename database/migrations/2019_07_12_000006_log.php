@@ -16,7 +16,7 @@ class Log extends Migration
             'log', 
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->dateTime('datetime');
+                $table->timestamp('time')->useCurrent();
                 $table->string('event');
                 $table->bigInteger('user_id')
                     ->default(0)
