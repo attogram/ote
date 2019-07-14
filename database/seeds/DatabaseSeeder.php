@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
         $this->call(WordTableSeeder::class);
         $this->call(TagTableSeeder::class);
+        $this->call(LanguageWordTableSeeder::class);
+        $this->call(WordWordTableSeeder::class);
     }
 
     /**
@@ -23,7 +25,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('log')->insert(
             [
-                'event'   => $message,
+                'event'   => 'Table Seeder: ' . $message,
                 'user_id' => 0,
             ]
         );

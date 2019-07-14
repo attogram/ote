@@ -9,7 +9,7 @@ class TagTableSeeder extends Seeder
      */
     public function run()
     {
-        $tags = [
+        $items = [
             [100, 'noun',               0],
             [101, 'pronoun',          100],
             [102, 'noun-proper',      100],
@@ -136,16 +136,22 @@ class TagTableSeeder extends Seeder
             [1411, 'mood-deontic',       1400],
             [1412, 'mood-epistemic',     1400],
         ];
-        foreach ($tags as $tag) {
-            DB::table('tag')->insert(
-                [
-                    'id'            => $tag[0],
-                    'tag'           => $tag[1],
-                    'parent_tag_id' => $tag[2],
-                    'status'        => 1
-                ]
-            );
+        foreach ($items as $item) {
+            try {
+                DB::table('tag')->insert(
+                    [
+                        'id'            => $item[0],
+                        'tag'           => $item[1],
+                        'parent_tag_id' => $item[2],
+                        'status'        => 1
+                    ]
+                );
+            } catch (Throwable $error) {
+                DatabaseSeeder::log(
+                    'tag: ERROR: ' . $error->getMessage()
+                );
+            }
         }
-        DatabaseSeeder::log('Tag Table Seeder: +' . count($tags));
+        DatabaseSeeder::log('tag: +' . count($items));
     }
 }

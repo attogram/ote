@@ -8,8 +8,6 @@ use Illuminate\Database\Migrations\Migration;
 class Word extends Migration
 {
     /**
-     * Run the migrations.
-     *
      * @return void
      */
     public function up()
@@ -28,8 +26,6 @@ class Word extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     *
      * @return void
      */
     public function down()

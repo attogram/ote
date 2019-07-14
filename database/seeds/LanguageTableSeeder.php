@@ -9,7 +9,7 @@ class LanguageTableSeeder extends Seeder
      */
     public function run()
     {
-        $languages = [
+        $items = [
             [ 1, 'eng', 'English',       'English'], 
             [ 2, 'nld', 'Dutch',         'Nederlands'], 
             [ 3, 'deu', 'German',        'Deutsch'], 
@@ -40,17 +40,23 @@ class LanguageTableSeeder extends Seeder
             [28, 'tlh', 'Klingon',       'tlhIngan Hol'],
             [31, 'emo', 'Emoji',         '😃'],
         ];
-        foreach ($languages as $language) {
-            DB::table('language')->insert(
-                [
-                    'id'        => $language[0],
-                    'code'      => $language[1], 
-                    'name'      => $language[2], 
-                    'name_self' => $language[3], 
-                    'status'    => 1
-                ]
-            );
+        foreach ($items as $item) {
+            try {
+                DB::table('language')->insert(
+                    [
+                        'id'        => $item[0],
+                        'code'      => $item[1], 
+                        'name'      => $item[2], 
+                        'name_self' => $item[3], 
+                        'status'    => 1
+                    ]
+                );
+            } catch (Throwable $error) {
+                DatabaseSeeder::log(
+                    'language: ERROR: ' . $error->getMessage()
+                );
+            }
         }
-        DatabaseSeeder::log('Language Table Seeder: +' . count($languages));
+        DatabaseSeeder::log('language: +' . count($items));
     }
 }
