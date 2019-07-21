@@ -29,6 +29,10 @@ body {
     @endif
 @endauth
 </ul>
+<p>OTE v2:</p>
+<ul>
+    <li><a href="language/">language/</a></li>
+</ul>
 
 <p>Info:</p>
 <ul>
