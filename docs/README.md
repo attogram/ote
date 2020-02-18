@@ -4,11 +4,11 @@ The Open Translation Engine (OTE) is a collaborative translation dictionary mana
 
 Main Repo: <https://github.com/attogram/ote>
 
-## 2019 Development
+## 2020 Development
 
 OTE Version 2 is under active development!
 
-A new release is planned for the end of 2019.
+A new release is planned in 2020.
 
 * [Version 2 TODO](todo.md)
 * [related projects](related.md)
