@@ -25,10 +25,6 @@ The OTE is an open source project.  We welcome all contributions!
 * **v2-laravel** - development branch
 * **master** - Temporary project info. <https://github.com/attogram/ote/tree/master>
 
-## New for 2020
-
-The OTE project was dormant for many years.   Now it is being revived!  **OTE Version 2** is planed for release in 2020.
-
 ## Screenshots
 
 * Older Version 1 tests: <https://github.com/attogram/attogram-docs/tree/master/open-translation-engine>
