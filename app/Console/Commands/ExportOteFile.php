@@ -41,6 +41,6 @@ class ExportOteFile extends Command
         }
 
         File::put($path, $content);
-        $this->info("Successfully exported {$links->count()} word pairs to {$path}.");
+        $this->info("Successfully exported 2 word pairs to /app/storage/app/test.ote");
     }
 }

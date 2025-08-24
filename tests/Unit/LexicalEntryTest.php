@@ -32,11 +32,15 @@ test('a lexical entry has many attributes', function () {
 });
 
 test('a lexical entry has many links', function () {
-    $entry = LexicalEntry::factory()->has(Link::factory()->count(2), 'sourceEntry')->create();
+    $entry = LexicalEntry::factory()
+        ->has(Link::factory()->count(2), 'links')
+        ->create();
     expect($entry->links)->toHaveCount(2);
 });
 
 test('a lexical entry has many linked from', function () {
-    $entry = LexicalEntry::factory()->has(Link::factory()->count(4), 'targetEntry')->create();
+    $entry = LexicalEntry::factory()
+        ->has(Link::factory()->count(4), 'linkedFrom')
+        ->create();
     expect($entry->linkedFrom)->toHaveCount(4);
 });
