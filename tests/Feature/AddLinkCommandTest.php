@@ -26,11 +26,11 @@ test('the add link command handles missing source entry', function () {
     $targetEntry = LexicalEntry::factory()->create();
 
     $this->artisan('ote:add-link', [
-        'source_id' => 1,
+        'source_id' => 999,
         'target_id' => $targetEntry->id,
         'type' => 'translation',
     ])
-        ->expectsOutput('Source entry with ID 1 not found.')
+        ->expectsOutput('Source entry with ID 999 not found.')
         ->assertExitCode(1);
 });
 

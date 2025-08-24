@@ -49,3 +49,13 @@ php artisan make:test MyNewUnitTest --unit
 ```
 
 If `artisan` is not available, you can create the test file manually in the appropriate directory.
+
+## Test Results Log
+
+After running the test suite, a `test_results.log` file is generated in the root of the repository. This file contains the full output of the last test run and should be committed to the repository.
+
+To regenerate this file, you can use the following Composer script:
+
+```bash
+composer test:log
+```
