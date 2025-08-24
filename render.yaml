@@ -1,0 +1,57 @@
+# render.yaml
+
+services:
+  # The Laravel Web Service
+  - type: web
+    name: ote-web
+    runtime: php
+    plan: free # Specifies the free instance type
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    healthCheckPath: /up # I will verify this path in a later step
+    envVars:
+      - key: APP_URL
+        value: https://${RENDER_EXTERNAL_URL}
+      - key: APP_KEY
+        generateValue: true # Render will generate a secure key for you
+      - key: APP_ENV
+        value: production
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: psql
+          name: ote-db # Must match the database name below
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: psql
+          name: ote-db
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: psql
+          name: ote-db
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: psql
+          name: ote-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: psql
+          name: ote-db
+          property: password
+
+  # The PostgreSQL Database
+  - type: psql
+    name: ote-db
+    plan: free # Specifies the free database type
+    # Note: Free tier databases are deleted after 30 days.
+    # To keep this database, you must upgrade to a paid plan.
