@@ -13,7 +13,7 @@ services:
       php artisan view:cache
       php artisan migrate --force
     startCommand: php artisan serve --host 0.0.0.0 --port $PORT
-    healthCheckPath: /up # I will verify this path in a later step
+    healthCheckPath: /up
     envVars:
       - key: APP_URL
         value: https://${RENDER_EXTERNAL_URL}
@@ -25,33 +25,34 @@ services:
         value: pgsql
       - key: DB_HOST
         fromService:
-          type: psql
+          type: database
           name: ote-db # Must match the database name below
           property: host
       - key: DB_PORT
         fromService:
-          type: psql
+          type: database
           name: ote-db
           property: port
       - key: DB_DATABASE
         fromService:
-          type: psql
+          type: database
           name: ote-db
           property: database
       - key: DB_USERNAME
         fromService:
-          type: psql
+          type: database
           name: ote-db
           property: user
       - key: DB_PASSWORD
         fromService:
-          type: psql
+          type: database
           name: ote-db
           property: password
 
   # The PostgreSQL Database
-  - type: psql
+  - type: database
     name: ote-db
     plan: free # Specifies the free database type
     # Note: Free tier databases are deleted after 30 days.
+  
     # To keep this database, you must upgrade to a paid plan.
