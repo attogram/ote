@@ -39,9 +39,6 @@ services:
         fromDatabase:
           name: ote-db
           property: user
-          fromDatabase:
-          name: ote-db
-          property: password
 
 # The PostgreSQL Database is defined in its own top-level list
 databases:
