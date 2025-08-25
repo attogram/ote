@@ -5,14 +5,8 @@ services:
   - type: web
     name: ote-web
     plan: free
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-      php artisan migrate --force
-    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
-    healthCheckPath: /up
+    # All build and start commands have been removed as they are
+    # not valid here for a Docker-based service.
     envVars:
       - key: APP_URL
         value: https://${RENDER_EXTERNAL_URL}
