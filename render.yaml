@@ -4,8 +4,7 @@ services:
   # The Laravel Web Service
   - type: web
     name: ote-web
-    # The 'runtime' key is removed, as it's invalid for this type of service
-    plan: free # Specifies the free instance type
+    plan: free
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       php artisan config:cache
@@ -18,14 +17,14 @@ services:
       - key: APP_URL
         value: https://${RENDER_EXTERNAL_URL}
       - key: APP_KEY
-        generateValue: true # Render will generate a secure key for you
+        generateValue: true
       - key: APP_ENV
         value: production
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
         fromDatabase:
-          name: ote-db # Must match the database name below
+          name: ote-db
           property: host
       - key: DB_PORT
         fromDatabase:
@@ -39,11 +38,12 @@ services:
         fromDatabase:
           name: ote-db
           property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ote-db
+          property: password
 
 # The PostgreSQL Database is defined in its own top-level list
 databases:
   - name: ote-db
-    plan: free # Specifies the free database type
-    # Note: Free tier databases are deleted after 30 days.
-    # To keep this database, you must upgrade to a paid plan.
-
+    plan: free
