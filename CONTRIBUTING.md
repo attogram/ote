@@ -22,6 +22,8 @@ If you would like to contribute code, please follow these steps:
 4.  **Ensure the tests pass** (if you are able to run them).
 5.  **Create a pull request** with a clear description of your changes.
 
+If you are making changes to the deployment configuration, please refer to the [Render Deployment Guide](docs/RENDER.md) for more information on the setup.
+
 ### Working with the OTE MVP
 
 The OTE MVP is built with Laravel. Here are some key things to know when working with the codebase:

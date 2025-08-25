@@ -31,6 +31,10 @@ To get started with the development of OTE v2, you will need to set up a PHP dev
     php artisan key:generate
     ```
 
+### Deployment
+
+This project is configured for automated deployment on [Render](https://render.com/). For detailed instructions on how to deploy your own instance, please see the [Render Deployment Guide](docs/RENDER.md).
+
 ### OTE v2 TODO
 
 The following is a summary of the planned features for OTE v2. For a more detailed list, see [docs/todo.md](docs/todo.md).
