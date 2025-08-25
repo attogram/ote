@@ -4,8 +4,9 @@ services:
   # The Laravel Web Service
   - type: web
     name: ote-web
-    runtime: php
     plan: free # Specifies the free instance type
+    # The 'runtime' key is removed, as it's not a valid option for PHP
+    # Render will use the Dockerfile to build the service.
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       php artisan config:cache
@@ -24,7 +25,7 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromDatabase: # IMPORTANT: Use 'fromDatabase' here
+        fromDatabase:
           name: ote-db # Must match the database name below
           property: host
       - key: DB_PORT
@@ -50,3 +51,4 @@ databases:
     plan: free # Specifies the free database type
     # Note: Free tier databases are deleted after 30 days.
     # To keep this database, you must upgrade to a paid plan.
+  
