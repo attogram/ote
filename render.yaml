@@ -5,8 +5,7 @@ services:
   - type: web
     name: ote-web
     plan: free
-    # All build and start commands have been removed as they are
-    # not valid here for a Docker-based service.
+    # All build and start commands are now in the Dockerfile
     envVars:
       - key: APP_URL
         value: https://${RENDER_EXTERNAL_URL}
