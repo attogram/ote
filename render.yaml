@@ -24,35 +24,29 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromService:
-          type: psql
+        fromDatabase: # IMPORTANT: Use 'fromDatabase' here
           name: ote-db # Must match the database name below
           property: host
       - key: DB_PORT
-        fromService:
-          type: psql
+        fromDatabase:
           name: ote-db
           property: port
       - key: DB_DATABASE
-        fromService:
-          type: psql
+        fromDatabase:
           name: ote-db
           property: database
       - key: DB_USERNAME
-        fromService:
-          type: psql
+        fromDatabase:
           name: ote-db
           property: user
       - key: DB_PASSWORD
-        fromService:
-          type: psql
+        fromDatabase:
           name: ote-db
           property: password
 
-  # The PostgreSQL Database
-  - type: psql
-    name: ote-db
+# The PostgreSQL Database is defined in its own top-level list
+databases:
+  - name: ote-db
     plan: free # Specifies the free database type
     # Note: Free tier databases are deleted after 30 days.
     # To keep this database, you must upgrade to a paid plan.
-
