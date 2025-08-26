@@ -59,6 +59,25 @@
         ],
         "test:log": [
             "php run_tests_and_log.php"
+        ],
+        "test:log:junit": [
+            "php run_tests_and_log.php --format=junit"
+        ],
+        "test:log:testdox-html": [
+            "php run_tests_and_log.php --format=testdox-html"
+        ],
+        "test:log:testdox-text": [
+            "php run_tests_and_log.php --format=testdox-text"
+        ],
+        "test:log:teamcity": [
+            "php run_tests_and_log.php --format=teamcity"
+        ],
+        "test:log:all": [
+            "@composer test:log",
+            "@composer test:log:junit",
+            "@composer test:log:testdox-html",
+            "@composer test:log:testdox-text",
+            "@composer test:log:teamcity"
         ]
     },
     "extra": {
