@@ -1,10 +1,10 @@
 
    PASS  Tests\Unit\AttributeTest
-  ✓ an attribute can be created                                          0.21s  
+  ✓ an attribute can be created                                          0.20s  
   ✓ an attribute belongs to a lexical entry                              0.03s  
 
    PASS  Tests\Unit\ExampleTest
-  ✓ that true is true                                                    0.07s  
+  ✓ that true is true                                                    0.02s  
 
    PASS  Tests\Unit\LanguageTest
   ✓ a language can be created                                            0.02s  
@@ -19,7 +19,7 @@
   ✓ a lexical entry has many linked from                                 0.04s  
 
    PASS  Tests\Unit\LinkTest
-  ✓ a link can be created                                                0.04s  
+  ✓ a link can be created                                                0.03s  
   ✓ a link has a source entry                                            0.03s  
   ✓ a link has a target entry                                            0.03s  
 
@@ -29,19 +29,19 @@
 
    PASS  Tests\Feature\AddAttributeCommandTest
   ✓ the add attribute command creates a new attribute                    0.03s  
-  ✓ the add attribute command handles missing lexical entry              0.03s  
+  ✓ the add attribute command handles missing lexical entry              0.02s  
 
    PASS  Tests\Feature\AddEntryCommandTest
   ✓ the add entry command creates a new lexical entry                    0.03s  
-  ✓ the add entry command handles missing token                          0.03s  
-  ✓ the add entry command handles missing language                       0.03s  
+  ✓ the add entry command handles missing token                          0.02s  
+  ✓ the add entry command handles missing language                       0.02s  
 
    PASS  Tests\Feature\AddLanguageCommandTest
   ✓ the add language command creates a new language                      0.03s  
   ✓ the add language command handles existing languages                  0.02s  
 
    PASS  Tests\Feature\AddLinkCommandTest
-  ✓ the add link command creates a new link                              0.04s  
+  ✓ the add link command creates a new link                              0.03s  
   ✓ the add link command handles missing source entry                    0.03s  
   ✓ the add link command handles missing target entry                    0.03s  
 
@@ -52,24 +52,24 @@
    PASS  Tests\Feature\ExampleTest
   ✓ the application returns a successful response                        0.04s  
 
-   FAIL  Tests\Feature\ExportOteFileCommandTest
-  ⨯ the export ote file command exports data to a file                   0.05s  
+   PASS  Tests\Feature\ExportOteFileCommandTest
+  ✓ the export ote file command exports data to a file                   0.04s  
 
    PASS  Tests\Feature\ImportOteFileCommandTest
-  ✓ the import ote file command imports data from a file                 0.05s  
+  ✓ the import ote file command imports data from a file                 0.04s  
   ✓ the import ote file command handles missing file                     0.02s  
 
    PASS  Tests\Feature\LanguageControllerTest
-  ✓ it displays a list of languages                                      0.04s  
+  ✓ it displays a list of languages                                      0.03s  
   ✓ it displays the create language form                                 0.02s  
   ✓ it creates a new language                                            0.03s  
-  ✓ it displays the edit language form                                   0.03s  
+  ✓ it displays the edit language form                                   0.02s  
   ✓ it updates a language                                                0.03s  
   ✓ it deletes a language                                                0.03s  
 
    PASS  Tests\Feature\LexiconControllerTest
   ✓ it displays a list of lexical entries                                0.04s  
-  ✓ it displays the create lexical entry form                            0.03s  
+  ✓ it displays the create lexical entry form                            0.02s  
   ✓ it stores a new lexical entry                                        0.03s  
   ✓ it shows a lexical entry                                             0.03s  
   ✓ it displays the edit lexical entry form                              0.03s  
@@ -82,36 +82,21 @@
   ✓ it deletes an attribute                                              0.03s  
   ✓ it displays the create link form                                     0.03s  
   ✓ it stores a new link                                                 0.04s  
-  ✓ it displays the edit link form                                       0.03s  
+  ✓ it displays the edit link form                                       0.04s  
   ✓ it updates a link                                                    0.04s  
   ✓ it deletes a link                                                    0.03s  
 
    PASS  Tests\Feature\ListEntriesCommandTest
-  ✓ the list entries command shows a table of entries                    0.06s  
+  ✓ the list entries command shows a table of entries                    0.05s  
 
    PASS  Tests\Feature\TokenControllerTest
   ✓ it displays a list of tokens                                         0.03s  
   ✓ it displays the create token form                                    0.02s  
-  ✓ it creates a new token                                               0.03s  
-  ✓ it displays the edit token form                                      0.03s  
+  ✓ it creates a new token                                               0.02s  
+  ✓ it displays the edit token form                                      0.02s  
   ✓ it updates a token                                                   0.03s  
-  ✓ it deletes a token                                                   0.03s  
-  ────────────────────────────────────────────────────────────────────────────  
-   FAILED  Tests\Feature\ExportOteFileCommandTest > th…  AssertionFailedError   
-  Output "Successfully exported 2 word pairs to /home/runner/work/ote/ote/storage/app/test.ote" was not printed.
+  ✓ it deletes a token                                                   0.02s  
 
-  at tests/Feature/ExportOteFileCommandTest.php:39
-     35▕         'source_lang_code' => 'eng',
-     36▕         'target_lang_code' => 'nld',
-     37▕     ])
-     38▕         ->expectsOutput('Successfully exported 2 word pairs to ' . $filePath)
-  ➜  39▕         ->assertExitCode(0);
-     40▕ 
-     41▕     $this->assertTrue(File::exists($filePath));
-     42▕     $content = File::get($filePath);
-     43▕     $this->assertStringContainsString('hello=hallo', $content);
-
-
-  Tests:    1 failed, 61 passed (135 assertions)
-  Duration: 2.34s
+  Tests:    62 passed (137 assertions)
+  Duration: 2.18s
 

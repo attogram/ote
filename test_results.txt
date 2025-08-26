@@ -21,7 +21,7 @@
  [x] the add token command handles existing tokens
 
 /home/runner/work/ote/ote/tests/Feature/ExportOteFileCommandTest.php
- [ ] the export ote file command exports data to a file
+ [x] the export ote file command exports data to a file
 
 /home/runner/work/ote/ote/tests/Feature/ImportOteFileCommandTest.php
  [x] the import ote file command imports data from a file
