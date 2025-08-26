@@ -1,4 +1,5 @@
 *.log
+!test_results.log
 .DS_Store
 .env
 .env.backup
