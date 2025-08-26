@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-family: Source SansSerif Pro, Arial, sans-serif;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2rem;
+                background-color: #fff;
+                color: #000;
+            }
+
+            body > ul > li {
+                font-size: larger;
+            }
+
+            h2 {
+                font-size: larger;
+                text-decoration-line: underline;
+                text-decoration-thickness: 2px;
+                margin: 0;
+                padding: 0.5rem 0;
+            }
+
+            ul {
+                list-style: none;
+                margin: 0 0 2rem;
+                padding: 0 0 0 1rem;
+                text-indent: -1rem;
+            }
+
+            .success:before {
+                color: #4e9a06;
+                content: '✓';
+                padding-right: 0.5rem;
+            }
+
+            .defect {
+                color: #a40000;
+            }
+
+            .defect:before {
+                color: #a40000;
+                content: '✗';
+                padding-right: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>/app/tests/Feature/AddAttributeCommandTest.php</h2>
+        <ul>
+            <li class="success">the add attribute command creates a new attribute</li>
+            <li class="success">the add attribute command handles missing lexical entry</li>
+        </ul>
+        <h2>/app/tests/Feature/AddEntryCommandTest.php</h2>
+        <ul>
+            <li class="success">the add entry command creates a new lexical entry</li>
+            <li class="success">the add entry command handles missing token</li>
+            <li class="success">the add entry command handles missing language</li>
+        </ul>
+        <h2>/app/tests/Feature/AddLanguageCommandTest.php</h2>
+        <ul>
+            <li class="success">the add language command creates a new language</li>
+            <li class="success">the add language command handles existing languages</li>
+        </ul>
+        <h2>/app/tests/Feature/AddLinkCommandTest.php</h2>
+        <ul>
+            <li class="success">the add link command creates a new link</li>
+            <li class="success">the add link command handles missing source entry</li>
+            <li class="success">the add link command handles missing target entry</li>
+        </ul>
+        <h2>/app/tests/Feature/AddTokenCommandTest.php</h2>
+        <ul>
+            <li class="success">the add token command creates a new token</li>
+            <li class="success">the add token command handles existing tokens</li>
+        </ul>
+        <h2>/app/tests/Feature/ExportOteFileCommandTest.php</h2>
+        <ul>
+            <li class="success">the export ote file command exports data to a file</li>
+        </ul>
+        <h2>/app/tests/Feature/ImportOteFileCommandTest.php</h2>
+        <ul>
+            <li class="success">the import ote file command imports data from a file</li>
+            <li class="success">the import ote file command handles missing file</li>
+        </ul>
+        <h2>/app/tests/Feature/LanguageControllerTest.php</h2>
+        <ul>
+            <li class="defect">it displays a list of languages</li>
+            <li class="defect">it displays the create language form</li>
+            <li class="defect">it creates a new language</li>
+            <li class="defect">it displays the edit language form</li>
+            <li class="defect">it updates a language</li>
+            <li class="defect">it deletes a language</li>
+        </ul>
+        <h2>/app/tests/Feature/LexiconControllerTest.php</h2>
+        <ul>
+            <li class="defect">it displays a list of lexical entries</li>
+            <li class="defect">it displays the create lexical entry form</li>
+            <li class="defect">it stores a new lexical entry</li>
+            <li class="defect">it shows a lexical entry</li>
+            <li class="defect">it displays the edit lexical entry form</li>
+            <li class="defect">it updates a lexical entry</li>
+            <li class="defect">it deletes a lexical entry</li>
+            <li class="defect">it displays the create attribute form</li>
+            <li class="defect">it stores a new attribute</li>
+            <li class="defect">it displays the edit attribute form</li>
+            <li class="defect">it updates an attribute</li>
+            <li class="defect">it deletes an attribute</li>
+            <li class="defect">it displays the create link form</li>
+            <li class="defect">it stores a new link</li>
+            <li class="defect">it displays the edit link form</li>
+            <li class="defect">it updates a link</li>
+            <li class="defect">it deletes a link</li>
+        </ul>
+        <h2>/app/tests/Feature/ListEntriesCommandTest.php</h2>
+        <ul>
+            <li class="success">the list entries command shows a table of entries</li>
+        </ul>
+        <h2>/app/tests/Feature/TokenControllerTest.php</h2>
+        <ul>
+            <li class="defect">it displays a list of tokens</li>
+            <li class="defect">it displays the create token form</li>
+            <li class="defect">it creates a new token</li>
+            <li class="defect">it displays the edit token form</li>
+            <li class="defect">it updates a token</li>
+            <li class="defect">it deletes a token</li>
+        </ul>
+        <h2>/app/tests/Unit/AttributeTest.php</h2>
+        <ul>
+            <li class="success">an attribute can be created</li>
+            <li class="success">an attribute belongs to a lexical entry</li>
+        </ul>
+        <h2>/app/tests/Unit/LanguageTest.php</h2>
+        <ul>
+            <li class="success">a language can be created</li>
+            <li class="success">a language has many lexical entries</li>
+        </ul>
+        <h2>/app/tests/Unit/LexicalEntryTest.php</h2>
+        <ul>
+            <li class="success">a lexical entry can be created</li>
+            <li class="success">a lexical entry belongs to a token</li>
+            <li class="success">a lexical entry belongs to a language</li>
+            <li class="success">a lexical entry has many attributes</li>
+            <li class="success">a lexical entry has many links</li>
+            <li class="success">a lexical entry has many linked from</li>
+        </ul>
+        <h2>/app/tests/Unit/LinkTest.php</h2>
+        <ul>
+            <li class="success">a link can be created</li>
+            <li class="success">a link has a source entry</li>
+            <li class="success">a link has a target entry</li>
+        </ul>
+        <h2>/app/tests/Unit/TokenTest.php</h2>
+        <ul>
+            <li class="success">a token can be created</li>
+            <li class="success">a token has many lexical entries</li>
+        </ul>
+        <h2>Example (Tests\Feature\Example)</h2>
+        <ul>
+            <li class="defect">The application returns a successful response</li>
+        </ul>
+        <h2>Example (Tests\Unit\Example)</h2>
+        <ul>
+            <li class="success">That true is true</li>
+        </ul>
+    </body>
+</html>
