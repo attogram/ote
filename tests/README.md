@@ -78,3 +78,12 @@ To generate all the available log files at once, you can use the following comma
 ```bash
 composer test:log:all
 ```
+
+## Test Results
+
+The following test result files are generated in the root of the repository:
+
+-   **HTML:** [test_results.html](../test_results.html)
+-   **JUnit XML:** [test_results.xml](../test_results.xml)
+-   **Plain Text:** [test_results.txt](../test_results.txt)
+-   **TeamCity:** [test_results.teamcity.txt](../test_results.teamcity.txt)
