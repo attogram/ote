@@ -31,5 +31,14 @@ RUN if [ "$USER_UID" -ne "0" ]; then \
     && chmod 0440 /etc/sudoers.d/vscode; \
     fi
 
+# Add aliases to .bashrc
+RUN echo '' >> /home/vscode/.bashrc && \
+    echo '# Custom aliases' >> /home/vscode/.bashrc && \
+    echo 'alias pa="php artisan"' >> /home/vscode/.bashrc && \
+    echo 'alias pest="./vendor/bin/pest"' >> /home/vscode/.bashrc && \
+    echo 'alias pint="./vendor/bin/pint"' >> /home/vscode/.bashrc && \
+    echo 'alias format="composer format"' >> /home/vscode/.bashrc && \
+    echo 'alias test="composer test"' >> /home/vscode/.bashrc
+
 # Switch to the non-root user
 USER vscode

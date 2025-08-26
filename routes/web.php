@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TokenController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LexiconController;
+use App\Http\Controllers\TokenController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('lexicon.index');

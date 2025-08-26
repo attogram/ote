@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\Token;
 use App\Models\Language;
-use App\Models\LexicalEntry;
+use App\Models\Token;
 
 test('the add entry command creates a new lexical entry', function () {
     $token = Token::factory()->create(['text' => 'hello']);

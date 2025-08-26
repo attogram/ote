@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LexicalEntry;
-use App\Models\Token;
-use App\Models\Language;
 use App\Models\Attribute;
+use App\Models\Language;
+use App\Models\LexicalEntry;
 use App\Models\Link;
+use App\Models\Token;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class LexiconController extends Controller
 {
@@ -16,6 +15,7 @@ class LexiconController extends Controller
     public function index()
     {
         $entries = LexicalEntry::with(['token', 'language'])->get();
+
         return view('lexicon.index', compact('entries'));
     }
 
@@ -23,6 +23,7 @@ class LexiconController extends Controller
     {
         $tokens = Token::all();
         $languages = Language::all();
+
         return view('lexicon.create', compact('tokens', 'languages'));
     }
 
@@ -34,6 +35,7 @@ class LexiconController extends Controller
         ]);
 
         LexicalEntry::create($request->all());
+
         return redirect()->route('lexicon.index');
     }
 
@@ -41,6 +43,7 @@ class LexiconController extends Controller
     {
         $entry->load(['token', 'language', 'attributes', 'links.targetEntry.token', 'links.targetEntry.language']);
         $allEntries = LexicalEntry::all();
+
         return view('lexicon.show', compact('entry', 'allEntries'));
     }
 
@@ -48,6 +51,7 @@ class LexiconController extends Controller
     {
         $tokens = Token::all();
         $languages = Language::all();
+
         return view('lexicon.edit', compact('entry', 'tokens', 'languages'));
     }
 
@@ -58,12 +62,14 @@ class LexiconController extends Controller
             'language_id' => 'required|exists:languages,id',
         ]);
         $entry->update($request->all());
+
         return redirect()->route('lexicon.index');
     }
 
     public function destroy(LexicalEntry $entry)
     {
         $entry->delete();
+
         return redirect()->route('lexicon.index');
     }
 
@@ -77,6 +83,7 @@ class LexiconController extends Controller
     {
         $request->validate(['key' => 'required', 'value' => 'required']);
         $entry->attributes()->create($request->all());
+
         return redirect()->route('lexicon.show', $entry);
     }
 
@@ -89,12 +96,14 @@ class LexiconController extends Controller
     {
         $request->validate(['key' => 'required', 'value' => 'required']);
         $attribute->update($request->all());
+
         return redirect()->route('lexicon.show', $entry);
     }
 
     public function destroyAttribute(LexicalEntry $entry, Attribute $attribute)
     {
         $attribute->delete();
+
         return redirect()->route('lexicon.show', $entry);
     }
 
@@ -102,6 +111,7 @@ class LexiconController extends Controller
     public function createLink(LexicalEntry $entry)
     {
         $allEntries = LexicalEntry::all();
+
         return view('lexicon.create-link', compact('entry', 'allEntries'));
     }
 
@@ -109,12 +119,14 @@ class LexiconController extends Controller
     {
         $request->validate(['target_lexical_entry_id' => 'required|exists:lexical_entries,id', 'type' => 'required']);
         $entry->links()->create($request->all());
+
         return redirect()->route('lexicon.show', $entry);
     }
 
     public function editLink(LexicalEntry $entry, Link $link)
     {
         $allEntries = LexicalEntry::all();
+
         return view('lexicon.edit-link', compact('entry', 'link', 'allEntries'));
     }
 
@@ -122,12 +134,14 @@ class LexiconController extends Controller
     {
         $request->validate(['target_lexical_entry_id' => 'required|exists:lexical_entries,id', 'type' => 'required']);
         $link->update($request->all());
+
         return redirect()->route('lexicon.show', $entry);
     }
 
     public function destroyLink(LexicalEntry $entry, Link $link)
     {
         $link->delete();
+
         return redirect()->route('lexicon.show', $entry);
     }
 
@@ -159,6 +173,7 @@ class LexiconController extends Controller
                 } elseif (str_contains($line, 'delimiter:')) {
                     $delimiter = trim(str_replace('# delimiter:', '', $line));
                 }
+
                 continue;
             }
             $wordPairs[] = $line;
@@ -194,7 +209,7 @@ class LexiconController extends Controller
             Link::firstOrCreate([
                 'source_lexical_entry_id' => $sourceEntry->id,
                 'target_lexical_entry_id' => $targetEntry->id,
-                'type' => 'translation'
+                'type' => 'translation',
             ]);
         }
 
@@ -208,7 +223,7 @@ class LexiconController extends Controller
             ->get();
 
         $groupedLinks = $links->groupBy(function ($link) {
-            return $link->sourceEntry->language->code . '>' . $link->targetEntry->language->code;
+            return $link->sourceEntry->language->code.'>'.$link->targetEntry->language->code;
         });
 
         return view('lexicon.export', compact('groupedLinks'));

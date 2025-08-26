@@ -22,21 +22,21 @@ test('it creates a new token', function () {
 
 test('it displays the edit token form', function () {
     $token = Token::factory()->create();
-    $response = $this->get('/tokens/' . $token->id . '/edit');
+    $response = $this->get('/tokens/'.$token->id.'/edit');
     $response->assertStatus(200);
     $response->assertSee($token->text);
 });
 
 test('it updates a token', function () {
     $token = Token::factory()->create();
-    $response = $this->put('/tokens/' . $token->id, ['text' => 'updated-token']);
+    $response = $this->put('/tokens/'.$token->id, ['text' => 'updated-token']);
     $response->assertRedirect('/tokens');
     $this->assertDatabaseHas('tokens', ['text' => 'updated-token']);
 });
 
 test('it deletes a token', function () {
     $token = Token::factory()->create();
-    $response = $this->delete('/tokens/' . $token->id);
+    $response = $this->delete('/tokens/'.$token->id);
     $response->assertRedirect('/tokens');
     $this->assertDatabaseMissing('tokens', ['id' => $token->id]);
 });

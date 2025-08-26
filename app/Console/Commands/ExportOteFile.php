@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\LexicalEntry;
 use App\Models\Link;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 class ExportOteFile extends Command
 {
     protected $signature = 'ote:export-ote-file {path} {source_lang_code} {target_lang_code}';
+
     protected $description = 'Exports a translation list in the old OTE format.';
 
     public function handle()
@@ -26,13 +26,14 @@ class ExportOteFile extends Command
 
         if ($links->isEmpty()) {
             $this->error("No translation links found for {$sourceLangCode} to {$targetLangCode}.");
+
             return Command::FAILURE;
         }
 
         $content = "# {$sourceLangCode} > {$targetLangCode}\n";
         $content .= "# {$links->count()} Word Pairs\n";
         $content .= "# Exported from OTE 2.0\n";
-        $content .= "# " . date('D, d M Y H:i:s T') . "\n";
+        $content .= '# '.date('D, d M Y H:i:s T')."\n";
         $content .= "#\n";
         $content .= "# delimiter: =\n";
 
@@ -41,6 +42,6 @@ class ExportOteFile extends Command
         }
 
         File::put($path, $content);
-        $this->info("Successfully exported 2 word pairs to /app/storage/app/test.ote");
+        $this->info("Successfully exported {$links->count()} word pairs to {$path}");
     }
 }

@@ -2,24 +2,26 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Token;
 use App\Models\Language;
 use App\Models\LexicalEntry;
 use App\Models\Link;
+use App\Models\Token;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
 class ImportOteFile extends Command
 {
     protected $signature = 'ote:import-ote-file {path}';
+
     protected $description = 'Imports data from a legacy OTE word pair file.';
 
     public function handle()
     {
         $path = $this->argument('path');
 
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             $this->error("File not found at: {$path}");
+
             return Command::FAILURE;
         }
 
@@ -37,13 +39,15 @@ class ImportOteFile extends Command
                 } elseif (str_contains($line, 'delimiter:')) {
                     $delimiter = trim(str_replace('# delimiter:', '', $line));
                 }
+
                 continue;
             }
             $wordPairs[] = $line;
         }
 
         if (empty($langCodes)) {
-            $this->error("Could not determine source and target languages from the file metadata.");
+            $this->error('Could not determine source and target languages from the file metadata.');
+
             return Command::FAILURE;
         }
 
@@ -77,7 +81,7 @@ class ImportOteFile extends Command
             Link::firstOrCreate([
                 'source_lexical_entry_id' => $sourceEntry->id,
                 'target_lexical_entry_id' => $targetEntry->id,
-                'type' => 'translation'
+                'type' => 'translation',
             ]);
         }
 

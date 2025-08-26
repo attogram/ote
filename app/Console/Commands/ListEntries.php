@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\LexicalEntry;
+use Illuminate\Console\Command;
 
 class ListEntries extends Command
 {
     protected $signature = 'ote:list-entries';
+
     protected $description = 'Lists all lexical entries.';
 
     public function handle()
@@ -16,7 +17,7 @@ class ListEntries extends Command
             return [
                 'ID' => $entry->id,
                 'Token' => $entry->token->text,
-                'Language' => $entry->language->name
+                'Language' => $entry->language->name,
             ];
         });
 

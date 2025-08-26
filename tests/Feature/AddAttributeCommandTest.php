@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\LexicalEntry;
-use App\Models\Attribute;
 
 test('the add attribute command creates a new attribute', function () {
     $entry = LexicalEntry::factory()->create();

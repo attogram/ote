@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\LexicalEntry;
-use App\Models\Token;
-use App\Models\Language;
 use App\Models\Attribute;
+use App\Models\Language;
+use App\Models\LexicalEntry;
 use App\Models\Link;
+use App\Models\Token;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);

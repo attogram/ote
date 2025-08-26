@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Token;
 use App\Models\Language;
 use App\Models\LexicalEntry;
+use App\Models\Token;
+use Illuminate\Console\Command;
 
 class AddEntry extends Command
 {
     protected $signature = 'ote:add-entry {token} {language}';
+
     protected $description = 'Creates a new lexical entry linking a token and a language.';
 
     public function handle()
@@ -20,13 +21,15 @@ class AddEntry extends Command
         $token = Token::where('text', $tokenText)->first();
         $language = Language::where('code', $langCode)->first();
 
-        if (!$token) {
+        if (! $token) {
             $this->error("Token '{$tokenText}' not found. Please add it first.");
+
             return Command::FAILURE;
         }
 
-        if (!$language) {
+        if (! $language) {
             $this->error("Language '{$langCode}' not found. Please add it first.");
+
             return Command::FAILURE;
         }
 

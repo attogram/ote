@@ -10,6 +10,7 @@ class LanguageController extends Controller
     public function index()
     {
         $languages = Language::all();
+
         return view('languages.index', compact('languages'));
     }
 
@@ -22,6 +23,7 @@ class LanguageController extends Controller
     {
         $request->validate(['code' => 'required|unique:languages', 'name' => 'required']);
         Language::create($request->all());
+
         return redirect()->route('languages.index');
     }
 
@@ -32,14 +34,16 @@ class LanguageController extends Controller
 
     public function update(Request $request, Language $language)
     {
-        $request->validate(['code' => 'required|unique:languages,code,' . $language->id, 'name' => 'required']);
+        $request->validate(['code' => 'required|unique:languages,code,'.$language->id, 'name' => 'required']);
         $language->update($request->all());
+
         return redirect()->route('languages.index');
     }
 
     public function destroy(Language $language)
     {
         $language->delete();
+
         return redirect()->route('languages.index');
     }
 }

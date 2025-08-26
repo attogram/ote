@@ -35,7 +35,7 @@ test('the export ote file command exports data to a file', function () {
         'source_lang_code' => 'eng',
         'target_lang_code' => 'nld',
     ])
-        ->expectsOutput('Successfully exported 2 word pairs to ' . $filePath)
+        ->expectsOutput('Successfully exported 2 word pairs to '.$filePath)
         ->assertExitCode(0);
 
     $this->assertTrue(File::exists($filePath));

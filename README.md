@@ -133,6 +133,13 @@ This project includes a Docker-based development environment that allows you to 
     docker compose -f compose.dev.yml exec workspace php artisan migrate
     ```
 
+6.  **Seed the database (optional):**
+
+    To populate the database with sample data, run the following command:
+    ```bash
+    docker compose -f compose.dev.yml exec workspace php artisan db:seed
+    ```
+
 ### Usage
 
 -   **Accessing the application:**
@@ -187,7 +194,7 @@ GitHub will then create a new Codespace and set up the environment for you autom
 - Installing all Composer dependencies.
 - Creating the `.env` file.
 - Generating the application key.
-- Running database migrations.
+- Running database migrations and seeding it with sample data.
 
 ### Usage
 

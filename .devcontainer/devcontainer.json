@@ -4,8 +4,7 @@
   "service": "app",
   "workspaceFolder": "/workspace",
 
-  "postCreateCommand": "composer install && cp .env.example .env && php artisan key:generate",
-  "postStartCommand": "php artisan migrate",
+  "postCreateCommand": "composer install && cp .env.example .env && php artisan key:generate && php artisan migrate && php artisan db:seed",
 
   "customizations": {
     "vscode": {
