@@ -28,42 +28,42 @@
  [x] the import ote file command handles missing file
 
 /app/tests/Feature/LanguageControllerTest.php
- [ ] it displays a list of languages
- [ ] it displays the create language form
- [ ] it creates a new language
- [ ] it displays the edit language form
- [ ] it updates a language
- [ ] it deletes a language
+ [x] it displays a list of languages
+ [x] it displays the create language form
+ [x] it creates a new language
+ [x] it displays the edit language form
+ [x] it updates a language
+ [x] it deletes a language
 
 /app/tests/Feature/LexiconControllerTest.php
- [ ] it displays a list of lexical entries
- [ ] it displays the create lexical entry form
- [ ] it stores a new lexical entry
- [ ] it shows a lexical entry
- [ ] it displays the edit lexical entry form
- [ ] it updates a lexical entry
- [ ] it deletes a lexical entry
- [ ] it displays the create attribute form
- [ ] it stores a new attribute
- [ ] it displays the edit attribute form
- [ ] it updates an attribute
- [ ] it deletes an attribute
- [ ] it displays the create link form
- [ ] it stores a new link
- [ ] it displays the edit link form
- [ ] it updates a link
- [ ] it deletes a link
+ [x] it displays a list of lexical entries
+ [x] it displays the create lexical entry form
+ [x] it stores a new lexical entry
+ [x] it shows a lexical entry
+ [x] it displays the edit lexical entry form
+ [x] it updates a lexical entry
+ [x] it deletes a lexical entry
+ [x] it displays the create attribute form
+ [x] it stores a new attribute
+ [x] it displays the edit attribute form
+ [x] it updates an attribute
+ [x] it deletes an attribute
+ [x] it displays the create link form
+ [x] it stores a new link
+ [x] it displays the edit link form
+ [x] it updates a link
+ [x] it deletes a link
 
 /app/tests/Feature/ListEntriesCommandTest.php
  [x] the list entries command shows a table of entries
 
 /app/tests/Feature/TokenControllerTest.php
- [ ] it displays a list of tokens
- [ ] it displays the create token form
- [ ] it creates a new token
- [ ] it displays the edit token form
- [ ] it updates a token
- [ ] it deletes a token
+ [x] it displays a list of tokens
+ [x] it displays the create token form
+ [x] it creates a new token
+ [x] it displays the edit token form
+ [x] it updates a token
+ [x] it deletes a token
 
 /app/tests/Unit/AttributeTest.php
  [x] an attribute can be created
@@ -91,7 +91,7 @@
  [x] a token has many lexical entries
 
 Example (Tests\Feature\Example)
- [ ] The application returns a successful response
+ [x] The application returns a successful response
 
 Example (Tests\Unit\Example)
  [x] That true is true
