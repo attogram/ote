@@ -1,0 +1,45 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Create environment file
+      run: cp .env.example .env
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Create Database
+      run: touch database/database.sqlite
+
+    - name: Run Migrations
+      run: php artisan migrate --force
+
+    - name: Run Tests
+      run: composer test:log:all
+
+    - name: Commit test results
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add test_results.*
+        git commit -m "Add test results" || echo "No changes to commit"
+        git push || echo "No changes to push"

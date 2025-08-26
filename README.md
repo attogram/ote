@@ -1,5 +1,7 @@
 # Open Translation Engine (OTE) v2
 
+[![Run Tests](https://github.com/attogram/ote/actions/workflows/tests.yml/badge.svg)](https://github.com/attogram/ote/actions/workflows/tests.yml)
+
 This is the development repository for the **Open Translation Engine (OTE) v2**, a collaborative translation dictionary manager. This project is currently a work-in-progress.
 
 ## OTE v2 Development
