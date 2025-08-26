@@ -1,0 +1,97 @@
+/app/tests/Feature/AddAttributeCommandTest.php
+ [x] the add attribute command creates a new attribute
+ [x] the add attribute command handles missing lexical entry
+
+/app/tests/Feature/AddEntryCommandTest.php
+ [x] the add entry command creates a new lexical entry
+ [x] the add entry command handles missing token
+ [x] the add entry command handles missing language
+
+/app/tests/Feature/AddLanguageCommandTest.php
+ [x] the add language command creates a new language
+ [x] the add language command handles existing languages
+
+/app/tests/Feature/AddLinkCommandTest.php
+ [x] the add link command creates a new link
+ [x] the add link command handles missing source entry
+ [x] the add link command handles missing target entry
+
+/app/tests/Feature/AddTokenCommandTest.php
+ [x] the add token command creates a new token
+ [x] the add token command handles existing tokens
+
+/app/tests/Feature/ExportOteFileCommandTest.php
+ [x] the export ote file command exports data to a file
+
+/app/tests/Feature/ImportOteFileCommandTest.php
+ [x] the import ote file command imports data from a file
+ [x] the import ote file command handles missing file
+
+/app/tests/Feature/LanguageControllerTest.php
+ [ ] it displays a list of languages
+ [ ] it displays the create language form
+ [ ] it creates a new language
+ [ ] it displays the edit language form
+ [ ] it updates a language
+ [ ] it deletes a language
+
+/app/tests/Feature/LexiconControllerTest.php
+ [ ] it displays a list of lexical entries
+ [ ] it displays the create lexical entry form
+ [ ] it stores a new lexical entry
+ [ ] it shows a lexical entry
+ [ ] it displays the edit lexical entry form
+ [ ] it updates a lexical entry
+ [ ] it deletes a lexical entry
+ [ ] it displays the create attribute form
+ [ ] it stores a new attribute
+ [ ] it displays the edit attribute form
+ [ ] it updates an attribute
+ [ ] it deletes an attribute
+ [ ] it displays the create link form
+ [ ] it stores a new link
+ [ ] it displays the edit link form
+ [ ] it updates a link
+ [ ] it deletes a link
+
+/app/tests/Feature/ListEntriesCommandTest.php
+ [x] the list entries command shows a table of entries
+
+/app/tests/Feature/TokenControllerTest.php
+ [ ] it displays a list of tokens
+ [ ] it displays the create token form
+ [ ] it creates a new token
+ [ ] it displays the edit token form
+ [ ] it updates a token
+ [ ] it deletes a token
+
+/app/tests/Unit/AttributeTest.php
+ [x] an attribute can be created
+ [x] an attribute belongs to a lexical entry
+
+/app/tests/Unit/LanguageTest.php
+ [x] a language can be created
+ [x] a language has many lexical entries
+
+/app/tests/Unit/LexicalEntryTest.php
+ [x] a lexical entry can be created
+ [x] a lexical entry belongs to a token
+ [x] a lexical entry belongs to a language
+ [x] a lexical entry has many attributes
+ [x] a lexical entry has many links
+ [x] a lexical entry has many linked from
+
+/app/tests/Unit/LinkTest.php
+ [x] a link can be created
+ [x] a link has a source entry
+ [x] a link has a target entry
+
+/app/tests/Unit/TokenTest.php
+ [x] a token can be created
+ [x] a token has many lexical entries
+
+Example (Tests\Feature\Example)
+ [ ] The application returns a successful response
+
+Example (Tests\Unit\Example)
+ [x] That true is true
