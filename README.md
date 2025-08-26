@@ -10,26 +10,29 @@ For a detailed, step-by-step guide on the MVP build process, please see [OTE2.md
 
 ### Getting Started with OTE v2 (master branch)
 
-To get started with the development of OTE v2, you will need to set up a PHP development environment.
+To get started with the development of OTE v2, you will need to have PHP and Composer installed on your system.
 
-1.  **Install PHP, extensions, and Composer:** Follow the instructions in [docs/jules.md](docs/jules.md) to set up your development environment.
-2.  **Clone the repository:**
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/attogram/ote.git
     cd ote
     ```
-3.  **Install dependencies:**
+2.  **Install dependencies:**
     ```bash
     composer install
     ```
-4.  **Create the environment file:**
+3.  **Create the environment file:**
     ```bash
     cp .env.example .env
     ```
-5.  **Generate the application key:**
+4.  **Generate the application key:**
     ```bash
     php artisan key:generate
     ```
+
+### Testing
+
+For information on how to run the test suite, please see the [Testing Documentation](tests/README.md).
 
 ### Deployment
 
