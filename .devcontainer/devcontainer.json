@@ -1,9 +1,12 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-20.04",
   "features": {
     "ghcr.io/devcontainers/features/php:1": {
-      "version": "8.3",
+      "version": "8.2",
       "installComposer": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
     }
   },
   "customizations": {
@@ -14,10 +17,5 @@
     }
   },
   "postCreateCommand": "sudo apt update && sudo apt install -y libssl1.1",
-  "forwardPorts": [8080],
-  "portsAttributes": {
-    "8080": {
-      "label": "PHP Server"
-    }
-  }
+  "forwardPorts": [8080]
 }
