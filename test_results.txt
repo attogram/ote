@@ -1,33 +1,33 @@
-/app/tests/Feature/AddAttributeCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/AddAttributeCommandTest.php
  [x] the add attribute command creates a new attribute
  [x] the add attribute command handles missing lexical entry
 
-/app/tests/Feature/AddEntryCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/AddEntryCommandTest.php
  [x] the add entry command creates a new lexical entry
  [x] the add entry command handles missing token
  [x] the add entry command handles missing language
 
-/app/tests/Feature/AddLanguageCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/AddLanguageCommandTest.php
  [x] the add language command creates a new language
  [x] the add language command handles existing languages
 
-/app/tests/Feature/AddLinkCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/AddLinkCommandTest.php
  [x] the add link command creates a new link
  [x] the add link command handles missing source entry
  [x] the add link command handles missing target entry
 
-/app/tests/Feature/AddTokenCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/AddTokenCommandTest.php
  [x] the add token command creates a new token
  [x] the add token command handles existing tokens
 
-/app/tests/Feature/ExportOteFileCommandTest.php
- [x] the export ote file command exports data to a file
+/home/runner/work/ote/ote/tests/Feature/ExportOteFileCommandTest.php
+ [ ] the export ote file command exports data to a file
 
-/app/tests/Feature/ImportOteFileCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/ImportOteFileCommandTest.php
  [x] the import ote file command imports data from a file
  [x] the import ote file command handles missing file
 
-/app/tests/Feature/LanguageControllerTest.php
+/home/runner/work/ote/ote/tests/Feature/LanguageControllerTest.php
  [x] it displays a list of languages
  [x] it displays the create language form
  [x] it creates a new language
@@ -35,7 +35,7 @@
  [x] it updates a language
  [x] it deletes a language
 
-/app/tests/Feature/LexiconControllerTest.php
+/home/runner/work/ote/ote/tests/Feature/LexiconControllerTest.php
  [x] it displays a list of lexical entries
  [x] it displays the create lexical entry form
  [x] it stores a new lexical entry
@@ -54,10 +54,10 @@
  [x] it updates a link
  [x] it deletes a link
 
-/app/tests/Feature/ListEntriesCommandTest.php
+/home/runner/work/ote/ote/tests/Feature/ListEntriesCommandTest.php
  [x] the list entries command shows a table of entries
 
-/app/tests/Feature/TokenControllerTest.php
+/home/runner/work/ote/ote/tests/Feature/TokenControllerTest.php
  [x] it displays a list of tokens
  [x] it displays the create token form
  [x] it creates a new token
@@ -65,15 +65,15 @@
  [x] it updates a token
  [x] it deletes a token
 
-/app/tests/Unit/AttributeTest.php
+/home/runner/work/ote/ote/tests/Unit/AttributeTest.php
  [x] an attribute can be created
  [x] an attribute belongs to a lexical entry
 
-/app/tests/Unit/LanguageTest.php
+/home/runner/work/ote/ote/tests/Unit/LanguageTest.php
  [x] a language can be created
  [x] a language has many lexical entries
 
-/app/tests/Unit/LexicalEntryTest.php
+/home/runner/work/ote/ote/tests/Unit/LexicalEntryTest.php
  [x] a lexical entry can be created
  [x] a lexical entry belongs to a token
  [x] a lexical entry belongs to a language
@@ -81,12 +81,12 @@
  [x] a lexical entry has many links
  [x] a lexical entry has many linked from
 
-/app/tests/Unit/LinkTest.php
+/home/runner/work/ote/ote/tests/Unit/LinkTest.php
  [x] a link can be created
  [x] a link has a source entry
  [x] a link has a target entry
 
-/app/tests/Unit/TokenTest.php
+/home/runner/work/ote/ote/tests/Unit/TokenTest.php
  [x] a token can be created
  [x] a token has many lexical entries
 
@@ -95,3 +95,4 @@ Example (Tests\Feature\Example)
 
 Example (Tests\Unit\Example)
  [x] That true is true
+
