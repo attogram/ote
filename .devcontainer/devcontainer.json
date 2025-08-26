@@ -1,17 +1,21 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-20.04",
-  "features": {
-    "ghcr.io/devcontainers/features/php:1": {
-      "version": "8.2",
-      "installComposer": true
-    }
-  },
-  "postCreateCommand": "sudo apt update && sudo apt install -y libssl1.1",
+  "name": "OTE v2 Dev Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  "postCreateCommand": "composer install && cp .env.example .env && php artisan key:generate",
+  "postStartCommand": "php artisan migrate",
+
   "customizations": {
     "vscode": {
       "extensions": [
-        "bmewburn.vscode-intelephense-client"
+        "bmewburn.vscode-intelephense-client",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
       ]
     }
-  }
+  },
+
+  "remoteUser": "vscode"
 }

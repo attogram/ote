@@ -1,0 +1,73 @@
+services:
+  web:
+    image: public.ecr.aws/nginx/nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/development/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php-fpm
+    networks:
+      - laravel-development
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - laravel-development
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+
+  workspace:
+    build:
+      context: .
+      dockerfile: ./docker/development/workspace/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - laravel-development
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env
+
+  postgres:
+    image: public.ecr.aws/postgres/postgres:16-alpine
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-laravel}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - postgres-data-development:/var/lib/postgresql/data
+    networks:
+      - laravel-development
+
+  redis:
+    image: public.ecr.aws/redis/redis:7-alpine
+    networks:
+      - laravel-development
+
+networks:
+  laravel-development:
+    driver: bridge
+
+volumes:
+  postgres-data-development:
+    driver: local

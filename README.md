@@ -87,3 +87,122 @@ Multilingual Online Resources for Minority Languages of a Campus Community
 ## License
 
 The Open Translation Engine is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Development Environment with Docker
+
+This project includes a Docker-based development environment that allows you to run the application and its dependencies in isolated containers.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Setup
+
+1.  **Build and start the containers:**
+
+    ```bash
+    docker compose -f compose.dev.yml up --build -d
+    ```
+
+    This command will build the Docker images and start the services in detached mode.
+
+2.  **Install Composer dependencies:**
+
+    Open a new terminal and run the following command to install the PHP dependencies using Composer.
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace composer install
+    ```
+
+3.  **Copy the environment file:**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+4.  **Generate the application key:**
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace php artisan key:generate
+    ```
+
+5.  **Run database migrations:**
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace php artisan migrate
+    ```
+
+### Usage
+
+-   **Accessing the application:**
+
+    Once the containers are running, you can access the application in your web browser at [http://localhost](http://localhost).
+
+-   **Running Artisan commands:**
+
+    To run any `artisan` command, use `docker compose exec workspace php artisan <command>`. For example:
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace php artisan route:list
+    ```
+
+-   **Running Composer commands:**
+
+    To run any `composer` command, use `docker compose exec workspace composer <command>`. For example:
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace composer update
+    ```
+
+-   **Running NPM commands:**
+
+    To run any `npm` command, use `docker compose exec workspace npm <command>`. For example, to compile the frontend assets:
+
+    ```bash
+    docker compose -f compose.dev.yml exec workspace npm install
+    docker compose -f compose.dev.yml exec workspace npm run dev
+    ```
+
+-   **Stopping the environment:**
+
+    To stop the containers, run:
+
+    ```bash
+    docker compose -f compose.dev.yml down
+    ```
+
+## Development with GitHub Codespaces
+
+This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) for a cloud-based development environment.
+
+### Getting Started
+
+1.  Click the "Code" button on the repository's main page.
+2.  Select the "Codespaces" tab.
+3.  Click "Create codespace on main".
+
+GitHub will then create a new Codespace and set up the environment for you automatically. This includes:
+- Building the Docker containers for the application, database, and Redis.
+- Installing all Composer dependencies.
+- Creating the `.env` file.
+- Generating the application key.
+- Running database migrations.
+
+### Usage
+
+-   **Accessing the application:**
+    Once the Codespace is ready, it will automatically forward the application's port (8000). You can access the application from the "Ports" tab in the VS Code editor or by clicking the notification that appears.
+
+-   **Running Artisan commands:**
+    You can run `artisan` commands directly in the VS Code terminal:
+    ```bash
+    php artisan route:list
+    ```
+
+-   **Running NPM commands:**
+    You can also run `npm` commands in the terminal:
+    ```bash
+    npm install
+    npm run dev
+    ```

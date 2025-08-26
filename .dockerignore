@@ -1,0 +1,11 @@
+.git
+.env
+.idea
+.vscode
+node_modules
+vendor
+storage/logs
+storage/framework/sessions
+storage/framework/cache
+storage/framework/views
+docker
