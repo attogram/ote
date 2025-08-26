@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\LexicalEntry;
 use App\Models\Link;
+use Illuminate\Console\Command;
 
 class AddLink extends Command
 {
     protected $signature = 'ote:add-link {source_id} {target_id} {type}';
+
     protected $description = 'Links two lexical entries with a specified relationship type.';
 
     public function handle()
@@ -20,26 +21,28 @@ class AddLink extends Command
         $sourceEntry = LexicalEntry::find($sourceId);
         $targetEntry = LexicalEntry::find($targetId);
 
-        if (!$sourceEntry) {
+        if (! $sourceEntry) {
             $this->error("Source entry with ID {$sourceId} not found.");
+
             return Command::FAILURE;
         }
 
-        if (!$targetEntry) {
+        if (! $targetEntry) {
             $this->error("Target entry with ID {$targetId} not found.");
+
             return Command::FAILURE;
         }
 
         $link = Link::firstOrCreate([
             'source_lexical_entry_id' => $sourceId,
             'target_lexical_entry_id' => $targetId,
-            'type' => $type
+            'type' => $type,
         ]);
 
         if ($link->wasRecentlyCreated) {
             $this->info("Link created successfully: {$sourceId} -> {$targetId} ({$type}).");
         } else {
-            $this->warn("Link already exists.");
+            $this->warn('Link already exists.');
         }
     }
 }

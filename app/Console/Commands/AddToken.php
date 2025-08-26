@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Token;
+use Illuminate\Console\Command;
 
 class AddToken extends Command
 {
     protected $signature = 'ote:add-token {text}';
+
     protected $description = 'Adds a new unique token to the lexicon.';
 
     public function handle()

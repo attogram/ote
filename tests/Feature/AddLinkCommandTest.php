@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\LexicalEntry;
-use App\Models\Link;
 
 test('the add link command creates a new link', function () {
     $sourceEntry = LexicalEntry::factory()->create();

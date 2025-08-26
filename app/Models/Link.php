@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Link extends Model
 {
     use HasFactory;
+
     protected $fillable = ['source_lexical_entry_id', 'target_lexical_entry_id', 'type'];
 
     public function sourceEntry(): BelongsTo

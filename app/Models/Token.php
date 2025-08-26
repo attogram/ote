@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Token extends Model
 {
     use HasFactory;
+
     protected $fillable = ['text'];
 
     public function lexicalEntries(): HasMany

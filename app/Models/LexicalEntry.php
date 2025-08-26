@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class LexicalEntry extends Model
 {
     use HasFactory;
+
     protected $fillable = ['token_id', 'language_id'];
 
     public function token(): BelongsTo

@@ -57,6 +57,9 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
+        "format": [
+            "./vendor/bin/pint"
+        ],
         "test:log": [
             "php run_tests_and_log.php"
         ],

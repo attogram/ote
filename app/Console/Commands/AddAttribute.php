@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\LexicalEntry;
-use App\Models\Attribute;
+use Illuminate\Console\Command;
 
 class AddAttribute extends Command
 {
     protected $signature = 'ote:add-attribute {entry_id} {key} {value}';
+
     protected $description = 'Adds an attribute to a lexical entry.';
 
     public function handle()
@@ -19,8 +19,9 @@ class AddAttribute extends Command
 
         $entry = LexicalEntry::find($entryId);
 
-        if (!$entry) {
+        if (! $entry) {
             $this->error("Lexical entry with ID {$entryId} not found.");
+
             return Command::FAILURE;
         }
 

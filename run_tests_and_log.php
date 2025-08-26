@@ -5,8 +5,8 @@ echo "Starting test execution...\n";
 $options = getopt('', ['format:']);
 $format = $options['format'] ?? 'text';
 
-$logFile = __DIR__ . '/test_results';
-$pestCommand = __DIR__ . '/vendor/bin/pest';
+$logFile = __DIR__.'/test_results';
+$pestCommand = __DIR__.'/vendor/bin/pest';
 
 switch ($format) {
     case 'junit':
@@ -30,11 +30,11 @@ switch ($format) {
         $logFile .= '.log';
         $output = shell_exec($pestCommand);
         file_put_contents($logFile, $output);
-        echo "Test execution finished. Log file should be at: " . $logFile . "\n";
+        echo 'Test execution finished. Log file should be at: '.$logFile."\n";
         exit(0);
 }
 
 echo "Running command: $pestCommand\n";
 shell_exec($pestCommand);
 
-echo "Test execution finished. Log file should be at: " . $logFile . "\n";
+echo 'Test execution finished. Log file should be at: '.$logFile."\n";

@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Link;
 use App\Models\LexicalEntry;
+use App\Models\Link;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);

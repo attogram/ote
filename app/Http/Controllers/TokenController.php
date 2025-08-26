@@ -10,6 +10,7 @@ class TokenController extends Controller
     public function index()
     {
         $tokens = Token::all();
+
         return view('tokens.index', compact('tokens'));
     }
 
@@ -22,6 +23,7 @@ class TokenController extends Controller
     {
         $request->validate(['text' => 'required|unique:tokens']);
         Token::create($request->all());
+
         return redirect()->route('tokens.index');
     }
 
@@ -32,14 +34,16 @@ class TokenController extends Controller
 
     public function update(Request $request, Token $token)
     {
-        $request->validate(['text' => 'required|unique:tokens,text,' . $token->id]);
+        $request->validate(['text' => 'required|unique:tokens,text,'.$token->id]);
         $token->update($request->all());
+
         return redirect()->route('tokens.index');
     }
 
     public function destroy(Token $token)
     {
         $token->delete();
+
         return redirect()->route('tokens.index');
     }
 }
