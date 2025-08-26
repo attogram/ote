@@ -4,18 +4,14 @@
     "ghcr.io/devcontainers/features/php:1": {
       "version": "8.2",
       "installComposer": true
-    },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
     }
   },
+  "postCreateCommand": "sudo apt update && sudo apt install -y libssl1.1",
   "customizations": {
     "vscode": {
       "extensions": [
         "bmewburn.vscode-intelephense-client"
       ]
     }
-  },
-  "postCreateCommand": "sudo apt update && sudo apt install -y libssl1.1",
-  "forwardPorts": [8080]
+  }
 }
