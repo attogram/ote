@@ -1,10 +1,10 @@
 
    PASS  Tests\Unit\AttributeTest
-  ✓ an attribute can be created                                          0.20s  
+  ✓ an attribute can be created                                          0.21s  
   ✓ an attribute belongs to a lexical entry                              0.03s  
 
    PASS  Tests\Unit\ExampleTest
-  ✓ that true is true                                                    0.06s  
+  ✓ that true is true                                                    0.07s  
 
    PASS  Tests\Unit\LanguageTest
   ✓ a language can be created                                            0.02s  
@@ -29,12 +29,12 @@
 
    PASS  Tests\Feature\AddAttributeCommandTest
   ✓ the add attribute command creates a new attribute                    0.03s  
-  ✓ the add attribute command handles missing lexical entry              0.02s  
+  ✓ the add attribute command handles missing lexical entry              0.03s  
 
    PASS  Tests\Feature\AddEntryCommandTest
   ✓ the add entry command creates a new lexical entry                    0.03s  
   ✓ the add entry command handles missing token                          0.03s  
-  ✓ the add entry command handles missing language                       0.02s  
+  ✓ the add entry command handles missing language                       0.03s  
 
    PASS  Tests\Feature\AddLanguageCommandTest
   ✓ the add language command creates a new language                      0.03s  
@@ -82,9 +82,9 @@
   ✓ it deletes an attribute                                              0.03s  
   ✓ it displays the create link form                                     0.03s  
   ✓ it stores a new link                                                 0.04s  
-  ✓ it displays the edit link form                                       0.04s  
+  ✓ it displays the edit link form                                       0.03s  
   ✓ it updates a link                                                    0.04s  
-  ✓ it deletes a link                                                    0.04s  
+  ✓ it deletes a link                                                    0.03s  
 
    PASS  Tests\Feature\ListEntriesCommandTest
   ✓ the list entries command shows a table of entries                    0.06s  
@@ -113,5 +113,5 @@
 
 
   Tests:    1 failed, 61 passed (135 assertions)
-  Duration: 2.35s
+  Duration: 2.34s
 
