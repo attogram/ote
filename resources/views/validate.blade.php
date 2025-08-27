@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Validation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-8">
+@extends('layouts.app')
+
+@section('title', 'Data Validation')
+
+@section('content')
     <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold mb-4">Data Validation Results</h1>
 
@@ -105,5 +101,4 @@
             <a href="{{ route('home') }}" class="text-blue-600 hover:underline">Back to Homepage</a>
         </div>
     </div>
-</body>
-</html>
+@endsection

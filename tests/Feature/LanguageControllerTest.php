@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Language;
+use App\Models\LexicalEntry;
 
 test('it displays a list of languages', function () {
     Language::factory()->count(3)->create();
@@ -39,4 +40,15 @@ test('it deletes a language', function () {
     $response = $this->delete('/languages/'.$language->id);
     $response->assertRedirect('/languages');
     $this->assertDatabaseMissing('languages', ['id' => $language->id]);
+});
+
+test('it shows a language and its lexical entries', function () {
+    $entry = LexicalEntry::factory()->create();
+    $language = $entry->language;
+
+    $response = $this->get('/languages/'.$language->id);
+
+    $response->assertStatus(200);
+    $response->assertSee($language->name);
+    $response->assertSee($entry->token->text);
 });

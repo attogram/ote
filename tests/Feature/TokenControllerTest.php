@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Token;
+use App\Models\LexicalEntry;
 
 test('it displays a list of tokens', function () {
     Token::factory()->count(3)->create();
@@ -39,4 +40,15 @@ test('it deletes a token', function () {
     $response = $this->delete('/tokens/'.$token->id);
     $response->assertRedirect('/tokens');
     $this->assertDatabaseMissing('tokens', ['id' => $token->id]);
+});
+
+test('it shows a token and its lexical entries', function () {
+    $entry = LexicalEntry::factory()->create();
+    $token = $entry->token;
+
+    $response = $this->get('/tokens/'.$token->id);
+
+    $response->assertStatus(200);
+    $response->assertSee($token->text);
+    $response->assertSee($entry->language->name);
 });
