@@ -41,11 +41,11 @@ jobs:
           PREVIOUS_TAG: ${{ env.previous_tag }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          RELEASE_BODY="**Open Translation Engine (OTE) v2 $CURRENT_TAG**
+          RELEASE_BODY="**Open Translation Engine (OTE) $CURRENT_TAG**
 
           A collaborative translation dictionary manager.
 
-          Repo: https://github.com/$GITHUB_REPOSITORY"
+          https://github.com/$GITHUB_REPOSITORY"
 
           # Generate changelog
           CHANGELOG=$(git log --pretty=format:"* %s (%h)" $PREVIOUS_TAG..$CURRENT_TAG)
@@ -53,7 +53,7 @@ jobs:
           if [ -n "$CHANGELOG" ]; then
             RELEASE_BODY="${RELEASE_BODY}
 
-          **Full Changelog**:
+          **Changelog**:
 
           ${CHANGELOG}
 
@@ -73,7 +73,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.CURRENT_TAG }}
-          name: "Open Translation Engine (OTE) v2 ${{ env.CURRENT_TAG }}"
+          name: "Open Translation Engine (OTE) ${{ env.CURRENT_TAG }}"
           body: ${{ env.RELEASENOTES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

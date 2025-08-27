@@ -1,16 +1,69 @@
-# Open Translation Engine (OTE) v2
+# Open Translation Engine (OTE)
 
 [![Run Tests](https://github.com/attogram/ote/actions/workflows/tests.yml/badge.svg)](https://github.com/attogram/ote/actions/workflows/tests.yml)
+[![Release](https://img.shields.io/github/v/release/attogram/ote?style=flat)](https://github.com/attogram/ote/releases)
 
-This is the development repository for the **Open Translation Engine (OTE) v2**, a collaborative translation dictionary manager. This project is currently a work-in-progress.
+[![GitHub stars](https://img.shields.io/github/stars/attogram/ote?style=flat)](https://github.com/attogram/ote/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/attogram/ote?style=flat)](https://github.com/attogram/ote/watchers)
+[![Forks](https://img.shields.io/github/forks/attogram/ote?style=flat)](https://github.com/attogram/ote/forks)
+[![Issues](https://img.shields.io/github/issues/attogram/ote?style=flat)](https://github.com/attogram/ote/issues)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/attogram/ote?style=flat)](https://github.com/attogram/ote/commits/main/)
+[![License](https://img.shields.io/github/license/attogram/ote?style=flat)](./LICENSE)
 
-## OTE v2 Development
+Welcome to OTE, the **Open Translation Engine**
 
-OTE v2 is being built with [Laravel](https://laravel.com/) and is under active development. The goal is to create a modern, robust, and easy-to-use translation engine.
+a collaborative translation dictionary manager
 
-For a detailed, step-by-step guide on the MVP build process, please see [OTE2.md](OTE2.md).
+## History
 
-### Getting Started with OTE v2 (master branch)
+- 2007-10 - OTE project [started](https://sourceforge.net/projects/ote/) 
+  on [SourceForge](https://sourceforge.net/p/ote/code/1/)
+
+- 2007-10 - [ote.2meta.com](https://ote.2meta.com/) started, an OTE installation with Dutch and English.
+
+- 2011-10 - First [academic citation](https://www.sciencedirect.com/science/article/pii/S1877042811024372)
+
+- 2014-09 - OTE project [moved](https://github.com/attogram/ote/tree/f23a6d5c665a740f45960aa380e8ab47d2d301bc)
+  to [GitHub](https://github.com/attogram/ote/)
+
+- 2025-08 - OTE v2 development [started](https://github.com/attogram/ote/blob/71edc2a5877bb5e992b12e149e61d437a7357db2/OTE2.md)
+
+## Installations
+
+### Active as of 2025-08
+
+- https://ote.2meta.com/ 
+    - Dutch, English 
+    - OTE v1.0.0
+- https://indogermanisch.org/woerterbuch-uebersetzer/ 
+    - Deutsch, Indogermanisch
+    - OTE v0.9.8.8
+    - (note: https setup currently broken, but site still available)
+- http://dictionar.poezie.ro/ 
+    - English, Romanian
+    - OTE v0.9.7
+- https://fenry.lescigales.org/ryzom/otr/ 
+    - Atysien, Tryker
+    - OTE version unknown
+
+### Inactive as of 2025-08
+
+*   https://indo-european.info/dictionary-translator/ (Invalid SSL certificate)
+*   https://indo-european.info/pokorny-etymology-dictionary/ (Invalid SSL certificate)
+*   https://indo-european.info/translator-dictionary/ (Invalid SSL certificate)
+*   https://www.elas.sk/lehota/slovnik/ (Unreachable)
+
+## Citations
+
+Multilingual Online Resources for Minority Languages of a Campus Community
+
+*   Nur Asmaa Adila Mohamad et al. / Procedia - Social and Behavioral Sciences 27 ( 2011 ) 291 – 298
+*   <https://www.sciencedirect.com/science/article/pii/S1877042811024372>
+*   <https://doi.org/10.1016/j.sbspro.2011.10.610>
+*   "In developing this prototype multilingual dictionary, the available features in OTE 0.9.8 are of great
+    help to get started. At the same time there are some weaknesses that can be improved ..."
+
+### OTE v2
 
 To get started with the development of OTE v2, you will need to have PHP and Composer installed on your system.
 
@@ -68,30 +121,11 @@ At the time of writing, there are known issues with running Laravel Dusk in some
 
 For these reasons, browser testing with Dusk has been temporarily disabled.
 
-## OTE v1
-
-The previous version of OTE is still available.
-
-*   The last stable release is **OTE v0.9.9**: [v0.9.9 branch](https://github.com/attogram/ote/tree/v0.9.9)
-*   OTE Version 1 was a test with the Attogram Framework: [v1 branch](https://github.com/attogram/ote/tree/v1)
-
-## Citations
-
-Multilingual Online Resources for Minority Languages of a Campus Community
-
-*   Nur Asmaa Adila Mohamad et al. / Procedia - Social and Behavioral Sciences 27 ( 2011 ) 291 – 298
-*   <https://www.sciencedirect.com/science/article/pii/S1877042811024372>
-*   <https://doi.org/10.1016/j.sbspro.2011.10.610>
-*   "In developing this prototype multilingual dictionary, the available features in OTE 0.9.8 are of great
-    help to get started. At the same time there are some weaknesses that can be improved ..."
-
-## License
-
-The Open Translation Engine is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Development with GitHub Codespaces
 
-This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) for a cloud-based development environment.
+This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) 
+for a cloud-based development environment.
 
 ### Getting Started
 
@@ -221,17 +255,18 @@ This project includes a Docker-based development environment that allows you to 
 
 ### Related Projects
 
-*   <https://github.com/elexis-eu/lexonomy>
-*   <http://www.omegawiki.org/>
-*   <https://github.com/glosswordteam/Glossword>
+*   https://github.com/elexis-eu/lexonomy
+*   http://www.omegawiki.org/ (INACTIVE)
+*   https://github.com/glosswordteam/Glossword>
 
-### Known Installations of OTE v1
+## OTE v1
 
-*   <http://ote.2meta.com/>
-*   <http://indo-european.info/dictionary-translator/>
-*   <http://indo-european.info/translator-dictionary/>
-*   <http://indogermanisch.org/woerterbuch-uebersetzer/>
-*   <http://www.elas.sk/lehota/slovnik/>
-*   <http://fenry.lescigales.org/ryzom/otr/>
-*   <http://indo-european.info/pokorny-etymology-dictionary/>
-*   <http://dictionar.poezie.ro/>
+The previous version of OTE is still available.
+
+The last stable release was **OTE v0.9.9**: [v0.9.9 branch](https://github.com/attogram/ote/tree/v0.9.9)
+
+## License
+
+The Open Translation Engine is open-sourced software licensed under the
+[MIT license](https://opensource.org/licenses/MIT).
+
