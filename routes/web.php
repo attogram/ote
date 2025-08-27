@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LexiconController;
 use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->route('lexicon.index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/validate', [HomeController::class, 'validate'])->name('validate');
 
 Route::resources([
     'tokens' => TokenController::class,

@@ -36,6 +36,16 @@ To get started with the development of OTE v2, you will need to have PHP and Com
 
 For information on how to run the test suite, please see the [Testing Documentation](tests/README.md).
 
+### Git Hooks
+
+This project includes a pre-commit hook that runs `pint` and `phpstan` to ensure code quality before each commit. To use it, you need to create a symbolic link from `.git/hooks/pre-commit` to the script.
+
+From the root of the project, run the following command:
+
+```bash
+ln -s ../../bin/pre-commit.sh .git/hooks/pre-commit
+```
+
 ### Deployment
 
 This project is configured for automated deployment on [Render](https://render.com/). For detailed instructions on how to deploy your own instance, please see the [Render Deployment Guide](docs/RENDER.md).
@@ -50,29 +60,20 @@ The following is a summary of the planned features for OTE v2. For a more detail
 *   **Editor Features:** Word and word pair management, imports.
 *   **Admin Features:** Language and user management.
 
+## Known Issues
+
+### Laravel Dusk
+
+At the time of writing, there are known issues with running Laravel Dusk in some development environments. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, which can lead to errors. Additionally, there can be issues with the ChromeDriver and Chrome binary setup.
+
+For these reasons, browser testing with Dusk has been temporarily disabled.
+
 ## OTE v1
 
 The previous version of OTE is still available.
 
 *   The last stable release is **OTE v0.9.9**: [v0.9.9 branch](https://github.com/attogram/ote/tree/v0.9.9)
 *   OTE Version 1 was a test with the Attogram Framework: [v1 branch](https://github.com/attogram/ote/tree/v1)
-
-### Known Installations of OTE v1
-
-*   <http://ote.2meta.com/>
-*   <http://indo-european.info/dictionary-translator/>
-*   <http://indo-european.info/translator-dictionary/>
-*   <http://indogermanisch.org/woerterbuch-uebersetzer/>
-*   <http://www.elas.sk/lehota/slovnik/>
-*   <http://fenry.lescigales.org/ryzom/otr/>
-*   <http://indo-european.info/pokorny-etymology-dictionary/>
-*   <http://dictionar.poezie.ro/>
-
-### Related Projects
-
-*   <https://github.com/elexis-eu/lexonomy>
-*   <http://www.omegawiki.org/>
-*   <https://github.com/glosswordteam/Glossword>
 
 ## Citations
 
@@ -87,6 +88,45 @@ Multilingual Online Resources for Minority Languages of a Campus Community
 ## License
 
 The Open Translation Engine is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Development with GitHub Codespaces
+
+This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) for a cloud-based development environment.
+
+### Getting Started
+
+1.  Click the "Code" button on the repository's main page.
+2.  Select the "Codespaces" tab.
+3.  Click "Create codespace on main".
+
+GitHub will then create a new Codespace and set up the environment for you automatically. This includes:
+- Building the Docker containers for the application, database, and Redis.
+- Installing all Composer dependencies.
+- Creating the `.env` file.
+- Generating the application key.
+- Running database migrations and seeding it with sample data.
+
+### Usage
+
+-   **Accessing the application:**
+    Once the Codespace is ready, it will automatically forward the application's port (8000). To start the web server, run the following command in the terminal:
+    ```bash
+    php artisan serve --host=0.0.0.0 --port=8000
+    ```
+    You can then access the application from the "Ports" tab in the VS Code editor or by clicking the notification that appears.
+
+-   **Running Artisan commands:**
+    You can run `artisan` commands directly in the VS Code terminal:
+    ```bash
+    php artisan route:list
+    ```
+
+-   **Running NPM commands:**
+    You can also run `npm` commands in the terminal:
+    ```bash
+    npm install
+    npm run dev
+    ```
 
 ## Development Environment with Docker
 
@@ -179,37 +219,19 @@ This project includes a Docker-based development environment that allows you to 
     docker compose -f compose.dev.yml down
     ```
 
-## Development with GitHub Codespaces
+### Related Projects
 
-This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) for a cloud-based development environment.
+*   <https://github.com/elexis-eu/lexonomy>
+*   <http://www.omegawiki.org/>
+*   <https://github.com/glosswordteam/Glossword>
 
-### Getting Started
+### Known Installations of OTE v1
 
-1.  Click the "Code" button on the repository's main page.
-2.  Select the "Codespaces" tab.
-3.  Click "Create codespace on main".
-
-GitHub will then create a new Codespace and set up the environment for you automatically. This includes:
-- Building the Docker containers for the application, database, and Redis.
-- Installing all Composer dependencies.
-- Creating the `.env` file.
-- Generating the application key.
-- Running database migrations and seeding it with sample data.
-
-### Usage
-
--   **Accessing the application:**
-    Once the Codespace is ready, it will automatically forward the application's port (8000). You can access the application from the "Ports" tab in the VS Code editor or by clicking the notification that appears.
-
--   **Running Artisan commands:**
-    You can run `artisan` commands directly in the VS Code terminal:
-    ```bash
-    php artisan route:list
-    ```
-
--   **Running NPM commands:**
-    You can also run `npm` commands in the terminal:
-    ```bash
-    npm install
-    npm run dev
-    ```
+*   <http://ote.2meta.com/>
+*   <http://indo-european.info/dictionary-translator/>
+*   <http://indo-european.info/translator-dictionary/>
+*   <http://indogermanisch.org/woerterbuch-uebersetzer/>
+*   <http://www.elas.sk/lehota/slovnik/>
+*   <http://fenry.lescigales.org/ryzom/otr/>
+*   <http://indo-european.info/pokorny-etymology-dictionary/>
+*   <http://dictionar.poezie.ro/>

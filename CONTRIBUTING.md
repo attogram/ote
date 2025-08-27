@@ -1,40 +1,60 @@
 # Contributing to Open Translation Engine (OTE) v2
 
-Thank you for considering contributing to the Open Translation Engine v2 project! We welcome all contributions, from bug reports and feature requests to code contributions.
+First off, thank you for considering contributing to OTE v2. It's people like you that make open source such a great community.
 
-## Why Contribute?
+## How Can I Contribute?
 
-OTE is a community-driven project. By contributing, you can help us build a better, more robust, and more user-friendly translation engine. Your contributions will benefit users and developers all over the world.
+### Reporting Bugs
 
-## How to Contribute
+If you find a bug, please open an issue on our [GitHub Issues](https://github.com/attogram/ote/issues) page. Please include as much detail as possible, including:
+- A clear and descriptive title.
+- A description of the problem.
+- Steps to reproduce the bug.
+- Any relevant screenshots or error messages.
 
-### Reporting Bugs and Requesting Features
+### Suggesting Enhancements
 
-If you find a bug or have an idea for a new feature, please open an issue on our [GitHub repository](https://github.com/attogram/ote/issues).
+If you have an idea for a new feature or an enhancement to an existing one, please open an issue on our [GitHub Issues](https://github.com/attogram/ote/issues) page. Please provide a clear and detailed explanation of the feature you're suggesting and why it would be valuable.
 
-### Code Contributions
+### Your First Code Contribution
 
-If you would like to contribute code, please follow these steps:
+Unsure where to begin contributing to OTE v2? You can start by looking through the `good-first-issue` and `help-wanted` issues.
 
-1.  **Fork the repository** and create your branch from `master`.
-2.  **Set up your development environment** by following the instructions in `docs/jules.md`.
-3.  **Make your changes** and write tests for them.
-4.  **Ensure the tests pass** (if you are able to run them).
-5.  **Create a pull request** with a clear description of your changes.
+## Development Workflow
 
-If you are making changes to the deployment configuration, please refer to the [Render Deployment Guide](docs/RENDER.md) for more information on the setup.
+1.  **Fork the repository** on GitHub.
+2.  **Clone your fork** to your local machine.
+3.  **Create a new branch** for your changes: `git checkout -b your-branch-name`.
+4.  **Make your changes.**
+5.  **Run the tests** to make sure everything is still working: `composer test`.
+6.  **Run the code formatter** to ensure your code follows our style guide: `composer format`.
+7.  **Run the static analyzer** to check for potential bugs: `composer analyse`.
+8.  **Commit your changes** with a clear and descriptive commit message.
+9.  **Push your changes** to your fork: `git push origin your-branch-name`.
+10. **Open a pull request** to the `master` branch of the main repository.
 
-### Working with the OTE MVP
+## Coding Standards
 
-The OTE MVP is built with Laravel. Here are some key things to know when working with the codebase:
+This project uses [Laravel Pint](https://laravel.com/docs/pint) to enforce a consistent coding style. Before you commit your changes, please run the code formatter:
 
-*   **Models:** The Eloquent models are located in `app/Models`.
-*   **Views:** The Blade views are located in `resources/views`.
-*   **Controllers:** The HTTP controllers are located in `app/Http/Controllers`.
-*   **CLI Commands:** The Artisan commands are located in `app/Console/Commands`.
-*   **Routes:** The web routes are defined in `routes/web.php`.
-*   **Tests:** The tests are located in the `tests` directory.
+```bash
+composer format
+```
 
-When adding new features, please try to follow the existing code style and structure.
+## Running Tests
 
-Thank you for your contributions!
+This project uses [Pest](https://pestphp.com/) for testing. To run the test suite, use the following command:
+
+```bash
+composer test
+```
+
+## Static Analysis
+
+This project uses [PHPStan](https://phpstan.org/) with the [Larastan](https://github.com/larastan/larastan) extension for static analysis. To run the static analyzer, use the following command:
+
+```bash
+composer analyse
+```
+
+Thank you for your contribution!

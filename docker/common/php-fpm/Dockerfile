@@ -45,16 +45,5 @@ CMD ["php-fpm"]
 
 FROM production AS development
 
-# Install development dependencies and Xdebug
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && apk del .build-deps
-
-# Configure Xdebug
-RUN echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
 # Install all composer dependencies, including dev
 RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist

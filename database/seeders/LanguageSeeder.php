@@ -12,6 +12,8 @@ class LanguageSeeder extends Seeder
      */
     public function run(): void
     {
-        Language::factory()->count(10)->create();
+        Language::firstOrCreate(['code' => 'en', 'name' => 'English']);
+        Language::firstOrCreate(['code' => 'es', 'name' => 'Spanish']);
+        Language::firstOrCreate(['code' => 'fr', 'name' => 'French']);
     }
 }

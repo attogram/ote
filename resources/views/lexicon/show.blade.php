@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $entry->token->text }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-8">
+@extends('layouts.app')
+
+@section('title', $entry->token->text)
+
+@section('content')
     <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <a href="{{ route('lexicon.index') }}" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to list</a>
         <h1 class="text-3xl font-bold mt-2 mb-4">{{ $entry->token->text }} ({{ $entry->language->code }})</h1>
@@ -31,7 +27,7 @@
                             <form action="{{ route('lexicon.destroy-attribute', [$entry, $attribute]) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900 ml-2">Delete</button>
+                                <button type="submit" class="text-red-600 hover:text-red-900 ml-2" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -67,7 +63,7 @@
                             <form action="{{ route('lexicon.destroy-link', [$entry, $link]) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900 ml-2">Delete</button>
+                                <button type="submit" class="text-red-600 hover:text-red-900 ml-2" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -79,5 +75,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+@endsection

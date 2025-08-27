@@ -27,6 +27,12 @@ class LanguageController extends Controller
         return redirect()->route('languages.index');
     }
 
+    public function show(Language $language)
+    {
+        $language->load('lexicalEntries.token');
+        return view('languages.show', compact('language'));
+    }
+
     public function edit(Language $language)
     {
         return view('languages.edit', compact('language'));

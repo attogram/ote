@@ -27,6 +27,12 @@ class TokenController extends Controller
         return redirect()->route('tokens.index');
     }
 
+    public function show(Token $token)
+    {
+        $token->load('lexicalEntries.language');
+        return view('tokens.show', compact('token'));
+    }
+
     public function edit(Token $token)
     {
         return view('tokens.edit', compact('token'));
