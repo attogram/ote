@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'role:' . User::ROLE_ADMIN]);
-    }
-
     public function index()
     {
         $users = User::all();
