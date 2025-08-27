@@ -36,6 +36,16 @@ To get started with the development of OTE v2, you will need to have PHP and Com
 
 For information on how to run the test suite, please see the [Testing Documentation](tests/README.md).
 
+### Git Hooks
+
+This project includes a pre-commit hook that runs `pint` and `phpstan` to ensure code quality before each commit. To use it, you need to create a symbolic link from `.git/hooks/pre-commit` to the script.
+
+From the root of the project, run the following command:
+
+```bash
+ln -s ../../bin/pre-commit.sh .git/hooks/pre-commit
+```
+
 ### Deployment
 
 This project is configured for automated deployment on [Render](https://render.com/). For detailed instructions on how to deploy your own instance, please see the [Render Deployment Guide](docs/RENDER.md).

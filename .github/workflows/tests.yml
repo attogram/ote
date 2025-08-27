@@ -36,6 +36,9 @@ jobs:
     - name: Run Tests
       run: composer test:log:all
 
+    - name: Run Static Analysis
+      run: vendor/bin/phpstan analyse --memory-limit=2G
+
     - name: Commit test results
       run: |
         git config --global user.name 'github-actions[bot]'
