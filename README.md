@@ -199,7 +199,11 @@ GitHub will then create a new Codespace and set up the environment for you autom
 ### Usage
 
 -   **Accessing the application:**
-    Once the Codespace is ready, it will automatically forward the application's port (8000). You can access the application from the "Ports" tab in the VS Code editor or by clicking the notification that appears.
+    Once the Codespace is ready, it will automatically forward the application's port (8000). To start the web server, run the following command in the terminal:
+    ```bash
+    php artisan serve --host=0.0.0.0 --port=8000
+    ```
+    You can then access the application from the "Ports" tab in the VS Code editor or by clicking the notification that appears.
 
 -   **Running Artisan commands:**
     You can run `artisan` commands directly in the VS Code terminal:
