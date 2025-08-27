@@ -48,12 +48,14 @@ Route::post('/import', [LexiconController::class, 'handleImport'])->name('lexico
 Route::get('/export', [LexiconController::class, 'export'])->name('lexicon.export');
 
 // Suggestion Routes
-Route::get('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'index'])->name('suggestions.index');
-Route::get('/suggestions/create', [\App\Http\Controllers\SuggestionController::class, 'create'])->name('suggestions.create');
-Route::post('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'store'])->name('suggestions.store');
-Route::get('/suggestions/{suggestion}', [\App\Http\Controllers\SuggestionController::class, 'show'])->name('suggestions.show');
-Route::post('/suggestions/{suggestion}/approve', [\App\Http\Controllers\SuggestionController::class, 'approve'])->name('suggestions.approve');
-Route::post('/suggestions/{suggestion}/reject', [\App\Http\Controllers\SuggestionController::class, 'reject'])->name('suggestions.reject');
+Route::middleware('auth')->group(function () {
+    Route::get('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'index'])->name('suggestions.index');
+    Route::get('/suggestions/create', [\App\Http\Controllers\SuggestionController::class, 'create'])->name('suggestions.create');
+    Route::post('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'store'])->name('suggestions.store');
+    Route::get('/suggestions/{suggestion}', [\App\Http\Controllers\SuggestionController::class, 'show'])->name('suggestions.show');
+    Route::post('/suggestions/{suggestion}/approve', [\App\Http\Controllers\SuggestionController::class, 'approve'])->name('suggestions.approve');
+    Route::post('/suggestions/{suggestion}/reject', [\App\Http\Controllers\SuggestionController::class, 'reject'])->name('suggestions.reject');
+});
 
 // Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {

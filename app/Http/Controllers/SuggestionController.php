@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SuggestionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         // Add authorization logic here later (only for admins/workers)

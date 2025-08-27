@@ -2,6 +2,10 @@
 
 This document provides instructions and information for AI agents working on the OTE v2 project.
 
+## Testing
+
+Do not run tests unless specifically asked by the user. Tests will be automatically run in the CI/CD pipeline when a pull request is created.
+
 ## Manual Workarounds
 
 If you encounter issues with `php artisan` commands, you may need to create files manually. Here's how:
