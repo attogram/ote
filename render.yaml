@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: ote
+    env: docker
+    repo: https://github.com/attogram/ote
+    region: oregon
+    plan: free
+    healthCheckPath: /
+    buildCommand: 'php artisan migrate --force'
+    envVars:
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: psql
+          name: ote-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: psql
+          name: ote-db
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: psql
+          name: ote-db
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: psql
+          name: ote-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: psql
+          name: ote-db
+          property: password
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        fromService:
+          type: web
+          name: ote
+          property: url
+  - type: psql
+    name: ote-db
+    region: oregon
+    plan: free
+    version: "14"
