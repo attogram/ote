@@ -20,6 +20,26 @@
  [x] the add token command creates a new token
  [x] the add token command handles existing tokens
 
+/home/runner/work/ote/ote/tests/Feature/DeleteAttributeCommandTest.php
+ [x] the delete attribute command deletes an attribute
+ [x] the delete attribute command handles non-existent attributes
+
+/home/runner/work/ote/ote/tests/Feature/DeleteEntryCommandTest.php
+ [x] the delete entry command deletes an entry and its associations
+ [x] the delete entry command handles non-existent entries
+
+/home/runner/work/ote/ote/tests/Feature/DeleteLanguageCommandTest.php
+ [x] the delete language command deletes a language and its entries
+ [x] the delete language command handles non-existent languages
+
+/home/runner/work/ote/ote/tests/Feature/DeleteLinkCommandTest.php
+ [x] the delete link command deletes a link
+ [x] the delete link command handles non-existent links
+
+/home/runner/work/ote/ote/tests/Feature/DeleteTokenCommandTest.php
+ [x] the delete token command deletes a token and its entries
+ [x] the delete token command handles non-existent tokens
+
 /home/runner/work/ote/ote/tests/Feature/ExportOteFileCommandTest.php
  [x] the export ote file command exports data to a file
 
@@ -34,6 +54,7 @@
  [x] it displays the edit language form
  [x] it updates a language
  [x] it deletes a language
+ [x] it shows a language and its lexical entries
 
 /home/runner/work/ote/ote/tests/Feature/LexiconControllerTest.php
  [x] it displays a list of lexical entries
@@ -54,8 +75,35 @@
  [x] it updates a link
  [x] it deletes a link
 
+/home/runner/work/ote/ote/tests/Feature/ListAttributesCommandTest.php
+ [x] the list attributes command shows a table of attributes
+
 /home/runner/work/ote/ote/tests/Feature/ListEntriesCommandTest.php
  [x] the list entries command shows a table of entries
+
+/home/runner/work/ote/ote/tests/Feature/ListLanguagesCommandTest.php
+ [x] the list languages command shows a table of languages
+
+/home/runner/work/ote/ote/tests/Feature/ListLinksCommandTest.php
+ [x] the list links command shows a table of links
+
+/home/runner/work/ote/ote/tests/Feature/ListTokensCommandTest.php
+ [x] the list tokens command shows a table of tokens
+
+/home/runner/work/ote/ote/tests/Feature/ShowEntryCommandTest.php
+ [x] the show entry command displays entry details
+ [x] the show entry command handles non-existent entries
+
+/home/runner/work/ote/ote/tests/Feature/ShowLanguageCommandTest.php
+ [x] the show language command displays language details
+ [x] the show language command handles non-existent languages
+
+/home/runner/work/ote/ote/tests/Feature/ShowTokenCommandTest.php
+ [x] the show token command displays token details
+ [x] the show token command handles non-existent tokens
+
+/home/runner/work/ote/ote/tests/Feature/StatsCommandTest.php
+ [x] the stats command displays lexicon statistics
 
 /home/runner/work/ote/ote/tests/Feature/TokenControllerTest.php
  [x] it displays a list of tokens
@@ -64,6 +112,21 @@
  [x] it displays the edit token form
  [x] it updates a token
  [x] it deletes a token
+ [x] it shows a token and its lexical entries
+
+/home/runner/work/ote/ote/tests/Feature/UpdateLanguageCommandTest.php
+ [x] the update language command updates a language
+ [x] the update language command handles non-existent languages
+
+/home/runner/work/ote/ote/tests/Feature/UpdateTokenCommandTest.php
+ [x] the update token command updates a token
+ [x] the update token command handles non-existent tokens
+
+/home/runner/work/ote/ote/tests/Feature/ValidateCommandTest.php
+ [x] the validate command finds no issues with clean data
+ [x] the validate command finds duplicate tokens
+ [x] the validate command finds unused tokens
+ [x] the validate command finds unused languages
 
 /home/runner/work/ote/ote/tests/Unit/AttributeTest.php
  [x] an attribute can be created
@@ -95,4 +158,9 @@ Example (Tests\Feature\Example)
 
 Example (Tests\Unit\Example)
  [x] That true is true
+
+Home Controller (Tests\Feature\HomeController)
+ [x] The homepage loads correctly
+ [x] The validation page loads correctly with no issues
+ [x] The validation page shows issues
 

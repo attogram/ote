@@ -78,6 +78,31 @@
             <li class="success">the add token command creates a new token</li>
             <li class="success">the add token command handles existing tokens</li>
         </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/DeleteAttributeCommandTest.php</h2>
+        <ul>
+            <li class="success">the delete attribute command deletes an attribute</li>
+            <li class="success">the delete attribute command handles non-existent attributes</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/DeleteEntryCommandTest.php</h2>
+        <ul>
+            <li class="success">the delete entry command deletes an entry and its associations</li>
+            <li class="success">the delete entry command handles non-existent entries</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/DeleteLanguageCommandTest.php</h2>
+        <ul>
+            <li class="success">the delete language command deletes a language and its entries</li>
+            <li class="success">the delete language command handles non-existent languages</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/DeleteLinkCommandTest.php</h2>
+        <ul>
+            <li class="success">the delete link command deletes a link</li>
+            <li class="success">the delete link command handles non-existent links</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/DeleteTokenCommandTest.php</h2>
+        <ul>
+            <li class="success">the delete token command deletes a token and its entries</li>
+            <li class="success">the delete token command handles non-existent tokens</li>
+        </ul>
         <h2>/home/runner/work/ote/ote/tests/Feature/ExportOteFileCommandTest.php</h2>
         <ul>
             <li class="success">the export ote file command exports data to a file</li>
@@ -95,6 +120,7 @@
             <li class="success">it displays the edit language form</li>
             <li class="success">it updates a language</li>
             <li class="success">it deletes a language</li>
+            <li class="success">it shows a language and its lexical entries</li>
         </ul>
         <h2>/home/runner/work/ote/ote/tests/Feature/LexiconControllerTest.php</h2>
         <ul>
@@ -116,9 +142,44 @@
             <li class="success">it updates a link</li>
             <li class="success">it deletes a link</li>
         </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ListAttributesCommandTest.php</h2>
+        <ul>
+            <li class="success">the list attributes command shows a table of attributes</li>
+        </ul>
         <h2>/home/runner/work/ote/ote/tests/Feature/ListEntriesCommandTest.php</h2>
         <ul>
             <li class="success">the list entries command shows a table of entries</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ListLanguagesCommandTest.php</h2>
+        <ul>
+            <li class="success">the list languages command shows a table of languages</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ListLinksCommandTest.php</h2>
+        <ul>
+            <li class="success">the list links command shows a table of links</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ListTokensCommandTest.php</h2>
+        <ul>
+            <li class="success">the list tokens command shows a table of tokens</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ShowEntryCommandTest.php</h2>
+        <ul>
+            <li class="success">the show entry command displays entry details</li>
+            <li class="success">the show entry command handles non-existent entries</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ShowLanguageCommandTest.php</h2>
+        <ul>
+            <li class="success">the show language command displays language details</li>
+            <li class="success">the show language command handles non-existent languages</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ShowTokenCommandTest.php</h2>
+        <ul>
+            <li class="success">the show token command displays token details</li>
+            <li class="success">the show token command handles non-existent tokens</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/StatsCommandTest.php</h2>
+        <ul>
+            <li class="success">the stats command displays lexicon statistics</li>
         </ul>
         <h2>/home/runner/work/ote/ote/tests/Feature/TokenControllerTest.php</h2>
         <ul>
@@ -128,6 +189,24 @@
             <li class="success">it displays the edit token form</li>
             <li class="success">it updates a token</li>
             <li class="success">it deletes a token</li>
+            <li class="success">it shows a token and its lexical entries</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/UpdateLanguageCommandTest.php</h2>
+        <ul>
+            <li class="success">the update language command updates a language</li>
+            <li class="success">the update language command handles non-existent languages</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/UpdateTokenCommandTest.php</h2>
+        <ul>
+            <li class="success">the update token command updates a token</li>
+            <li class="success">the update token command handles non-existent tokens</li>
+        </ul>
+        <h2>/home/runner/work/ote/ote/tests/Feature/ValidateCommandTest.php</h2>
+        <ul>
+            <li class="success">the validate command finds no issues with clean data</li>
+            <li class="success">the validate command finds duplicate tokens</li>
+            <li class="success">the validate command finds unused tokens</li>
+            <li class="success">the validate command finds unused languages</li>
         </ul>
         <h2>/home/runner/work/ote/ote/tests/Unit/AttributeTest.php</h2>
         <ul>
@@ -166,6 +245,12 @@
         <h2>Example (Tests\Unit\Example)</h2>
         <ul>
             <li class="success">That true is true</li>
+        </ul>
+        <h2>Home Controller (Tests\Feature\HomeController)</h2>
+        <ul>
+            <li class="success">The homepage loads correctly</li>
+            <li class="success">The validation page loads correctly with no issues</li>
+            <li class="success">The validation page shows issues</li>
         </ul>
     </body>
 </html>
