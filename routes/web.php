@@ -5,6 +5,15 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LexiconController;
 use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+
+// Authentication Routes
+Route::get('register', [RegisterController::class, 'create'])->name('register');
+Route::post('register', [RegisterController::class, 'store']);
+Route::get('login', [LoginController::class, 'create'])->name('login');
+Route::post('login', [LoginController::class, 'store']);
+Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/validate', [HomeController::class, 'validate'])->name('validate');
@@ -37,3 +46,16 @@ Route::delete('/lexicon/{entry}/delete-link/{link}', [LexiconController::class, 
 Route::get('/import', [LexiconController::class, 'import'])->name('lexicon.import');
 Route::post('/import', [LexiconController::class, 'handleImport'])->name('lexicon.handle-import');
 Route::get('/export', [LexiconController::class, 'export'])->name('lexicon.export');
+
+// Suggestion Routes
+Route::get('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'index'])->name('suggestions.index');
+Route::get('/suggestions/create', [\App\Http\Controllers\SuggestionController::class, 'create'])->name('suggestions.create');
+Route::post('/suggestions', [\App\Http\Controllers\SuggestionController::class, 'store'])->name('suggestions.store');
+Route::get('/suggestions/{suggestion}', [\App\Http\Controllers\SuggestionController::class, 'show'])->name('suggestions.show');
+Route::post('/suggestions/{suggestion}/approve', [\App\Http\Controllers\SuggestionController::class, 'approve'])->name('suggestions.approve');
+Route::post('/suggestions/{suggestion}/reject', [\App\Http\Controllers\SuggestionController::class, 'reject'])->name('suggestions.reject');
+
+// Admin Routes
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+});

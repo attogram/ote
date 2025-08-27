@@ -4,8 +4,17 @@
 
 @section('content')
     <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Lexicon Entries</h1>
-        <a href="{{ route('lexicon.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Add New Entry</a>
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold">Lexicon Entries</h1>
+            <div>
+                {{-- @can('create', App\Models\LexicalEntry::class) --}}
+                <a href="{{ route('lexicon.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Entry</a>
+                {{-- @endcan --}}
+                @auth
+                    <a href="{{ route('suggestions.create', ['type' => 'create', 'model_type' => \App\Models\LexicalEntry::class]) }}" class="bg-yellow-500 text-white px-4 py-2 rounded ml-4">Suggest a New Entry</a>
+                @endauth
+            </div>
+        </div>
         <ul class="list-disc pl-5">
             @foreach ($entries as $entry)
                 <li class="mb-2">

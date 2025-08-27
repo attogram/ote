@@ -1,5 +1,5 @@
 # docker/development/workspace/Dockerfile
-FROM public.ecr.aws/php/php:8.2-cli-alpine
+FROM php:8.2-cli-alpine
 
 # Set environment variables for user and group ID
 ARG UID=1000
@@ -11,11 +11,11 @@ RUN apk add --no-cache \
     curl \
     unzip \
     libpq-dev \
-    libonig-dev \
-    libssl-dev \
+    oniguruma-dev \
+    openssl-dev \
     libxml2-dev \
-    libcurl4-openssl-dev \
-    libicu-dev \
+    curl-dev \
+    icu-dev \
     libzip-dev \
     nodejs \
     npm
@@ -31,7 +31,7 @@ RUN docker-php-ext-install \
     soap
 
 # Install Composer
-COPY --from=public.ecr.aws/composer/composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Create a non-root user
 RUN addgroup -g ${GID} www && \
