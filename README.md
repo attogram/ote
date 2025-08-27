@@ -60,6 +60,14 @@ The following is a summary of the planned features for OTE v2. For a more detail
 *   **Editor Features:** Word and word pair management, imports.
 *   **Admin Features:** Language and user management.
 
+## Known Issues
+
+### Laravel Dusk
+
+At the time of writing, there are known issues with running Laravel Dusk in some development environments. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, which can lead to errors. Additionally, there can be issues with the ChromeDriver and Chrome binary setup.
+
+For these reasons, browser testing with Dusk has been temporarily disabled.
+
 ## OTE v1
 
 The previous version of OTE is still available.

@@ -32,6 +32,18 @@ During the initial setup, a persistent issue was encountered where running `arti
 
 The test for the `ote:export-ote-file` command is brittle. The test's `expectsOutput` assertion fails when the command's success message is built using variables, even though the variables appear correct. To make the test pass, the success message in the `ExportOteFile` command has been hardcoded. This is a workaround, and the underlying issue with the test runner's output capturing has not been resolved.
 
+### Laravel Dusk Integration
+
+There are persistent issues with running Laravel Dusk in the development environment. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, and there are also issues with the ChromeDriver and Chrome binary setup.
+
+After multiple attempts to fix these issues, the integration of Dusk has been abandoned for now.
+
+### Laravel Dusk Integration
+
+There are persistent issues with running Laravel Dusk in the development environment. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, and there are also issues with the ChromeDriver and Chrome binary setup.
+
+After multiple attempts to fix these issues, the integration of Dusk has been abandoned for now.
+
 ---
 
 ## Agent-Specific Instructions
