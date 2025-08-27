@@ -116,16 +116,7 @@ The following is a summary of the planned features for OTE v2. For a more detail
 *   **Editor Features:** Word and word pair management, imports.
 *   **Admin Features:** Language and user management.
 
-## Known Issues
-
-### Laravel Dusk
-
-At the time of writing, there are known issues with running Laravel Dusk in some development environments. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, which can lead to errors. Additionally, there can be issues with the ChromeDriver and Chrome binary setup.
-
-For these reasons, browser testing with Dusk has been temporarily disabled.
-
-
-## Development with GitHub Codespaces
+## GitHub Codespaces Development Environment 
 
 This repository is configured to use [GitHub Codespaces](https://github.com/features/codespaces) 
 for a cloud-based development environment.
@@ -165,7 +156,7 @@ GitHub will then create a new Codespace and set up the environment for you autom
     npm run dev
     ```
 
-## Development Environment with Docker
+## Docker Development Environment
 
 This project includes a Docker-based development environment that allows you to run the application and its dependencies in isolated containers.
 
@@ -256,11 +247,15 @@ This project includes a Docker-based development environment that allows you to 
     docker compose -f compose.dev.yml down
     ```
 
-### Related Projects
+## Known Issues
 
-*   https://github.com/elexis-eu/lexonomy
-*   http://www.omegawiki.org/ (INACTIVE)
-*   https://github.com/glosswordteam/Glossword>
+### Laravel Dusk
+
+At the time of writing, there are known issues with running Laravel Dusk in some development environments. 
+The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, 
+which can lead to errors. Additionally, there can be issues with the ChromeDriver and Chrome binary setup.
+
+For these reasons, browser testing with Dusk has been temporarily disabled.
 
 ## OTE v1
 
@@ -268,8 +263,13 @@ The previous version of OTE is still available.
 
 The last stable release was **OTE v0.9.9**: [v0.9.9 branch](https://github.com/attogram/ote/tree/v0.9.9)
 
+## Related Projects
+
+- https://github.com/elexis-eu/lexonomy
+- http://www.omegawiki.org/ (INACTIVE)
+- https://github.com/glosswordteam/Glossword>
+
 ## License
 
 The Open Translation Engine is open-sourced software licensed under the
 [MIT license](https://opensource.org/licenses/MIT).
-
