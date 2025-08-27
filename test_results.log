@@ -1,10 +1,10 @@
 
    PASS  Tests\Unit\AttributeTest
-  ✓ an attribute can be created                                          0.24s  
+  ✓ an attribute can be created                                          0.21s  
   ✓ an attribute belongs to a lexical entry                              0.03s  
 
    PASS  Tests\Unit\ExampleTest
-  ✓ that true is true                                                    0.07s  
+  ✓ that true is true                                                    0.08s  
 
    PASS  Tests\Unit\LanguageTest
   ✓ a language can be created                                            0.02s  
@@ -12,24 +12,24 @@
 
    PASS  Tests\Unit\LexicalEntryTest
   ✓ a lexical entry can be created                                       0.03s  
-  ✓ a lexical entry belongs to a token                                   0.02s  
-  ✓ a lexical entry belongs to a language                                0.02s  
+  ✓ a lexical entry belongs to a token                                   0.03s  
+  ✓ a lexical entry belongs to a language                                0.03s  
   ✓ a lexical entry has many attributes                                  0.03s  
   ✓ a lexical entry has many links                                       0.03s  
   ✓ a lexical entry has many linked from                                 0.04s  
 
    PASS  Tests\Unit\LinkTest
-  ✓ a link can be created                                                0.03s  
+  ✓ a link can be created                                                0.04s  
   ✓ a link has a source entry                                            0.03s  
   ✓ a link has a target entry                                            0.03s  
 
    PASS  Tests\Unit\TokenTest
-  ✓ a token can be created                                               0.02s  
+  ✓ a token can be created                                               0.03s  
   ✓ a token has many lexical entries                                     0.03s  
 
    PASS  Tests\Feature\AddAttributeCommandTest
-  ✓ the add attribute command creates a new attribute                    0.03s  
-  ✓ the add attribute command handles missing lexical entry              0.02s  
+  ✓ the add attribute command creates a new attribute                    0.04s  
+  ✓ the add attribute command handles missing lexical entry              0.03s  
 
    PASS  Tests\Feature\AddEntryCommandTest
   ✓ the add entry command creates a new lexical entry                    0.03s  
@@ -50,24 +50,24 @@
   ✓ the add token command handles existing tokens                        0.03s  
 
    PASS  Tests\Feature\DeleteAttributeCommandTest
-  ✓ the delete attribute command deletes an attribute                    0.03s  
-  ✓ the delete attribute command handles non-existent attributes         0.02s  
+  ✓ the delete attribute command deletes an attribute                    0.04s  
+  ✓ the delete attribute command handles non-existent attributes         0.03s  
 
    PASS  Tests\Feature\DeleteEntryCommandTest
   ✓ the delete entry command deletes an entry and its associations       0.04s  
-  ✓ the delete entry command handles non-existent entries                0.02s  
+  ✓ the delete entry command handles non-existent entries                0.03s  
 
    PASS  Tests\Feature\DeleteLanguageCommandTest
   ✓ the delete language command deletes a language and its entries       0.03s  
-  ✓ the delete language command handles non-existent languages           0.02s  
+  ✓ the delete language command handles non-existent languages           0.03s  
 
    PASS  Tests\Feature\DeleteLinkCommandTest
   ✓ the delete link command deletes a link                               0.04s  
-  ✓ the delete link command handles non-existent links                   0.02s  
+  ✓ the delete link command handles non-existent links                   0.03s  
 
    PASS  Tests\Feature\DeleteTokenCommandTest
   ✓ the delete token command deletes a token and its entries             0.03s  
-  ✓ the delete token command handles non-existent tokens                 0.02s  
+  ✓ the delete token command handles non-existent tokens                 0.03s  
 
    PASS  Tests\Feature\ExampleTest
   ✓ the application returns a successful response                        0.05s  
@@ -86,7 +86,7 @@
 
    PASS  Tests\Feature\LanguageControllerTest
   ✓ it displays a list of languages                                      0.03s  
-  ✓ it displays the create language form                                 0.02s  
+  ✓ it displays the create language form                                 0.03s  
   ✓ it creates a new language                                            0.03s  
   ✓ it displays the edit language form                                   0.03s  
   ✓ it updates a language                                                0.03s  
@@ -97,20 +97,20 @@
   ✓ it displays a list of lexical entries                                0.05s  
   ✓ it displays the create lexical entry form                            0.03s  
   ✓ it stores a new lexical entry                                        0.03s  
-  ✓ it shows a lexical entry                                             0.03s  
+  ✓ it shows a lexical entry                                             0.04s  
   ✓ it displays the edit lexical entry form                              0.03s  
   ✓ it updates a lexical entry                                           0.03s  
   ✓ it deletes a lexical entry                                           0.03s  
   ✓ it displays the create attribute form                                0.03s  
   ✓ it stores a new attribute                                            0.03s  
-  ✓ it displays the edit attribute form                                  0.03s  
-  ✓ it updates an attribute                                              0.03s  
+  ✓ it displays the edit attribute form                                  0.04s  
+  ✓ it updates an attribute                                              0.04s  
   ✓ it deletes an attribute                                              0.03s  
   ✓ it displays the create link form                                     0.03s  
-  ✓ it stores a new link                                                 0.03s  
+  ✓ it stores a new link                                                 0.04s  
   ✓ it displays the edit link form                                       0.04s  
   ✓ it updates a link                                                    0.04s  
-  ✓ it deletes a link                                                    0.03s  
+  ✓ it deletes a link                                                    0.04s  
 
    PASS  Tests\Feature\ListAttributesCommandTest
   ✓ the list attributes command shows a table of attributes              0.06s  
@@ -122,30 +122,30 @@
   ✓ the list languages command shows a table of languages                0.03s  
 
    PASS  Tests\Feature\ListLinksCommandTest
-  ✓ the list links command shows a table of links                        0.04s  
+  ✓ the list links command shows a table of links                        0.05s  
 
    PASS  Tests\Feature\ListTokensCommandTest
   ✓ the list tokens command shows a table of tokens                      0.03s  
 
    PASS  Tests\Feature\ShowEntryCommandTest
   ✓ the show entry command displays entry details                        0.05s  
-  ✓ the show entry command handles non-existent entries                  0.02s  
+  ✓ the show entry command handles non-existent entries                  0.03s  
 
    PASS  Tests\Feature\ShowLanguageCommandTest
-  ✓ the show language command displays language details                  0.03s  
-  ✓ the show language command handles non-existent languages             0.02s  
+  ✓ the show language command displays language details                  0.04s  
+  ✓ the show language command handles non-existent languages             0.03s  
 
    PASS  Tests\Feature\ShowTokenCommandTest
-  ✓ the show token command displays token details                        0.03s  
-  ✓ the show token command handles non-existent tokens                   0.02s  
+  ✓ the show token command displays token details                        0.04s  
+  ✓ the show token command handles non-existent tokens                   0.03s  
 
    PASS  Tests\Feature\StatsCommandTest
-  ✓ the stats command displays lexicon statistics                        0.25s  
+  ✓ the stats command displays lexicon statistics                        0.26s  
 
    PASS  Tests\Feature\TokenControllerTest
   ✓ it displays a list of tokens                                         0.04s  
-  ✓ it displays the create token form                                    0.02s  
-  ✓ it creates a new token                                               0.02s  
+  ✓ it displays the create token form                                    0.03s  
+  ✓ it creates a new token                                               0.03s  
   ✓ it displays the edit token form                                      0.03s  
   ✓ it updates a token                                                   0.03s  
   ✓ it deletes a token                                                   0.03s  
@@ -153,7 +153,7 @@
 
    PASS  Tests\Feature\UpdateLanguageCommandTest
   ✓ the update language command updates a language                       0.04s  
-  ✓ the update language command handles non-existent languages           0.02s  
+  ✓ the update language command handles non-existent languages           0.03s  
 
    PASS  Tests\Feature\UpdateTokenCommandTest
   ✓ the update token command updates a token                             0.03s  
@@ -166,5 +166,5 @@
   ✓ the validate command finds unused languages                          0.03s  
 
   Tests:    96 passed (305 assertions)
-  Duration: 3.82s
+  Duration: 4.10s
 
