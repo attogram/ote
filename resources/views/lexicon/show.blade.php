@@ -74,5 +74,17 @@
                 @endforelse
             </tbody>
         </table>
+
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold mt-4 mb-2">Suggest a Change</h2>
+            @auth
+                <div class="flex items-center">
+                    <a href="{{ route('suggestions.create', ['type' => 'update', 'model_type' => \App\Models\LexicalEntry::class, 'model_id' => $entry->id]) }}" class="bg-yellow-500 text-white px-4 py-2 rounded">Suggest an Update</a>
+                    <a href="{{ route('suggestions.create', ['type' => 'delete', 'model_type' => \App\Models\LexicalEntry::class, 'model_id' => $entry->id]) }}" class="bg-red-500 text-white px-4 py-2 rounded ml-4">Suggest Deletion</a>
+                </div>
+            @else
+                <p><a href="{{ route('login') }}" class="text-blue-600 hover:underline">Log in</a> to suggest a change.</p>
+            @endauth
+        </div>
     </div>
 @endsection

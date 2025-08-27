@@ -117,3 +117,18 @@ After cloning the repository, you need to perform the following steps to get the
     ```bash
     php artisan key:generate
     ```
+
+## Manual Feature Implementation
+
+During the implementation of the user and suggestion systems, the agent encountered significant and persistent issues with the Docker-based development environment that prevented the use of `docker compose`, `composer`, and `php artisan` commands. The issues included Docker daemon permission errors, Docker Hub rate limiting, and `git` ownership errors within the `run_in_bash_session` tool.
+
+As a workaround, and per user instruction, the features were implemented manually by creating and editing the necessary files directly. This includes all migrations, models, controllers, views, routes, and middleware for the user authentication, role-based access control, suggestion system, and admin user management features.
+
+### Corrected Docker Configuration
+
+Although the Docker environment could not be run, several issues within the Docker configuration files were identified and corrected to aid future development:
+- The `compose.dev.yml` file was updated to use the official Docker Hub images for `nginx`, `postgres`, and `redis` instead of the incorrect `public.ecr.aws` prefixed images.
+- The `docker/common/php-fpm/Dockerfile` and `docker/development/workspace/Dockerfile` files were updated to use the correct official base images for `php` and `composer`.
+- The package names for Alpine Linux dependencies in the `apk add` commands within the Dockerfiles were corrected (e.g., `libssl-dev` to `openssl-dev`).
+
+It is recommended that the environment issues be resolved to allow for proper testing and execution of the application.

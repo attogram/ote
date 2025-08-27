@@ -21,6 +21,18 @@
                     <a href="{{ route('languages.index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">Languages</a>
                     <a href="{{ route('lexicon.index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">Lexicon</a>
                 </div>
+                <div class="flex items-center">
+                    @guest
+                        <a href="{{ route('login') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">Login</a>
+                        <a href="{{ route('register') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">Register</a>
+                    @else
+                        <span class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700">{{ Auth::user()->name }}</span>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100">Logout</button>
+                        </form>
+                    @endguest
+                </div>
             </div>
         </div>
     </nav>

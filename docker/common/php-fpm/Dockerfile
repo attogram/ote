@@ -1,15 +1,15 @@
 # docker/common/php-fpm/Dockerfile
-FROM public.ecr.aws/php/php:8.2-fpm-alpine AS production
+FROM php:8.2-fpm-alpine AS production
 
 # Install system dependencies
 RUN apk add --no-cache \
     build-base \
     libpq-dev \
-    libonig-dev \
-    libssl-dev \
+    oniguruma-dev \
+    openssl-dev \
     libxml2-dev \
-    libcurl4-openssl-dev \
-    libicu-dev \
+    curl-dev \
+    icu-dev \
     libzip-dev \
     libpng-dev \
     libjpeg-turbo-dev
@@ -25,7 +25,7 @@ RUN docker-php-ext-install \
     gd
 
 # Install Composer
-COPY --from=public.ecr.aws/composer/composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www

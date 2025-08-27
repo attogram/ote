@@ -1,6 +1,6 @@
 services:
   web:
-    image: public.ecr.aws/nginx/nginx:1.25-alpine
+    image: nginx:1.25-alpine
     ports:
       - "80:80"
     volumes:
@@ -47,7 +47,7 @@ services:
       - .env
 
   postgres:
-    image: public.ecr.aws/postgres/postgres:16-alpine
+    image: postgres:16-alpine
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     environment:
@@ -60,7 +60,7 @@ services:
       - laravel-development
 
   redis:
-    image: public.ecr.aws/redis/redis:7-alpine
+    image: redis:7-alpine
     networks:
       - laravel-development
 
