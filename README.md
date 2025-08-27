@@ -48,10 +48,13 @@ a collaborative translation dictionary manager
 
 ### Inactive as of 2025-08
 
-*   https://indo-european.info/dictionary-translator/ (Invalid SSL certificate)
-*   https://indo-european.info/pokorny-etymology-dictionary/ (Invalid SSL certificate)
-*   https://indo-european.info/translator-dictionary/ (Invalid SSL certificate)
-*   https://www.elas.sk/lehota/slovnik/ (Unreachable)
+- https://indo-european.info/dictionary-translator/ (Invalid SSL certificate)
+- https://indo-european.info/pokorny-etymology-dictionary/ (Invalid SSL certificate)
+- https://indo-european.info/translator-dictionary/ (Invalid SSL certificate)
+- https://www.elas.sk/lehota/slovnik/ (Unreachable)
+
+--
+- https://attogram.github.io/ote/ - old info site, currently down
 
 ## Citations
 
