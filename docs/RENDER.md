@@ -4,16 +4,17 @@ This project is configured for automatic deployment to the [Render](https://rend
 
 ## How It Works
 
-This repository contains a `render.yaml` file that uses Render's "Blueprint" feature. This file tells Render everything it needs to know to deploy the application, including:
+This repository contains a `render.yaml` file in the root directory that uses Render's "Blueprint" feature. This file tells Render everything it needs to know to deploy the application, including:
 
--   A **web service** running the Laravel application.
+-   A **web service** running the Laravel application. This service is built using the `Dockerfile` in the root of the repository.
 -   A **PostgreSQL database** for storing data.
 
 When you push changes to the `main` branch on GitHub, Render will automatically:
 
 1.  Detect the changes.
-2.  Build the application using the `buildCommand` defined in `render.yaml`. This includes installing dependencies and running database migrations.
-3.  Deploy the new version of the application.
+2.  Build the Docker image for the application.
+3.  Run the `buildCommand` defined in `render.yaml` to execute database migrations (`php artisan migrate --force`).
+4.  Deploy the new version of the application.
 
 ## Initial Setup on Render
 
