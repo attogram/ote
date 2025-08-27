@@ -38,12 +38,6 @@ There are persistent issues with running Laravel Dusk in the development environ
 
 After multiple attempts to fix these issues, the integration of Dusk has been abandoned for now.
 
-### Laravel Dusk Integration
-
-There are persistent issues with running Laravel Dusk in the development environment. The test runner (Pest) seems to have a conflict with how Dusk's test cases are discovered, and there are also issues with the ChromeDriver and Chrome binary setup.
-
-After multiple attempts to fix these issues, the integration of Dusk has been abandoned for now.
-
 ---
 
 ## Agent-Specific Instructions
