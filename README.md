@@ -57,17 +57,6 @@ The previous version of OTE is still available.
 *   The last stable release is **OTE v0.9.9**: [v0.9.9 branch](https://github.com/attogram/ote/tree/v0.9.9)
 *   OTE Version 1 was a test with the Attogram Framework: [v1 branch](https://github.com/attogram/ote/tree/v1)
 
-### Known Installations of OTE v1
-
-*   <http://ote.2meta.com/>
-*   <http://indo-european.info/dictionary-translator/>
-*   <http://indo-european.info/translator-dictionary/>
-*   <http://indogermanisch.org/woerterbuch-uebersetzer/>
-*   <http://www.elas.sk/lehota/slovnik/>
-*   <http://fenry.lescigales.org/ryzom/otr/>
-*   <http://indo-european.info/pokorny-etymology-dictionary/>
-*   <http://dictionar.poezie.ro/>
-
 ### Related Projects
 
 *   <https://github.com/elexis-eu/lexonomy>
@@ -217,3 +206,14 @@ GitHub will then create a new Codespace and set up the environment for you autom
     npm install
     npm run dev
     ```
+
+### Known Installations of OTE v1
+
+*   <http://ote.2meta.com/>
+*   <http://indo-european.info/dictionary-translator/>
+*   <http://indo-european.info/translator-dictionary/>
+*   <http://indogermanisch.org/woerterbuch-uebersetzer/>
+*   <http://www.elas.sk/lehota/slovnik/>
+*   <http://fenry.lescigales.org/ryzom/otr/>
+*   <http://indo-european.info/pokorny-etymology-dictionary/>
+*   <http://dictionar.poezie.ro/>

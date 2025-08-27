@@ -17,7 +17,9 @@
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
+        "larastan/larastan": "^3.0",
         "pestphp/pest": "^3.8",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^11.5.3",
         "symfony/yaml": "^7.0"
     },
@@ -59,6 +61,9 @@
         ],
         "format": [
             "./vendor/bin/pint"
+        ],
+        "analyse": [
+            "./vendor/bin/phpstan analyse"
         ],
         "test:log": [
             "php run_tests_and_log.php"

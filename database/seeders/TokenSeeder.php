@@ -12,6 +12,11 @@ class TokenSeeder extends Seeder
      */
     public function run(): void
     {
-        Token::factory()->count(100)->create();
+        Token::firstOrCreate(['text' => 'hello']);
+        Token::firstOrCreate(['text' => 'world']);
+        Token::firstOrCreate(['text' => 'hola']);
+        Token::firstOrCreate(['text' => 'mundo']);
+        Token::firstOrCreate(['text' => 'bonjour']);
+        Token::firstOrCreate(['text' => 'monde']);
     }
 }

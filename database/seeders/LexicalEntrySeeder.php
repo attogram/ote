@@ -6,7 +6,6 @@ use App\Models\Language;
 use App\Models\LexicalEntry;
 use App\Models\Token;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 
 class LexicalEntrySeeder extends Seeder
 {
@@ -15,28 +14,24 @@ class LexicalEntrySeeder extends Seeder
      */
     public function run(): void
     {
-        $languages = Language::pluck('id');
-        $tokens = Token::pluck('id');
-        $now = Carbon::now();
+        $en = Language::where('code', 'en')->first();
+        $es = Language::where('code', 'es')->first();
+        $fr = Language::where('code', 'fr')->first();
 
-        $possibleEntries = [];
-        foreach ($tokens as $tokenId) {
-            foreach ($languages as $languageId) {
-                $possibleEntries[] = [
-                    'token_id' => $tokenId,
-                    'language_id' => $languageId,
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ];
-            }
-        }
+        $tokens = [
+            'hello' => Token::where('text', 'hello')->first(),
+            'world' => Token::where('text', 'world')->first(),
+            'hola' => Token::where('text', 'hola')->first(),
+            'mundo' => Token::where('text', 'mundo')->first(),
+            'bonjour' => Token::where('text', 'bonjour')->first(),
+            'monde' => Token::where('text', 'monde')->first(),
+        ];
 
-        // Shuffle and take a subset of possible entries to insert
-        $entriesToInsert = collect($possibleEntries)->shuffle()->take(200)->all();
-
-        // Insert in chunks to be efficient
-        foreach (array_chunk($entriesToInsert, 200) as $chunk) {
-            LexicalEntry::insert($chunk);
-        }
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['hello']->id, 'language_id' => $en->id]);
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['world']->id, 'language_id' => $en->id]);
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['hola']->id, 'language_id' => $es->id]);
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['mundo']->id, 'language_id' => $es->id]);
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['bonjour']->id, 'language_id' => $fr->id]);
+        LexicalEntry::firstOrCreate(['token_id' => $tokens['monde']->id, 'language_id' => $fr->id]);
     }
 }
